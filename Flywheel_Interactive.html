@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>FLYWHEEL · Business Evaluation Canvas · Interactive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --navy:#1E2761;
+    --navy-2:#2A3276;
+    --coral:#F96167;
+    --gold:#F9E795;
+    --cream:#FAF7F2;
+    --ink:#0E1330;
+    --muted:#6B7089;
+    --line:#E4E6EE;
+    --white:#FFFFFF;
+    --shadow: 0 2px 10px rgba(30,39,97,.06), 0 12px 40px rgba(30,39,97,.08);
+    --radius:14px;
+    --header-font:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --body-font:'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --mono-font:'JetBrains Mono', 'Courier New', monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{font-family:var(--body-font);color:var(--ink);background:var(--cream);line-height:1.55;font-size:15px;}
+  a{color:var(--coral);}
+
+  /* ============ HEADER ============ */
+  .topbar{
+    background:var(--navy);color:var(--white);
+    padding:20px 32px;
+    display:flex;align-items:center;justify-content:space-between;gap:32px;
+    position:sticky;top:0;z-index:20;box-shadow:0 2px 14px rgba(14,19,48,.15);
+  }
+  .brand{display:flex;align-items:center;gap:14px;}
+  .brand-logo{
+    width:44px;height:44px;border-radius:50%;
+    background:var(--gold);color:var(--navy);
+    display:grid;place-items:center;
+    font-family:var(--header-font);font-weight:800;font-size:22px;letter-spacing:-.02em;
+  }
+  .brand h1{font-family:var(--header-font);font-weight:800;font-size:24px;letter-spacing:-.01em;line-height:1;}
+  .brand p{font-size:11px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase;margin-top:4px;}
+  .toolbar{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn{
+    background:transparent;color:var(--white);
+    border:1px solid rgba(249,231,149,.3);
+    padding:9px 16px;border-radius:999px;
+    font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:600;
+    cursor:pointer;transition:.15s ease;font-family:inherit;
+  }
+  .btn:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);}
+  .btn.primary{background:var(--coral);border-color:var(--coral);}
+  .btn.primary:hover{background:var(--gold);color:var(--navy);}
+
+  /* ============ LAYOUT ============ */
+  .shell{max-width:1440px;margin:0 auto;padding:32px;}
+  .meta{
+    background:var(--white);border-radius:var(--radius);
+    padding:20px 24px;margin-bottom:28px;
+    box-shadow:var(--shadow);
+    display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:18px;
+  }
+  .meta .field label{
+    display:block;font-size:10px;color:var(--muted);letter-spacing:.12em;
+    text-transform:uppercase;font-weight:600;margin-bottom:6px;
+  }
+  .meta input, .idea input{
+    width:100%;border:none;border-bottom:1.5px solid var(--line);
+    padding:8px 0 6px;font-family:var(--body-font);font-size:15px;color:var(--ink);
+    background:transparent;outline:none;transition:.15s;
+  }
+  .meta input:focus, .idea input:focus{border-color:var(--coral);}
+
+  .idea{
+    background:var(--navy);color:var(--white);border-radius:var(--radius);
+    padding:28px 32px;margin-bottom:28px;
+  }
+  .idea .label{color:var(--gold);font-size:10px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;margin-bottom:8px;}
+  .idea h2{font-family:var(--header-font);font-size:28px;font-weight:700;line-height:1.15;letter-spacing:-.02em;margin-bottom:14px;}
+  .idea input{
+    color:var(--white);border-bottom-color:rgba(249,231,149,.5);
+    font-family:var(--header-font);font-size:20px;font-weight:500;padding-bottom:8px;letter-spacing:-.01em;
+  }
+  .idea input::placeholder{color:rgba(255,255,255,.4);}
+  .idea input:focus{border-bottom-color:var(--gold);}
+
+  .grid{display:grid;grid-template-columns:1.6fr 1fr;gap:28px;}
+  @media (max-width:1024px){.grid{grid-template-columns:1fr;}}
+
+  /* ============ DIMENSION CARDS ============ */
+  .dim{
+    background:var(--white);border-radius:var(--radius);
+    padding:22px 24px;margin-bottom:18px;box-shadow:var(--shadow);
+    transition:.2s ease;
+  }
+  .dim.weak{box-shadow:0 0 0 2px var(--coral), var(--shadow);}
+  .dim-head{display:flex;align-items:flex-start;gap:16px;margin-bottom:14px;}
+  .dim-badge{
+    flex:none;width:48px;height:48px;border-radius:12px;
+    display:grid;place-items:center;font-family:var(--header-font);
+    font-weight:800;font-size:22px;color:var(--gold);letter-spacing:-.02em;
+  }
+  .dim-head .info{flex:1;min-width:0;}
+  .dim-head h3{font-family:var(--header-font);font-weight:700;font-size:20px;color:var(--navy);letter-spacing:-.01em;margin-bottom:2px;}
+  .dim-head .q{font-size:13.5px;color:var(--muted);}
+  .dim-head .tip{
+    display:inline-block;margin-top:8px;font-size:11.5px;color:var(--navy);
+    background:var(--gold);padding:3px 10px;border-radius:999px;font-weight:500;
+  }
+
+  .score-row{
+    display:flex;align-items:center;gap:10px;margin:14px 0 16px;
+    padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  }
+  .score-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-right:8px;flex:none;}
+  .score-dots{display:flex;gap:6px;flex:1;}
+  .score-dot{
+    flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--navy);
+    background:var(--white);cursor:pointer;font-weight:700;font-size:13px;
+    color:var(--navy);display:grid;place-items:center;transition:.12s;
+    font-family:inherit;
+  }
+  .score-dot:hover{background:var(--gold);}
+  .score-dot.active{background:var(--navy);color:var(--gold);}
+  .weak-toggle{
+    display:flex;align-items:center;gap:8px;margin-left:auto;font-size:11px;
+    color:var(--coral);font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+    cursor:pointer;
+  }
+  .weak-toggle input{accent-color:var(--coral);}
+
+  .prompts{margin:10px 0 14px;padding:12px 16px;background:#F6F4EC;border-radius:10px;}
+  .prompts summary{cursor:pointer;font-size:11px;color:var(--navy);font-weight:600;letter-spacing:.1em;text-transform:uppercase;}
+  .prompts ol{margin:10px 0 4px 18px;}
+  .prompts li{font-size:13px;color:var(--ink);margin-bottom:4px;}
+
+  .field-group{margin-top:10px;}
+  .field-group label{
+    display:block;font-size:10px;color:var(--coral);letter-spacing:.12em;
+    text-transform:uppercase;font-weight:600;margin-bottom:6px;
+  }
+  .field-group textarea{
+    width:100%;min-height:54px;border:1px solid var(--line);border-radius:8px;
+    padding:10px 12px;font-family:var(--body-font);font-size:13.5px;color:var(--ink);
+    resize:vertical;outline:none;transition:.15s;background:var(--cream);
+  }
+  .field-group textarea:focus{border-color:var(--coral);background:var(--white);}
+
+  /* ============ REPORT PANEL ============ */
+  .report{position:sticky;top:108px;align-self:start;}
+  .chart-card{
+    background:var(--white);border-radius:var(--radius);padding:24px;
+    box-shadow:var(--shadow);margin-bottom:20px;
+  }
+  .chart-card h3{font-family:var(--header-font);font-weight:700;font-size:18px;color:var(--navy);letter-spacing:-.01em;margin-bottom:4px;}
+  .chart-card .sub{font-size:12px;color:var(--muted);margin-bottom:14px;}
+  .chart-wrap{position:relative;aspect-ratio:1/1;}
+  .avg{
+    display:flex;align-items:baseline;gap:8px;margin-top:14px;
+    padding-top:14px;border-top:1px solid var(--line);
+  }
+  .avg-num{font-family:var(--header-font);font-size:38px;font-weight:800;color:var(--navy);line-height:1;letter-spacing:-.03em;}
+  .avg-label{font-size:11px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;font-weight:600;}
+
+  .weak-list{
+    background:var(--coral);color:var(--white);border-radius:var(--radius);
+    padding:22px 24px;margin-bottom:20px;box-shadow:var(--shadow);
+  }
+  .weak-list h3{font-family:var(--header-font);font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:12px;}
+  .weak-list ol{padding-left:20px;}
+  .weak-list li{margin-bottom:8px;font-size:14px;font-weight:500;}
+  .weak-list li .score{
+    font-family:var(--mono-font);font-size:11px;background:rgba(255,255,255,.25);
+    padding:2px 8px;border-radius:999px;margin-left:6px;
+  }
+  .weak-list .empty{font-size:13px;opacity:.85;font-style:italic;}
+
+  .ai-card{
+    background:var(--navy);color:var(--white);border-radius:var(--radius);
+    padding:22px 24px;box-shadow:var(--shadow);
+  }
+  .ai-card h3{font-family:var(--header-font);font-size:18px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px;}
+  .ai-card .sub{font-size:12px;color:var(--gold);margin-bottom:14px;}
+  .ai-prompt{
+    background:rgba(0,0,0,.25);border-radius:8px;padding:14px;
+    font-family:var(--mono-font);font-size:11.5px;line-height:1.55;color:var(--gold);
+    max-height:220px;overflow-y:auto;white-space:pre-wrap;word-break:break-word;
+  }
+  .ai-card button{
+    margin-top:12px;background:var(--gold);color:var(--navy);border:none;
+    padding:10px 18px;border-radius:999px;font-family:inherit;font-weight:600;
+    font-size:12px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;
+    transition:.15s;
+  }
+  .ai-card button:hover{background:var(--coral);color:var(--white);}
+
+  /* ============ PRINT ============ */
+  @media print{
+    body{background:white;}
+    .topbar,.toolbar,.prompts,.ai-card button{display:none !important;}
+    .report{position:static;}
+    .dim{box-shadow:none;border:1px solid var(--line);page-break-inside:avoid;}
+    .grid{grid-template-columns:1fr;gap:12px;}
+    .chart-card,.weak-list,.ai-card{page-break-inside:avoid;}
+  }
+
+  .footer{text-align:center;font-size:11px;color:var(--muted);margin-top:40px;padding:30px 0;border-top:1px solid var(--line);}
+  .footer strong{color:var(--navy);font-family:var(--header-font);font-size:13px;font-weight:700;}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-logo">F</div>
+    <div>
+      <h1>FLYWHEEL</h1>
+      <p>Business Evaluation Canvas · Interactive</p>
+    </div>
+  </div>
+  <div class="toolbar">
+    <button class="btn" onclick="saveJSON()">Export JSON</button>
+    <button class="btn" onclick="loadJSON()">Import JSON</button>
+    <button class="btn primary" onclick="window.print()">Save as PDF</button>
+  </div>
+</header>
+
+<main class="shell">
+
+  <section class="meta">
+    <div class="field"><label>Your name</label><input id="m-name" placeholder="Diana Simpson" /></div>
+    <div class="field"><label>Business / idea</label><input id="m-idea" placeholder="Aletheai — AI sales qualification for enterprise CRMs" /></div>
+    <div class="field"><label>Date</label><input id="m-date" type="date" /></div>
+  </section>
+
+  <section class="idea">
+    <div class="label">Your axis — one grounded truth</div>
+    <h2>In one sentence, what problem do you solve?</h2>
+    <input id="axis" placeholder="Sales teams waste hours qualifying leads — and the cost is painful." />
+  </section>
+
+  <div class="grid">
+    <div id="dimensions"></div>
+    <aside class="report">
+      <div class="chart-card">
+        <h3>Your FLYWHEEL</h3>
+        <p class="sub">Live view. Dark = strong. Light = drag.</p>
+        <div class="chart-wrap"><canvas id="radar"></canvas></div>
+        <div class="avg">
+          <div class="avg-num" id="avg-num">—</div>
+          <div class="avg-label">Average score<br>across 8 dimensions</div>
+        </div>
+      </div>
+      <div class="weak-list" id="weak-list">
+        <h3>Your 3 weakest dimensions</h3>
+        <div id="weak-body" class="empty">Score your dimensions to surface weak points.</div>
+      </div>
+      <div class="ai-card">
+        <h3>AI co-pilot — master prompt</h3>
+        <p class="sub">Paste this into Claude or ChatGPT.</p>
+        <div class="ai-prompt" id="ai-prompt"></div>
+        <button onclick="copyPrompt()">Copy prompt</button>
+      </div>
+    </aside>
+  </div>
+
+  <p class="footer">
+    <strong>FLYWHEEL · Workshop 01 · LCC</strong><br>
+    Diana Simpson · Aletheai · Designing Intelligence series · v1.0
+  </p>
+</main>
+
+<script>
+/* ========== DATA ========== */
+const DIMENSIONS = [
+  {letter:"F", name:"Focus", q:"Are you solving one clear, painful problem?",
+   tip:"If you can't say the problem in one sentence, you don't have focus.",
+   color:"#F96167",
+   prompts:["In one sentence: what problem do you solve?","Who feels this pain most acutely?","What do they do today when this pain hits?","What happens if they don't solve it?"]},
+  {letter:"L", name:"Leverage", q:"Why you? What makes this hard to copy?",
+   tip:"If someone could copy you tomorrow, you don't yet have leverage.",
+   color:"#1E2761",
+   prompts:["What do you know that others don't?","Who do you have access to that others don't?","What data / insight / network compounds over time?","How will your advantage grow as you scale?"]},
+  {letter:"Y", name:"Your Customer", q:"Who is this for — specifically?",
+   tip:"\"Everyone\" is not a customer — it's a lack of clarity.",
+   color:"#F96167",
+   prompts:["Describe one real person in your target segment.","Where do they spend time (online / offline)?","What language do they use to describe the problem?","How would you reach 10 of them this week?"]},
+  {letter:"W", name:"Will They Care?", q:"Do real people want this? Will they pay?",
+   tip:"Getting someone to pay — even a little — is the strongest signal.",
+   color:"#1E2761",
+   prompts:["What signals have you gathered? Conversations, sign-ups, pre-orders?","Has anyone paid you — or offered to?","What's the cheapest test you could run this week?","What would make you walk away from this idea?"]},
+  {letter:"H", name:"How It Makes Money", q:"What's the revenue model?",
+   tip:"If revenue is an afterthought, it isn't yet a business.",
+   color:"#F96167",
+   prompts:["What exactly do customers pay for?","How much, how often, through what mechanism?","How does this compare to alternatives in the market?","What gross margin do you expect at scale?"]},
+  {letter:"E", name:"Engine", q:"Can this grow? Is it repeatable?",
+   tip:"If growth depends on you personally, it won't scale.",
+   color:"#1E2761",
+   prompts:["How will the next 100 customers find you?","Is your acquisition channel repeatable?","What keeps customers coming back — or referring?","What would a $1 spend return in 12 months?"]},
+  {letter:"E", name:"Execution", q:"Are you actually building and shipping?",
+   tip:"Most businesses fail because nothing ever ships.",
+   color:"#F96167",
+   prompts:["What have you shipped in the last 14 days?","How often do you test with real users?","What's your next user conversation booked for?","What's blocking you from shipping this week?"]},
+  {letter:"L", name:"Leader", q:"Are you committed? Do you have the resilience?",
+   tip:"Be honest with yourself: is this the journey you want?",
+   color:"#1E2761",
+   prompts:["Why you, and why now?","What will you still care about 5 years in?","Who is on the team, and are they aligned?","What's your honest energy level on this today?"]}
+];
+
+const state = {
+  meta:{name:"", idea:"", date:new Date().toISOString().slice(0,10)},
+  axis:"",
+  dims: DIMENSIONS.map(()=>({score:0, evidence:"", upgrade:"", weak:false}))
+};
+
+/* ========== RENDER DIMENSIONS ========== */
+const dimsEl = document.getElementById("dimensions");
+function renderDims(){
+  dimsEl.innerHTML = DIMENSIONS.map((d,i)=>{
+    const st = state.dims[i];
+    const dots = [1,2,3,4,5].map(n =>
+      `<button type="button" class="score-dot ${st.score===n?'active':''}" onclick="setScore(${i},${n})">${n}</button>`).join("");
+    const prompts = d.prompts.map(p=>`<li>${p}</li>`).join("");
+    return `
+      <article class="dim ${st.weak?'weak':''}" id="dim-${i}">
+        <div class="dim-head">
+          <div class="dim-badge" style="background:${d.color}">${d.letter}</div>
+          <div class="info">
+            <h3>${d.name}</h3>
+            <div class="q">${d.q}</div>
+            <div class="tip">${d.tip}</div>
+          </div>
+        </div>
+        <div class="score-row">
+          <span class="score-label">Score</span>
+          <div class="score-dots">${dots}</div>
+          <label class="weak-toggle">
+            <input type="checkbox" ${st.weak?'checked':''} onchange="setWeak(${i},this.checked)" />
+            Weak point
+          </label>
+        </div>
+        <details class="prompts">
+          <summary>Ask yourself</summary>
+          <ol>${prompts}</ol>
+        </details>
+        <div class="field-group">
+          <label>Evidence — what's actually true today?</label>
+          <textarea oninput="setField(${i},'evidence',this.value)" placeholder="What real signal supports your score?">${st.evidence}</textarea>
+        </div>
+        <div class="field-group">
+          <label>Upgrade — one move this week</label>
+          <textarea oninput="setField(${i},'upgrade',this.value)" placeholder="The specific action that raises this score by 1.">${st.upgrade}</textarea>
+        </div>
+      </article>
+    `;
+  }).join("");
+}
+
+function setScore(i,n){
+  state.dims[i].score = (state.dims[i].score===n) ? 0 : n;
+  // auto-flag weak if ≤2
+  if (state.dims[i].score && state.dims[i].score <= 2) state.dims[i].weak = true;
+  renderDims();
+  update();
+  save();
+}
+function setWeak(i,v){ state.dims[i].weak = v; renderDims(); update(); save(); }
+function setField(i,k,v){ state.dims[i][k] = v; save(); }
+
+/* ========== RADAR CHART ========== */
+let radar;
+function setupChart(){
+  const ctx = document.getElementById("radar").getContext("2d");
+  radar = new Chart(ctx, {
+    type: "radar",
+    data:{
+      labels: DIMENSIONS.map(d => d.letter + " · " + d.name),
+      datasets:[{
+        label:"Score",
+        data: state.dims.map(d=>d.score),
+        backgroundColor:"rgba(249,97,103,.22)",
+        borderColor:"#F96167",
+        borderWidth:2,
+        pointBackgroundColor:"#1E2761",
+        pointBorderColor:"#F9E795",
+        pointBorderWidth:1.5,
+        pointRadius:4,
+        pointHoverRadius:6
+      }]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:true,
+      scales:{
+        r:{
+          min:0, max:5, ticks:{stepSize:1, display:false, backdropColor:"transparent"},
+          angleLines:{color:"#E4E6EE"},
+          grid:{color:"#E4E6EE"},
+          pointLabels:{
+            color:"#1E2761", font:{family:"Inter", size:11, weight:"600"}
+          }
+        }
+      },
+      plugins:{legend:{display:false}, tooltip:{enabled:true}}
+    }
+  });
+}
+
+/* ========== UPDATE REPORT ========== */
+function update(){
+  // chart
+  radar.data.datasets[0].data = state.dims.map(d=>d.score);
+  radar.update();
+  // average
+  const scored = state.dims.filter(d=>d.score>0);
+  const avg = scored.length ? (scored.reduce((a,d)=>a+d.score,0)/scored.length) : 0;
+  document.getElementById("avg-num").textContent = scored.length ? avg.toFixed(1) : "—";
+
+  // weak list — lowest 3 by score (excluding unscored)
+  const weak = state.dims.map((d,i)=>({...d, i})).filter(d=>d.score>0)
+                        .sort((a,b)=>a.score-b.score).slice(0,3);
+  const body = document.getElementById("weak-body");
+  if (!weak.length){
+    body.className = "empty";
+    body.innerHTML = "Score your dimensions to surface weak points.";
+  } else {
+    body.className = "";
+    body.innerHTML = "<ol>" + weak.map(d=>
+      `<li><strong>${DIMENSIONS[d.i].name}</strong>
+        <span class="score">${d.score}/5</span>
+        ${d.upgrade ? `<div style="opacity:.9;font-size:12px;font-weight:400;margin-top:4px;">→ ${d.upgrade}</div>`: ""}
+      </li>`).join("") + "</ol>";
+  }
+
+  // AI prompt
+  buildAIPrompt();
+}
+
+/* ========== AI PROMPT ========== */
+function buildAIPrompt(){
+  const lines = [];
+  lines.push("You are my FLYWHEEL coach. Stress-test my business across 8 dimensions.");
+  lines.push("");
+  lines.push("Idea: " + (document.getElementById("axis").value || state.axis || "[not yet written]"));
+  lines.push("");
+  lines.push("My scores and evidence:");
+  DIMENSIONS.forEach((d,i)=>{
+    const s = state.dims[i];
+    lines.push(`  ${d.letter} ${d.name}: ${s.score||"—"}/5`);
+    if (s.evidence) lines.push(`     evidence: ${s.evidence}`);
+    if (s.upgrade)  lines.push(`     planned upgrade: ${s.upgrade}`);
+  });
+  lines.push("");
+  lines.push("For each dimension: challenge my score, name my biggest assumption,");
+  lines.push("and give me one upgrade I could run THIS WEEK.");
+  lines.push("Then rank my 3 weakest dimensions and tell me which one to fix first.");
+  document.getElementById("ai-prompt").textContent = lines.join("\n");
+}
+function copyPrompt(){
+  const t = document.getElementById("ai-prompt").textContent;
+  navigator.clipboard.writeText(t).then(()=>{
+    const btn = event.target;
+    const orig = btn.textContent;
+    btn.textContent = "Copied!";
+    setTimeout(()=>btn.textContent = orig, 1500);
+  });
+}
+
+/* ========== PERSIST ========== */
+function save(){
+  try{
+    state.meta.name = document.getElementById("m-name").value;
+    state.meta.idea = document.getElementById("m-idea").value;
+    state.meta.date = document.getElementById("m-date").value;
+    state.axis = document.getElementById("axis").value;
+    localStorage.setItem("flywheel-state", JSON.stringify(state));
+  }catch(e){}
+}
+function restore(){
+  try{
+    const raw = localStorage.getItem("flywheel-state");
+    if (!raw) return;
+    const loaded = JSON.parse(raw);
+    Object.assign(state.meta, loaded.meta||{});
+    state.axis = loaded.axis||"";
+    if (Array.isArray(loaded.dims)) loaded.dims.forEach((d,i)=>Object.assign(state.dims[i]||{}, d));
+    document.getElementById("m-name").value = state.meta.name||"";
+    document.getElementById("m-idea").value = state.meta.idea||"";
+    document.getElementById("m-date").value = state.meta.date||new Date().toISOString().slice(0,10);
+    document.getElementById("axis").value = state.axis||"";
+  }catch(e){}
+}
+
+/* ========== EXPORT / IMPORT ========== */
+function saveJSON(){
+  save();
+  const blob = new Blob([JSON.stringify(state,null,2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "flywheel-" + (state.meta.idea||"canvas").replace(/\s+/g,"-").toLowerCase() + ".json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+function loadJSON(){
+  const inp = document.createElement("input");
+  inp.type = "file"; inp.accept = "application/json";
+  inp.onchange = e => {
+    const f = e.target.files[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try{
+        const loaded = JSON.parse(r.result);
+        Object.assign(state.meta, loaded.meta||{});
+        state.axis = loaded.axis||"";
+        state.dims = loaded.dims||state.dims;
+        document.getElementById("m-name").value = state.meta.name||"";
+        document.getElementById("m-idea").value = state.meta.idea||"";
+        document.getElementById("m-date").value = state.meta.date||"";
+        document.getElementById("axis").value = state.axis||"";
+        renderDims(); update(); save();
+      }catch(err){alert("Couldn't read that file.");}
+    };
+    r.readAsText(f);
+  };
+  inp.click();
+}
+
+/* ========== BOOT ========== */
+document.getElementById("m-name").addEventListener("input", save);
+document.getElementById("m-idea").addEventListener("input", save);
+document.getElementById("m-date").addEventListener("change", save);
+document.getElementById("axis").addEventListener("input", ()=>{save();buildAIPrompt();});
+
+restore();
+renderDims();
+setupChart();
+update();
+</script>
+</body>
+</html>
