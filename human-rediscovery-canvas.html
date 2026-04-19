@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Human Rediscovery Canvas — Diana Simpson-Hernandez</title>
+<meta name="description" content="A 5-layer interactive framework to find your uniquely human, purposeful direction in the age of AI disruption." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --navy:#1E2761;
+  --coral:#F96167;
+  --gold:#F9E795;
+  --cream:#FAF7F2;
+  --ink:#0E1330;
+  --muted:#6B7089;
+  --line:#C9CCD9;
+  --white:#FFFFFF;
+  --radius:14px;
+  --radius-sm:8px;
+  --shadow:0 1px 2px rgba(14,19,48,.04), 0 8px 24px rgba(14,19,48,.06);
+  --shadow-lg:0 2px 8px rgba(14,19,48,.06), 0 24px 48px rgba(14,19,48,.10);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--cream);color:var(--ink);font-family:"Inter",system-ui,-apple-system,sans-serif;line-height:1.55;font-weight:400;-webkit-font-smoothing:antialiased}
+body{padding:0;min-height:100vh}
+
+/* Layout */
+.canvas{max-width:880px;margin:0 auto;padding:56px 28px 120px}
+
+/* Typography */
+h1,h2,h3,h4{font-family:"Fraunces","Georgia",serif;font-weight:500;color:var(--navy);letter-spacing:-0.01em;line-height:1.15}
+h1{font-size:clamp(36px,6vw,64px);font-weight:400}
+h2{font-size:clamp(26px,3.4vw,38px);font-weight:500}
+h3{font-size:22px;font-weight:600}
+h4{font-size:16px;font-family:"Inter",sans-serif;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em}
+p{color:var(--ink);font-size:16px}
+em{font-family:"Fraunces",serif;font-style:italic;color:var(--navy)}
+.lede{font-size:19px;line-height:1.6;color:var(--ink);font-weight:300}
+.muted{color:var(--muted);font-size:14px}
+.caps{text-transform:uppercase;letter-spacing:0.14em;font-size:11px;font-weight:600;color:var(--muted)}
+
+/* Hero */
+.hero{padding:40px 0 72px;border-bottom:1px solid var(--line);margin-bottom:64px;position:relative}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;background:var(--navy);color:var(--gold);border-radius:999px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;margin-bottom:28px}
+.hero .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--coral);display:inline-block}
+.hero h1{margin-bottom:24px}
+.hero h1 span{color:var(--coral);font-style:italic}
+.hero .lede{max-width:680px;margin-bottom:32px}
+.hero .meta{display:flex;gap:24px;flex-wrap:wrap;color:var(--muted);font-size:13px;letter-spacing:0.04em}
+.hero .meta span::before{content:"—";margin-right:10px;color:var(--coral)}
+
+/* Progress */
+.progress{position:sticky;top:0;z-index:10;background:var(--cream);padding:14px 0;margin:0 -28px 56px;border-bottom:1px solid var(--line)}
+.progress-inner{max-width:880px;margin:0 auto;padding:0 28px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.progress-track{display:flex;gap:0;flex:1;min-width:240px}
+.progress-dot{flex:1;height:3px;background:var(--line);position:relative;cursor:pointer;transition:background .25s}
+.progress-dot.active{background:var(--coral)}
+.progress-dot.complete{background:var(--navy)}
+.progress-dot + .progress-dot{margin-left:4px}
+.progress-label{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);font-weight:600;white-space:nowrap}
+.progress-label strong{color:var(--navy)}
+
+/* Layer cards */
+.layer{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:0;margin-bottom:24px;overflow:hidden;transition:box-shadow .3s, transform .3s}
+.layer.open{box-shadow:var(--shadow-lg)}
+.layer-head{display:flex;align-items:center;gap:20px;padding:28px 32px;cursor:pointer;user-select:none;background:var(--white);transition:background .2s}
+.layer-head:hover{background:var(--cream)}
+.layer-num{width:48px;height:48px;border-radius:12px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:"Fraunces",serif;font-size:22px;font-weight:500;flex-shrink:0;transition:all .3s}
+.layer.open .layer-num{background:var(--coral);color:var(--white)}
+.layer-head-text{flex:1;min-width:0}
+.layer-head-text .caps{margin-bottom:4px}
+.layer-head-text h3{font-family:"Fraunces",serif;font-weight:500;font-size:22px;color:var(--navy)}
+.layer-chevron{color:var(--muted);font-size:24px;transition:transform .3s;flex-shrink:0}
+.layer.open .layer-chevron{transform:rotate(180deg);color:var(--coral)}
+.layer-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
+.layer.open .layer-body{max-height:5000px}
+.layer-body-inner{padding:0 32px 32px 100px;border-top:1px solid var(--line);padding-top:32px}
+.layer-intro{font-family:"Fraunces",serif;font-size:22px;color:var(--navy);line-height:1.4;font-style:italic;margin-bottom:24px;padding-left:16px;border-left:3px solid var(--gold)}
+
+/* Question blocks */
+.question-block{margin-bottom:32px}
+.question-block .caps{margin-bottom:16px;color:var(--coral)}
+.q{margin-bottom:20px}
+.q-text{font-family:"Fraunces",serif;font-size:17px;color:var(--navy);margin-bottom:10px;line-height:1.4}
+.q-text::before{content:"◦";color:var(--coral);margin-right:10px;font-size:18px}
+
+textarea,input[type="text"]{
+  width:100%;
+  background:var(--cream);
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  padding:12px 14px;
+  font-family:"Inter",sans-serif;
+  font-size:15px;
+  color:var(--ink);
+  resize:vertical;
+  transition:border-color .2s, background .2s;
+}
+textarea{min-height:70px}
+textarea:focus,input[type="text"]:focus{outline:none;border-color:var(--coral);background:var(--white)}
+textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-style:italic}
+
+/* Exercise blocks */
+.exercise{background:var(--cream);border-radius:var(--radius);padding:28px;margin-top:24px;border:1px dashed var(--line)}
+.exercise .caps{color:var(--navy);margin-bottom:6px}
+.exercise h4{color:var(--navy);font-family:"Fraunces",serif;font-size:20px;font-weight:500;text-transform:none;letter-spacing:0;margin-bottom:6px}
+.exercise .ex-sub{color:var(--muted);font-size:14px;margin-bottom:20px}
+.exercise label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;letter-spacing:0.04em}
+
+/* Identity strip-back */
+.strip-grid{display:grid;gap:12px;margin-bottom:18px}
+.strip-row{display:flex;gap:10px;align-items:center}
+.strip-row input{flex:1}
+.strip-row .strip-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--white);cursor:pointer;font-size:16px;color:var(--muted);transition:all .2s;flex-shrink:0}
+.strip-row .strip-btn:hover{background:var(--coral);color:var(--white);border-color:var(--coral)}
+.strip-row.stripped input{text-decoration:line-through;opacity:0.4;background:var(--line)}
+.strip-row.stripped .strip-btn{background:var(--navy);color:var(--gold);border-color:var(--navy)}
+.strip-reveal{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.strip-reveal-label{font-family:"Fraunces",serif;font-style:italic;color:var(--coral);font-size:17px;margin-bottom:10px}
+
+/* Pattern recall */
+.moment-row{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:start;margin-bottom:10px}
+.moment-num{font-family:"Fraunces",serif;color:var(--coral);font-size:15px;padding-top:12px;text-align:center}
+.moment-tags{display:flex;gap:4px;flex-wrap:wrap;padding-top:8px}
+.tag-btn{padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--white);color:var(--muted);font-size:11px;font-weight:500;cursor:pointer;letter-spacing:0.04em;text-transform:uppercase;transition:all .15s}
+.tag-btn:hover{border-color:var(--navy);color:var(--navy)}
+.tag-btn.active{background:var(--navy);color:var(--gold);border-color:var(--navy)}
+
+.pattern-summary{margin-top:20px;padding:16px;background:var(--white);border-radius:var(--radius-sm);border-left:3px solid var(--coral)}
+.pattern-summary .caps{color:var(--coral);margin-bottom:8px}
+.pattern-summary .pattern-text{font-family:"Fraunces",serif;font-style:italic;color:var(--navy);font-size:16px}
+
+/* Intuition log */
+.log-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;padding:12px;background:var(--white);border-radius:var(--radius-sm);border:1px solid var(--line)}
+.log-row input[type="text"]{background:var(--cream);font-size:14px;padding:8px 10px}
+.log-segment{display:flex;gap:4px}
+.log-segment button{flex:1;padding:8px 6px;border:1px solid var(--line);background:var(--white);border-radius:6px;font-size:11px;cursor:pointer;color:var(--muted);font-weight:500;transition:all .15s;text-transform:uppercase;letter-spacing:0.04em}
+.log-segment button:hover{border-color:var(--navy)}
+.log-segment button.on{background:var(--gold);color:var(--navy);border-color:var(--navy)}
+.log-segment button.on.neg{background:var(--coral);color:var(--white);border-color:var(--coral)}
+
+/* Daily tracker */
+.tracker{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-bottom:16px}
+.day{padding:14px 8px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius-sm);text-align:center;cursor:pointer;transition:all .2s}
+.day:hover{border-color:var(--navy)}
+.day.done{background:var(--navy);color:var(--gold);border-color:var(--navy)}
+.day .day-num{font-family:"Fraunces",serif;font-size:20px;font-weight:500;display:block;margin-bottom:4px}
+.day .day-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
+.day.done .day-label{color:var(--gold);opacity:0.8}
+.day-notes{display:grid;gap:8px}
+.day-note{display:flex;gap:10px;align-items:center}
+.day-note-label{font-size:11px;color:var(--muted);font-weight:600;width:60px;letter-spacing:0.06em;text-transform:uppercase}
+.day-note input{flex:1;font-size:14px;padding:8px 10px}
+
+/* Final integration */
+.integration{background:var(--navy);color:var(--white);border-radius:var(--radius);padding:48px 40px;margin-top:48px;position:relative;overflow:hidden}
+.integration::before{content:"";position:absolute;top:-60px;right:-60px;width:240px;height:240px;background:radial-gradient(circle,var(--coral) 0%,transparent 70%);opacity:0.2;border-radius:50%}
+.integration .caps{color:var(--gold);margin-bottom:14px;position:relative}
+.integration h2{color:var(--white);font-family:"Fraunces",serif;font-size:34px;font-weight:400;margin-bottom:10px;position:relative}
+.integration h2 em{color:var(--gold)}
+.integration .int-sub{color:rgba(255,255,255,0.75);font-size:16px;margin-bottom:32px;max-width:560px;position:relative}
+
+.int-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:32px;position:relative}
+.int-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-sm);padding:18px}
+.int-card label{display:block;font-family:"Fraunces",serif;font-style:italic;color:var(--gold);font-size:16px;margin-bottom:10px}
+.int-card textarea{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.15);color:var(--white);min-height:80px}
+.int-card textarea::placeholder{color:rgba(255,255,255,0.4)}
+.int-card textarea:focus{background:rgba(255,255,255,0.12);border-color:var(--gold)}
+
+/* Synthesis */
+.synthesis{background:rgba(0,0,0,0.2);border:1px solid rgba(249,231,149,0.3);border-radius:var(--radius);padding:28px;position:relative;margin-top:24px}
+.synthesis .caps{color:var(--gold)}
+.synthesis h3{color:var(--white);font-family:"Fraunces",serif;font-size:22px;margin:8px 0 18px;font-weight:500}
+.synthesis-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;background:var(--coral);color:var(--white);border:none;border-radius:999px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:0.04em;transition:transform .15s, background .2s}
+.synthesis-btn:hover{transform:translateY(-1px);background:#f84b52}
+.synthesis-btn::before{content:"✦";font-size:16px}
+.synthesis-out{margin-top:20px;display:none}
+.synthesis-out.show{display:block;animation:fadeIn .5s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.theme-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.theme-chip{padding:8px 14px;background:var(--gold);color:var(--navy);border-radius:999px;font-weight:600;font-size:13px;letter-spacing:0.03em}
+.theme-chip.coral{background:var(--coral);color:var(--white)}
+.signal-line{padding:14px 16px;background:rgba(255,255,255,0.06);border-left:3px solid var(--gold);border-radius:6px;margin-bottom:10px;color:var(--white);font-family:"Fraunces",serif;font-style:italic;font-size:16px}
+
+/* Actions */
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:48px;padding:32px;background:var(--white);border-radius:var(--radius);border:1px solid var(--line)}
+.actions-text{flex:1;min-width:240px}
+.actions-text .caps{margin-bottom:4px}
+.actions-text p{font-size:14px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;border:1px solid var(--navy);background:var(--navy);color:var(--white);font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;font-family:"Inter",sans-serif;letter-spacing:0.02em}
+.btn:hover{background:var(--coral);border-color:var(--coral)}
+.btn.secondary{background:transparent;color:var(--navy)}
+.btn.secondary:hover{background:var(--navy);color:var(--white)}
+.btn.ghost{background:transparent;color:var(--muted);border-color:var(--line);padding:12px 18px}
+.btn.ghost:hover{border-color:var(--coral);color:var(--coral);background:transparent}
+
+/* Save indicator */
+.save-pill{position:fixed;bottom:24px;right:24px;background:var(--navy);color:var(--gold);padding:10px 18px;border-radius:999px;font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;opacity:0;transform:translateY(10px);transition:all .3s;z-index:100;box-shadow:var(--shadow-lg)}
+.save-pill.show{opacity:1;transform:translateY(0)}
+
+/* Deep insight */
+.insight{margin-top:56px;padding:40px;background:linear-gradient(135deg,var(--gold) 0%,#faeba9 100%);border-radius:var(--radius);text-align:center;position:relative}
+.insight .caps{color:var(--navy);margin-bottom:16px}
+.insight-text{font-family:"Fraunces",serif;font-size:clamp(22px,3vw,28px);color:var(--navy);line-height:1.35;font-weight:400;max-width:640px;margin:0 auto}
+.insight-text em{color:var(--coral);font-style:italic}
+
+/* Footer */
+.footer{margin-top:64px;padding-top:32px;border-top:1px solid var(--line);text-align:center}
+.footer p{color:var(--muted);font-size:13px;letter-spacing:0.04em}
+.footer .sig{font-family:"Fraunces",serif;font-style:italic;color:var(--navy);font-size:16px;margin-bottom:8px}
+
+/* Print */
+@media print{
+  body{background:white}
+  .progress,.actions,.save-pill{display:none}
+  .layer{break-inside:avoid;box-shadow:none;border:1px solid #ccc}
+  .layer-body{max-height:none !important}
+  .layer-head{cursor:default}
+  .layer-chevron{display:none}
+}
+
+/* Responsive */
+@media (max-width:640px){
+  .canvas{padding:32px 18px 80px}
+  .layer-head{padding:20px}
+  .layer-body-inner{padding:24px 20px 24px 20px}
+  .layer-num{width:40px;height:40px;font-size:18px}
+  .int-grid{grid-template-columns:1fr}
+  .tracker{grid-template-columns:repeat(7,1fr);gap:4px}
+  .day{padding:10px 4px}
+  .day .day-num{font-size:16px}
+  .log-row{grid-template-columns:1fr}
+  .moment-row{grid-template-columns:1fr}
+  .moment-num{padding-top:0;text-align:left}
+  .integration{padding:32px 24px}
+  .actions{flex-direction:column;align-items:stretch}
+  .actions .btn{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<div class="canvas">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="eyebrow">A Substack Framework · Rediscovery Canvas</div>
+    <h1>What makes you <span>uniquely human</span> in the age of AI?</h1>
+    <p class="lede">A 5-layer guided journey to rebuild internal awareness, reclaim non-productive value, and shift from <em>"what should I do?"</em> to <em>"what feels true?"</em>. Work through it in one sitting — or one layer at a time. Your answers save automatically.</p>
+    <div class="meta">
+      <span>By Diana Simpson-Hernandez</span>
+      <span>~45 min guided · ~7 days exercises</span>
+      <span id="progress-count">0 of 5 layers complete</span>
+    </div>
+  </header>
+
+  <!-- PROGRESS -->
+  <nav class="progress" aria-label="Progress">
+    <div class="progress-inner">
+      <div class="progress-label"><strong id="cur-layer">Start</strong> · The Journey</div>
+      <div class="progress-track" id="progress-track"></div>
+    </div>
+  </nav>
+
+  <!-- LAYERS -->
+  <div id="layers"></div>
+
+  <!-- FINAL INTEGRATION -->
+  <section class="integration">
+    <div class="caps">Final Integration</div>
+    <h2>Design Your <em>Human Expression</em></h2>
+    <p class="int-sub">If you didn't need to work, you would spend your time… This is where the 5 layers converge into a living signature. Fill each prompt, then run the synthesis.</p>
+
+    <div class="int-grid">
+      <div class="int-card">
+        <label>Exploring…</label>
+        <textarea data-key="int_explore" placeholder="Which terrains call me — of mind, place, craft, or experience?"></textarea>
+      </div>
+      <div class="int-card">
+        <label>Creating…</label>
+        <textarea data-key="int_create" placeholder="What wants to come through me when I'm not performing?"></textarea>
+      </div>
+      <div class="int-card">
+        <label>Connecting…</label>
+        <textarea data-key="int_connect" placeholder="With whom, and in what way, do I feel most alive?"></textarea>
+      </div>
+      <div class="int-card">
+        <label>Contributing…</label>
+        <textarea data-key="int_contribute" placeholder="What changes around me because I exist?"></textarea>
+      </div>
+    </div>
+
+    <div class="synthesis">
+      <div class="caps">Signal Synthesis</div>
+      <h3>Pattern-match across all 5 layers</h3>
+      <button class="synthesis-btn" id="synthBtn">Run Synthesis</button>
+      <div class="synthesis-out" id="synthOut"></div>
+    </div>
+  </section>
+
+  <!-- DEEP INSIGHT -->
+  <section class="insight">
+    <div class="caps">The Real Unlock</div>
+    <p class="insight-text">Most people won't struggle because they lack purpose. They'll struggle because they've never practiced <em>listening to themselves</em>.</p>
+  </section>
+
+  <!-- ACTIONS -->
+  <section class="actions">
+    <div class="actions-text">
+      <div class="caps">Take it with you</div>
+      <p>Download your canvas as a markdown file, print it as a PDF, or reset to start fresh.</p>
+    </div>
+    <button class="btn" id="exportMd">↓ Download (.md)</button>
+    <button class="btn secondary" id="printPdf">Print / Save PDF</button>
+    <button class="btn ghost" id="resetAll">Reset</button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p class="sig">The Human Rediscovery Canvas</p>
+    <p>© Diana Simpson-Hernandez · All rights reserved</p>
+  </footer>
+
+</div>
+
+<div class="save-pill" id="savePill">Saved</div>
+
+<script>
+// ====== DATA ======
+const LAYERS = [
+  {
+    id: 1,
+    caps: "Layer 01 · Deconditioning",
+    title: "Who am I without my role?",
+    intro: "Most people can't answer this because their identity has fused with productivity. The first move is to separate the two.",
+    questions: [
+      { key: "L1_q1", text: "If no one could ever see or validate what I do, what would I still choose to do?" },
+      { key: "L1_q2", text: "If money, status, and achievement didn't exist, what would feel meaningful?" },
+      { key: "L1_q3", text: "What parts of myself only exist because I've adapted to expectations?" }
+    ],
+    exercise: "strip"
+  },
+  {
+    id: 2,
+    caps: "Layer 02 · Remembering",
+    title: "What was natural to me before I adapted?",
+    intro: "Before optimisation, there was instinct. Return to the raw material that existed before the world told you what mattered.",
+    questions: [
+      { key: "L2_q1", text: "What did I love doing as a child before I was told what matters?" },
+      { key: "L2_q2", text: "When do I lose track of time without effort?" },
+      { key: "L2_q3", text: "What feels natural, not forced or strategic?" }
+    ],
+    exercise: "pattern"
+  },
+  {
+    id: 3,
+    caps: "Layer 03 · Sensitivity & Intuition",
+    title: "What do I feel drawn toward?",
+    intro: "This is where most people are disconnected. You are retraining perception, not logic.",
+    questions: [
+      { key: "L3_q1", text: "What environments energise vs drain me?" },
+      { key: "L3_q2", text: "What kinds of people do I feel most alive around?" },
+      { key: "L3_q3", text: "What decisions have I felt were right before I could explain them?" }
+    ],
+    exercise: "intuition"
+  },
+  {
+    id: 4,
+    caps: "Layer 04 · Creation",
+    title: "What wants to come through me?",
+    intro: "The shift from consumption to expression. The point is not the output — it's the act of releasing performance conditioning.",
+    questions: [
+      { key: "L4_q1", text: "If I had to create something every day with no goal, what would it be?" },
+      { key: "L4_q2", text: "What do I feel an urge to express that I've been suppressing?" },
+      { key: "L4_q3", text: "What would I make if no one could judge it?" }
+    ],
+    exercise: "daily"
+  },
+  {
+    id: 5,
+    caps: "Layer 05 · Contribution",
+    title: "Where do I naturally add value to others?",
+    intro: "Purpose emerges in relation to others, not in isolation. Start small — micro-contributions reveal macro-signal.",
+    questions: [
+      { key: "L5_q1", text: "What problems do I naturally notice that others ignore?" },
+      { key: "L5_q2", text: "When do people come to me for help?" },
+      { key: "L5_q3", text: "What impact feels meaningful even if it's small?" }
+    ],
+    exercise: "contribution"
+  }
+];
+
+const STORAGE_KEY = "hrc.canvas.v1";
+const state = loadState();
+
+function loadState(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch(e){}
+  return {};
+}
+function saveState(){
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    showSaved();
+  } catch(e){}
+}
+let saveTimer=null;
+function debouncedSave(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveState, 350);
+}
+let pillTimer=null;
+function showSaved(){
+  const p=document.getElementById("savePill");
+  p.classList.add("show");
+  clearTimeout(pillTimer);
+  pillTimer=setTimeout(()=>p.classList.remove("show"), 1400);
+}
+
+// ====== RENDER LAYERS ======
+function renderLayers(){
+  const root = document.getElementById("layers");
+  root.innerHTML = LAYERS.map(L => `
+    <article class="layer" data-layer="${L.id}">
+      <header class="layer-head" data-toggle="${L.id}">
+        <div class="layer-num">${String(L.id).padStart(2,"0")}</div>
+        <div class="layer-head-text">
+          <div class="caps">${L.caps.split("·")[1].trim()}</div>
+          <h3>${L.title}</h3>
+        </div>
+        <div class="layer-chevron">▾</div>
+      </header>
+      <div class="layer-body">
+        <div class="layer-body-inner">
+          <div class="layer-intro">${L.intro}</div>
+          <div class="question-block">
+            <div class="caps">Reflection</div>
+            ${L.questions.map(q => `
+              <div class="q">
+                <div class="q-text">${q.text}</div>
+                <textarea data-key="${q.key}" placeholder="Write freely — no one is grading this."></textarea>
+              </div>
+            `).join("")}
+          </div>
+          <div class="exercise" data-exercise="${L.exercise}">
+            ${renderExercise(L.exercise)}
+          </div>
+        </div>
+      </div>
+    </article>
+  `).join("");
+
+  // Wire toggles
+  root.querySelectorAll("[data-toggle]").forEach(el => {
+    el.addEventListener("click", () => {
+      const card = el.closest(".layer");
+      card.classList.toggle("open");
+      updateProgressLabel();
+    });
+  });
+
+  // Wire textareas & inputs
+  root.querySelectorAll("textarea[data-key], input[data-key]").forEach(el => {
+    if (state[el.dataset.key]) el.value = state[el.dataset.key];
+    el.addEventListener("input", () => {
+      state[el.dataset.key] = el.value;
+      debouncedSave();
+      updateProgress();
+    });
+  });
+
+  wireExercises();
+  wireIntegration();
+  renderProgress();
+  updateProgress();
+}
+
+function renderExercise(type){
+  switch(type){
+    case "strip":
+      return `
+        <div class="caps">Exercise 01</div>
+        <h4>Identity Strip-Back</h4>
+        <p class="ex-sub">List your job title, responsibilities, and skills. Then strip each one away. Name what remains.</p>
+        <div class="strip-grid" id="stripGrid">
+          ${["Your job title","Responsibility","Responsibility","Skill","Skill","Skill"].map((ph,i)=>`
+            <div class="strip-row" data-strip="${i}">
+              <input type="text" data-key="strip_${i}" placeholder="${ph}">
+              <button class="strip-btn" title="Strip away">×</button>
+            </div>
+          `).join("")}
+        </div>
+        <div class="strip-reveal">
+          <div class="strip-reveal-label">→ What remains when none of this defines me?</div>
+          <textarea data-key="strip_remains" placeholder="The self that remains is…"></textarea>
+        </div>
+      `;
+    case "pattern":
+      return `
+        <div class="caps">Exercise 02</div>
+        <h4>Pattern Recall</h4>
+        <p class="ex-sub">List 10 moments when you felt fully alive, deeply engaged, or emotionally connected. Tag each one. Patterns will surface.</p>
+        <div id="patternGrid">
+          ${Array.from({length:10}).map((_,i)=>`
+            <div class="moment-row">
+              <div class="moment-num">${String(i+1).padStart(2,"0")}</div>
+              <input type="text" data-key="pat_${i}_text" placeholder="A moment I felt most alive…">
+              <div class="moment-tags" data-pat="${i}">
+                ${["Create","Help","Explore","Connect","Teach","Build"].map(t=>`
+                  <button class="tag-btn" data-tag="${t}">${t}</button>
+                `).join("")}
+              </div>
+            </div>
+          `).join("")}
+        </div>
+        <div class="pattern-summary" id="patternSummary" style="display:none">
+          <div class="caps">Your recurring theme</div>
+          <div class="pattern-text" id="patternText"></div>
+        </div>
+      `;
+    case "intuition":
+      return `
+        <div class="caps">Exercise 03</div>
+        <h4>Intuition Calibration · 7 decisions</h4>
+        <p class="ex-sub">Before any decision this week, pause. Log what the body says. Track tension vs expansion, clarity vs resistance. You are retraining perception.</p>
+        <div id="intuitionGrid">
+          ${Array.from({length:7}).map((_,i)=>`
+            <div class="log-row">
+              <input type="text" data-key="intu_${i}_dec" placeholder="Day ${i+1} · the decision…">
+              <div class="log-segment" data-intu="${i}">
+                <button data-val="expansion">Expansion</button>
+                <button data-val="tension" class="neg">Tension</button>
+                <button data-val="clarity">Clarity</button>
+                <button data-val="resistance" class="neg">Resistance</button>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      `;
+    case "daily":
+      return `
+        <div class="caps">Exercise 04</div>
+        <h4>Daily Output · No audience, 7 days</h4>
+        <p class="ex-sub">Create something just for yourself — write, draw, speak, build. No sharing, no optimisation, no purpose. Tap each day when done.</p>
+        <div class="tracker" id="dailyTracker">
+          ${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((d,i)=>`
+            <div class="day" data-day="${i}" data-key="daily_${i}">
+              <span class="day-num">${i+1}</span>
+              <span class="day-label">${d}</span>
+            </div>
+          `).join("")}
+        </div>
+        <div class="day-notes">
+          ${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((d,i)=>`
+            <div class="day-note">
+              <span class="day-note-label">${d}</span>
+              <input type="text" data-key="daily_note_${i}" placeholder="What did you make today?">
+            </div>
+          `).join("")}
+        </div>
+      `;
+    case "contribution":
+      return `
+        <div class="caps">Exercise 05</div>
+        <h4>Micro-Contribution · 7 days</h4>
+        <p class="ex-sub">Each day: do 1 thing that helps someone, creates connection, or improves something small. Observe what energises vs drains you.</p>
+        <div class="tracker" id="contribTracker">
+          ${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((d,i)=>`
+            <div class="day" data-day="${i}" data-key="contrib_${i}">
+              <span class="day-num">${i+1}</span>
+              <span class="day-label">${d}</span>
+            </div>
+          `).join("")}
+        </div>
+        <div class="day-notes">
+          ${["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((d,i)=>`
+            <div class="day-note">
+              <span class="day-note-label">${d}</span>
+              <input type="text" data-key="contrib_note_${i}" placeholder="How did I contribute? Did it energise or drain me?">
+            </div>
+          `).join("")}
+        </div>
+      `;
+  }
+  return "";
+}
+
+function wireExercises(){
+  // Strip-back
+  document.querySelectorAll("[data-strip]").forEach(row => {
+    const btn = row.querySelector(".strip-btn");
+    const input = row.querySelector("input");
+    const key = "stripped_" + row.dataset.strip;
+    if (state[key]) {
+      row.classList.add("stripped");
+      btn.textContent = "✓";
+    }
+    btn.addEventListener("click", () => {
+      row.classList.toggle("stripped");
+      state[key] = row.classList.contains("stripped");
+      btn.textContent = state[key] ? "✓" : "×";
+      debouncedSave();
+    });
+  });
+
+  // Pattern tags
+  document.querySelectorAll("[data-pat]").forEach(grp => {
+    const i = grp.dataset.pat;
+    const key = "pat_" + i + "_tag";
+    if (state[key]) {
+      const b = grp.querySelector(`[data-tag="${state[key]}"]`);
+      if (b) b.classList.add("active");
+    }
+    grp.querySelectorAll(".tag-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        grp.querySelectorAll(".tag-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        state[key] = btn.dataset.tag;
+        debouncedSave();
+        renderPatternSummary();
+      });
+    });
+  });
+  renderPatternSummary();
+
+  // Intuition segments
+  document.querySelectorAll("[data-intu]").forEach(grp => {
+    const i = grp.dataset.intu;
+    const key = "intu_" + i + "_feel";
+    if (state[key]) {
+      const b = grp.querySelector(`[data-val="${state[key]}"]`);
+      if (b) b.classList.add("on");
+    }
+    grp.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", () => {
+        grp.querySelectorAll("button").forEach(b => b.classList.remove("on"));
+        btn.classList.add("on");
+        state[key] = btn.dataset.val;
+        debouncedSave();
+      });
+    });
+  });
+
+  // Trackers (daily + contribution)
+  document.querySelectorAll(".day").forEach(d => {
+    const key = d.dataset.key;
+    if (state[key]) d.classList.add("done");
+    d.addEventListener("click", () => {
+      d.classList.toggle("done");
+      state[key] = d.classList.contains("done");
+      debouncedSave();
+      updateProgress();
+    });
+  });
+}
+
+function renderPatternSummary(){
+  const tags = {};
+  for (let i=0;i<10;i++){
+    const t = state["pat_"+i+"_tag"];
+    if (t) tags[t] = (tags[t]||0) + 1;
+  }
+  const sorted = Object.entries(tags).sort((a,b)=>b[1]-a[1]);
+  const box = document.getElementById("patternSummary");
+  const out = document.getElementById("patternText");
+  if (!box) return;
+  if (sorted.length === 0) { box.style.display = "none"; return; }
+  box.style.display = "block";
+  const top = sorted[0];
+  const pctMap = {
+    "Create":"You come alive in acts of making.",
+    "Help":"You come alive in moments of service.",
+    "Explore":"You come alive at the edges of the known.",
+    "Connect":"You come alive inside genuine connection.",
+    "Teach":"You come alive when others learn through you.",
+    "Build":"You come alive when something of yours takes shape."
+  };
+  out.textContent = pctMap[top[0]] + " — signalled " + top[1] + " times across your 10 moments.";
+}
+
+// ====== PROGRESS ======
+function renderProgress(){
+  const track = document.getElementById("progress-track");
+  track.innerHTML = LAYERS.map(L =>
+    `<div class="progress-dot" data-layer="${L.id}" title="Layer ${L.id}"></div>`
+  ).join("");
+  track.querySelectorAll(".progress-dot").forEach(dot => {
+    dot.addEventListener("click", () => {
+      const id = dot.dataset.layer;
+      const card = document.querySelector(`.layer[data-layer="${id}"]`);
+      card.classList.add("open");
+      card.scrollIntoView({behavior:"smooth", block:"start"});
+    });
+  });
+}
+
+function layerCompleteness(L){
+  // completeness = any reflection answered OR exercise touched
+  const keys = L.questions.map(q => q.key);
+  const anyText = keys.some(k => (state[k]||"").trim().length > 4);
+  const exKeys = Object.keys(state).filter(k => k.startsWith(exercisePrefix(L.exercise)));
+  const anyEx = exKeys.some(k => state[k]);
+  return anyText || anyEx;
+}
+function exercisePrefix(type){
+  return {
+    strip:"stripped_", pattern:"pat_", intuition:"intu_", daily:"daily_", contribution:"contrib_"
+  }[type] || "";
+}
+
+function updateProgress(){
+  let done = 0;
+  LAYERS.forEach(L => {
+    const dot = document.querySelector(`.progress-dot[data-layer="${L.id}"]`);
+    if (!dot) return;
+    dot.classList.remove("complete");
+    if (layerCompleteness(L)) { dot.classList.add("complete"); done++; }
+  });
+  document.getElementById("progress-count").textContent = done + " of 5 layers complete";
+}
+function updateProgressLabel(){
+  const open = document.querySelector(".layer.open");
+  const cur = document.getElementById("cur-layer");
+  document.querySelectorAll(".progress-dot").forEach(d => d.classList.remove("active"));
+  if (open){
+    const id = open.dataset.layer;
+    cur.textContent = "Layer " + String(id).padStart(2,"0");
+    const dot = document.querySelector(`.progress-dot[data-layer="${id}"]`);
+    if (dot) dot.classList.add("active");
+  } else {
+    cur.textContent = "Start";
+  }
+}
+
+// ====== INTEGRATION + SYNTHESIS ======
+function wireIntegration(){
+  document.querySelectorAll(".int-card textarea").forEach(t => {
+    if (state[t.dataset.key]) t.value = state[t.dataset.key];
+    t.addEventListener("input", () => {
+      state[t.dataset.key] = t.value;
+      debouncedSave();
+    });
+  });
+  document.getElementById("synthBtn").addEventListener("click", runSynthesis);
+  document.getElementById("exportMd").addEventListener("click", exportMarkdown);
+  document.getElementById("printPdf").addEventListener("click", () => window.print());
+  document.getElementById("resetAll").addEventListener("click", resetAll);
+}
+
+function runSynthesis(){
+  const allText = collectAllText().toLowerCase();
+  // Theme dictionary
+  const themes = {
+    "Making":["create","creat","build","make","design","craft","art","write","draw","paint","compose","code","prototype"],
+    "Teaching":["teach","explain","mentor","coach","share","guide","course","workshop","student"],
+    "Exploring":["explore","discover","travel","learn","read","research","question","curios","experiment","edge","frontier"],
+    "Connecting":["connect","friend","family","love","relationship","people","community","group","team","partner","intimacy"],
+    "Healing":["heal","care","listen","presence","support","help","nurture","compassion","therap","safe"],
+    "Nature":["nature","outdoors","garden","forest","ocean","sea","animal","plant","earth","walk","hike"],
+    "Systems":["system","structure","framework","model","strategy","pattern","architect","organise","organize"],
+    "Meaning":["meaning","purpose","soul","spirit","sacred","truth","wisdom","depth","authentic"]
+  };
+  const counts = {};
+  Object.entries(themes).forEach(([name, kws]) => {
+    let c = 0;
+    kws.forEach(k => { c += (allText.match(new RegExp("\\b"+k, "g")) || []).length; });
+    if (c > 0) counts[name] = c;
+  });
+
+  // Tags from pattern exercise
+  const tagCounts = {};
+  for (let i=0;i<10;i++){
+    const t = state["pat_"+i+"_tag"];
+    if (t) tagCounts[t] = (tagCounts[t]||0) + 1;
+  }
+  Object.entries(tagCounts).forEach(([tag, c]) => {
+    const map = {"Create":"Making","Help":"Healing","Explore":"Exploring","Connect":"Connecting","Teach":"Teaching","Build":"Making"};
+    const t = map[tag] || tag;
+    counts[t] = (counts[t]||0) + c * 2; // weight
+  });
+
+  // Intuition — expansion/clarity vs tension/resistance
+  let pos=0, neg=0;
+  for (let i=0;i<7;i++){
+    const v = state["intu_"+i+"_feel"];
+    if (v === "expansion" || v === "clarity") pos++;
+    else if (v === "tension" || v === "resistance") neg++;
+  }
+
+  // Top themes
+  const sorted = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,4);
+  const out = document.getElementById("synthOut");
+  if (sorted.length === 0){
+    out.innerHTML = `<div class="signal-line">The canvas is still mostly empty — answer a few more questions across any layer, then run synthesis again. The signal emerges from quantity, not polish.</div>`;
+    out.classList.add("show");
+    return;
+  }
+
+  const chips = sorted.map((t,i) =>
+    `<div class="theme-chip${i===0?" coral":""}">${t[0]}</div>`
+  ).join("");
+
+  const lines = [];
+  lines.push(`Your strongest signal is <em>${sorted[0][0]}</em> — it appears ${sorted[0][1]} times across your answers, exercises, and pattern tags.`);
+  if (sorted[1]) lines.push(`The secondary current is <em>${sorted[1][0]}</em>, woven through ${sorted[1][1]} touchpoints. This is often where your differentiation lives: ${sorted[0][0]} + ${sorted[1][0]}.`);
+  if (sorted[2]) lines.push(`A third theme — <em>${sorted[2][0]}</em> — surfaces quietly. Worth watching. It may be your under-used edge.`);
+
+  if (pos+neg > 0){
+    const ratio = pos/(pos+neg);
+    if (ratio > 0.6) lines.push(`Your intuition log leans toward <em>expansion and clarity</em> (${pos}/${pos+neg}). Your body is saying yes — follow the yeses.`);
+    else if (ratio < 0.4) lines.push(`Your intuition log leans toward <em>tension and resistance</em> (${neg}/${pos+neg}). Worth asking: which "shoulds" am I still performing?`);
+    else lines.push(`Your intuition log is roughly balanced — you're in a transition phase. Keep logging; patterns sharpen with volume.`);
+  }
+
+  // Design statement
+  const stmt = `If you didn't need to work, your time would centre on <em>${sorted[0][0].toLowerCase()}</em>${sorted[1]?" and <em>"+sorted[1][0].toLowerCase()+"</em>":""}. That's not random. That's signal — the direction your uniquely human expression wants to take.`;
+
+  out.innerHTML = `
+    <div class="theme-chips">${chips}</div>
+    ${lines.map(l => `<div class="signal-line">${l}</div>`).join("")}
+    <div class="signal-line" style="background:rgba(249,231,149,0.15);border-left-color:var(--coral)">${stmt}</div>
+  `;
+  out.classList.add("show");
+  // Scroll into view
+  out.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+function collectAllText(){
+  let s = "";
+  Object.entries(state).forEach(([k,v]) => {
+    if (typeof v === "string") s += " " + v;
+  });
+  return s;
+}
+
+// ====== EXPORT ======
+function exportMarkdown(){
+  const today = new Date().toISOString().slice(0,10);
+  let md = `# The Human Rediscovery Canvas\n\n*What makes me uniquely human in the age of AI?*\n\nCompleted: ${today}\n\n---\n\n`;
+
+  LAYERS.forEach(L => {
+    md += `## ${L.caps} — ${L.title}\n\n> ${L.intro}\n\n### Reflection\n\n`;
+    L.questions.forEach(q => {
+      md += `**${q.text}**\n\n${(state[q.key]||"_(blank)_")}\n\n`;
+    });
+    md += `### Exercise\n\n`;
+    md += renderExerciseMarkdown(L.exercise);
+    md += `\n---\n\n`;
+  });
+
+  md += `## Final Integration — Design Your Human Expression\n\n`;
+  md += `**Exploring:** ${state.int_explore||"_(blank)_"}\n\n`;
+  md += `**Creating:** ${state.int_create||"_(blank)_"}\n\n`;
+  md += `**Connecting:** ${state.int_connect||"_(blank)_"}\n\n`;
+  md += `**Contributing:** ${state.int_contribute||"_(blank)_"}\n\n`;
+  md += `\n---\n\n© Diana Simpson-Hernandez · The Human Rediscovery Canvas\n`;
+
+  const blob = new Blob([md], {type:"text/markdown"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "human-rediscovery-canvas-" + today + ".md";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function renderExerciseMarkdown(type){
+  let s = "";
+  switch(type){
+    case "strip":
+      s += "**Identity Strip-Back**\n\n";
+      for (let i=0;i<6;i++){
+        const v = state["strip_"+i]||"";
+        const stripped = state["stripped_"+i];
+        if (v) s += `- ${stripped?"~~"+v+"~~ (stripped)":v}\n`;
+      }
+      s += `\n_What remains:_ ${state.strip_remains||"_(blank)_"}\n`;
+      break;
+    case "pattern":
+      s += "**Pattern Recall — 10 moments**\n\n";
+      for (let i=0;i<10;i++){
+        const t = state["pat_"+i+"_text"]||"";
+        const tag = state["pat_"+i+"_tag"]||"-";
+        if (t) s += `${i+1}. ${t} _[${tag}]_\n`;
+      }
+      break;
+    case "intuition":
+      s += "**Intuition Calibration — 7 decisions**\n\n";
+      for (let i=0;i<7;i++){
+        const d = state["intu_"+i+"_dec"]||"";
+        const f = state["intu_"+i+"_feel"]||"-";
+        if (d) s += `- Day ${i+1}: ${d} → **${f}**\n`;
+      }
+      break;
+    case "daily":
+      s += "**Daily Output — 7 days**\n\n";
+      for (let i=0;i<7;i++){
+        const done = state["daily_"+i]?"[x]":"[ ]";
+        const note = state["daily_note_"+i]||"";
+        s += `- ${done} Day ${i+1}: ${note}\n`;
+      }
+      break;
+    case "contribution":
+      s += "**Micro-Contribution — 7 days**\n\n";
+      for (let i=0;i<7;i++){
+        const done = state["contrib_"+i]?"[x]":"[ ]";
+        const note = state["contrib_note_"+i]||"";
+        s += `- ${done} Day ${i+1}: ${note}\n`;
+      }
+      break;
+  }
+  return s;
+}
+
+function resetAll(){
+  if (!confirm("This will clear every answer on this canvas. Continue?")) return;
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+// ====== INIT ======
+renderLayers();
+// Open layer 1 by default on first visit
+if (!Object.keys(state).length){
+  const first = document.querySelector('.layer[data-layer="1"]');
+  if (first) first.classList.add("open");
+  updateProgressLabel();
+}
+</script>
+
+</body>
+</html>
