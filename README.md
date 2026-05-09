@@ -1,119 +1,136 @@
 # frameworks
-Frameworks From Diana Simpson-Hernandez Substack
 
-# dianasimpsonhernandez.com
-
-Personal site + frameworks directory. Editorial-minimal aesthetic, AI-founder positioning.
+Frameworks From Diana Simpson-Hernandez Substack.
+Lives at **dianasimpsonhernandez.com**
 
 ---
 
 ## 🏗️ Architecture
 
 ```
-/
-├── index.html                    Landing page (about, frameworks, writing, contact)
-├── styles/main.css               Shared design system (CSS variables, type, palette)
-├── data/frameworks.json          Single source of truth for all frameworks
-├── x/
-│   ├── index.html                Frameworks directory page (auto-renders from JSON)
-│   └── [slug]/index.html         One folder per framework
-└── assets/                       Images, OG tags, CV PDF
+/                              ← serves dianasimpsonhernandez.com
+├── index.html                 ← MAIN LANDING PAGE (you, frameworks, links)
+├── data/
+│   └── frameworks.json        ← single source of truth — edit to update gallery
+├── styles/
+│   └── main.css               ← shared design system
+├── assets/                    ← images, OG, CV PDF
+├── REWIRED/index.html         ← /REWIRED/
+├── flywheel/index.html        ← /flywheel/
+├── rediscovery-canvas/...     ← /rediscovery-canvas/
+├── teamscale/index.html       ← /teamscale/
+├── vibecoding/index.html      ← /vibecoding/
+├── CNAME                      ← dianasimpsonhernandez.com
+└── README.md
 ```
 
-**Why this design:**
-- `frameworks.json` drives both the landing-page gallery AND the `/x/` directory. Add a framework once, it appears in both.
-- Each framework has its own URL (`/x/signal-factory/`) — clean, shareable, indexable.
-- Pure static HTML/CSS/vanilla JS. No build, no dependencies, ships on GitHub Pages.
-
----
-
-## 🚀 Deploy to GitHub Pages
-
-1. Push this directory to your repo (e.g. `dianasimpsonhernandez/dianasimpsonhernandez.com`).
-2. Settings → Pages → Source: **Deploy from branch** → `main` / root.
-3. Custom domain: add `dianasimpsonhernandez.com` and create a `CNAME` file at the repo root containing only that domain.
-4. Point your domain's DNS:
-   - `A` records → `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - or `CNAME` → `<username>.github.io`
+The root `index.html` is the **homepage** — bio, framework gallery (auto-rendered from `frameworks.json`), writing links, contact.
 
 ---
 
 ## ➕ How to add a new framework (3 steps)
 
-**Step 1.** Add an entry to `data/frameworks.json`:
+**1.** Create the folder + `index.html`:
+```bash
+mkdir new-framework-name
+# add new-framework-name/index.html with your content
+```
 
+**2.** Add an entry to `data/frameworks.json`:
 ```json
 {
-  "slug": "your-framework",
+  "slug": "new-framework-name",
   "title": "Your Framework Name",
   "subtitle": "One-line italic positioning",
-  "category": "Framework | Architecture | Methodology",
-  "year": "2025",
+  "category": "Methodology | Strategy | Canvas | Operating Model | Course",
+  "year": "2026",
   "tags": ["AI", "Strategy"],
   "summary": "2–3 sentence description.",
-  "status": "Live | Draft | Archive",
-  "url": "/x/your-framework/"
+  "status": "Live",
+  "url": "/new-framework-name/"
 }
 ```
 
-**Step 2.** Duplicate `x/signal-factory/` → `x/your-framework/` and edit the content inside `index.html`. The structure (hero, architecture diagram, layer cards, application steps) is reusable.
+**3.** Commit, push. The homepage gallery picks it up automatically.
 
-**Step 3.** Commit and push. Both the landing page and `/x/` directory will pick it up automatically.
+> ⚠️ Folder name must match `slug` and `url` exactly. Case-sensitive on GitHub Pages (e.g. `REWIRED`, not `rewired`).
 
 ---
 
 ## 🎨 Design System
 
-All tokens in `styles/main.css` under `:root`:
+Tokens in `styles/main.css` under `:root`:
 
 | Token | Value | Use |
 |---|---|---|
 | `--paper` | `#f6f4ef` | Background |
 | `--ink` | `#1a1a1a` | Primary text |
-| `--accent` | `#c8462c` | Signal red — links, hover, italic emphasis |
-| `--font-display` | Fraunces | Headings, lede, italic emphasis |
+| `--accent` | `#c8462c` | Signal red — links, italic emphasis |
+| `--font-display` | Fraunces | Headings, italic emphasis |
 | `--font-body` | Inter Tight | Body text, UI |
 | `--font-mono` | JetBrains Mono | Eyebrows, metadata, code |
 
-To rebrand: change CSS variables, no other changes needed.
+To rebrand: change CSS variables only.
+
+---
+
+## 🔗 Apply the design system to your existing 5 framework pages (optional)
+
+To make REWIRED, flywheel, etc. visually consistent with the homepage, add this to the `<head>` of each framework's `index.html`:
+
+```html
+<link rel="stylesheet" href="/styles/main.css">
+```
+
+Then wrap navigation in:
+```html
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-mark">Diana Simpson <span>Hernandez</span></a>
+    <ul class="nav-links">
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#frameworks">Frameworks</a></li>
+    </ul>
+  </div>
+</nav>
+```
+
+This is optional — your existing framework pages keep working as-is.
 
 ---
 
 ## 🔧 Local dev
 
-The frameworks gallery uses `fetch()` to load JSON, which requires HTTP (won't work on `file://`).
+The gallery uses `fetch()` to load JSON, which requires HTTP (won't work on `file://`).
 
 ```bash
-cd site
 python3 -m http.server 8000
 # open http://localhost:8000
 ```
 
 ---
 
-## 📋 Pre-launch checklist
+## ✅ Pre-launch checklist
 
-- [ ] Replace placeholder LinkedIn / Substack / YouTube URLs in `index.html` footer
+- [ ] Replace LinkedIn / Substack / YouTube / GitHub URLs in footer
+- [ ] Replace Aletheai URL if different
 - [ ] Add `assets/og-image.png` (1200×630) for social previews
 - [ ] Add `assets/diana-simpson-hernandez-cv.pdf`
-- [ ] Add `favicon.ico` and apple-touch-icon
-- [ ] Update meta description and OG tags with final copy
-- [ ] Verify all `/x/[slug]/` framework pages exist for entries in `frameworks.json`
-- [ ] Add Plausible / Fathom / GA4 analytics snippet if needed
-- [ ] Add `CNAME` file with `dianasimpsonhernandez.com`
+- [ ] Add `favicon.ico` to root
+- [ ] Edit framework subtitles in `data/frameworks.json` to match your real positioning
+- [ ] Verify `CNAME` contains `dianasimpsonhernandez.com`
+- [ ] (Optional) Add Plausible / Fathom analytics snippet
 
 ---
 
-## 🗺️ Roadmap (suggested)
+## 🗺️ Roadmap
 
 | Version | What |
 |---|---|
-| **v1.0** | This — landing + 3 framework pages |
-| v1.1 | Add MDX-style markdown rendering for framework bodies (write in `.md`, render in HTML shell) |
+| **v1.0** | This — landing page + gallery driven by `frameworks.json` |
+| v1.1 | Apply shared `main.css` to all 5 framework pages for visual consistency |
 | v1.2 | Add `/now` page (current focus, monthly updated) |
-| v1.3 | Add `/library` — Esoterica book series landing |
-| v2.0 | Migrate to Astro if you want SSG with components — same JSON, same CSS, faster auth |
-
----
+| v1.3 | Auto-generate OG images per framework |
+| v2.0 | Migrate to Astro for SSG with components — same JSON, same CSS |
 
 Built v1.0 — 2026.
