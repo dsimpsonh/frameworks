@@ -6,12 +6,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 :root {
-  /* Type */
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Inter Tight', -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
-  /* Palette — editorial off-white + ink */
   --paper: #f6f4ef;
   --paper-warm: #efece4;
   --ink: #1a1a1a;
@@ -19,14 +17,11 @@
   --muted: #6b6b6b;
   --rule: #d8d4ca;
   --rule-soft: #e8e4d9;
-  --accent: #c8462c;        /* signal red */
+  --accent: #c8462c;
   --accent-soft: #f0d6cc;
 
-  /* Spatial */
   --max-w: 1280px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
-
-  /* Motion */
   --ease: cubic-bezier(0.2, 0.6, 0.2, 1);
 }
 
@@ -52,7 +47,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Subtle paper grain */
 body::before {
   content: '';
   position: fixed;
@@ -64,16 +58,14 @@ body::before {
   mix-blend-mode: multiply;
 }
 
-/* ============================================
-   TYPOGRAPHY
-   ============================================ */
+a { color: inherit; text-decoration: none; }
 
-.display {
-  font-family: var(--font-display);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  line-height: 0.95;
-  font-variation-settings: "opsz" 144;
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  position: relative;
+  z-index: 2;
 }
 
 .eyebrow {
@@ -94,30 +86,7 @@ body::before {
   color: var(--ink-soft);
 }
 
-a { color: inherit; text-decoration: none; }
-
-/* ============================================
-   LAYOUT PRIMITIVES
-   ============================================ */
-
-.container {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-  position: relative;
-  z-index: 2;
-}
-
-.rule {
-  height: 1px;
-  background: var(--rule);
-  border: none;
-}
-
-/* ============================================
-   NAVIGATION
-   ============================================ */
-
+/* NAV */
 .nav {
   position: sticky;
   top: 0;
@@ -127,7 +96,6 @@ a { color: inherit; text-decoration: none; }
   background: rgba(246, 244, 239, 0.78);
   border-bottom: 1px solid var(--rule-soft);
 }
-
 .nav-inner {
   display: flex;
   align-items: center;
@@ -136,7 +104,6 @@ a { color: inherit; text-decoration: none; }
   max-width: var(--max-w);
   margin: 0 auto;
 }
-
 .nav-mark {
   font-family: var(--font-display);
   font-weight: 400;
@@ -144,13 +111,11 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: -0.01em;
 }
 .nav-mark span { font-style: italic; color: var(--accent); }
-
 .nav-links {
   display: flex;
   gap: 2rem;
   list-style: none;
 }
-
 .nav-links a {
   font-size: 14px;
   color: var(--ink-soft);
@@ -167,15 +132,11 @@ a { color: inherit; text-decoration: none; }
   transition: width 0.3s var(--ease);
 }
 .nav-links a:hover::after { width: 100%; }
-
 @media (max-width: 720px) {
   .nav-links { display: none; }
 }
 
-/* ============================================
-   BUTTONS
-   ============================================ */
-
+/* BUTTONS */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -207,10 +168,7 @@ a { color: inherit; text-decoration: none; }
 .btn .arrow { transition: transform 0.25s var(--ease); }
 .btn:hover .arrow { transform: translateX(3px); }
 
-/* ============================================
-   FOOTER
-   ============================================ */
-
+/* FOOTER */
 .footer {
   margin-top: 8rem;
   padding: 4rem 0 3rem;
@@ -257,25 +215,18 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: 0.05em;
 }
 
-/* ============================================
-   ANIMATIONS — staggered reveal on load
-   ============================================ */
-
+/* ANIMATIONS */
 @keyframes rise {
   from { opacity: 0; transform: translateY(24px); }
   to { opacity: 1; transform: translateY(0); }
 }
-.reveal {
-  opacity: 0;
-  animation: rise 0.9s var(--ease) forwards;
-}
+.reveal { opacity: 0; animation: rise 0.9s var(--ease) forwards; }
 .reveal-1 { animation-delay: 0.05s; }
 .reveal-2 { animation-delay: 0.18s; }
 .reveal-3 { animation-delay: 0.32s; }
 .reveal-4 { animation-delay: 0.46s; }
 .reveal-5 { animation-delay: 0.6s; }
 
-/* Scroll-triggered fade for cards */
 .fade-up {
   opacity: 0;
   transform: translateY(30px);
