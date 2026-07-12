@@ -480,16 +480,25 @@ function playStrings(t,notes,dur){
 
 // Guitar: Karplus–Strong plucked string (noise burst → tuned feedback delay)
 function playGuitar(t,m,vel){
-  const f=midiF(m), per=1/f;
+  let f=midiF(m);
+  // A DelayNode inside a feedback cycle is clamped to one render quantum
+  // (128 samples ≈ 2.9ms ≈ 344Hz). Notes above that can't exist in the loop and
+  // would silently detune — so fold them down an octave, like running out of frets.
+  const minPer=(128/ctx.sampleRate)*1.15;
+  while(1/f<minPer) f/=2;
+  const per=1/f;
   const src=ctx.createBufferSource(); src.buffer=noiseBuf; src.loop=true;
   const exc=ctx.createGain(); exc.gain.value=vel;
   const dly=ctx.createDelay(.1); dly.delayTime.value=per;
   // Stability rule: filter Q ≤ 0.707 (no resonant peak) and feedback < 1,
   // so the loop gain stays below unity at every frequency — pluck decays, never screams.
-  const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=3200; lp.Q.value=.5;
-  const fb=ctx.createGain(); fb.gain.value=.96;
+  const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=3400; lp.Q.value=.5;
+  // Feedback is applied once per cycle, so high notes decay faster. Compensate
+  // per note for a uniform ~1.4s ring: fb = .001^(1/(f·T)), capped for stability.
+  const T=1.4;
+  const fb=ctx.createGain(); fb.gain.value=Math.min(.985, Math.pow(.001, 1/(f*T)));
   const out=ctx.createGain();
-  out.gain.setValueAtTime(vel*.8,t); out.gain.exponentialRampToValueAtTime(.001,t+1.6);
+  out.gain.setValueAtTime(vel*1.4,t); out.gain.exponentialRampToValueAtTime(.001,t+T+.2);
   src.connect(exc); exc.connect(dly);
   dly.connect(lp); lp.connect(fb); fb.connect(dly);
   // Soft-clip safety valve: even if the loop ever misbehaves, output is bounded,
@@ -502,7 +511,7 @@ function playGuitar(t,m,vel){
   lp.connect(out); out.connect(clip); clip.connect(stems.guitar.gain); // listen post-filter: rounder attack
   src.start(t); src.stop(t+per*1.2);
   setTimeout(()=>{ try{dly.disconnect();lp.disconnect();fb.disconnect();out.disconnect();}catch(e){} },
-    Math.max(0,(t-ctx.currentTime+2))*1000);
+    Math.max(0,(t-ctx.currentTime+T+.4))*1000);
 }
 
 /* Drone & binaural — continuous layers, rebuilt on change */
