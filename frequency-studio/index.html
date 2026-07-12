@@ -51,6 +51,8 @@ select:focus{outline:1px solid var(--purple)}
 .seg button{padding:9px 18px;border:0;background:transparent;font:inherit;font-size:13px;font-weight:600;cursor:pointer;color:var(--muted);transition:all .15s}
 .seg button.on{background:var(--gold);color:#16130A}
 .fieldlab{font-size:12px;font-weight:600;color:var(--violet);letter-spacing:.08em;text-transform:uppercase;margin:16px 0 8px}
+.evostatus{margin-top:14px;font-size:13px;color:var(--violet);min-height:18px;font-variant-numeric:tabular-nums}
+.evostatus b{color:var(--gold);font-weight:600}
 .note{background:rgba(232,196,100,.08);border:1px solid rgba(232,196,100,.3);border-radius:var(--rs);padding:14px 16px;font-size:13px;margin-top:18px;color:var(--goldsoft)}
 .note em{font-family:'Fraunces',serif;font-style:italic;color:var(--gold)}
 details{font-size:14px}
@@ -103,6 +105,18 @@ footer{margin-top:36px;color:var(--muted);font-size:12.5px;text-align:center}
   </section>
 
   <section class="card full">
+    <h2>Evolve</h2>
+    <p class="hint">Let the outside world steer the music. The track drifts gently toward what the data suggests — tempo, energy, colour, even key and scale — and reharmonizes itself every 16 bars. Your sliders still work; the world just keeps nudging them.</p>
+    <div class="seg" id="evoSeg">
+      <button data-evo="off" class="on">Off</button>
+      <button data-evo="time">Time of day</button>
+      <button data-evo="weather">Weather</button>
+      <button data-evo="sky">Sky · astro</button>
+    </div>
+    <div class="evostatus" id="evoStatus"></div>
+  </section>
+
+  <section class="card full">
     <h2>Frequency foundation</h2>
     <p class="hint">The harmonic bed underneath the music — tuning reference, solfeggio drone, and binaural entrainment.</p>
     <div class="grid" style="margin-top:0">
@@ -143,12 +157,13 @@ footer{margin-top:36px;color:var(--muted);font-size:12.5px;text-align:center}
       <p><strong>The guitar is a physical model.</strong> It uses Karplus–Strong synthesis: a tiny burst of noise fed into a feedback delay line exactly one wave-period long, with a lowpass filter in the loop. The noise "plucks" the string; the loop sustains and darkens it, just like a real vibrating string losing high frequencies first.</p>
       <p><strong>The drone and binaural layers sit outside the tuning system on purpose.</strong> Solfeggio tones are fixed frequencies, so they're played pure. The binaural layer sends, e.g., 120 Hz to the left ear and 126 Hz to the right — the 6 Hz difference is perceived as a pulse inside your head, in the theta band associated with meditative, trance-like states.</p>
       <p><strong>The groove evolves.</strong> Several patterns roll dice each step (probability gates), and Intensity raises both velocity and the chance of extra hits — so the track breathes instead of looping identically.</p>
+      <p><strong>Evolve mode lets the world play the studio.</strong> Time-of-day follows one smooth energy wave per day (trough at 3am, peak at 3pm). Weather comes from Open-Meteo — a free, keyless API — using your location if you allow it (an IP lookup as fallback): cloud cover darkens the filters, wind raises intensity, rain opens the reverb and shifts the scale to dorian, temperature bends the tempo. Sky mode needs no API at all: the moon phase and the sun's zodiac sign are computed from the date with real astronomy math — lunar illumination drives energy, and each sign transposes the key and colours the scale by its element. Every bar, the macros ease a few percent toward the data's target; every 16 bars the progression rotates. Nothing jumps — it drifts, like weather itself.</p>
     </details>
   </section>
 
 </main>
 
-<footer>© Diana Simpson-Hernandez · Frequency Studio — synthesized live with the Web Audio API · <span id="build">build 4</span></footer>
+<footer>© Diana Simpson-Hernandez · Frequency Studio — synthesized live with the Web Audio API · <span id="build">build 5</span></footer>
 </div>
 
 <script>
@@ -228,12 +243,13 @@ const PRESETS = [
 
 const BASS_ROLL = [1,0,1,1,0,1,0,1,1,0,1,1,0,1,0,1];
 
-// Scale degree → MIDI note (degree can exceed 7 → next octave)
+// Scale degree → MIDI note (degree can exceed 7 → next octave).
+// Evolve mode may transpose the key (rootShift) or recolour the scale.
 function noteAt(P, degree){
-  const iv = SCALES[P.scale];
+  const iv = SCALES[(typeof evo!=='undefined'&&evo.scaleOverride)||P.scale];
   const oct = Math.floor(degree/7);
   const i = ((degree%7)+7)%7;
-  return P.root + iv[i] + 12*oct;
+  return P.root + ((typeof evo!=='undefined'&&evo.rootShift)||0) + iv[i] + 12*oct;
 }
 function chordAt(P, degree){
   return [noteAt(P,degree), noteAt(P,degree+2), noteAt(P,degree+4)];
@@ -557,7 +573,10 @@ const hum = ()=> Math.random()*.008;
 
 function scheduleStep(s,b,t){
   const P=currentPreset(), I=state.macros.intensity;
-  const deg=P.prog[b%P.prog.length];
+  if(s===0) evolveTick();
+  // when evolving, rotate the progression every 16 bars — a slow reharmonization
+  const rot=evo.target?Math.floor(b/16):0;
+  const deg=P.prog[(b+rot)%P.prog.length];
   const chord=chordAt(P,deg);
   const root=noteAt(P,deg);
   const sd=stepDur(), barDur=sd*16;
@@ -649,13 +668,142 @@ function stop(){
 }
 
 /* ============================================================
-   6 · UI WIRING, VISUALIZER, PERSISTENCE
+   6 · EVOLVE — the outside world steers the music
+   Time is local; weather comes from Open-Meteo (free, keyless);
+   moon phase & sun sign are computed here with real astronomy math.
+   ============================================================ */
+const evo={mode:'off', target:null, rootShift:0, scaleOverride:null, weather:null, lastFetch:0};
+
+// Sun sign from date: [name, ends-month, ends-day, element, key shift in semitones]
+const ZODIAC=[
+ ['Capricorn',1,19,'earth',-2],['Aquarius',2,18,'air',3],['Pisces',3,20,'water',-4],
+ ['Aries',4,19,'fire',4],['Taurus',5,20,'earth',-3],['Gemini',6,20,'air',2],
+ ['Cancer',7,22,'water',-5],['Leo',8,22,'fire',5],['Virgo',9,22,'earth',-1],
+ ['Libra',10,22,'air',1],['Scorpio',11,21,'water',-6],['Sagittarius',12,21,'fire',6],
+ ['Capricorn',12,31,'earth',-2]];
+function sunSign(d){
+  const m=d.getMonth()+1, day=d.getDate();
+  for(const z of ZODIAC){ if(m<z[1]||(m===z[1]&&day<=z[2])) return z; }
+  return ZODIAC[0];
+}
+// Moon phase 0→1 (0 = new, .5 = full), from the mean synodic month
+// anchored to the known new moon of 2000-01-06 18:14 UTC.
+function moonPhase(d){
+  const synodic=29.53058867;
+  const days=d.getTime()/86400000 - Date.UTC(2000,0,6,18,14)/86400000;
+  return ((days%synodic)+synodic)%synodic/synodic;
+}
+const WMO={0:'clear sky',1:'mostly clear',2:'partly cloudy',3:'overcast',45:'fog',48:'fog',
+ 51:'drizzle',53:'drizzle',55:'drizzle',61:'light rain',63:'rain',65:'heavy rain',
+ 71:'snow',73:'snow',75:'snow',80:'showers',81:'showers',82:'showers',
+ 95:'thunderstorm',96:'thunderstorm',99:'thunderstorm'};
+
+function setEvoStatus(html){ const el=document.querySelector('#evoStatus'); if(el) el.innerHTML=html; }
+
+function computeEvolve(){
+  if(evo.mode==='off'){ evo.target=null; evo.rootShift=0; evo.scaleOverride=null; setEvoStatus(''); return; }
+  const P=currentPreset(), now=new Date();
+  const t={tempoMul:1, intensity:P.intensity, bright:P.bright, space:P.space};
+  let info='';
+
+  if(evo.mode==='time'){
+    // one smooth energy wave per day: trough ~3am, peak ~3pm
+    const h=now.getHours()+now.getMinutes()/60;
+    const energy=.5-.45*Math.cos((h-3)/24*2*Math.PI);
+    t.intensity=.25+.6*energy; t.bright=.3+.5*energy;
+    t.space=.75-.4*energy;     t.tempoMul=.9+.2*energy;
+    evo.rootShift=0; evo.scaleOverride=null;
+    const name=h<5?'deep night':h<9?'dawn':h<12?'morning':h<17?'afternoon':h<21?'evening':'night';
+    info='<b>'+now.toTimeString().slice(0,5)+'</b> · '+name+' → energy '+Math.round(energy*100)+'%';
+  }
+
+  if(evo.mode==='weather'){
+    const w=evo.weather;
+    if(!w){ setEvoStatus('listening to the sky…'); evo.target=t; return; }
+    const clear=1-w.cloud/100;
+    const rainy=(w.code>=51&&w.code<=67)||(w.code>=80&&w.code<=99);
+    t.bright=.3+.5*clear;
+    t.intensity=w.code>=95 ? .85 : Math.min(.85,.35+w.wind/45);
+    t.space=rainy?.7:.35+.25*(1-clear);
+    t.tempoMul=.92+.16*Math.max(0,Math.min(1,(w.temp+5)/40));
+    evo.scaleOverride=rainy?'dorian':null; evo.rootShift=0;
+    info='<b>'+Math.round(w.temp)+'°C</b> · '+w.desc+' · wind '+Math.round(w.wind)+' km/h ('+w.src+')';
+  }
+
+  if(evo.mode==='sky'){
+    const ph=moonPhase(now), illum=(1-Math.cos(ph*2*Math.PI))/2;
+    const z=sunSign(now);
+    evo.rootShift=z[4];
+    evo.scaleOverride = z[3]==='water'?'dorian' : z[3]==='air'?'major' : null; // fire/earth keep the preset's own colour
+    t.intensity=.3+.5*illum; t.bright=.35+.4*illum;
+    t.space=.4+.35*(1-illum); t.tempoMul=.94+.12*illum;
+    const phName=ph<.03||ph>.97?'new moon':ph<.22?'waxing crescent':ph<.28?'first quarter':
+      ph<.47?'waxing gibbous':ph<.53?'full moon':ph<.72?'waning gibbous':ph<.78?'last quarter':'waning crescent';
+    info='<b>'+phName+'</b> '+Math.round(illum*100)+'% lit · Sun in '+z[0]+' ('+z[3]+')';
+  }
+
+  evo.target=t; setEvoStatus(info);
+}
+
+// Weather: browser geolocation → IP lookup fallback → London. All endpoints free & keyless.
+async function fetchWeather(){
+  if(typeof fetch==='undefined') return;
+  evo.lastFetch=Date.now();
+  try{
+    let lat=51.5, lon=-0.12, src='London (default)';
+    const geo=await new Promise(res=>{
+      if(!navigator.geolocation) return res(null);
+      navigator.geolocation.getCurrentPosition(p=>res(p),()=>res(null),{timeout:8000,maximumAge:600000});
+    });
+    if(geo){ lat=geo.coords.latitude; lon=geo.coords.longitude; src='your location'; }
+    else{
+      try{ const j=await (await fetch('https://ipapi.co/json/')).json();
+        if(j.latitude){ lat=j.latitude; lon=j.longitude; src=j.city||'your area'; } }catch(e){}
+    }
+    const j=await (await fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,cloud_cover,wind_speed_10m,weather_code')).json();
+    const c=j.current;
+    evo.weather={temp:c.temperature_2m, cloud:c.cloud_cover, wind:c.wind_speed_10m, code:c.weather_code, desc:WMO[c.weather_code]||'sky', src};
+    computeEvolve();
+  }catch(e){ setEvoStatus('weather unavailable — trying again soon'); }
+}
+
+// Once per bar: ease the macros a few percent toward the data's target.
+// Slow enough to be felt, not heard as a jump.
+function evolveTick(){
+  if(!evo.target) return;
+  const P=currentPreset(), t=evo.target, k=.08;
+  const goalBpm=Math.min(140,Math.max(56,P.bpm*t.tempoMul));
+  state.macros.tempo += (goalBpm-state.macros.tempo)*k;
+  for(const m of ['intensity','bright','space']) state.macros[m]+=(t[m]-state.macros[m])*k;
+  updateDelayTime(); updateSpace(); syncMacroOutputs();
+}
+function syncMacroOutputs(){
+  document.querySelectorAll('input[data-macro]').forEach(inp=>{
+    const m=inp.dataset.macro;
+    const v=m==='tempo'?Math.round(state.macros.tempo):Math.round(state.macros[m]*100);
+    inp.value=v; inp.nextElementSibling.textContent=v;
+  });
+  const p=document.querySelector('#bpmPill'); if(p) p.textContent=Math.round(state.macros.tempo)+' BPM';
+}
+function setEvoMode(mode){
+  evo.mode=mode;
+  document.querySelectorAll('#evoSeg button').forEach(b=>b.classList.toggle('on',b.dataset.evo===mode));
+  if(mode==='weather' && (!evo.weather || Date.now()-evo.lastFetch>9e5)) fetchWeather();
+  computeEvolve(); persist();
+}
+// keep the status fresh; re-fetch weather every 15 minutes
+setInterval(()=>{ computeEvolve();
+  if(evo.mode==='weather' && Date.now()-evo.lastFetch>9e5) fetchWeather();
+},60000);
+
+/* ============================================================
+   7 · UI WIRING, VISUALIZER, PERSISTENCE
    ============================================================ */
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 
 function persist(){ try{ localStorage.setItem(LS_KEY, JSON.stringify({
   preset:state.preset, levels:state.levels,
-  macros:state.macros, drone:state.drone, bin:state.bin})); }catch(e){} }
+  macros:state.macros, drone:state.drone, bin:state.bin, evolve:evo.mode})); }catch(e){} }
 
 function restore(){
   try{
@@ -663,6 +811,7 @@ function restore(){
     if(!s) return false;
     Object.assign(state, {preset:s.preset, drone:s.drone, bin:s.bin});
     Object.assign(state.levels, s.levels); Object.assign(state.macros, s.macros);
+    if(s.evolve) evo.mode=s.evolve;
     return true;
   }catch(e){ return false; }
 }
@@ -730,6 +879,7 @@ function wire(){
   }));
   $('#droneSel').onchange=e=>{ state.drone=+e.target.value; setDrone(); persist(); };
   $('#binSel').onchange=e=>{ state.bin=+e.target.value; setBin(); persist(); };
+  $$('#evoSeg button').forEach(b=>b.onclick=()=>setEvoMode(b.dataset.evo));
 }
 
 function drawViz(){
@@ -757,6 +907,7 @@ buildChips();
 const had=restore();
 if(!had) applyPreset('crossfade',false); else syncUI();
 wire();
+setEvoMode(evo.mode); // restores saved mode, refreshes status, fetches weather if needed
 </script>
 </body>
 </html>
