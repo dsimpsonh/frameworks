@@ -148,7 +148,7 @@ footer{margin-top:36px;color:var(--muted);font-size:12.5px;text-align:center}
 
 </main>
 
-<footer>© Diana Simpson-Hernandez · Frequency Studio — synthesized live with the Web Audio API</footer>
+<footer>© Diana Simpson-Hernandez · Frequency Studio — synthesized live with the Web Audio API · <span id="build">build 4</span></footer>
 </div>
 
 <script>
@@ -291,7 +291,7 @@ function initAudio(){
   // tempo-synced delay bus (dotted 8th)
   delayBus = ctx.createDelay(2);
   delayFB = ctx.createGain(); delayFB.gain.value=.42;
-  const dLP = ctx.createBiquadFilter(); dLP.type='lowpass'; dLP.frequency.value=3200;
+  const dLP = ctx.createBiquadFilter(); dLP.type='lowpass'; dLP.frequency.value=3200; dLP.Q.value=-6; // dB — never boost inside a feedback loop
   delayBus.connect(dLP); dLP.connect(delayFB); delayFB.connect(delayBus);
   const dOut = ctx.createGain(); dOut.gain.value=.8;
   dLP.connect(dOut); dOut.connect(master);
@@ -490,13 +490,15 @@ function playGuitar(t,m,vel){
   const src=ctx.createBufferSource(); src.buffer=noiseBuf; src.loop=true;
   const exc=ctx.createGain(); exc.gain.value=vel;
   const dly=ctx.createDelay(.1); dly.delayTime.value=per;
-  // Stability rule: filter Q ≤ 0.707 (no resonant peak) and feedback < 1,
-  // so the loop gain stays below unity at every frequency — pluck decays, never screams.
-  const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=3400; lp.Q.value=.5;
+  // Stability: Web Audio gotcha — for lowpass filters, Q is RESONANCE IN DECIBELS,
+  // not classic Q. Any positive value BOOSTS the cutoff region, and boost × feedback > 1
+  // self-oscillates (the screech). Negative dB guarantees damping: peak gain stays ≤ 1,
+  // so with feedback < 1 the loop can only ever decay.
+  const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=2800; lp.Q.value=-18;
   // Feedback is applied once per cycle, so high notes decay faster. Compensate
-  // per note for a uniform ~1.4s ring: fb = .001^(1/(f·T)), capped for stability.
+  // per note for a uniform ~1.4s ring: fb = .001^(1/(f·T)), capped with safety margin.
   const T=1.4;
-  const fb=ctx.createGain(); fb.gain.value=Math.min(.985, Math.pow(.001, 1/(f*T)));
+  const fb=ctx.createGain(); fb.gain.value=Math.min(.97, Math.pow(.001, 1/(f*T)));
   const out=ctx.createGain();
   out.gain.setValueAtTime(vel*1.4,t); out.gain.exponentialRampToValueAtTime(.001,t+T+.2);
   src.connect(exc); exc.connect(dly);
