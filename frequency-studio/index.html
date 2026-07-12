@@ -163,7 +163,7 @@ footer{margin-top:36px;color:var(--muted);font-size:12.5px;text-align:center}
 
 </main>
 
-<footer>© Diana Simpson-Hernandez · Frequency Studio — synthesized live with the Web Audio API · <span id="build">build 5</span></footer>
+<footer>© Diana Simpson-Hernandez · Frequency Studio — synthesized live with the Web Audio API · <span id="build">build 6</span></footer>
 </div>
 
 <script>
@@ -195,13 +195,19 @@ const PRESETS = [
    bpm:122, root:45, scale:'minor', prog:[0,5,3,6],
    arp:{pattern:[0,1,2,1,3,2,1,2], rate:16, oct:1, prob:.9, wave:'sawtooth'},
    bass:'rolling', drums:'fourfloor', guitar:null, swing:.12,
+   // dark rubbery square bass, dubby resonant stabs, shadowy pads, tight techno kick
+   voice:{bass:{wave:'square',sub:.6,cut:.8,res:3}, arp:{shape:'stab',wave:'sawtooth',detune:4,res:7,cut:.7}, pad:{wave:'sawtooth',detune:5,cut:.6,breath:0}},
+   kit:{kick:[150,46,.26], snr:.9, hat:1, tom:1},
    levels:{bass:.85, synth:.7, pad:.45, strings:.15, guitar:0, drums:.85},
    bright:.55, space:.35, intensity:.6},
 
   {id:'sunrise', name:'Balcony Sunrise', tag:'Rufus Du Sol · Avoure',
    bpm:120, root:42, scale:'minor', prog:[0,3,5,4],
-   arp:{pattern:[0,2,1,3], rate:8, oct:1, prob:.95, wave:'sawtooth'},
+   arp:{pattern:[0,2,1,3], rate:8, oct:2, prob:.95, wave:'sawtooth'},
    bass:'offbeat', drums:'fourfloor', guitar:null, swing:.16,
+   // deep round sub, glassy triangle plucks up high, wide supersaw warmth, soft kit
+   voice:{bass:{wave:'sine',sub:.8,cut:1,res:.5}, arp:{shape:'pluck',wave:'triangle',detune:8,cut:1.3}, pad:{wave:'sawtooth',detune:11,cut:1.1,breath:0}},
+   kit:{kick:[130,44,.3], snr:.8, hat:.9, tom:1},
    levels:{bass:.8, synth:.65, pad:.75, strings:.3, guitar:0, drums:.75},
    bright:.6, space:.55, intensity:.55},
 
@@ -209,6 +215,9 @@ const PRESETS = [
    bpm:104, root:40, scale:'minor', prog:[0,5,2,6],
    arp:{pattern:[0,1,2,3,2,1], rate:16, oct:1, prob:1, wave:'sawtooth'},
    bass:'octave', drums:'eighties', guitar:null, swing:.04,
+   // punchy saw bass, square-wave hero lead, brassy square polysynth, huge gated snare
+   voice:{bass:{wave:'sawtooth',sub:.4,cut:1.2,res:2}, arp:{shape:'lead84',wave:'square',detune:10,cut:1.2}, pad:{wave:'square',detune:8,cut:.9,breath:0}},
+   kit:{kick:[160,50,.22], snr:1.7, hat:1.15, tom:1},
    levels:{bass:.8, synth:.75, pad:.6, strings:.25, guitar:0, drums:.8},
    bright:.75, space:.45, intensity:.6},
 
@@ -216,6 +225,9 @@ const PRESETS = [
    bpm:66, root:45, scale:'minor', prog:[0,5,3,4],
    arp:{pattern:[0,2,1,2], rate:4, oct:1, prob:.85, wave:'triangle'},
    bass:'sustained', drums:'none', guitar:null, swing:0,
+   // chamber feel: cello-soft bass, felt-piano notes, breathing air in the pads — no saw buzz
+   voice:{bass:{wave:'triangle',sub:.5,cut:.7,res:.5}, arp:{shape:'piano',wave:'triangle'}, pad:{wave:'triangle',detune:4,cut:.8,breath:.15}},
+   kit:{kick:[130,44,.3], snr:1, hat:1, tom:1},
    levels:{bass:.6, synth:.5, pad:.8, strings:.9, guitar:0, drums:0},
    bright:.35, space:.8, intensity:.35},
 
@@ -223,6 +235,9 @@ const PRESETS = [
    bpm:132, root:38, scale:'minor', prog:[0,3,5,6],
    arp:{pattern:[0,0,1,0,2,0,1,0], rate:16, oct:0, prob:1, wave:'sawtooth'},
    bass:'sustained', drums:'pulse', guitar:null, swing:0,
+   // braam-adjacent: massive detuned saw bass, aggressive ostinato stabs, taiko toms
+   voice:{bass:{wave:'sawtooth',sub:1,cut:1.1,res:2.5}, arp:{shape:'stab',wave:'sawtooth',detune:12,res:3,cut:.9}, pad:{wave:'sawtooth',detune:10,cut:.8,breath:0}},
+   kit:{kick:[120,38,.45], snr:1, hat:.7, tom:1.9},
    levels:{bass:.85, synth:.75, pad:.5, strings:.7, guitar:0, drums:.8},
    bright:.6, space:.45, intensity:.7},
 
@@ -230,6 +245,9 @@ const PRESETS = [
    bpm:88, root:43, scale:'dorian', prog:[0,5,2,4],
    arp:{pattern:[0,2,3,1], rate:8, oct:1, prob:.55, wave:'triangle'},
    bass:'offbeat', drums:'downtempo', guitar:{steps:[0,8], prob:.8}, swing:.22,
+   // mystic: round sub, pan-flute lead with breath, choir-like pads, soft rimmed kit
+   voice:{bass:{wave:'sine',sub:.7,cut:.8,res:.5}, arp:{shape:'flute',wave:'sine'}, pad:{wave:'triangle',detune:6,cut:.7,breath:.35}},
+   kit:{kick:[125,45,.3], snr:.7, hat:.85, tom:1},
    levels:{bass:.7, synth:.5, pad:.8, strings:.5, guitar:.4, drums:.65},
    bright:.4, space:.7, intensity:.45},
 
@@ -237,6 +255,9 @@ const PRESETS = [
    bpm:114, root:40, scale:'dorian', prog:[0,3,0,4],
    arp:{pattern:[0,3,1,2], rate:8, oct:1, prob:.7, wave:'sawtooth'},
    bass:'rolling', drums:'tribal', guitar:{steps:[0,3,6,10,13], prob:.75}, swing:.28,
+   // funk machine: rubbery resonant square bass, organ stabs, guitar-forward, snappy kit
+   voice:{bass:{wave:'square',sub:.5,cut:1.1,res:4}, arp:{shape:'stab',wave:'square',detune:3,res:5,cut:.9}, pad:{wave:'sawtooth',detune:6,cut:.9,breath:0}},
+   kit:{kick:[155,48,.22], snr:1.1, hat:1.05, tom:1},
    levels:{bass:.85, synth:.45, pad:.35, strings:.1, guitar:.7, drums:.85},
    bright:.65, space:.4, intensity:.65}
 ];
@@ -358,22 +379,26 @@ function noiseSrc(t,dur){
   s.start(t); s.stop(t+dur+.05); return s;
 }
 
+const kitOf=()=>currentPreset().kit||{kick:[150,46,.28],snr:1,hat:1,tom:1};
+
 function playKick(t,vel){
+  const K=kitOf().kick;
   const o=ctx.createOscillator(); o.type='sine';
-  o.frequency.setValueAtTime(150,t);
-  o.frequency.exponentialRampToValueAtTime(46,t+.1);
+  o.frequency.setValueAtTime(K[0],t);
+  o.frequency.exponentialRampToValueAtTime(K[1],t+.08+K[2]*.2);
   const g=ctx.createGain();
   g.gain.setValueAtTime(vel,t);
-  g.gain.exponentialRampToValueAtTime(.001,t+.28);
+  g.gain.exponentialRampToValueAtTime(.001,t+K[2]);
   o.connect(g); g.connect(stems.drums.gain);
-  o.start(t); o.stop(t+.3);
+  o.start(t); o.stop(t+K[2]+.05);
   const n=noiseSrc(t,.01), hp=ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=4000;
   const ng=ctx.createGain(); ng.gain.setValueAtTime(vel*.3,t); ng.gain.exponentialRampToValueAtTime(.001,t+.012);
   n.connect(hp); hp.connect(ng); ng.connect(stems.drums.gain);
 }
 function playSnare(t,vel){
-  const n=noiseSrc(t,.2), bp=ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=1800; bp.Q.value=.8;
-  const g=ctx.createGain(); g.gain.setValueAtTime(vel*.8,t); g.gain.exponentialRampToValueAtTime(.001,t+.19);
+  const S=kitOf().snr||1, dec=.1+.12*S;      // snr>1 = the big 80s snare
+  const n=noiseSrc(t,dec+.05), bp=ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=1800; bp.Q.value=.8;
+  const g=ctx.createGain(); g.gain.setValueAtTime(vel*.8*Math.min(1.25,S),t); g.gain.exponentialRampToValueAtTime(.001,t+dec);
   n.connect(bp); bp.connect(g); g.connect(stems.drums.gain);
   const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=190;
   const og=ctx.createGain(); og.gain.setValueAtTime(vel*.5,t); og.gain.exponentialRampToValueAtTime(.001,t+.09);
@@ -387,16 +412,18 @@ function playClap(t,vel){
   }
 }
 function playHat(t,open,vel){
-  const n=noiseSrc(t,open?.35:.05), hp=ctx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=8500;
+  const n=noiseSrc(t,open?.35:.05), hp=ctx.createBiquadFilter(); hp.type='highpass';
+  hp.frequency.value=8500*(kitOf().hat||1);
   const g=ctx.createGain(); g.gain.setValueAtTime(vel*.35,t);
   g.gain.exponentialRampToValueAtTime(.001,t+(open?.32:.045));
   n.connect(hp); hp.connect(g); g.connect(stems.drums.gain);
 }
 function playTom(t,vel){
+  const T=kitOf().tom||1;                       // tom>1 = taiko territory
   const o=ctx.createOscillator(); o.type='sine';
-  o.frequency.setValueAtTime(120,t); o.frequency.exponentialRampToValueAtTime(70,t+.25);
-  const g=ctx.createGain(); g.gain.setValueAtTime(vel*.7,t); g.gain.exponentialRampToValueAtTime(.001,t+.3);
-  o.connect(g); g.connect(stems.drums.gain); o.start(t); o.stop(t+.32);
+  o.frequency.setValueAtTime(120/Math.sqrt(T),t); o.frequency.exponentialRampToValueAtTime(60/Math.sqrt(T),t+.25*T);
+  const g=ctx.createGain(); g.gain.setValueAtTime(vel*.7*Math.min(1.3,T),t); g.gain.exponentialRampToValueAtTime(.001,t+.3*T);
+  o.connect(g); g.connect(stems.drums.gain); o.start(t); o.stop(t+.3*T+.05);
 }
 function playShaker(t,vel){
   const n=noiseSrc(t,.06), bp=ctx.createBiquadFilter(); bp.type='bandpass'; bp.frequency.value=6000; bp.Q.value=1.5;
@@ -410,41 +437,88 @@ function playPerc(t,vel){
   o.connect(g); g.connect(stems.drums.gain); o.start(t); o.stop(t+.14);
 }
 
-// Bass: saw + sub-octave sine through an enveloped lowpass
+// Bass: per-preset character — waveform, sub weight, filter cut & resonance
 function playBass(t,m,dur,vel){
-  const f=midiF(m);
-  const o1=ctx.createOscillator(); o1.type='sawtooth'; o1.frequency.value=f;
+  const V=currentPreset().voice.bass, f=midiF(m);
+  const o1=ctx.createOscillator(); o1.type=V.wave; o1.frequency.value=f;
   const o2=ctx.createOscillator(); o2.type='sine'; o2.frequency.value=f/2;
-  const flt=ctx.createBiquadFilter(); flt.type='lowpass'; flt.Q.value=1.5;
-  const cut=160+1600*state.macros.bright;
+  const sub=ctx.createGain(); sub.gain.value=V.sub;
+  const flt=ctx.createBiquadFilter(); flt.type='lowpass'; flt.Q.value=V.res;
+  const cut=(160+1600*state.macros.bright)*V.cut;
   flt.frequency.setValueAtTime(cut*2.2,t);
   flt.frequency.exponentialRampToValueAtTime(cut,t+Math.min(.18,dur));
   const g=ctx.createGain();
   g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vel*.7,t+.006);
   g.gain.setTargetAtTime(vel*.45,t+.05,.1);
   g.gain.setTargetAtTime(0,t+dur,.04);
-  o1.connect(flt); o2.connect(flt); flt.connect(g); g.connect(stems.bass.gain);
+  o1.connect(flt); o2.connect(sub); sub.connect(flt); flt.connect(g); g.connect(stems.bass.gain);
   o1.start(t); o2.start(t); o1.stop(t+dur+.4); o2.stop(t+dur+.4);
 }
 
-// Synth/arp: detuned saws (or triangle) → lowpass → env, feeds delay bus
-function playSynth(t,m,dur,vel,wave){
-  const f=midiF(m);
-  const o1=ctx.createOscillator(); o1.type=wave; o1.frequency.value=f; o1.detune.value=-6;
-  const o2=ctx.createOscillator(); o2.type=wave; o2.frequency.value=f; o2.detune.value=6;
-  const flt=ctx.createBiquadFilter(); flt.type='lowpass'; flt.Q.value=2;
-  const cut=350+(900+4200*state.macros.bright)*vel;
-  flt.frequency.setValueAtTime(cut,t);
-  flt.frequency.exponentialRampToValueAtTime(Math.max(300,cut*.4),t+dur);
+// Lead/arp: five distinct architectures selected per preset.
+// 'piano' = felt keys, 'flute' = breath + vibrato, 'pluck' = glassy filter snap,
+// 'stab' = resonant gate, 'lead84' = full-sustain square hero.
+function playSynth(t,m,dur,vel){
+  const V=currentPreset().voice.arp, f=midiF(m);
+
+  if(V.shape==='piano'){
+    // Struck, not blown: instant attack, long natural exponential decay, no filter motion
+    const g=ctx.createGain();
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vel*.5,t+.004);
+    g.gain.setTargetAtTime(0,t+.03,dur*.45);
+    const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.Q.value=.3;
+    lp.frequency.value=2200+2600*state.macros.bright;
+    const o1=ctx.createOscillator(); o1.type='triangle'; o1.frequency.value=f;
+    const o2=ctx.createOscillator(); o2.type='sine'; o2.frequency.value=f*2;
+    const oct=ctx.createGain(); oct.gain.value=.15;
+    o1.connect(lp); o2.connect(oct); oct.connect(lp); lp.connect(g); g.connect(stems.synth.gain);
+    o1.start(t); o2.start(t); o1.stop(t+dur+1.5); o2.stop(t+dur+1.5);
+    return;
+  }
+
+  if(V.shape==='flute'){
+    // Blown, not struck: soft attack, delayed vibrato, a whisper of breath noise
+    const g=ctx.createGain();
+    g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vel*.35,t+.06);
+    g.gain.setValueAtTime(vel*.35,t+dur*.85); g.gain.linearRampToValueAtTime(0,t+dur+.1);
+    const o=ctx.createOscillator(); o.type='sine'; o.frequency.value=f;
+    const vib=ctx.createOscillator(); vib.frequency.value=5.2;
+    const vg=ctx.createGain(); vg.gain.setValueAtTime(0,t); vg.gain.linearRampToValueAtTime(9,t+.25);
+    vib.connect(vg); vg.connect(o.detune);
+    const br=noiseSrc(t,dur), bf=ctx.createBiquadFilter(); bf.type='bandpass'; bf.frequency.value=f*2; bf.Q.value=2;
+    const bg=ctx.createGain(); bg.gain.value=vel*.05;
+    br.connect(bf); bf.connect(bg); bg.connect(g);
+    o.connect(g); g.connect(stems.synth.gain);
+    o.start(t); vib.start(t); o.stop(t+dur+.2); vib.stop(t+dur+.2);
+    return;
+  }
+
+  // subtractive family: pluck / stab / lead84
+  const o1=ctx.createOscillator(); o1.type=V.wave; o1.frequency.value=f; o1.detune.value=-V.detune;
+  const o2=ctx.createOscillator(); o2.type=V.wave; o2.frequency.value=f; o2.detune.value=V.detune;
+  const flt=ctx.createBiquadFilter(); flt.type='lowpass'; flt.Q.value=V.res||1.5;
+  const base=(350+(900+4200*state.macros.bright)*vel)*(V.cut||1);
+  if(V.shape==='pluck'){       // bright snap that closes fast — glassy
+    flt.frequency.setValueAtTime(base*2.4,t);
+    flt.frequency.exponentialRampToValueAtTime(Math.max(250,base*.3),t+dur*.5);
+  } else if(V.shape==='lead84'){ // stays open — the confident 80s lead
+    flt.frequency.setValueAtTime(base*1.4,t);
+    flt.frequency.exponentialRampToValueAtTime(Math.max(400,base*.8),t+dur);
+  } else {                     // stab: resonant sweep — dubby, vocal
+    flt.frequency.setValueAtTime(base,t);
+    flt.frequency.exponentialRampToValueAtTime(Math.max(300,base*.4),t+dur);
+  }
   const g=ctx.createGain();
-  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vel*.32,t+.005);
-  g.gain.setTargetAtTime(0,t+dur*.75,.07);
+  const peak=V.shape==='lead84'?vel*.3:vel*.32;
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(peak,t+.005);
+  g.gain.setTargetAtTime(0, t+dur*(V.shape==='pluck'?.5:.75), V.shape==='pluck'?.05:.07);
   o1.connect(flt); o2.connect(flt); flt.connect(g); g.connect(stems.synth.gain);
   o1.start(t); o2.start(t); o1.stop(t+dur+.5); o2.stop(t+dur+.5);
 }
 
-// Pad: detuned saws spread across the stereo field, slow attack, drifting filter
+// Pad: per-preset texture — waveform, detune width, filter colour, optional breath
 function playPad(t,notes,dur){
+  const V=currentPreset().voice.pad;
   const g=ctx.createGain();
   const atk=Math.min(1.6,dur*.35);
   g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.12,t+atk);
@@ -453,17 +527,24 @@ function playPad(t,notes,dur){
   const lfo=ctx.createOscillator(); lfo.frequency.value=.15;
   const lfoG=ctx.createGain(); lfoG.gain.value=180;
   lfo.start(t); lfo.stop(t+dur+3);
-  for(const [det,panv] of [[-7,-.4],[0,0],[7,.4]]){
+  const d=V.detune;
+  for(const [det,panv] of [[-d,-.4],[0,0],[d,.4]]){
     const flt=ctx.createBiquadFilter(); flt.type='lowpass'; flt.Q.value=.7;
-    flt.frequency.value=500+2200*state.macros.bright;
+    flt.frequency.value=(500+2200*state.macros.bright)*V.cut;
     lfo.connect(lfoG); lfoG.connect(flt.frequency);
     const pan=ctx.createStereoPanner(); pan.pan.value=panv;
     flt.connect(pan); pan.connect(g);
     for(const m of notes){
-      const o=ctx.createOscillator(); o.type='sawtooth';
+      const o=ctx.createOscillator(); o.type=V.wave;
       o.frequency.value=midiF(m); o.detune.value=det;
       o.connect(flt); o.start(t); o.stop(t+dur+2);
     }
+  }
+  if(V.breath>0){ // choir-like air riding on top of the chord
+    const br=noiseSrc(t,dur+1.5), bf=ctx.createBiquadFilter();
+    bf.type='bandpass'; bf.frequency.value=midiF(notes[notes.length-1])*2; bf.Q.value=1.2;
+    const bg=ctx.createGain(); bg.gain.value=.5*V.breath;
+    br.connect(bf); bf.connect(bg); bg.connect(g);
   }
 }
 
