@@ -163,7 +163,7 @@ footer{margin-top:36px;color:var(--muted);font-size:12.5px;text-align:center}
 
 </main>
 
-<footer>© Diana Simpson-Hernandez · Frequency Studio — synthesized live with the Web Audio API · <span id="build">build 6</span></footer>
+<footer>© Diana Simpson-Hernandez · Frequency Studio — synthesized live with the Web Audio API · <span id="build">build 7</span></footer>
 </div>
 
 <script>
@@ -183,82 +183,101 @@ const DRUMS = {
   none:      {},
   fourfloor: {kick:[0,4,8,12], clap:[4,12], chh:[2,6,10,14], ohh:[14]},
   eighties:  {kick:[0,8,10],  snare:[4,12], chh:[0,2,4,6,8,10,12,14]},
-  pulse:     {kick:[0,4,8,12], tom:[7,15],  chh:[0,2,4,6,8,10,12,14]},
-  downtempo: {kick:[0,10],    snare:[4,12], chh:[0,2,4,6,8,10,12,14], shk:[1,3,5,7,9,11,13,15]},
+  pulse:     {kick:[0,8],     tom:[12,14],  chh:[0,4,8,12]},              // epic: boom + building toms, no dance floor
+  downtempo: {kick:[0,7,10],  snare:[4,12], chh:[0,2,4,6,8,10,12,14], shk:[1,3,5,7,9,11,13,15]}, // the Sadeness lope
   tribal:    {kick:[0,4,8,12], clap:[12],   chh:[2,6,10,14], perc:[3,7,14]}
 };
 
-/* Each preset: key/scale, chord progression (scale degrees, one per bar),
-   per-stem behaviour + default mix. */
+/* Each preset: key/scale, chord progression, harmonic rhythm (chordBars),
+   and COMPOSED RIFFS. Riffs are what make an artist an artist — patterns with
+   rests, not constant streams.
+   bassSeq: 16 steps (1 bar). hookSeq: 32 steps (2-bar phrase).
+   Each entry: null (rest) or [semitones-above-key-tonic, length-in-steps, velocity].
+   Riffs sit on the KEY tonic while the pads/strings move through the chords —
+   how melodic techno, dark disco and synthwave actually work. */
 const PRESETS = [
   {id:'crossfade', name:'Crossfade', tag:'Gus Gus · melodic techno',
-   bpm:122, root:45, scale:'minor', prog:[0,5,3,6],
-   arp:{pattern:[0,1,2,1,3,2,1,2], rate:16, oct:1, prob:.9, wave:'sawtooth'},
-   bass:'rolling', drums:'fourfloor', guitar:null, swing:.12,
-   // dark rubbery square bass, dubby resonant stabs, shadowy pads, tight techno kick
+   bpm:123, root:45, scale:'minor', prog:[0,5,3,6], chordBars:1,
+   // offbeat pumping bass with a b7 turn; sparse two-note stab hook, lots of air
+   bassSeq:[null,null,[0,1.5,.9],null, null,null,[0,1.5,.75],null, null,null,[3,1.5,.85],null, null,null,[-2,1.5,.7],null],
+   hookSeq:[[12,2,.9],null,null,null, [10,1,.55],null,null,null, [12,2,.8],null,null,null, null,null,[15,1,.7],null,
+            [12,2,.9],null,null,null, [10,1,.55],null,null,null, [7,3,.8],null,null,null, null,null,null,null],
+   bass:'seq', drums:'fourfloor', guitar:null, swing:.12,
    voice:{bass:{wave:'square',sub:.6,cut:.8,res:3}, arp:{shape:'stab',wave:'sawtooth',detune:4,res:7,cut:.7}, pad:{wave:'sawtooth',detune:5,cut:.6,breath:0}},
    kit:{kick:[150,46,.26], snr:.9, hat:1, tom:1},
    levels:{bass:.85, synth:.7, pad:.45, strings:.15, guitar:0, drums:.85},
    bright:.55, space:.35, intensity:.6},
 
   {id:'sunrise', name:'Balcony Sunrise', tag:'Rufus Du Sol · Avoure',
-   bpm:120, root:42, scale:'minor', prog:[0,3,5,4],
-   arp:{pattern:[0,2,1,3], rate:8, oct:2, prob:.95, wave:'sawtooth'},
-   bass:'offbeat', drums:'fourfloor', guitar:null, swing:.16,
-   // deep round sub, glassy triangle plucks up high, wide supersaw warmth, soft kit
+   bpm:121, root:42, scale:'minor', prog:[0,3,5,4], chordBars:1,
+   // pumping offbeat sub with an octave lift; syncopated glassy pluck line dripping delay
+   bassSeq:[null,null,[0,1.6,.85],null, null,null,[0,1.6,.85],null, null,null,[0,1.6,.85],null, null,null,[0,1.2,.8],[12,1,.5]],
+   hookSeq:[[12,1,.8],null,null,[19,1,.7], null,null,[15,1,.75],null, null,null,[12,1,.7],null, null,[19,1,.65],null,null,
+            [12,1,.8],null,null,[19,1,.7], null,null,[15,1,.75],null, null,null,[24,1,.75],null, null,[19,1,.65],null,null],
+   bass:'seq', drums:'fourfloor', guitar:null, swing:.16,
    voice:{bass:{wave:'sine',sub:.8,cut:1,res:.5}, arp:{shape:'pluck',wave:'triangle',detune:8,cut:1.3}, pad:{wave:'sawtooth',detune:11,cut:1.1,breath:0}},
    kit:{kick:[130,44,.3], snr:.8, hat:.9, tom:1},
    levels:{bass:.8, synth:.65, pad:.75, strings:.3, guitar:0, drums:.75},
    bright:.6, space:.55, intensity:.55},
 
   {id:'neon84', name:'Neon 84', tag:'80s synthwave',
-   bpm:104, root:40, scale:'minor', prog:[0,5,2,6],
-   arp:{pattern:[0,1,2,3,2,1], rate:16, oct:1, prob:1, wave:'sawtooth'},
-   bass:'octave', drums:'eighties', guitar:null, swing:.04,
-   // punchy saw bass, square-wave hero lead, brassy square polysynth, huge gated snare
+   bpm:110, root:40, scale:'minor', prog:[0,5,2,6], chordBars:1,
+   // relentless straight-8 pump; an actual singable melody, not an arpeggio
+   bassSeq:[[0,1,.9],null,[0,1,.7],null, [0,1,.85],null,[0,1,.7],null, [0,1,.9],null,[0,1,.7],null, [0,1,.85],null,[0,1,.75],null],
+   hookSeq:[[12,2,.8],null,null,null, [15,2,.75],null,null,null, [17,2,.8],null,null,null, [15,2,.7],null,null,null,
+            [19,4,.85],null,null,null, null,null,null,null, [17,2,.75],null,null,null, [15,1,.6],null,[12,2,.7],null],
+   bass:'seq', drums:'eighties', guitar:null, swing:.04,
    voice:{bass:{wave:'sawtooth',sub:.4,cut:1.2,res:2}, arp:{shape:'lead84',wave:'square',detune:10,cut:1.2}, pad:{wave:'square',detune:8,cut:.9,breath:0}},
    kit:{kick:[160,50,.22], snr:1.7, hat:1.15, tom:1},
    levels:{bass:.8, synth:.75, pad:.6, strings:.25, guitar:0, drums:.8},
    bright:.75, space:.45, intensity:.6},
 
   {id:'richter', name:'On Light', tag:'Max Richter · neoclassical',
-   bpm:66, root:45, scale:'minor', prog:[0,5,3,4],
-   arp:{pattern:[0,2,1,2], rate:4, oct:1, prob:.85, wave:'triangle'},
+   bpm:64, root:45, scale:'minor', prog:[0,5,3,4], chordBars:2,
+   // chords breathe over TWO bars; hypnotic felt-piano cycle — root, fifth, octave, fifth
+   bassSeq:null,
+   hookSeq:[[12,2,.5],null,null,null, [19,2,.42],null,null,null, [24,2,.46],null,null,null, [19,2,.4],null,null,null,
+            [12,2,.48],null,null,null, [19,2,.42],null,null,null, [24,2,.44],null,null,null, [19,2,.38],null,null,null],
    bass:'sustained', drums:'none', guitar:null, swing:0,
-   // chamber feel: cello-soft bass, felt-piano notes, breathing air in the pads — no saw buzz
    voice:{bass:{wave:'triangle',sub:.5,cut:.7,res:.5}, arp:{shape:'piano',wave:'triangle'}, pad:{wave:'triangle',detune:4,cut:.8,breath:.15}},
    kit:{kick:[130,44,.3], snr:1, hat:1, tom:1},
    levels:{bass:.6, synth:.5, pad:.8, strings:.9, guitar:0, drums:0},
    bright:.35, space:.8, intensity:.35},
 
   {id:'f1', name:'F1 Rising', tag:'Hans Zimmer · epic pulse',
-   bpm:132, root:38, scale:'minor', prog:[0,3,5,6],
-   arp:{pattern:[0,0,1,0,2,0,1,0], rate:16, oct:0, prob:1, wave:'sawtooth'},
+   bpm:132, root:38, scale:'minor', prog:[0,3,5,6], chordBars:1,
+   // the Zimmer engine: relentless 8th ostinato circling tonic-b3-4, booms underneath
+   bassSeq:null,
+   hookSeq:[[12,1,.9],null,[12,1,.7],null, [15,1,.8],null,[12,1,.7],null, [12,1,.85],null,[15,1,.75],null, [17,1,.85],null,[15,1,.75],null,
+            [12,1,.9],null,[12,1,.7],null, [15,1,.8],null,[12,1,.7],null, [19,1,.9],null,[17,1,.8],null, [15,1,.8],null,[12,1,.7],null],
    bass:'sustained', drums:'pulse', guitar:null, swing:0,
-   // braam-adjacent: massive detuned saw bass, aggressive ostinato stabs, taiko toms
    voice:{bass:{wave:'sawtooth',sub:1,cut:1.1,res:2.5}, arp:{shape:'stab',wave:'sawtooth',detune:12,res:3,cut:.9}, pad:{wave:'sawtooth',detune:10,cut:.8,breath:0}},
    kit:{kick:[120,38,.45], snr:1, hat:.7, tom:1.9},
    levels:{bass:.85, synth:.75, pad:.5, strings:.7, guitar:0, drums:.8},
    bright:.6, space:.45, intensity:.7},
 
   {id:'sadeness', name:'Sadeness Drift', tag:'Enigma · downtempo trance',
-   bpm:88, root:43, scale:'dorian', prog:[0,5,2,4],
-   arp:{pattern:[0,2,3,1], rate:8, oct:1, prob:.55, wave:'triangle'},
-   bass:'offbeat', drums:'downtempo', guitar:{steps:[0,8], prob:.8}, swing:.22,
-   // mystic: round sub, pan-flute lead with breath, choir-like pads, soft rimmed kit
+   bpm:100, root:43, scale:'dorian', prog:[0,5,2,4], chordBars:2,
+   // round sub anchoring beat 1; flute sings a PHRASE, then leaves silence — call and rest
+   bassSeq:[[0,3,.75],null,null,null, null,null,null,null, [0,2,.55],null,[0,1.5,.5],null, null,null,null,null],
+   hookSeq:[null,null,[15,2,.65],null, null,null,[17,1.5,.6],null, null,null,[12,4,.6],null, null,null,null,null,
+            null,null,[10,2,.55],null, null,null,[12,2,.55],null, null,null,[7,5,.6],null, null,null,null,null],
+   bass:'seq', drums:'downtempo', guitar:{steps:[0,8], prob:.8}, swing:.22,
    voice:{bass:{wave:'sine',sub:.7,cut:.8,res:.5}, arp:{shape:'flute',wave:'sine'}, pad:{wave:'triangle',detune:6,cut:.7,breath:.35}},
    kit:{kick:[125,45,.3], snr:.7, hat:.85, tom:1},
    levels:{bass:.7, synth:.5, pad:.8, strings:.5, guitar:.4, drums:.65},
    bright:.4, space:.7, intensity:.45},
 
   {id:'tulum', name:'Tulum Tape', tag:'Sofi Tukker · Theus Mago',
-   bpm:114, root:40, scale:'dorian', prog:[0,3,0,4],
-   arp:{pattern:[0,3,1,2], rate:8, oct:1, prob:.7, wave:'sawtooth'},
-   bass:'rolling', drums:'tribal', guitar:{steps:[0,3,6,10,13], prob:.75}, swing:.28,
-   // funk machine: rubbery resonant square bass, organ stabs, guitar-forward, snappy kit
+   bpm:112, root:40, scale:'dorian', prog:[0,3,0,4], chordBars:1,
+   // dark disco: the BASS is the hook — rubbery riff walking b7-5-4-b3; organ jabs answer
+   bassSeq:[[0,1,.9],null,null,[12,1,.7], [10,1,.8],null,[0,1,.7],null, [0,1,.9],null,null,[7,1,.75], [5,1,.8],null,[3,1,.7],null],
+   hookSeq:[null,null,null,null, null,null,[12,1,.7],null, null,null,null,null, null,null,[15,1,.6],null,
+            null,null,null,null, null,null,[12,1,.7],null, null,null,[19,1,.65],null, null,null,[10,1,.6],null],
+   bass:'seq', drums:'tribal', guitar:{steps:[2,5,10,13], prob:.8}, swing:.28,
    voice:{bass:{wave:'square',sub:.5,cut:1.1,res:4}, arp:{shape:'stab',wave:'square',detune:3,res:5,cut:.9}, pad:{wave:'sawtooth',detune:6,cut:.9,breath:0}},
    kit:{kick:[155,48,.22], snr:1.1, hat:1.05, tom:1},
-   levels:{bass:.85, synth:.45, pad:.35, strings:.1, guitar:.7, drums:.85},
+   levels:{bass:.9, synth:.5, pad:.35, strings:.1, guitar:.7, drums:.85},
    bright:.65, space:.4, intensity:.65}
 ];
 
@@ -655,11 +674,14 @@ const hum = ()=> Math.random()*.008;
 function scheduleStep(s,b,t){
   const P=currentPreset(), I=state.macros.intensity;
   if(s===0) evolveTick();
+  // harmonic rhythm: some vibes change chords every bar, Richter-likes every two
+  const CB=P.chordBars||1;
   // when evolving, rotate the progression every 16 bars — a slow reharmonization
   const rot=evo.target?Math.floor(b/16):0;
-  const deg=P.prog[(b+rot)%P.prog.length];
+  const deg=P.prog[(Math.floor(b/CB)+rot)%P.prog.length];
   const chord=chordAt(P,deg);
   const root=noteAt(P,deg);
+  const tonic=noteAt(P,0);              // riffs anchor to the key, chords move above
   const sd=stepDur(), barDur=sd*16;
 
   // — drums —
@@ -678,21 +700,17 @@ function scheduleStep(s,b,t){
   if(pat.clap && b%8===7 && s>=12 && Math.random()<.85) playClap(t+hum(), .25+.05*(s-12));
   if(pat.kick && b%8===0 && b>0 && s===0) playHat(t,true,.5); // open-hat lift on the turn
 
-  // — bass —
-  if(P.bass==='rolling' && BASS_ROLL[s]) playBass(t,root,sd*.7,s===0?.95:.75);
-  else if(P.bass==='offbeat' && [2,6,10,14].includes(s)) playBass(t,root,sd*1.6,.85);
-  else if(P.bass==='sustained' && s===0) playBass(t,root,barDur*.96,.8);
-  else if(P.bass==='octave' && s%2===0) playBass(t,root+(s%4===2?12:0),sd*.85,.8);
+  // — bass: composed riff on the tonic, or sustained root for cinematic vibes —
+  if(P.bass==='seq' && P.bassSeq){
+    const e=P.bassSeq[s];
+    if(e) playBass(t, tonic+e[0], sd*e[1]*.92, e[2]);
+  }
+  else if(P.bass==='sustained' && s===0 && b%CB===0) playBass(t,root,barDur*CB*.96,.8);
 
-  // — synth arp —
-  const every=16/P.arp.rate;
-  if(s%every===0){
-    if(Math.random() < P.arp.prob + I*.15){
-      const ti=P.arp.pattern[arpIdx%P.arp.pattern.length];
-      const note=chord[ti%3]+12*(P.arp.oct+Math.floor(ti/3));
-      playSynth(t+hum(), note, sd*every*.85, .5+.4*I, P.arp.wave);
-    }
-    arpIdx++;
+  // — lead: a composed 2-bar phrase with rests, not a stream of notes —
+  if(P.hookSeq){
+    const e=P.hookSeq[(b%2)*16+s];
+    if(e && Math.random()<.9+I*.1) playSynth(t+hum(), tonic+e[0], sd*e[1]*.95, e[2]*(.75+.35*I));
   }
 
   // — guitar (Karplus–Strong plucks) —
@@ -701,13 +719,13 @@ function scheduleStep(s,b,t){
     gtrIdx++;
   }
 
-  // — pads: 7th-chord voicing, one per bar —
-  if(s===0) playPad(t, chordExt(P,deg,4).map(n=>n+12), barDur);
+  // — pads: 7th-chord voicing, sustained for the chord's full life —
+  if(s===0 && b%CB===0) playPad(t, chordExt(P,deg,4).map(n=>n+12), barDur*CB);
 
   // — strings: open 9th voicing (root · 5th · 9th), an octave up —
-  if(s===0 && state.levels.strings>0.01){
+  if(s===0 && b%CB===0 && state.levels.strings>0.01){
     const c9=chordExt(P,deg,5);
-    playStrings(t, [c9[0]+24, c9[2]+24, c9[4]+24], barDur);
+    playStrings(t, [c9[0]+24, c9[2]+24, c9[4]+24], barDur*CB);
   }
 }
 
