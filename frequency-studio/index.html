@@ -439,16 +439,25 @@ function playGuitar(t,m,vel){
   const src=ctx.createBufferSource(); src.buffer=noiseBuf; src.loop=true;
   const exc=ctx.createGain(); exc.gain.value=vel;
   const dly=ctx.createDelay(.1); dly.delayTime.value=per;
-  const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=3800;
-  const fb=ctx.createGain(); fb.gain.value=.945;
+  // Stability rule: filter Q ≤ 0.707 (no resonant peak) and feedback < 1,
+  // so the loop gain stays below unity at every frequency — pluck decays, never screams.
+  const lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=3200; lp.Q.value=.5;
+  const fb=ctx.createGain(); fb.gain.value=.96;
   const out=ctx.createGain();
-  out.gain.setValueAtTime(vel*.9,t); out.gain.exponentialRampToValueAtTime(.001,t+2.2);
+  out.gain.setValueAtTime(vel*.8,t); out.gain.exponentialRampToValueAtTime(.001,t+1.6);
   src.connect(exc); exc.connect(dly);
   dly.connect(lp); lp.connect(fb); fb.connect(dly);
-  dly.connect(out); out.connect(stems.guitar.gain);
-  src.start(t); src.stop(t+per*1.5);
+  // Soft-clip safety valve: even if the loop ever misbehaves, output is bounded,
+  // so Infinity/NaN can never leak into the shared delay/reverb buses again.
+  const clip=ctx.createWaveShaper();
+  if(!playGuitar._curve){ const c=new Float32Array(1024);
+    for(let i=0;i<1024;i++){ const x=(i/511.5)-1; c[i]=Math.tanh(x*1.5)/Math.tanh(1.5); }
+    playGuitar._curve=c; }
+  clip.curve=playGuitar._curve;
+  lp.connect(out); out.connect(clip); clip.connect(stems.guitar.gain); // listen post-filter: rounder attack
+  src.start(t); src.stop(t+per*1.2);
   setTimeout(()=>{ try{dly.disconnect();lp.disconnect();fb.disconnect();out.disconnect();}catch(e){} },
-    Math.max(0,(t-ctx.currentTime+2.6))*1000);
+    Math.max(0,(t-ctx.currentTime+2))*1000);
 }
 
 /* Drone & binaural — continuous layers, rebuilt on change */
