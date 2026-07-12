@@ -70,7 +70,7 @@ footer{margin-top:36px;color:var(--muted);font-size:12.5px;text-align:center}
 <header class="hero">
   <div class="eyebrow">Music Production · Web Audio</div>
   <h1>Frequency <em>Studio</em></h1>
-  <p class="sub">A generative mini-studio tuned to your taste — pick a vibe, mix the stems, and anchor it all to a harmonic foundation. Nothing is a recording: every note is synthesized live in your browser.</p>
+  <p class="sub">A generative mini-studio locked to 432&nbsp;Hz — pick a vibe, mix the stems, and anchor it all to a harmonic foundation. The presets are starting points, not boundaries: every slider reshapes the music live. Nothing is a recording — every note is synthesized in your browser.</p>
   <div class="transport">
     <button class="play" id="playBtn">▶&nbsp; Play</button>
     <span class="pill" id="bpmPill">— BPM</span>
@@ -88,6 +88,7 @@ footer{margin-top:36px;color:var(--muted);font-size:12.5px;text-align:center}
     <div class="row"><label>Bass</label><input type="range" min="0" max="100" data-stem="bass"><output>–</output></div>
     <div class="row"><label>Synth</label><input type="range" min="0" max="100" data-stem="synth"><output>–</output></div>
     <div class="row"><label>Pads</label><input type="range" min="0" max="100" data-stem="pad"><output>–</output></div>
+    <div class="row"><label>Strings</label><input type="range" min="0" max="100" data-stem="strings"><output>–</output></div>
     <div class="row"><label>Guitar</label><input type="range" min="0" max="100" data-stem="guitar"><output>–</output></div>
     <div class="row"><label>Drums</label><input type="range" min="0" max="100" data-stem="drums"><output>–</output></div>
   </section>
@@ -178,50 +179,50 @@ const PRESETS = [
   {id:'crossfade', name:'Crossfade', tag:'Gus Gus · melodic techno',
    bpm:122, root:45, scale:'minor', prog:[0,5,3,6],
    arp:{pattern:[0,1,2,1,3,2,1,2], rate:16, oct:1, prob:.9, wave:'sawtooth'},
-   bass:'rolling', drums:'fourfloor', guitar:null,
-   levels:{bass:.85, synth:.7, pad:.45, guitar:0, drums:.85},
+   bass:'rolling', drums:'fourfloor', guitar:null, swing:.12,
+   levels:{bass:.85, synth:.7, pad:.45, strings:.15, guitar:0, drums:.85},
    bright:.55, space:.35, intensity:.6},
 
   {id:'sunrise', name:'Balcony Sunrise', tag:'Rufus Du Sol · Avoure',
    bpm:120, root:42, scale:'minor', prog:[0,3,5,4],
    arp:{pattern:[0,2,1,3], rate:8, oct:1, prob:.95, wave:'sawtooth'},
-   bass:'offbeat', drums:'fourfloor', guitar:null,
-   levels:{bass:.8, synth:.65, pad:.75, guitar:0, drums:.75},
+   bass:'offbeat', drums:'fourfloor', guitar:null, swing:.16,
+   levels:{bass:.8, synth:.65, pad:.75, strings:.3, guitar:0, drums:.75},
    bright:.6, space:.55, intensity:.55},
 
   {id:'neon84', name:'Neon 84', tag:'80s synthwave',
    bpm:104, root:40, scale:'minor', prog:[0,5,2,6],
    arp:{pattern:[0,1,2,3,2,1], rate:16, oct:1, prob:1, wave:'sawtooth'},
-   bass:'octave', drums:'eighties', guitar:null,
-   levels:{bass:.8, synth:.75, pad:.6, guitar:0, drums:.8},
+   bass:'octave', drums:'eighties', guitar:null, swing:.04,
+   levels:{bass:.8, synth:.75, pad:.6, strings:.25, guitar:0, drums:.8},
    bright:.75, space:.45, intensity:.6},
 
   {id:'richter', name:'On Light', tag:'Max Richter · neoclassical',
    bpm:66, root:45, scale:'minor', prog:[0,5,3,4],
    arp:{pattern:[0,2,1,2], rate:4, oct:1, prob:.85, wave:'triangle'},
-   bass:'sustained', drums:'none', guitar:null,
-   levels:{bass:.6, synth:.5, pad:.9, guitar:0, drums:0},
+   bass:'sustained', drums:'none', guitar:null, swing:0,
+   levels:{bass:.6, synth:.5, pad:.8, strings:.9, guitar:0, drums:0},
    bright:.35, space:.8, intensity:.35},
 
   {id:'f1', name:'F1 Rising', tag:'Hans Zimmer · epic pulse',
    bpm:132, root:38, scale:'minor', prog:[0,3,5,6],
    arp:{pattern:[0,0,1,0,2,0,1,0], rate:16, oct:0, prob:1, wave:'sawtooth'},
-   bass:'sustained', drums:'pulse', guitar:null,
-   levels:{bass:.85, synth:.75, pad:.6, guitar:0, drums:.8},
+   bass:'sustained', drums:'pulse', guitar:null, swing:0,
+   levels:{bass:.85, synth:.75, pad:.5, strings:.7, guitar:0, drums:.8},
    bright:.6, space:.45, intensity:.7},
 
   {id:'sadeness', name:'Sadeness Drift', tag:'Enigma · downtempo trance',
    bpm:88, root:43, scale:'dorian', prog:[0,5,2,4],
    arp:{pattern:[0,2,3,1], rate:8, oct:1, prob:.55, wave:'triangle'},
-   bass:'offbeat', drums:'downtempo', guitar:{steps:[0,8], prob:.8},
-   levels:{bass:.7, synth:.5, pad:.8, guitar:.4, drums:.65},
+   bass:'offbeat', drums:'downtempo', guitar:{steps:[0,8], prob:.8}, swing:.22,
+   levels:{bass:.7, synth:.5, pad:.8, strings:.5, guitar:.4, drums:.65},
    bright:.4, space:.7, intensity:.45},
 
   {id:'tulum', name:'Tulum Tape', tag:'Sofi Tukker · Theus Mago',
    bpm:114, root:40, scale:'dorian', prog:[0,3,0,4],
    arp:{pattern:[0,3,1,2], rate:8, oct:1, prob:.7, wave:'sawtooth'},
-   bass:'rolling', drums:'tribal', guitar:{steps:[0,3,6,10,13], prob:.75},
-   levels:{bass:.85, synth:.45, pad:.35, guitar:.7, drums:.85},
+   bass:'rolling', drums:'tribal', guitar:{steps:[0,3,6,10,13], prob:.75}, swing:.28,
+   levels:{bass:.85, synth:.45, pad:.35, strings:.1, guitar:.7, drums:.85},
    bright:.65, space:.4, intensity:.65}
 ];
 
@@ -237,13 +238,18 @@ function noteAt(P, degree){
 function chordAt(P, degree){
   return [noteAt(P,degree), noteAt(P,degree+2), noteAt(P,degree+4)];
 }
+// Stacked-thirds voicing of any size: 4 = 7th chord, 5 = 9th chord.
+// Extended voicings are what make pads and strings sound lush instead of plain.
+function chordExt(P, degree, n){
+  const a=[]; for(let i=0;i<n;i++) a.push(noteAt(P,degree+2*i)); return a;
+}
 
 /* ============================================================
    2 · STATE
    ============================================================ */
 const state = {
   playing:false, preset:'crossfade', tuning:432,
-  levels:{bass:.85, synth:.7, pad:.45, guitar:0, drums:.85, drone:.25, bin:.2},
+  levels:{bass:.85, synth:.7, pad:.45, strings:.2, guitar:0, drums:.85, drone:.25, bin:.2},
   macros:{tempo:122, intensity:.6, bright:.55, space:.35},
   drone:0, bin:0
 };
@@ -255,19 +261,27 @@ function midiF(m){ return state.tuning * Math.pow(2,(m-69)/12); }
 /* ============================================================
    3 · AUDIO GRAPH — master chain, buses, stems
    ============================================================ */
-let ctx=null, master, comp, analyser, delayBus, delayFB, reverbBus, noiseBuf;
+let ctx=null, master, warm, pump, comp, analyser, delayBus, delayFB, reverbBus, noiseBuf;
 const stems = {};          // name → {gain, dSend, rSend, dBase, rBase}
-const SENDS = {bass:{d:0,r:.05}, synth:{d:.4,r:.3}, pad:{d:.08,r:.6}, guitar:{d:.25,r:.35}, drums:{d:.06,r:.12}};
+const SENDS = {bass:{d:0,r:.05}, synth:{d:.4,r:.3}, pad:{d:.08,r:.6}, strings:{d:.05,r:.55}, guitar:{d:.25,r:.35}, drums:{d:.06,r:.12}};
 
 function initAudio(){
   if(ctx) return;
   ctx = new (window.AudioContext||window.webkitAudioContext)();
 
   master = ctx.createGain(); master.gain.value = .9;
+  // Tape-style warmth: a gentle tanh curve rounds transients and adds harmonic glue
+  warm = ctx.createWaveShaper();
+  const wc=new Float32Array(1024);
+  for(let i=0;i<1024;i++){ const x=(i/511.5)-1; wc[i]=Math.tanh(x*1.15)/Math.tanh(1.15); }
+  warm.curve=wc;
   comp = ctx.createDynamicsCompressor();
   comp.threshold.value=-18; comp.ratio.value=3; comp.attack.value=.004; comp.release.value=.25;
   analyser = ctx.createAnalyser(); analyser.fftSize=2048;
-  master.connect(comp); comp.connect(analyser); analyser.connect(ctx.destination);
+  master.connect(warm); warm.connect(comp); comp.connect(analyser); analyser.connect(ctx.destination);
+  // Sidechain pump bus: pads/strings/synth duck with every kick, so the low end
+  // owns its space and the whole mix breathes in time — the melodic-house glue.
+  pump = ctx.createGain(); pump.gain.value=1; pump.connect(master);
 
   // shared noise buffer (drums, guitar pluck excitation)
   noiseBuf = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
@@ -292,10 +306,11 @@ function initAudio(){
   reverbBus.connect(rOut); rOut.connect(master);
 
   // instrument stems with per-stem send levels
-  for(const name of ['bass','synth','pad','guitar','drums']){
+  for(const name of ['bass','synth','pad','strings','guitar','drums']){
     const g=ctx.createGain(); g.gain.value=state.levels[name];
     const dS=ctx.createGain(), rS=ctx.createGain();
-    g.connect(master); g.connect(dS); dS.connect(delayBus); g.connect(rS); rS.connect(reverbBus);
+    const dest = ['pad','strings','synth'].includes(name) ? pump : master;
+    g.connect(dest); g.connect(dS); dS.connect(delayBus); g.connect(rS); rS.connect(reverbBus);
     stems[name]={gain:g, dSend:dS, rSend:rS, dBase:SENDS[name].d, rBase:SENDS[name].r};
   }
   // frequency-foundation stems (no sends — kept pure)
@@ -309,7 +324,7 @@ function initAudio(){
 function updateSpace(){
   if(!ctx) return;
   const s = state.macros.space*2;
-  for(const n of ['bass','synth','pad','guitar','drums']){
+  for(const n of ['bass','synth','pad','strings','guitar','drums']){
     stems[n].dSend.gain.value = stems[n].dBase*s;
     stems[n].rSend.gain.value = stems[n].rBase*s;
   }
@@ -412,25 +427,55 @@ function playSynth(t,m,dur,vel,wave){
   o1.start(t); o2.start(t); o1.stop(t+dur+.5); o2.stop(t+dur+.5);
 }
 
-// Pad: 3 detuned saws, slow attack, gentle filter LFO — the Richter/Enigma bed
+// Pad: detuned saws spread across the stereo field, slow attack, drifting filter
 function playPad(t,notes,dur){
-  const flt=ctx.createBiquadFilter(); flt.type='lowpass'; flt.Q.value=.7;
-  flt.frequency.value=500+2200*state.macros.bright;
-  const lfo=ctx.createOscillator(); lfo.frequency.value=.15;
-  const lfoG=ctx.createGain(); lfoG.gain.value=180;
-  lfo.connect(lfoG); lfoG.connect(flt.frequency); lfo.start(t); lfo.stop(t+dur+3);
   const g=ctx.createGain();
   const atk=Math.min(1.6,dur*.35);
-  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.14,t+atk);
-  g.gain.setValueAtTime(.14,t+dur); g.gain.linearRampToValueAtTime(0,t+dur+1.8);
-  flt.connect(g); g.connect(stems.pad.gain);
-  for(const m of notes){
-    for(const det of [-7,0,7]){
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.12,t+atk);
+  g.gain.setValueAtTime(.12,t+dur); g.gain.linearRampToValueAtTime(0,t+dur+1.8);
+  g.connect(stems.pad.gain);
+  const lfo=ctx.createOscillator(); lfo.frequency.value=.15;
+  const lfoG=ctx.createGain(); lfoG.gain.value=180;
+  lfo.start(t); lfo.stop(t+dur+3);
+  for(const [det,panv] of [[-7,-.4],[0,0],[7,.4]]){
+    const flt=ctx.createBiquadFilter(); flt.type='lowpass'; flt.Q.value=.7;
+    flt.frequency.value=500+2200*state.macros.bright;
+    lfo.connect(lfoG); lfoG.connect(flt.frequency);
+    const pan=ctx.createStereoPanner(); pan.pan.value=panv;
+    flt.connect(pan); pan.connect(g);
+    for(const m of notes){
       const o=ctx.createOscillator(); o.type='sawtooth';
       o.frequency.value=midiF(m); o.detune.value=det;
       o.connect(flt); o.start(t); o.stop(t+dur+2);
     }
   }
+}
+
+// Strings: an ensemble of "players" — staggered entries, individual vibrato rates,
+// spread across the stereo stage. Open 9th voicings, an octave above the pads.
+function playStrings(t,notes,dur){
+  notes.forEach((m,i)=>{
+    const t0=t+i*.07+Math.random()*.03;                 // section never enters as one block
+    const flt=ctx.createBiquadFilter(); flt.type='lowpass'; flt.Q.value=.6;
+    flt.frequency.value=800+2800*state.macros.bright;
+    const g=ctx.createGain();
+    const atk=Math.min(1.4,dur*.3);
+    g.gain.setValueAtTime(0,t0); g.gain.linearRampToValueAtTime(.1,t0+atk);
+    g.gain.setValueAtTime(.1,t+dur); g.gain.linearRampToValueAtTime(0,t+dur+1.5);
+    const pan=ctx.createStereoPanner();
+    pan.pan.value=(i/((notes.length-1)||1))*.9-.45;
+    flt.connect(g); g.connect(pan); pan.connect(stems.strings.gain);
+    const lfo=ctx.createOscillator(); lfo.frequency.value=4.8+Math.random()*1.2; // ~5Hz vibrato
+    const lg=ctx.createGain(); lg.gain.value=0;
+    lg.gain.setValueAtTime(0,t0); lg.gain.linearRampToValueAtTime(7,t0+atk+.4);  // vibrato blooms late
+    lfo.connect(lg); lfo.start(t0); lfo.stop(t+dur+1.7);
+    for(const det of [-5,4]){
+      const o=ctx.createOscillator(); o.type='sawtooth';
+      o.frequency.value=midiF(m); o.detune.value=det;
+      lg.connect(o.detune);
+      o.connect(flt); o.start(t0); o.stop(t+dur+1.7);
+    }
+  });
 }
 
 // Guitar: Karplus–Strong plucked string (noise burst → tuned feedback delay)
@@ -509,7 +554,7 @@ function scheduleStep(s,b,t){
   // — drums —
   const pat=DRUMS[P.drums]||{};
   const dv=.55+.45*I;
-  if(pat.kick && pat.kick.includes(s)) playKick(t,dv);
+  if(pat.kick && pat.kick.includes(s)){ playKick(t,dv); duckPump(t); }
   if(pat.snare && pat.snare.includes(s)) playSnare(t+hum(),dv*.9);
   if(pat.clap && pat.clap.includes(s)) playClap(t+hum(),dv*.85);
   if(pat.chh && pat.chh.includes(s)) playHat(t+hum(),false,dv*(s%4===2?.9:.6));
@@ -518,6 +563,9 @@ function scheduleStep(s,b,t){
   if(pat.shk && pat.shk.includes(s) && Math.random()<.7) playShaker(t+hum(),dv);
   if(pat.perc && pat.perc.includes(s) && Math.random()<.8) playPerc(t+hum(),dv*.8);
   if(pat.chh && I>.65 && s%2===1 && Math.random()<(I-.6)*2) playHat(t+hum(),false,.14); // ghost 16ths
+  // every 8th bar: a small build — clap roll into the downbeat
+  if(pat.clap && b%8===7 && s>=12 && Math.random()<.85) playClap(t+hum(), .25+.05*(s-12));
+  if(pat.kick && b%8===0 && b>0 && s===0) playHat(t,true,.5); // open-hat lift on the turn
 
   // — bass —
   if(P.bass==='rolling' && BASS_ROLL[s]) playBass(t,root,sd*.7,s===0?.95:.75);
@@ -542,13 +590,31 @@ function scheduleStep(s,b,t){
     gtrIdx++;
   }
 
-  // — pads: one chord per bar —
-  if(s===0) playPad(t, chord.map(n=>n+12).concat([chord[0]+24]), barDur);
+  // — pads: 7th-chord voicing, one per bar —
+  if(s===0) playPad(t, chordExt(P,deg,4).map(n=>n+12), barDur);
+
+  // — strings: open 9th voicing (root · 5th · 9th), an octave up —
+  if(s===0 && state.levels.strings>0.01){
+    const c9=chordExt(P,deg,5);
+    playStrings(t, [c9[0]+24, c9[2]+24, c9[4]+24], barDur);
+  }
+}
+
+// Sidechain duck: dip the pump bus on each kick, recover in tempo
+function duckPump(t){
+  if(!pump) return;
+  const P=currentPreset();
+  const depth={fourfloor:.5, tribal:.55, pulse:.68, eighties:.78, downtempo:.75}[P.drums] ?? 1;
+  pump.gain.cancelScheduledValues(t);
+  pump.gain.setValueAtTime(depth,t);
+  pump.gain.linearRampToValueAtTime(1, t+stepDur()*3.4);
 }
 
 function tick(){
   while(nextT < ctx.currentTime + .12){
-    scheduleStep(step, bar, nextT);
+    // swing: push every off-16th late — straight grids don't groove
+    const sw=(currentPreset().swing||0)*stepDur()*.5*(step%2);
+    scheduleStep(step, bar, nextT+sw);
     nextT += stepDur();
     step=(step+1)%16;
     if(step===0) bar++;
