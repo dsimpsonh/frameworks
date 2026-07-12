@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diana Simpson Hernandez — AI Founder, UX Strategist</title>
+<meta name="description" content="Diana Simpson Hernandez — AI founder of Aletheai. Building behavioural decision intelligence. Open frameworks for AI-native operators.">
+<meta property="og:title" content="Diana Simpson Hernandez">
+<meta property="og:description" content="AI founder. UX strategist. Building Aletheai. Open frameworks for AI-native operators.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dianasimpsonhernandez.com">
+
+<link rel="stylesheet" href="/styles/main.css">
+
+<style>
+  /* HERO */
+  .hero {
+    padding: clamp(4rem, 10vh, 8rem) 0 clamp(5rem, 12vh, 10rem);
+    position: relative;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 3rem;
+  }
+  .hero-meta .eyebrow { color: var(--ink); }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  @media (min-width: 900px) {
+    .hero-grid { grid-template-columns: 1.6fr 1fr; gap: 4rem; align-items: end; }
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(3rem, 9vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 144;
+  }
+  .hero h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--accent);
+  }
+  .hero-aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .hero-aside p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 38ch;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+  .stamp {
+    position: absolute;
+    top: 2rem;
+    right: var(--gutter);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-align: right;
+    line-height: 1.4;
+  }
+
+  /* NOW STRIP */
+  .now {
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 2rem 0;
+    margin-bottom: 6rem;
+  }
+  .now-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media (min-width: 720px) {
+    .now-grid { grid-template-columns: 180px 1fr 1fr 1fr; align-items: start; }
+  }
+  .now-item h5 {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: var(--ink);
+  }
+  .now-item p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+  .now-pulse {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .now-pulse::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 1.8s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+
+  /* SECTIONS */
+  .section { padding: 5rem 0; }
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  @media (min-width: 720px) {
+    .section-head {
+      grid-template-columns: 200px 1fr;
+      align-items: baseline;
+    }
+  }
+  .section-head h2 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .section-head h2 em { font-style: italic; color: var(--accent); }
+
+  /* ABOUT */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  @media (min-width: 900px) {
+    .about-grid { grid-template-columns: 1fr 1fr; gap: 5rem; }
+  }
+  .about-text p {
+    margin-bottom: 1.25rem;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--ink-soft);
+  }
+  .about-text p:first-child {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.4rem;
+    line-height: 1.4;
+    color: var(--ink);
+    margin-bottom: 1.75rem;
+  }
+  .about-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  .meta-block h4 {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .meta-block ul { list-style: none; }
+  .meta-block li {
+    font-size: 14px;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--rule-soft);
+    display: flex;
+    justify-content: space-between;
+    color: var(--ink-soft);
+  }
+  .meta-block li:last-child { border: none; }
+  .meta-block li span { color: var(--muted); font-family: var(--font-mono); font-size: 12px; }
+  .meta-block li a { transition: color 0.2s; }
+  .meta-block li a:hover { color: var(--accent); }
+
+  /* FRAMEWORKS GRID */
+  .filter-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 0;
+  }
+  .filter-count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .filter-count strong { color: var(--ink); }
+  .filter-tags {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .filter-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--muted);
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.2s var(--ease);
+  }
+  .filter-pill:hover { border-color: var(--ink); color: var(--ink); }
+  .filter-pill.active {
+    background: var(--ink);
+    color: var(--paper);
+    border-color: var(--ink);
+  }
+
+  .frameworks-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .framework-card {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.3s var(--ease);
+    cursor: pointer;
+  }
+  @media (min-width: 720px) {
+    .framework-card {
+      grid-template-columns: 80px 2fr 1fr 80px;
+      gap: 3rem;
+      align-items: start;
+    }
+  }
+  .framework-card:hover {
+    background: linear-gradient(90deg, transparent, var(--paper-warm) 50%, transparent);
+  }
+  .framework-num {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    padding-top: 0.5rem;
+  }
+  .framework-body h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s var(--ease);
+  }
+  .framework-card:hover h3 { color: var(--accent); }
+  .framework-body .subtitle {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+    font-weight: 300;
+  }
+  .framework-body p {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+  .framework-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1rem;
+  }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    color: var(--muted);
+  }
+  .framework-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding-top: 0.5rem;
+  }
+  .framework-meta .status-live { color: var(--accent); }
+  .framework-arrow {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--ink);
+    padding-top: 0.25rem;
+    transition: transform 0.3s var(--ease);
+  }
+  .framework-card:hover .framework-arrow {
+    transform: translateX(8px);
+    color: var(--accent);
+  }
+
+  /* WRITING */
+  .writing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  @media (min-width: 720px) {
+    .writing-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  .writing-card {
+    padding: 2rem;
+    background: var(--paper-warm);
+    border: 1px solid var(--rule-soft);
+    border-radius: 4px;
+    transition: all 0.3s var(--ease);
+  }
+  .writing-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--ink);
+  }
+  .writing-card .eyebrow { margin-bottom: 1rem; display: block; }
+  .writing-card h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.3rem;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+  .writing-card p {
+    font-size: 14px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+
+  /* CTA */
+  .cta-band {
+    margin: 6rem 0 0;
+    padding: 5rem var(--gutter);
+    background: var(--ink);
+    color: var(--paper);
+    border-radius: 4px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-band::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(200,70,44,0.25), transparent 50%);
+    pointer-events: none;
+  }
+  .cta-band h2 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 18ch;
+    margin: 0 auto 2rem;
+    position: relative;
+  }
+  .cta-band h2 em { font-style: italic; color: var(--accent); }
+  .cta-band .btn {
+    border-color: var(--paper);
+    color: var(--paper);
+    position: relative;
+  }
+  .cta-band .btn:hover {
+    background: var(--paper);
+    color: var(--ink);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-mark">Diana Simpson <span>Hernandez</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#frameworks">Frameworks</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="stamp reveal reveal-1">
+      VOL. 01 / 2026<br>
+      MADRID · LONDON
+    </div>
+
+    <div class="hero-meta reveal reveal-1">
+      <span class="eyebrow">— Founder, designer, builder</span>
+      <span class="eyebrow">№ 001</span>
+    </div>
+
+    <div class="hero-grid">
+      <h1 class="reveal reveal-2">
+        Designing the<br>
+        <em>decision layer</em><br>
+        of AI.
+      </h1>
+
+      <aside class="hero-aside reveal reveal-3">
+        <p class="lede">Founder of Aletheai. Ten years of UX strategy. Now building behavioural decision intelligence for the real-estate industry.</p>
+        <div class="hero-cta">
+          <a href="#frameworks" class="btn btn-primary">
+            View frameworks <span class="arrow">→</span>
+          </a>
+          <a href="#about" class="btn">About</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- NOW STRIP -->
+<section class="container">
+  <div class="now reveal reveal-4">
+    <div class="now-grid">
+      <span class="now-pulse">Currently</span>
+      <div class="now-item">
+        <h5>Building Aletheai</h5>
+        <p>AI-powered decision intelligence for real estate — Signal Factory architecture in production.</p>
+      </div>
+      <div class="now-item">
+        <h5>Writing on Substack</h5>
+        <p>Long-form essays on AI, decision intelligence, and the operator's mind. Weekly.</p>
+      </div>
+      <div class="now-item">
+        <h5>Studying ML &amp; Data Science</h5>
+        <p>IBM Data Science certification — sharpening the science behind the systems.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="container">
+    <header class="section-head">
+      <span class="eyebrow">§ 01 · About</span>
+      <h2>A designer who <em>ships</em> systems.</h2>
+    </header>
+
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I design AI products at the intersection of behavioural science, systems architecture, and narrative — the layers most builders skip.</p>
+        <p>Born in Mexico City, based between London and Madrid. Ten-plus years of UX strategy across enterprise and start-up. Today I run Aletheai, an AI-native real-estate intelligence platform built on the Signal Factory architecture: connectors, normalisers, entity resolution, feature store, decision engine, narrative layer.</p>
+        <p>My work sits at the seam of two convictions: that AI can make decisions legible, and that decisions are how strategy becomes reality. Everything I publish — frameworks, essays, products — is an artefact of that thesis.</p>
+      </div>
+
+      <div class="about-meta">
+        <div class="meta-block">
+          <h4>Roles</h4>
+          <ul>
+            <li>Founder, Aletheai <span>2024 —</span></li>
+            <li>UX Strategist <span>2014 —</span></li>
+            <li>Author &amp; Educator <span>2025 —</span></li>
+          </ul>
+        </div>
+        <div class="meta-block">
+          <h4>Domains</h4>
+          <ul>
+            <li>Behavioural decision intelligence <span>AI</span></li>
+            <li>Product &amp; systems architecture <span>SaaS</span></li>
+            <li>Data storytelling for executives <span>Consulting</span></li>
+            <li>UX for AI products <span>Design</span></li>
+          </ul>
+        </div>
+        <div class="meta-block">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="/assets/diana-simpson-hernandez-cv.pdf">Download CV (PDF)</a> <span>↓</span></li>
+            <li><a href="https://linkedin.com/in/dianasimpsonhernandez">LinkedIn profile</a> <span>↗</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FRAMEWORKS -->
+<section class="section" id="frameworks">
+  <div class="container">
+    <header class="section-head">
+      <span class="eyebrow">§ 02 · Frameworks</span>
+      <h2>Systems I&rsquo;ve <em>built</em>.</h2>
+    </header>
+
+    <div class="filter-bar">
+      <div class="filter-count"><strong id="count-num">5</strong> &nbsp;published frameworks</div>
+      <div class="filter-tags" id="filter-tags">
+        <button class="filter-pill active" data-filter="all">All</button>
+      </div>
+    </div>
+
+    <div class="frameworks-grid" id="frameworks-grid"></div>
+  </div>
+</section>
+
+<!-- WRITING -->
+<section class="section" id="writing">
+  <div class="container">
+    <header class="section-head">
+      <span class="eyebrow">§ 03 · Writing &amp; channels</span>
+      <h2>Where I <em>publish</em>.</h2>
+    </header>
+
+    <div class="writing-grid">
+      <a href="https://substack.com/@dianasimpsonhernandez" class="writing-card fade-up">
+        <span class="eyebrow">Substack</span>
+        <h4>Essays on AI, decision intelligence &amp; the operator&rsquo;s mind.</h4>
+        <p>Long-form thinking. The frameworks here originate from these essays. Weekly.</p>
+      </a>
+      <a href="https://linkedin.com/in/dianasimpsonhernandez" class="writing-card fade-up">
+        <span class="eyebrow">LinkedIn</span>
+        <h4>Founder field notes &amp; product breakdowns.</h4>
+        <p>How Aletheai is built, what works, what fails. For founders and operators.</p>
+      </a>
+      <a href="https://youtube.com/@dianasimpsonhernandez" class="writing-card fade-up">
+        <span class="eyebrow">YouTube</span>
+        <h4>The build journey — for women in AI.</h4>
+        <p>Coding, shipping, scaling. Real-time documentation of the founder path.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="container" id="contact">
+  <div class="cta-band">
+    <h2>Building something that needs the <em>decision layer</em>?</h2>
+    <a href="mailto:hello@dianasimpsonhernandez.com" class="btn">
+      hello@dianasimpsonhernandez.com <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-mark">Diana Simpson <span>Hernandez</span></div>
+        <p style="font-size: 14px; color: var(--muted); max-width: 32ch;">
+          Building the decision layer of AI. Frameworks, writing, products.
+        </p>
+      </div>
+      <div>
+        <h4>Site</h4>
+        <ul>
+          <li><a href="#about">About</a></li>
+          <li><a href="#frameworks">Frameworks</a></li>
+          <li><a href="#writing">Writing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Channels</h4>
+        <ul>
+          <li><a href="https://linkedin.com/in/dianasimpsonhernandez">LinkedIn</a></li>
+          <li><a href="https://substack.com/@dianasimpsonhernandez">Substack</a></li>
+          <li><a href="https://github.com/dsimpsonh">GitHub</a></li>
+          <li><a href="https://youtube.com/@dianasimpsonhernandez">YouTube</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Ventures</h4>
+        <ul>
+          <li><a href="https://aletheai.com">Aletheai</a></li>
+          <li><a href="#frameworks">Open frameworks</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-meta">
+      <span>© 2026 Diana Simpson Hernandez</span>
+      <span>Madrid · London · Mexico City</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Render frameworks from JSON
+  let allFrameworks = [];
+
+  fetch('/data/frameworks.json')
+    .then(r => r.json())
+    .then(data => {
+      allFrameworks = data.frameworks;
+      renderFilters(allFrameworks);
+      renderFrameworks(allFrameworks);
+      document.getElementById('count-num').textContent = allFrameworks.length;
+      observeFades();
+    })
+    .catch(err => {
+      console.warn('Could not load frameworks.json:', err);
+      document.getElementById('frameworks-grid').innerHTML =
+        '<p style="padding: 2rem; color: var(--muted);">Frameworks loading… serve via HTTP to view.</p>';
+    });
+
+  function renderFilters(frameworks) {
+    const cats = [...new Set(frameworks.map(f => f.category))].sort();
+    const filterBar = document.getElementById('filter-tags');
+    cats.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-pill';
+      btn.dataset.filter = cat;
+      btn.textContent = cat;
+      filterBar.appendChild(btn);
+    });
+    filterBar.addEventListener('click', e => {
+      if (!e.target.matches('.filter-pill')) return;
+      filterBar.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      const f = e.target.dataset.filter;
+      const filtered = f === 'all' ? allFrameworks : allFrameworks.filter(x => x.category === f);
+      renderFrameworks(filtered);
+      document.getElementById('count-num').textContent = filtered.length;
+    });
+  }
+
+  function renderFrameworks(frameworks) {
+    const grid = document.getElementById('frameworks-grid');
+    grid.innerHTML = frameworks.map((f, i) => `
+      <a href="${f.url}" class="framework-card fade-up">
+        <div class="framework-num">№ ${String(i + 1).padStart(2, '0')}</div>
+        <div class="framework-body">
+          <h3>${f.title}</h3>
+          <div class="subtitle">${f.subtitle}</div>
+          <p>${f.summary}</p>
+          <div class="framework-tags">
+            ${f.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+          </div>
+        </div>
+        <div class="framework-meta">
+          ${f.category}<br>
+          ${f.year}<br>
+          <span class="status-live">● ${f.status}</span>
+        </div>
+        <div class="framework-arrow">→</div>
+      </a>
+    `).join('');
+    observeFades();
+  }
+
+  function observeFades() {
+    const els = document.querySelectorAll('.fade-up:not(.in-view)');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('in-view'), i * 60);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(el => io.observe(el));
+  }
+  observeFades();
+</script>
+
+</body>
+</html>

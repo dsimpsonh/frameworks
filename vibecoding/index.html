@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Designing Intelligence · The Complete Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1E2761;
+    --coral: #F96167;
+    --gold: #F9E795;
+    --cream: #FAF7F2;
+    --ink: #1A1A1A;
+    --muted: #6B6B6B;
+    --paper: #FFFFFF;
+    --soft-line: #E8E2D2;
+    --green: #10B981;
+    --w1: #E76F51;
+    --w2: #9D4EDD;
+    --w3: #2A9D8F;
+    --w4: #E9C46A;
+    --serif: 'Fraunces', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--cream); color: var(--ink); font-family: var(--sans); line-height: 1.5; }
+
+  /* Top bar */
+  .top {
+    position: sticky; top: 0; z-index: 100;
+    background: var(--navy);
+    color: var(--paper);
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 4px solid var(--coral);
+  }
+  .top .brand {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .top .controls { display: flex; gap: 12px; align-items: center; }
+  .top button {
+    background: transparent; color: var(--paper); border: 1px solid var(--gold);
+    font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 1px;
+    padding: 6px 14px; border-radius: 4px; cursor: pointer;
+    transition: all .2s ease;
+  }
+  .top button:hover { background: var(--gold); color: var(--navy); }
+  .top button.active { background: var(--gold); color: var(--navy); }
+
+  /* Hero */
+  .hero {
+    padding: 80px 32px 60px;
+    text-align: center;
+    background: linear-gradient(180deg, var(--cream) 0%, var(--paper) 100%);
+    border-bottom: 1px solid var(--soft-line);
+  }
+  .hero h1 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: clamp(36px, 6vw, 72px);
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--navy);
+    margin-bottom: 18px;
+  }
+  .hero h1 .accent { color: var(--coral); }
+  .hero p {
+    font-family: var(--serif); font-style: italic;
+    font-size: clamp(16px, 2vw, 22px);
+    color: var(--coral);
+    max-width: 720px; margin: 0 auto 36px;
+  }
+  .stats-row {
+    display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .stat { text-align: center; }
+  .stat .num {
+    font-family: var(--serif); font-weight: 900;
+    font-size: 48px; color: var(--coral); line-height: 1;
+  }
+  .stat .label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--muted);
+    margin-top: 6px;
+  }
+
+  /* Progress strip */
+  .progress-strip {
+    background: var(--navy); color: var(--paper);
+    padding: 18px 32px;
+    display: flex; align-items: center; gap: 16px;
+    position: sticky; top: 49px; z-index: 90;
+  }
+  .progress-bar {
+    flex: 1; height: 8px; background: rgba(255,255,255,.15);
+    border-radius: 4px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--coral), var(--gold));
+    border-radius: 4px;
+    transition: width .4s ease;
+  }
+  .progress-text {
+    font-family: var(--mono); font-size: 11px; font-weight: 600;
+    letter-spacing: 1px; min-width: 200px; text-align: right;
+  }
+  .progress-text .done-num { color: var(--gold); font-size: 16px; }
+
+  /* Lanes container */
+  .lanes {
+    padding: 60px 32px 80px;
+    max-width: 1600px; margin: 0 auto;
+  }
+
+  /* Each lane */
+  .lane {
+    margin-bottom: 60px;
+    opacity: 0; transform: translateY(20px);
+    animation: laneIn .6s ease forwards;
+  }
+  .lane:nth-child(1) { animation-delay: .1s; }
+  .lane:nth-child(2) { animation-delay: .2s; }
+  .lane:nth-child(3) { animation-delay: .3s; }
+  .lane:nth-child(4) { animation-delay: .4s; }
+  @keyframes laneIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .lane-header {
+    display: flex; align-items: baseline; gap: 16px;
+    padding: 16px 24px;
+    border-radius: 12px 12px 0 0;
+    margin-bottom: 0;
+    color: var(--paper);
+    position: relative;
+  }
+  .lane-header.w1 { background: var(--w1); }
+  .lane-header.w2 { background: var(--w2); }
+  .lane-header.w3 { background: var(--w3); }
+  .lane-header.w4 { background: var(--w4); color: var(--navy); }
+  .lane-header .week {
+    font-family: var(--mono); font-size: 12px; font-weight: 700;
+    letter-spacing: 3px;
+  }
+  .lane-header h2 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 28px; line-height: 1.1;
+  }
+  .lane-header .lane-sub {
+    font-style: italic; opacity: .85; margin-left: auto;
+    font-size: 14px;
+  }
+
+  /* Step grid */
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+    background: var(--paper);
+    padding: 24px;
+    border-radius: 0 0 12px 12px;
+    border: 1px solid var(--soft-line);
+    border-top: none;
+  }
+  .step {
+    background: var(--paper);
+    border: 1px solid var(--soft-line);
+    border-radius: 8px;
+    padding: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: all .25s ease;
+    overflow: hidden;
+  }
+  .step::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: var(--coral);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .3s ease;
+  }
+  .step.w1::before { background: var(--w1); }
+  .step.w2::before { background: var(--w2); }
+  .step.w3::before { background: var(--w3); }
+  .step.w4::before { background: var(--w4); }
+  .step:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 24px rgba(30,39,97,.15);
+    border-color: transparent;
+  }
+  .step:hover::before { transform: scaleX(1); }
+  .step.completed { background: linear-gradient(135deg, var(--paper) 0%, #F0FFF8 100%); }
+  .step .num {
+    font-family: var(--serif); font-weight: 900;
+    font-size: 32px; line-height: 1;
+    color: var(--coral);
+    margin-bottom: 8px;
+  }
+  .step.w1 .num { color: var(--w1); }
+  .step.w2 .num { color: var(--w2); }
+  .step.w3 .num { color: var(--w3); }
+  .step.w4 .num { color: #B8861E; }
+  .step h3 {
+    font-family: var(--sans); font-weight: 700;
+    font-size: 15px;
+    color: var(--navy); margin-bottom: 8px;
+    line-height: 1.25;
+  }
+  .step .preview {
+    font-size: 13px; color: var(--muted); line-height: 1.45;
+  }
+  .step .check {
+    position: absolute; top: 12px; right: 12px;
+    width: 22px; height: 22px;
+    border: 2px solid var(--soft-line);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--paper);
+    cursor: pointer;
+    transition: all .2s ease;
+    font-size: 12px;
+    z-index: 2;
+  }
+  .step.completed .check {
+    background: var(--green); border-color: var(--green); color: white;
+  }
+  .step .expand-hint {
+    position: absolute; bottom: 12px; right: 14px;
+    font-family: var(--mono); font-size: 10px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 1px;
+    opacity: 0; transition: opacity .2s;
+  }
+  .step:hover .expand-hint { opacity: 1; }
+
+  /* Modal */
+  .modal-bg {
+    position: fixed; inset: 0;
+    background: rgba(15,26,60,.85);
+    backdrop-filter: blur(4px);
+    display: none; align-items: center; justify-content: center;
+    z-index: 1000;
+    padding: 24px;
+    animation: fadeIn .25s ease;
+  }
+  .modal-bg.open { display: flex; }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  .modal {
+    background: var(--paper);
+    max-width: 720px; width: 100%; max-height: 90vh; overflow: auto;
+    border-radius: 16px;
+    border-top: 8px solid var(--coral);
+    padding: 40px;
+    position: relative;
+    animation: modalIn .3s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: translateY(40px) scale(.96); }
+    to { opacity: 1; transform: none; }
+  }
+  .modal.w1 { border-top-color: var(--w1); }
+  .modal.w2 { border-top-color: var(--w2); }
+  .modal.w3 { border-top-color: var(--w3); }
+  .modal.w4 { border-top-color: var(--w4); }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 32px; height: 32px;
+    background: var(--cream); border: none; border-radius: 50%;
+    font-size: 16px; cursor: pointer;
+    color: var(--navy);
+  }
+  .modal-close:hover { background: var(--coral); color: white; }
+  .modal-eyebrow {
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 8px;
+  }
+  .modal h2 {
+    font-family: var(--serif); font-weight: 700;
+    font-size: 32px; color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .modal .step-num {
+    font-family: var(--serif); font-weight: 900;
+    font-size: 64px; color: var(--coral); line-height: 1;
+    float: right; margin-top: -16px;
+  }
+  .modal-body {
+    padding-top: 16px;
+  }
+  .modal-section { margin-bottom: 24px; }
+  .modal-section h4 {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--coral); margin-bottom: 8px;
+  }
+  .modal-section p {
+    font-size: 15px; color: var(--ink); line-height: 1.55;
+  }
+  .modal-why {
+    background: var(--cream);
+    padding: 20px; border-radius: 10px;
+    border-left: 4px solid var(--coral);
+    font-style: italic;
+    font-size: 16px;
+    color: var(--navy);
+  }
+  .modal-flow {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    gap: 16px; align-items: center;
+    margin-top: 12px;
+  }
+  .modal-flow > div {
+    background: var(--cream); padding: 12px 16px; border-radius: 8px;
+    font-size: 13px;
+  }
+  .modal-flow .arrow {
+    color: var(--coral); font-size: 20px; font-weight: 700;
+    text-align: center; padding: 0;
+    background: none;
+  }
+  .modal-flow strong { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .modal-sofia {
+    background: var(--navy); color: var(--paper);
+    padding: 20px; border-radius: 10px;
+    margin-top: 16px;
+  }
+  .modal-sofia strong {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 8px;
+  }
+  .modal-sofia p { font-size: 14px; line-height: 1.55; }
+
+  /* Filter chips */
+  .filters {
+    display: flex; gap: 8px; flex-wrap: wrap;
+    padding: 16px 32px; background: var(--paper);
+    border-bottom: 1px solid var(--soft-line);
+    align-items: center;
+  }
+  .filter-label {
+    font-family: var(--mono); font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
+    margin-right: 4px;
+  }
+  .chip {
+    background: var(--cream); border: 1px solid var(--soft-line);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 12px; cursor: pointer;
+    transition: all .15s ease;
+    font-family: var(--sans); font-weight: 500;
+  }
+  .chip:hover { background: var(--coral); color: white; border-color: var(--coral); }
+  .chip.active { background: var(--navy); color: white; border-color: var(--navy); }
+
+  /* Footer */
+  .footer {
+    background: var(--navy); color: var(--paper);
+    padding: 60px 32px;
+    text-align: center;
+  }
+  .footer h3 {
+    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-size: clamp(22px, 3vw, 32px);
+    color: var(--paper);
+    margin-bottom: 12px;
+  }
+  .footer p {
+    font-family: var(--mono); font-size: 12px;
+    letter-spacing: 2px; color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  /* Hide elements based on filter */
+  body.filter-prompts .step:not([data-type="prompt"]) { display: none; }
+  body.filter-guides .step:not([data-type="guide"]) { display: none; }
+  body.filter-essential .step:not([data-essential="true"]) { display: none; }
+
+  /* Responsive */
+  @media (max-width: 700px) {
+    .hero h1 { font-size: 36px; }
+    .stats-row { gap: 20px; }
+    .stat .num { font-size: 32px; }
+    .lane-header { flex-wrap: wrap; }
+    .lane-header h2 { font-size: 22px; }
+    .modal { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="top">
+  <div class="brand">DESIGNING INTELLIGENCE · INTERACTIVE COURSE</div>
+  <div class="controls">
+    <button id="lang-en" class="active" onclick="setLang('en')">EN</button>
+    <button id="lang-es" onclick="setLang('es')">ES</button>
+    <button id="reset-btn" onclick="resetProgress()">RESET</button>
+  </div>
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <h1 data-en="From a worthy problem<br>to a <span class='accent'>live URL</span>."
+      data-es="De un problema digno<br>a una <span class='accent'>URL en vivo</span>.">
+    From a worthy problem<br>to a <span class="accent">live URL</span>.
+  </h1>
+  <p data-en="Every step. What it produces. Why it's necessary for the next."
+     data-es="Cada paso. Qué produce. Por qué es necesario para el siguiente.">
+    Every step. What it produces. Why it's necessary for the next.
+  </p>
+  <div class="stats-row">
+    <div class="stat"><div class="num">20</div><div class="label" data-en="STEPS" data-es="PASOS">STEPS</div></div>
+    <div class="stat"><div class="num">15</div><div class="label" data-en="PROMPTS" data-es="PROMPTS">PROMPTS</div></div>
+    <div class="stat"><div class="num">5</div><div class="label" data-en="GUIDES" data-es="GUIAS">GUIDES</div></div>
+    <div class="stat"><div class="num">12</div><div class="label" data-en="POWER-UPS" data-es="POWER-UPS">POWER-UPS</div></div>
+    <div class="stat"><div class="num">∞</div><div class="label" data-en="ITERATIONS" data-es="ITERACIONES">ITERATIONS</div></div>
+  </div>
+</section>
+
+<!-- Progress strip -->
+<div class="progress-strip">
+  <span class="progress-text" id="progress-text" data-en-tpl="0 of 20 steps complete" data-es-tpl="0 de 20 pasos completos">
+    <span class="done-num" id="done-num">0</span> <span data-en="of 20 steps complete" data-es="de 20 pasos completos">of 20 steps complete</span>
+  </span>
+  <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+</div>
+
+<!-- Filters -->
+<div class="filters">
+  <span class="filter-label" data-en="FILTER:" data-es="FILTRO:">FILTER:</span>
+  <button class="chip active" data-filter="all" data-en="ALL STEPS" data-es="TODO">ALL STEPS</button>
+  <button class="chip" data-filter="prompts" data-en="PROMPTS ONLY" data-es="SOLO PROMPTS">PROMPTS ONLY</button>
+  <button class="chip" data-filter="guides" data-en="GUIDES ONLY" data-es="SOLO GUIAS">GUIDES ONLY</button>
+  <button class="chip" data-filter="essential" data-en="ESSENTIAL ONLY" data-es="SOLO ESENCIALES">ESSENTIAL ONLY</button>
+</div>
+
+<!-- Lanes -->
+<div class="lanes" id="lanes">
+  <!-- Lanes are rendered by JS -->
+</div>
+
+<!-- Footer -->
+<section class="footer">
+  <h3 data-en="Worthy problem → research → build → ship → iterate forever."
+      data-es="Problema digno → research → build → embarcar → iterar para siempre.">
+    Worthy problem → research → build → ship → iterate forever.
+  </h3>
+  <p data-en="Every step earns its place. Skip one, the next is harder. Skip three, you ship a vitamin not a cure."
+     data-es="Cada paso se gana su lugar. Saltarte uno, el siguiente es más difícil. Saltarte tres, embarcas vitamina, no cura.">
+    Every step earns its place. Skip one, the next is harder. Skip three, you ship a vitamin not a cure.
+  </p>
+</section>
+
+<!-- Modal -->
+<div class="modal-bg" id="modal-bg" onclick="closeModal(event)">
+  <div class="modal" id="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <div class="modal-eyebrow" id="modal-eyebrow"></div>
+    <div class="step-num" id="modal-num"></div>
+    <h2 id="modal-title"></h2>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// COURSE DATA — every step, EN + ES, with WHY, output, sofia
+// ============================================================
+const COURSE = [
+  {
+    week: 'W01', wColor: 'w1',
+    weekTitle: { en: 'RESEARCH + IDEATION', es: 'RESEARCH + IDEACIÓN' },
+    weekSub: { en: "what's the worthy problem?", es: '¿cuál es el problema digno?' },
+    steps: [
+      {
+        num: '01', type: 'prompt', essential: true,
+        name: { en: 'Master Ideation Prompt (P00)', es: 'Master Ideation Prompt (P00)' },
+        preview: { en: 'Find a worthy problem worth 5 years of your life.', es: 'Encuentra un problema digno de 5 años de tu vida.' },
+        why: { en: "Start with a worthy problem worth 5 years, not a feature. The first conversation that makes everything else possible.", es: 'Empieza con un problema digno de 5 años, no con una feature. La primera conversación que hace posible todo lo demás.' },
+        input: { en: 'Your raw curiosity · domain knowledge · the people you observe', es: 'Tu curiosidad cruda · conocimiento del dominio · la gente que observas' },
+        output: { en: '3-5 worthy problems · ranked by personal pull · scored against 4 criteria', es: '3-5 problemas dignos · ranqueados por jalón personal · puntuados contra 4 criterios' },
+        sofia: { en: "Sofía's worthy problem: 'Freelance illustrators lose 8h/week and £800/month chasing approvals across Slack/email/WhatsApp.' Picked because she lost the 8 hours that week.", es: "Problema digno de Sofía: 'Las ilustradoras freelance pierden 8h/sem y £800/mes persiguiendo aprobaciones en Slack/email/WhatsApp.' Lo eligió porque ella misma perdió las 8 horas esa semana." },
+      },
+      {
+        num: '02', type: 'guide', essential: true,
+        name: { en: 'Mom Test + 5 Whys interviews', es: 'Mom Test + 5 Por qués entrevistas' },
+        preview: { en: '5 conversations that confirm the pain is real.', es: '5 conversaciones que confirman que el dolor es real.' },
+        why: { en: '5 conversations confirm the pain is real. If users don\'t bring it up unprompted, you\'re building a vitamin not a cure.', es: '5 conversaciones confirman que el dolor es real. Si los users no lo mencionan sin que les preguntes, estás armando vitamina, no cura.' },
+        input: { en: '5 people who match your target user · the right questions (Mom Test rules)', es: '5 personas que igualen tu user · las preguntas correctas (reglas Mom Test)' },
+        output: { en: '5-10 verbatim quotes · pain confirmed or debunked · 3-5 surface insights', es: '5-10 citas verbatim · dolor confirmado o desmentido · 3-5 insights de superficie' },
+        sofia: { en: "Sofía interviewed 5 illustrators. All 5 confirmed the 8-hour weekly bleed. Marta from Monocle said: 'Wait, can I see what I'm signing off on?' — that quote drove the entire MVP focus.", es: "Sofía entrevistó a 5 ilustradoras. Las 5 confirmaron las 8h semanales. Marta de Monocle dijo: '¿Espera, puedo ver qué estoy firmando?' — esa cita guió todo el MVP focus." },
+      },
+      {
+        num: '03', type: 'guide', essential: true,
+        name: { en: 'VP Canvas', es: 'VP Canvas' },
+        preview: { en: 'Map pains to gains. Pain relievers to gain creators.', es: 'Mapea dolores a ganancias. Pain relievers a gain creators.' },
+        why: { en: "Maps pains to gains, gain creators to pain relievers. Without it, every later prompt invents users.", es: 'Mapea dolores a ganancias, gain creators a pain relievers. Sin esto, cada prompt posterior inventa users.' },
+        input: { en: '5 conversations · 3 ranked pains · 3 ranked gains', es: '5 conversaciones · 3 dolores ranqueados · 3 ganancias ranqueadas' },
+        output: { en: 'A canvas: customer profile + value map · pains/gains aligned with relievers/creators', es: 'Canvas: perfil del customer + value map · pains/gains alineados con relievers/creators' },
+        sofia: { en: "Sofía's top pain: 'version chaos across 4 channels' (5/5). Top gain: 'signed paper trail that triggers invoice'. The match between these two became Vera.", es: "Top pain de Sofía: 'caos de versiones en 4 canales' (5/5). Top gain: 'trail firmado que dispara factura'. El match entre los dos se convirtió en Vera." },
+      },
+      {
+        num: '04', type: 'prompt', essential: true,
+        name: { en: 'Mapping the Pain (Journey Map)', es: 'Mapping the Pain (Journey Map)' },
+        preview: { en: 'Locate the highest-pain moment of your user\'s day.', es: 'Localiza el momento de mayor dolor del día del user.' },
+        why: { en: "Locates the highest-pain moment. That moment is your MVP focus — everything else is feature creep.", es: 'Localiza el momento de mayor dolor. Ese momento es tu MVP focus — lo demás es feature creep.' },
+        input: { en: 'Your VP Canvas · the verbatim quotes · 5-10 user observations', es: 'Tu VP Canvas · las citas verbatim · 5-10 observaciones de user' },
+        output: { en: 'A branded journey.html showing BEFORE · DURING · AFTER · pain scored 1-5 · MVP zone marked', es: 'Un journey.html con marca mostrando ANTES · DURANTE · DESPUÉS · dolor 1-5 · zona MVP marcada' },
+        sofia: { en: "Sofía's MVP zone: DURING (the approval gap, Friday→Tuesday). Pain score 5/5. Her app would only solve THIS moment, not the whole workflow.", es: "Zona MVP de Sofía: DURANTE (el approval gap, viernes→martes). Dolor 5/5. Su app resolvería SOLO este momento, no todo el workflow." },
+      },
+      {
+        num: '05', type: 'guide', essential: false,
+        name: { en: 'Worthy Problem Scorecard', es: 'Worthy Problem Scorecard' },
+        preview: { en: 'Stress-test the problem against 4 criteria.', es: 'Stress-test del problema contra 4 criterios.' },
+        why: { en: 'Stress-tests the problem against 4 criteria (cure not vitamin, scale, willingness to pay, founder fit). Catches founder bias before it ships into code.', es: 'Stress-tests del problema contra 4 criterios (cura no vitamina, escala, willingness to pay, fit de founder). Atrapa el sesgo del founder antes que entre al código.' },
+        input: { en: 'Your worthy problem · the 5 conversations · the journey map', es: 'Tu problema digno · las 5 conversaciones · el journey map' },
+        output: { en: 'A score per criterion · a kill/proceed signal · a sharper problem statement', es: 'Un puntaje por criterio · una señal kill/proceed · un statement más afilado' },
+        sofia: { en: "Sofía scored: cure 5/5, scale 4/5 (200K illustrators), willingness 4/5 (£15/mo), founder fit 5/5. Total 18/20 — clear proceed.", es: "Sofía puntuó: cura 5/5, escala 4/5 (200K ilustradoras), willingness 4/5 (£15/mes), founder fit 5/5. Total 18/20 — proceed claro." },
+      },
+    ]
+  },
+  {
+    week: 'W02-W03', wColor: 'w2',
+    weekTitle: { en: 'BUILD · THE VIBE LOOP', es: 'BUILD · EL VIBE LOOP' },
+    weekSub: { en: 'from research to live URL', es: 'de research a URL en vivo' },
+    steps: [
+      {
+        num: '06', type: 'prompt', essential: true,
+        name: { en: 'V+I Prompt', es: 'Prompt V+I' },
+        preview: { en: 'Lock the LLM\'s stack mastery to YOUR industry.', es: 'Fija el stack mastery del LLM a TU industria.' },
+        why: { en: "Locks the LLM's stack mastery to your industry. Without it the LLM responds as 'a developer' — generic, not yours. Also outputs the 3 starter files Build needs.", es: "Fija el stack mastery del LLM a tu industria. Sin esto el LLM responde como 'un developer' — genérico, no tuyo. Además produce los 3 archivos starter que Build necesita." },
+        input: { en: 'Your problem · target user · idea · industry · why_me · MVP focus · technical constraint', es: 'Tu problema · target user · idea · industria · why_me · MVP focus · constraint técnico' },
+        output: { en: 'V+I block (Vision 4-6 sentences + Identity 6-9 sentences) + 3 starter files (app.py · requirements.txt · runtime.txt)', es: 'Bloque V+I (Vision 4-6 frases + Identity 6-9 frases) + 3 archivos starter (app.py · requirements.txt · runtime.txt)' },
+        sofia: { en: "Sofía's Identity locked the LLM to: 'world-class Streamlit product engineer specialised in payment-trigger workflows for solo creative freelancers · stack: Streamlit forms + SQLite + ReportLab.' Every later prompt inherited that.", es: "El Identity de Sofía fijó al LLM como: 'ingeniero de producto Streamlit de clase mundial especializado en payment-trigger workflows para freelancers creativos solo · stack: Streamlit forms + SQLite + ReportLab.' Cada prompt posterior heredó eso." },
+      },
+      {
+        num: '07', type: 'prompt', essential: true,
+        name: { en: 'Build Prompt', es: 'Prompt Build' },
+        preview: { en: 'The full canonical architecture, paste-ready.', es: 'La arquitectura canónica completa, lista para pegar.' },
+        why: { en: 'Produces the canonical architecture (~14 files), not a soup. Gives every later prompt a tree it can edit precisely.', es: 'Produce la arquitectura canónica (~14 archivos), no una sopa. Le da a cada prompt posterior un árbol editable con precisión.' },
+        input: { en: 'V+I block · the 3 starter files', es: 'Bloque V+I · los 3 archivos starter' },
+        output: { en: 'Full canonical tree: app.py · config.py · /ui/* · /logic/* · /data/* · /external/* + complete code per file', es: 'Árbol canónico completo: app.py · config.py · /ui/* · /logic/* · /data/* · /external/* + código completo por archivo' },
+        sofia: { en: "Sofía's Build output: 13 files in the canonical tree, each one with a single job. /logic/approvals.py was pure (no I/O), /data/db.py wrapped every query, /external/pdf_generator.py used ReportLab. By the end, vera-sofia.streamlit.app loaded a working form.", es: "Output de Build de Sofía: 13 archivos en el árbol canónico, cada uno con un job. /logic/approvals.py era puro (sin I/O), /data/db.py envolvía cada query, /external/pdf_generator.py usaba ReportLab. Al final, vera-sofia.streamlit.app cargaba un form funcionando." },
+      },
+      {
+        num: '08', type: 'prompt', essential: true,
+        name: { en: 'Functionality Prompt', es: 'Prompt Functionality' },
+        preview: { en: '4 states per action: empty/loading/error/success.', es: '4 estados por acción: empty/loading/error/success.' },
+        why: { en: '4 states per action (empty · loading · error · success). The line between prototype and product.', es: '4 estados por acción (empty · loading · error · success). La línea entre prototipo y producto.' },
+        input: { en: 'V+I + current_repo (every file pasted) + known_issues from real testing', es: 'V+I + current_repo (cada archivo pegado) + known_issues del testing real' },
+        output: { en: 'FILE PLAN table (NEW · EDIT · NO CHANGE) + full content for changed files + 5-line demo script', es: 'Tabla FILE PLAN (NEW · EDIT · NO CHANGE) + contenido completo de archivos cambiados + demo script de 5 líneas' },
+        sofia: { en: "Sofía noted 3 bugs: empty email crash, no spinner during PDF generation, no success toast. Functionality fixed all 3 in one shot — and added inline validation she hadn't asked for.", es: "Sofía anotó 3 bugs: crash con email vacío, sin spinner durante PDF, sin success toast. Functionality arregló los 3 de un golpe — y agregó validación inline que no había pedido." },
+      },
+      {
+        num: '09', type: 'prompt', essential: true,
+        name: { en: 'Branding Prompt', es: 'Prompt Branding' },
+        preview: { en: 'Logo + brand → palette + Google Fonts + CSS. Reads as product.', es: 'Logo + marca → paleta + Google Fonts + CSS. Se lee producto.' },
+        why: { en: 'Logo + brand definition → palette + Google Fonts + CSS injection. The product reads as a product, not a workshop demo.', es: 'Logo + definición de marca → paleta + Google Fonts + CSS injection. El producto se lee producto, no demo de workshop.' },
+        input: { en: 'V+I · uploaded logo image · brand definition (personality · mood · audience emotion · references · not_this)', es: 'V+I · imagen del logo · definición de marca (personality · mood · audience emotion · referencias · not_this)' },
+        output: { en: 'Color palette (6 swatches WCAG AA) + 3 Google Fonts + .streamlit/config.toml + ui/_brand.py with CSS + 5 microcopy upgrades', es: 'Paleta (6 swatches WCAG AA) + 3 Google Fonts + .streamlit/config.toml + ui/_brand.py con CSS + 5 upgrades microcopy' },
+        sofia: { en: "Sofía's brand: deep ink #1B1A17, sage #A2A98F, editorial coral #D9573D, cream #F5EFE6. Fonts: Fraunces (display) + Inter (body) + JetBrains Mono. Microcopy: 'Submitted!' became 'Sent to editor@monocle.com.'", es: "Brand de Sofía: tinta #1B1A17, sage #A2A98F, coral editorial #D9573D, crema #F5EFE6. Fuentes: Fraunces (display) + Inter (body) + JetBrains Mono. Microcopy: '¡Enviado!' se volvió 'Mandado a editor@monocle.com.'" },
+      },
+      {
+        num: '10', type: 'guide', essential: true,
+        name: { en: 'Feedback Guide + 5 Conversations + 3 Tests', es: 'Feedback Guide + 5 Conversaciones + 3 Tests' },
+        preview: { en: 'SILENT · WALLET · JOB. 5 users surface 3 themes.', es: 'SILENT · WALLET · JOB. 5 users surfacean 3 temas.' },
+        why: { en: '5 users surface 3 themes that matter. Anything mentioned by 1-2 is noise — the data is the filter.', es: '5 users surfacean 3 temas que importan. Lo que mencionan 1-2 es ruido — la data es el filtro.' },
+        input: { en: 'Live URL + 5 people who match your user · time + courage', es: 'URL en vivo + 5 personas que igualen tu user · tiempo + valor' },
+        output: { en: '5 worksheets · 3 distilled themes (each with IMPACT + verbatim EVIDENCE) · ready for Refine', es: '5 worksheets · 3 temas destilados (cada uno con IMPACT + EVIDENCIA verbatim) · listos para Refine' },
+        sofia: { en: "Sofía's 3 themes: (1) clients hesitate at APPROVE without preview · (2) £8/mo felt low, £15 felt real · (3) the JOB is 'getting paid faster' not 'tracking approvals'. Theme 3 became the pivot trigger.", es: "Los 3 temas de Sofía: (1) clientes dudan en APROBAR sin preview · (2) £8/mes sintió poco, £15 sintió real · (3) el JOB es 'cobrar más rápido' no 'trackear aprobaciones'. Tema 3 disparó el pivot." },
+      },
+      {
+        num: '11', type: 'prompt', essential: true,
+        name: { en: 'Refine Prompt', es: 'Prompt Refine' },
+        preview: { en: 'Surgical changes traceable to evidence. v0.2 ships.', es: 'Cambios quirúrgicos trazables a evidencia. v0.2 sale.' },
+        why: { en: 'Surgical changes traceable to evidence. Every code change cites a theme number. No feature creep, no overhaul.', es: 'Cambios quirúrgicos trazables a evidencia. Cada cambio cita un número de tema. Sin feature creep, sin rehacer.' },
+        input: { en: 'V+I · current_repo · 3 themes (with IMPACT + EVIDENCE)', es: 'V+I · current_repo · 3 temas (con IMPACT + EVIDENCIA)' },
+        output: { en: 'PRIORITY ORDER · ARCHITECTURE with TRACES TO column · full code per NEW + EDIT · 3-line CHANGELOG in plain language', es: 'ORDEN DE PRIORIDAD · ARCHITECTURE con columna TRACES TO · código completo por NEW + EDIT · CHANGELOG de 3 líneas' },
+        sofia: { en: "Sofía's v0.2 shipped 3 changes traceable to themes: ui/approval_page.py (theme 1), config.py PRICE 8→15 (theme 2), copy retuned to 'invoice-ready trail' (theme 3). 12 files NO CHANGE.", es: "v0.2 de Sofía mandó 3 cambios trazables: ui/approval_page.py (tema 1), config.py PRICE 8→15 (tema 2), copy retuneado a 'trail invoice-ready' (tema 3). 12 archivos NO CHANGE." },
+      },
+    ]
+  },
+  {
+    week: 'W04', wColor: 'w3',
+    weekTitle: { en: 'DIAGNOSIS + POWER-UPS', es: 'DIAGNÓSTICO + POWER-UPS' },
+    weekSub: { en: 'from POC to real MVP', es: 'de POC a MVP real' },
+    steps: [
+      {
+        num: '12', type: 'prompt', essential: true,
+        name: { en: 'MVP Diagnosis Prompt', es: 'Prompt de Diagnóstico MVP' },
+        preview: { en: 'Turns abstract gains into a 3-4 power-up roadmap.', es: 'Convierte gains abstractos en roadmap de 3-4 power-ups.' },
+        why: { en: "Turns abstract VP Canvas gains into a concrete 3-4 power-up roadmap. The pivot from 'follow the script' to 'steer by data'.", es: "Convierte gains abstractos del VP Canvas en roadmap concreto. El pivote de 'sigue el script' a 'maneja por data'." },
+        input: { en: 'V+I · VP Canvas (3 ranked pains + 3 ranked gains) · current_repo · usage estimate · budget', es: 'V+I · VP Canvas (3 dolores + 3 gains ranqueados) · current_repo · estimado · budget' },
+        output: { en: 'Ranked roadmap of 3-4 power-ups · Sprint 1 day-by-day · DON\'T DO YET warnings · 3 readiness questions', es: 'Roadmap ranqueado de 3-4 power-ups · Sprint 1 día por día · advertencias DON\'T DO YET · 3 preguntas readiness' },
+        sofia: { en: "Sofía's roadmap: #1 PAYMENTS (Stripe Links — to capture the £15 finding), #2 EMAIL (Resend — to replace fragile SMTP), #3 DATABASE (Supabase — for survival past restart), #4 LOGIN later.", es: "Roadmap de Sofía: #1 PAGOS (Stripe Links — para capturar el hallazgo de £15), #2 EMAIL (Resend — reemplazar SMTP frágil), #3 DATABASE (Supabase — para sobrevivir reinicios), #4 LOGIN después." },
+      },
+      {
+        num: '13', type: 'guide', essential: true,
+        name: { en: 'Power-Up Catalog Guide', es: 'Power-Up Catalog Guide' },
+        preview: { en: '12 integrations explained for creatives, free-tier first.', es: '12 integraciones explicadas para creativos, free-tier primero.' },
+        why: { en: '12 integrations explained in plain language. Each tied to a specific VP Canvas gain. Free-tier first.', es: '12 integraciones explicadas en lenguaje llano. Cada una atada a un gain específico. Free-tier primero.' },
+        input: { en: 'Just open the guide before each Power-Up Prompt run', es: 'Solo abrir la guía antes de cada corrida del Power-Up Prompt' },
+        output: { en: 'Knowledge: which power-up does what · free tier limits · gotchas · when to add', es: 'Conocimiento: qué hace cada power-up · límites free tier · gotchas · cuándo agregar' },
+        sofia: { en: "Sofía read the guide once. She bookmarked PAYMENTS and EMAIL pages. The 'imagine' callouts in each card matched her workflow exactly — illustrator → editor → invoice.", es: "Sofía leyó la guía una vez. Marcó las páginas de PAGOS y EMAIL. Los callouts 'imagine' de cada card coincidieron con su workflow — ilustradora → editor → factura." },
+      },
+      {
+        num: '14', type: 'prompt', essential: true,
+        name: { en: 'Power-Up Prompt (× N times)', es: 'Power-Up Prompt (× N veces)' },
+        preview: { en: 'ONE integration at a time. Each earns its place.', es: 'UNA integración por turno. Cada una se gana su lugar.' },
+        why: { en: 'ONE integration at a time — Email · DB · Auth · AI · Payments · Booking · etc. Each earns its place. Each with smoke test + rollback.', es: 'UNA integración por turno — Email · DB · Auth · AI · Pagos · Booking · etc. Cada una se gana. Cada una con smoke test + rollback.' },
+        input: { en: 'V+I · current_repo · the SPECIFIC VP Canvas gain · power-up choice · API key ready', es: 'V+I · current_repo · gain ESPECÍFICO · elección de power-up · API key lista' },
+        output: { en: 'Diagnosis · signup steps · architecture · code · secrets TOML · smoke test · rollback', es: 'Diagnosis · pasos signup · arquitectura · código · TOML secrets · smoke test · rollback' },
+        sofia: { en: "Sofía's first run: PAYMENTS. She signed up at stripe.com (5 min), copied the Payment Link, pasted in Streamlit Cloud Secrets, ran the prompt. The button on her approval page now took real payments. Smoke test passed.", es: "Primera corrida de Sofía: PAGOS. Se registró en stripe.com (5 min), copió el Payment Link, pegó en Streamlit Cloud Secrets, corrió el prompt. El botón de su página de aprobación ahora tomaba pagos reales. Smoke test pasó." },
+      },
+      {
+        num: '15', type: 'guide', essential: false,
+        name: { en: 'Smoke Test + Rollback per power-up', es: 'Smoke Test + Rollback por power-up' },
+        preview: { en: 'Every upgrade: works or undoes cleanly.', es: 'Cada upgrade: funciona o se deshace limpio.' },
+        why: { en: 'Every upgrade either works or you can undo it. The discipline that prevents the build from being broken for long.', es: 'Cada upgrade o funciona o lo deshaces. La disciplina que evita que el build esté roto mucho tiempo.' },
+        input: { en: 'The power-up output · 3 minutes of focus per smoke test', es: 'El output del power-up · 3 minutos de foco por smoke test' },
+        output: { en: 'Confirmed working capability OR a clean rollback (Cloud auto-redeploys after revert)', es: 'Capability confirmada O rollback limpio (Cloud redeploya tras revert)' },
+        sofia: { en: "Sofía rolled back ONE power-up: AI IMAGES. The provider's response time exceeded Streamlit Cloud's 30s timeout. She deleted the file, removed from requirements.txt, redeployed in 90s. Clean.", es: "Sofía hizo rollback de UN power-up: AI IMÁGENES. El response time del provider excedió los 30s de timeout de Streamlit Cloud. Borró el archivo, sacó de requirements.txt, redeployó en 90s. Limpio." },
+      },
+    ]
+  },
+  {
+    week: 'W04 · END', wColor: 'w4',
+    weekTitle: { en: 'PITCH + PRESENT', es: 'PITCH + PRESENTAR' },
+    weekSub: { en: 'from MVP to investor-ready', es: 'de MVP a listo para inversor' },
+    steps: [
+      {
+        num: '16', type: 'prompt', essential: true,
+        name: { en: 'Pitch Deck Godmode Prompt', es: 'Pitch Deck Godmode Prompt' },
+        preview: { en: 'Same brand · same numbers · 3-min · 11-slide pitch.html.', es: 'Misma marca · mismos números · 3 min · 11 slides pitch.html.' },
+        why: { en: 'Same brand · same numbers · 3-min · 11-slide pitch.html. The deck IS the product visually — no template generic.', es: 'Misma marca · mismos números · 3 min · 11 slides pitch.html. El deck ES el producto visualmente — sin plantilla genérica.' },
+        input: { en: 'V+I · brand_system · project_story · numbers (5 conversations) · presenter info', es: 'V+I · brand_system · project_story · números (5 conversaciones) · info presenter' },
+        output: { en: '11 headlines · 11-paragraph 3-min script with transitions · self-contained pitch.html · GitHub apply steps', es: '11 headlines · script de 3 min con transiciones · pitch.html self-contained · pasos GitHub' },
+        sofia: { en: "Sofía's pitch.html opened with HOOK '8 hours a week, lost to chasing approved.' Closed with ASK 'Five illustrators in this room — willing to ship Vera with this month's client.' Brand-themed. 11 sections.", es: "El pitch.html de Sofía abrió con HOOK '8 horas/semana, perdidas persiguiendo aprobado.' Cerró con ASK '5 ilustradoras en esta sala — dispuestas a usar Vera con su cliente del mes.' Con marca. 11 secciones." },
+      },
+      {
+        num: '17', type: 'prompt', essential: true,
+        name: { en: 'Final Presentation Prompt', es: 'Final Presentation Prompt' },
+        preview: { en: '10 or 20 min · covers all 9 evaluation dimensions.', es: '10 o 20 min · cubre las 9 dimensiones de evaluación.' },
+        why: { en: '10 or 20 min · covers all 9 evaluation dimensions (product · brand · execution · process · storytelling · functionality · UX · VP · roadmap). Maps every minute to a rubric criterion.', es: '10 o 20 min · cubre las 9 dimensiones (producto · marca · ejecución · proceso · storytelling · funcionalidad · UX · VP · roadmap). Mapea cada minuto a un criterio.' },
+        input: { en: 'V+I · brand · journey · process · numbers · presenter · duration choice', es: 'V+I · marca · journey · proceso · números · presenter · elección de duración' },
+        output: { en: 'Slide structure for 10 + 20 min · full speaker script · rubric map (9 dimensions → slides) · presentation.html · 3 coaching tips', es: 'Estructura para 10 + 20 min · script completo · mapa rúbrica (9 dimensiones → slides) · presentation.html · 3 coaching tips' },
+        sofia: { en: "Sofía picked 10 min. Her rubric_map verified each of the 9 dimensions hit ≥60s of stage time. Coaching tip #1: 'don't over-explain the SQLite schema — your evaluator doesn't need it.'", es: "Sofía eligió 10 min. Su rubric_map verificó cada una de las 9 dimensiones tuvo ≥60s. Coaching tip #1: 'no sobre-expliques el schema de SQLite — tu evaluador no lo necesita.'" },
+      },
+      {
+        num: '18', type: 'guide', essential: true,
+        name: { en: 'Stage-Prep Guide', es: 'Stage-Prep Guide' },
+        preview: { en: 'Power posing · breathing · vocal warmup · grounding.', es: 'Power posing · respiración · calentamiento vocal · grounding.' },
+        why: { en: 'Nervous system regulation is biology, not personality. The 6 techniques (power pose · box breathing · physiological sigh · vocal warmup · visualization · grounding) redirect adrenaline into focus.', es: 'La regulación del sistema nervioso es biología, no personalidad. Las 6 técnicas (power pose · box breathing · suspiro fisiológico · calentamiento vocal · visualización · grounding) redirigen la adrenalina a foco.' },
+        input: { en: 'A 24-hour countdown · a quiet bathroom · 8 minutes of focus', es: 'Countdown de 24 horas · un baño tranquilo · 8 minutos de foco' },
+        output: { en: 'Calm hands · clear voice · slow breath · the same biology, redirected', es: 'Manos calmas · voz clara · respiración lenta · la misma biología, redirigida' },
+        sofia: { en: "Sofía's pre-pitch routine: 2 min power pose in the bathroom, 5 cycles box breathing, vocal warmup with 'red leather yellow leather' three times. She walked on stage 30 seconds early to scan friendly faces.", es: "Rutina pre-pitch de Sofía: 2 min power pose en el baño, 5 ciclos de box breathing, calentamiento vocal con 'tres tristes tigres' tres veces. Subió al escenario 30 seg antes para escanear caras amigables." },
+      },
+      {
+        num: '19', type: 'guide', essential: true,
+        name: { en: 'Live Demo · the moment of truth', es: 'Demo en vivo · el momento de verdad' },
+        preview: { en: '30 seconds of demo carries more than 10 minutes of slides.', es: '30 segundos de demo cargan más que 10 minutos de slides.' },
+        why: { en: '30 seconds of demo carries more than 10 minutes of slides. Show the URL working, in real time, in the room.', es: '30 segundos de demo cargan más que 10 minutos de slides. Muestra la URL funcionando, en tiempo real, en el cuarto.' },
+        input: { en: 'A live URL · a stable WiFi · a backup screenshot · a story arc', es: 'URL en vivo · WiFi estable · screenshot de backup · arco narrativo' },
+        output: { en: 'A demo that lands · a room that leans in · a question or two of curiosity', es: 'Un demo que aterriza · un cuarto que se inclina · una pregunta o dos de curiosidad' },
+        sofia: { en: "Sofía's demo: she opened vera-sofia.streamlit.app, dropped her own illustration, typed editor@monocle.com, hit Send. The success page rendered in 4 seconds. Marta (in the audience) clapped first.", es: "Demo de Sofía: abrió vera-sofia.streamlit.app, soltó su propia ilustración, escribió editor@monocle.com, dio Send. La página de éxito renderizó en 4 segundos. Marta (en el público) aplaudió primero." },
+      },
+      {
+        num: '20', type: 'guide', essential: false,
+        name: { en: 'After: keep iterating', es: 'Después: sigue iterando' },
+        preview: { en: 'Post-demo, the Power-Up loop never stops.', es: 'Post-demo, el Power-Up loop nunca para.' },
+        why: { en: 'Post-demo, the Power-Up loop never stops. The same 12-upgrade menu is your guide for v0.3, v0.4, v1.0...', es: 'Post-demo, el Power-Up loop nunca para. El mismo menú de 12 upgrades es tu guía para v0.3, v0.4, v1.0...' },
+        input: { en: 'The pitch reactions · 3-5 new conversations from the audience · your roadmap', es: 'Las reacciones del pitch · 3-5 conversaciones nuevas del público · tu roadmap' },
+        output: { en: 'A v0.3 plan within 7 days · the next power-up running before the demo high wears off', es: 'Plan v0.3 en 7 días · el siguiente power-up corriendo antes que se baje la euforia del demo' },
+        sofia: { en: "Sofía's post-demo: 4 illustrators DM'd her wanting to use Vera with their next client. She added LOGIN as power-up #4 the same week. By month 3, she had 12 paying users.", es: "Post-demo de Sofía: 4 ilustradoras le DM-mearon queriendo usar Vera con su próximo cliente. Agregó LOGIN como power-up #4 esa semana. Para el mes 3, tenía 12 users que pagaban." },
+      },
+    ]
+  },
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let lang = 'en';
+let completed = JSON.parse(localStorage.getItem('vibe-progress') || '[]');
+
+function saveProgress() {
+  localStorage.setItem('vibe-progress', JSON.stringify(completed));
+  updateProgress();
+}
+
+function updateProgress() {
+  const total = COURSE.reduce((acc, l) => acc + l.steps.length, 0);
+  const pct = Math.round((completed.length / total) * 100);
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('done-num').textContent = completed.length;
+  document.querySelectorAll('.step').forEach(s => {
+    if (completed.includes(s.dataset.num)) s.classList.add('completed');
+    else s.classList.remove('completed');
+  });
+}
+
+function resetProgress() {
+  if (confirm(lang === 'en' ? 'Reset all progress?' : '¿Resetear todo el progreso?')) {
+    completed = [];
+    saveProgress();
+  }
+}
+
+function setLang(newLang) {
+  lang = newLang;
+  document.documentElement.lang = lang;
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+  // Update all data-en/data-es elements
+  document.querySelectorAll('[data-en]').forEach(el => {
+    el.innerHTML = el.dataset[lang] || el.innerHTML;
+  });
+  // Re-render lanes
+  renderLanes();
+  updateProgress();
+}
+
+// ============================================================
+// RENDER
+// ============================================================
+function renderLanes() {
+  const root = document.getElementById('lanes');
+  root.innerHTML = '';
+  COURSE.forEach(lane => {
+    const laneEl = document.createElement('div');
+    laneEl.className = 'lane';
+    laneEl.innerHTML = `
+      <div class="lane-header ${lane.wColor}">
+        <span class="week">${lane.week}</span>
+        <h2>${lane.weekTitle[lang]}</h2>
+        <span class="lane-sub">${lane.weekSub[lang]}</span>
+      </div>
+      <div class="steps">
+        ${lane.steps.map(s => `
+          <div class="step ${lane.wColor}" data-num="${s.num}" data-type="${s.type}" data-essential="${s.essential}" onclick="openStep('${s.num}')">
+            <div class="check" onclick="event.stopPropagation(); toggleDone('${s.num}')">${completed.includes(s.num) ? '✓' : ''}</div>
+            <div class="num">${s.num}</div>
+            <h3>${s.name[lang]}</h3>
+            <div class="preview">${s.preview[lang]}</div>
+            <span class="expand-hint">${lang === 'en' ? 'CLICK FOR WHY' : 'CLIC PARA POR QUÉ'}</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    root.appendChild(laneEl);
+  });
+}
+
+function toggleDone(num) {
+  const idx = completed.indexOf(num);
+  if (idx >= 0) completed.splice(idx, 1);
+  else completed.push(num);
+  saveProgress();
+}
+
+function openStep(num) {
+  let stepData = null;
+  let laneColor = 'w1';
+  for (const lane of COURSE) {
+    const s = lane.steps.find(s => s.num === num);
+    if (s) { stepData = s; laneColor = lane.wColor; break; }
+  }
+  if (!stepData) return;
+
+  const modal = document.getElementById('modal');
+  modal.className = 'modal ' + laneColor;
+  document.getElementById('modal-eyebrow').textContent =
+    (lang === 'en' ? 'STEP ' : 'PASO ') + num + ' · ' + stepData.type.toUpperCase();
+  document.getElementById('modal-num').textContent = num;
+  document.getElementById('modal-title').textContent = stepData.name[lang];
+
+  const body = document.getElementById('modal-body');
+  body.innerHTML = `
+    <div class="modal-section">
+      <h4>${lang === 'en' ? 'WHY THIS MATTERS' : 'POR QUÉ IMPORTA'}</h4>
+      <div class="modal-why">${stepData.why[lang]}</div>
+    </div>
+    <div class="modal-section">
+      <div class="modal-flow">
+        <div>
+          <strong>${lang === 'en' ? 'INPUT' : 'INPUT'}</strong>
+          ${stepData.input[lang]}
+        </div>
+        <div class="arrow">→</div>
+        <div>
+          <strong>${lang === 'en' ? 'OUTPUT' : 'OUTPUT'}</strong>
+          ${stepData.output[lang]}
+        </div>
+      </div>
+    </div>
+    <div class="modal-sofia">
+      <strong>${lang === 'en' ? "SOFÍA'S JOURNEY · WHAT ACTUALLY HAPPENED" : 'EL JOURNEY DE SOFÍA · QUÉ PASÓ EN REALIDAD'}</strong>
+      <p>${stepData.sofia[lang]}</p>
+    </div>
+  `;
+  document.getElementById('modal-bg').classList.add('open');
+}
+
+function closeModal(e) {
+  if (e && e.target.id !== 'modal-bg' && !e.target.classList.contains('modal-close')) return;
+  document.getElementById('modal-bg').classList.remove('open');
+}
+
+// Filters
+document.querySelectorAll('.chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    document.body.classList.remove('filter-prompts', 'filter-guides', 'filter-essential');
+    const f = chip.dataset.filter;
+    if (f !== 'all') document.body.classList.add('filter-' + f);
+  });
+});
+
+// ESC to close modal
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal({ target: document.getElementById('modal-bg') });
+});
+
+// ============================================================
+// INIT
+// ============================================================
+renderLanes();
+updateProgress();
+</script>
+</body>
+</html>

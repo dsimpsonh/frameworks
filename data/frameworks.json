@@ -1,0 +1,60 @@
+{
+  "_comment": "Single source of truth for all frameworks. Add a new entry here + create a folder with index.html at the repo root.",
+  "frameworks": [
+    {
+      "slug": "REWIRED",
+      "title": "REWIRED",
+      "subtitle": "Rebuilding belief systems for AI-native operators",
+      "category": "Methodology",
+      "year": "2025",
+      "tags": ["Mindset", "AI", "Operating Systems"],
+      "summary": "A framework for rewiring the cognitive defaults that hold operators back from building AI-native businesses. Belief audit → identity reframe → action protocol.",
+      "status": "Live",
+      "url": "/REWIRED/"
+    },
+    {
+      "slug": "flywheel",
+      "title": "The Flywheel",
+      "subtitle": "Compounding leverage in AI-native businesses",
+      "category": "Strategy",
+      "year": "2025",
+      "tags": ["Strategy", "Growth", "Systems"],
+      "summary": "How to architect a self-reinforcing loop where every action compounds the next. The mechanics behind AI-native businesses that scale without linear effort.",
+      "status": "Live",
+      "url": "/flywheel/"
+    },
+    {
+      "slug": "rediscovery-canvas",
+      "title": "The Rediscovery Canvas",
+      "subtitle": "A diagnostic for finding your edge after a transition",
+      "category": "Canvas",
+      "year": "2025",
+      "tags": ["Career", "Strategy", "Self-Audit"],
+      "summary": "A structured canvas for operators in transition — between roles, industries, or identities. Maps assets, edges, and unfair advantages onto a single page.",
+      "status": "Live",
+      "url": "/rediscovery-canvas/"
+    },
+    {
+      "slug": "teamscale",
+      "title": "TeamScale",
+      "subtitle": "Scaling teams without losing the founding signal",
+      "category": "Operating Model",
+      "year": "2025",
+      "tags": ["Teams", "Scale", "Leadership"],
+      "summary": "An operating model for scaling teams from 5 to 50 without diluting the founding signal. Roles, rituals, and reporting structures that preserve velocity.",
+      "status": "Live",
+      "url": "/teamscale/"
+    },
+    {
+      "slug": "vibecoding",
+      "title": "Vibecoding",
+      "subtitle": "Shipping production code with AI as your co-pilot",
+      "category": "Course",
+      "year": "2025",
+      "tags": ["AI", "Coding", "Founders"],
+      "summary": "An interactive course for non-engineers shipping real software with AI. From prompt to pull request — the workflow founders actually use.",
+      "status": "Live",
+      "url": "/vibecoding/"
+    }
+  ]
+}

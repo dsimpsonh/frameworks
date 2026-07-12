@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>REWIRED — Build the operator before you build the company.</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #0B2545;
+    --navy-soft: #122E55;
+    --gold: #C9A227;
+    --gold-soft: #E5C964;
+    --cream: #FAF7F2;
+    --paper: #F2EEE6;
+    --slate: #3D4451;
+    --line: #E2DCCF;
+    --white: #FFFFFF;
+  }
+  * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+  html, body { background: var(--cream); color: var(--slate); font-family: 'Inter', system-ui, sans-serif; }
+  .serif { font-family: 'Fraunces', Georgia, serif; letter-spacing: -0.01em; }
+  .navy { color: var(--navy); }
+  .gold { color: var(--gold); }
+  .bg-navy { background: var(--navy); }
+  .bg-cream { background: var(--cream); }
+  .bg-paper { background: var(--paper); }
+  .border-line { border-color: var(--line); }
+  .text-slate { color: var(--slate); }
+
+  .gold-rule { height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+  .gold-rule-strong { height: 2px; background: var(--gold); }
+
+  .btn-primary {
+    background: var(--navy);
+    color: var(--cream);
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all .2s ease;
+    border: 1px solid var(--navy);
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-primary:hover { background: var(--navy-soft); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(11,37,69,0.18); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--navy);
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-weight: 500;
+    border: 1px solid var(--line);
+    transition: all .2s ease;
+  }
+  .btn-ghost:hover { border-color: var(--navy); }
+
+  .card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px;
+    transition: all .2s ease;
+    cursor: pointer;
+    position: relative;
+  }
+  .card:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: 0 14px 30px rgba(11,37,69,0.08); }
+  .card.selected {
+    border-color: var(--gold);
+    background: linear-gradient(180deg, var(--white) 0%, #FFF9E8 100%);
+    box-shadow: 0 0 0 2px var(--gold) inset, 0 14px 30px rgba(201,162,39,0.12);
+  }
+  .card.selected::after {
+    content: "✓";
+    position: absolute;
+    top: 18px; right: 22px;
+    width: 26px; height: 26px;
+    border-radius: 999px;
+    background: var(--gold);
+    color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 14px;
+  }
+
+  .progress-pill {
+    height: 6px;
+    background: var(--line);
+    border-radius: 999px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+    transition: width .4s ease;
+  }
+
+  input[type="text"], textarea, select {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-family: 'Inter', sans-serif;
+    color: var(--navy);
+    width: 100%;
+    transition: all .15s ease;
+  }
+  input[type="text"]:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(201,162,39,0.15);
+  }
+
+  .pill-option {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--white);
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--slate);
+    transition: all .15s ease;
+    margin: 4px;
+  }
+  .pill-option:hover { border-color: var(--navy); }
+  .pill-option.active {
+    background: var(--navy);
+    color: var(--cream);
+    border-color: var(--navy);
+  }
+
+  .screen { animation: fadeIn .5s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  .reveal-block {
+    border-left: 3px solid var(--gold);
+    background: var(--white);
+    padding: 18px 22px;
+    border-radius: 0 12px 12px 0;
+    margin: 10px 0;
+  }
+
+  .protocol-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+
+  .stat-block {
+    background: var(--paper);
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid var(--line);
+  }
+
+  /* Hero radial */
+  .hero-bg {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,162,39,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(11,37,69,0.05) 0%, transparent 60%),
+      var(--cream);
+  }
+
+  .label-tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+
+  .quote {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 22px;
+    line-height: 1.4;
+    color: var(--navy);
+    border-top: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    padding: 22px 0;
+    margin: 28px 0;
+    text-align: center;
+  }
+
+  .checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    cursor: pointer;
+  }
+  .check-box {
+    width: 18px; height: 18px;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .15s ease;
+    flex-shrink: 0;
+  }
+  .checkbox-row.checked .check-box {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--navy);
+  }
+  .checkbox-row.checked .check-box::after { content: "✓"; font-weight: 800; font-size: 12px; }
+
+  .slider-input {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: var(--line);
+    border-radius: 999px;
+    outline: none;
+  }
+  .slider-input::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px; height: 22px;
+    background: var(--gold);
+    border-radius: 999px;
+    cursor: pointer;
+    border: 2px solid var(--white);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+
+  .step-dot {
+    width: 8px; height: 8px;
+    border-radius: 999px;
+    background: var(--line);
+  }
+  .step-dot.active { background: var(--gold); }
+  .step-dot.done { background: var(--navy); }
+
+  /* Print styling */
+  @media print {
+    body { background: white; }
+    .no-print { display: none !important; }
+    .protocol-card { break-inside: avoid; box-shadow: none; }
+  }
+
+  /* Subtle glyph */
+  .glyph {
+    display: inline-block;
+    width: 38px; height: 38px;
+    border-radius: 999px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    color: var(--navy);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-family: 'Fraunces', serif; font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<!-- ======================================================== -->
+<!-- TOP BAR -->
+<!-- ======================================================== -->
+<div class="no-print fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="background: rgba(250,247,242,0.85); border-bottom: 1px solid var(--line);">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-full bg-navy flex items-center justify-center" style="background: var(--navy);">
+        <span class="serif text-lg" style="color: var(--gold);">R</span>
+      </div>
+      <div>
+        <div class="serif font-bold text-lg navy tracking-tight">REWIRED</div>
+        <div class="text-xs text-slate" style="letter-spacing: 0.18em; text-transform: uppercase;">Mind protocol for founders</div>
+      </div>
+    </div>
+    <div class="hidden md:flex items-center gap-6 text-sm text-slate">
+      <a href="#how" class="hover:text-navy">How it works</a>
+      <a href="#science" class="hover:text-navy">Science</a>
+      <a href="#pricing" class="hover:text-navy">Pricing</a>
+      <button onclick="goTo('diagnostic')" class="btn-primary text-sm" style="padding: 10px 20px;">Start your rewire →</button>
+    </div>
+  </div>
+</div>
+
+<div style="height: 76px;"></div>
+
+<!-- ======================================================== -->
+<!-- SCREEN ROOT -->
+<!-- ======================================================== -->
+<main id="root" class="max-w-6xl mx-auto px-6 pb-32"></main>
+
+<!-- ======================================================== -->
+<!-- TEMPLATES (rendered via JS) -->
+<!-- ======================================================== -->
+
+<script>
+// ------------------- STATE -------------------
+const state = {
+  screen: 'hero',
+  diagnostic: { goal: '', fearLevel: 5, ceiling: '' },
+  beliefs: [],
+  reframes: {},
+  alterEgo: {
+    name: '',
+    posture: '',
+    voice: '',
+    walk: '',
+    tolerance: '',
+    superpower: '',
+    statement: '',
+  },
+  anchor: { trigger: '', costume: '', alterTrigger: '' },
+};
+
+const screens = ['hero','diagnostic','beliefs','reframe','alterego','anchor','protocol'];
+
+const allBeliefs = [
+  { id: 'lucky',     icon: '🎲', short: 'Money is luck',           full: 'People with money are just lucky — I\'d need a break I can\'t engineer.', category: 'money' },
+  { id: 'selfish',   icon: '⚠️', short: 'Money corrupts',          full: 'Wealthy people become selfish. If I get rich, I\'ll lose myself.', category: 'money' },
+  { id: 'targeted',  icon: '🎯', short: 'Wealth = target',         full: 'If I were rich, I\'d be exposed, targeted, unsafe.', category: 'money' },
+  { id: 'detached',  icon: '🪨', short: 'Money detaches',          full: 'If I made real money, I\'d feel disconnected from people I love.', category: 'money' },
+  { id: 'arrogant',  icon: '🪞', short: 'Success = arrogance',     full: 'If I succeeded that big, I\'d become arrogant. It would go to my head.', category: 'identity' },
+  { id: 'imposter',  icon: '🎭', short: 'I\'m not the type',       full: 'I\'m not the kind of person who builds at that scale. Real founders are different.', category: 'identity' },
+  { id: 'visible',   icon: '👁', short: 'Being seen is dangerous', full: 'If I take up space publicly, I\'ll be judged, attacked, or humiliated.', category: 'visibility' },
+  { id: 'speaker',   icon: '🎤', short: 'I freeze on stage',       full: 'My body shuts down on stage. I\'m not built to lead rooms.', category: 'visibility' },
+  { id: 'enough',    icon: '⚖️', short: 'I\'m not enough yet',     full: 'I need to learn more, prove more, become more before I\'m allowed to claim it.', category: 'worth' },
+  { id: 'pace',      icon: '⏳', short: 'It\'s too late / too slow', full: 'I should be further along by now. The window is closing.', category: 'worth' },
+];
+
+const reframes = {
+  lucky:    { source: 'Outsider framing — protects you from self-responsibility.',                    upgrade: 'Money is the downstream receipt of clarity, courage, and execution. I generate it.' },
+  selfish:  { source: 'Cultural / parental moral coding around wealth.',                              upgrade: 'Money amplifies who I already am. I am generous — wealth makes me a bigger force for the people I love.' },
+  targeted: { source: 'Survival-brain threat model around visibility and resources.',                 upgrade: 'Wealth gives me the resources for protection, privacy, and selectivity. I get safer, not more exposed.' },
+  detached: { source: 'Loyalty to the tribe — fear of becoming \'other.\'',                           upgrade: 'Money deepens my capacity to support, protect, and elevate the people I love. The bond expands.' },
+  arrogant: { source: 'Pre-emptive self-punishment — rejects success before it arrives.',             upgrade: 'I stay grounded because I choose to. Wealth is a tool I wield; it doesn\'t wield me.' },
+  imposter: { source: 'Identity defence — keeping you in the familiar self-image.',                   upgrade: 'I am exactly the kind of person who builds at this scale — because I am building it. The proof is the work.' },
+  visible:  { source: 'Childhood social-survival wiring around exposure and judgment.',                upgrade: 'Visibility is a multiplier on my impact. I am safe being seen — because I have built the inner ground.' },
+  speaker:  { source: 'A nervous system that learned stage = threat. Reprogrammable in days.',         upgrade: 'My body knows how to lead rooms. I install state on demand. The room leans in.' },
+  enough:   { source: 'Permission-seeking pattern — waits for an external authority that never arrives.', upgrade: 'I am ready now. I claim it now. Mastery happens IN the doing, not before it.' },
+  pace:     { source: 'Comparative timeline anxiety — measures against irrelevant external markers.', upgrade: 'My pace is the right pace. Compounding favours those who don\'t quit. I am exactly on time.' },
+};
+
+const alterEgoNamePool = [
+  { name: 'Athena',  energy: 'Strategy + clear command. Greek goddess of wisdom and war.' },
+  { name: 'Inanna',  energy: 'Sovereign feminine. Sumerian queen of heaven and earth.' },
+  { name: 'Mira',    energy: 'Calm precision. A name that opens slowly.' },
+  { name: 'Vega',    energy: 'Bright, decisive, unmistakable. The fifth-brightest star.' },
+  { name: 'Selene',  energy: 'Quiet authority. Goddess of the moon — visible without effort.' },
+  { name: 'Nova',    energy: 'New star, founder energy, unafraid of being first.' },
+  { name: 'Kira',    energy: 'Single hard syllable. Operator name.' },
+  { name: 'Sable',   energy: 'Soft danger. Calm exterior, sharp interior.' },
+];
+
+const triggerOptions = [
+  { id: 'thumb-mid',  label: 'Thumb + middle finger', note: 'Classic. Silent. Portable.' },
+  { id: 'thumb-ring', label: 'Thumb + ring finger', note: 'Mirror your power anchor.' },
+  { id: 'jewellery',  label: 'Touch a specific ring or bracelet', note: 'Trigger only when worn.' },
+  { id: 'spine',      label: 'Spine cue (crown reaches up)', note: 'Posture is the trigger.' },
+  { id: 'phrase',     label: 'Whispered phrase: \'I am her.\'', note: 'Internal voice trigger.' },
+];
+
+const costumeOptions = [
+  { id: 'lipstick', label: 'Signature lipstick', note: 'War paint. Ritual front-load.' },
+  { id: 'blazer',   label: 'Specific blazer / outfit', note: 'The armour.' },
+  { id: 'jewellery',label: 'Ring or pendant', note: 'Worn only when she is on duty.' },
+  { id: 'perfume',  label: 'Specific perfume', note: 'Limbic shortcut to state.' },
+  { id: 'stage',    label: 'Stage outfit', note: 'Saved for high-stakes only.' },
+];
+
+// ------------------- ROUTING -------------------
+function goTo(screen) {
+  state.screen = screen;
+  render();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function progress() {
+  const stepIndex = screens.indexOf(state.screen);
+  if (stepIndex <= 0) return 0;
+  return Math.round(((stepIndex) / (screens.length - 1)) * 100);
+}
+
+function stepIndicator() {
+  const idx = screens.indexOf(state.screen);
+  if (idx <= 0) return '';
+  return `
+    <div class="no-print mb-10">
+      <div class="flex items-center justify-between mb-3">
+        <div class="text-xs text-slate" style="letter-spacing: 0.16em; text-transform: uppercase; font-weight: 600;">
+          Step ${idx} of ${screens.length - 1}
+        </div>
+        <div class="text-xs text-slate">${progress()}% complete</div>
+      </div>
+      <div class="progress-pill"><div class="progress-fill" style="width: ${progress()}%"></div></div>
+    </div>
+  `;
+}
+
+// ------------------- SCREENS -------------------
+function renderHero() {
+  return `
+  <section class="screen hero-bg -mx-6 px-6 pt-12 pb-20 rounded-3xl">
+    <div class="max-w-3xl mx-auto text-center">
+      <span class="label-tag mb-8 inline-block">For founders building above their current self-image</span>
+      <h1 class="serif font-bold navy mt-6 leading-[1.05]" style="font-size: clamp(40px, 6vw, 72px);">
+        Build the operator <em class="gold" style="font-style: italic;">before</em> you build the company.
+      </h1>
+      <p class="text-lg md:text-xl text-slate mt-6 leading-relaxed" style="max-width: 620px; margin-left: auto; margin-right: auto;">
+        Strategy and skills are 20% of the game. The other 80% is your nervous system, identity, and beliefs about money, visibility, and power. <span class="navy font-semibold">REWIRED is the protocol that handles the 80%.</span>
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10">
+        <button onclick="goTo('diagnostic')" class="btn-primary text-base">Start your rewire — 12 min</button>
+        <a href="#how" class="btn-ghost text-sm">See how it works</a>
+      </div>
+      <div class="mt-8 text-xs text-slate" style="letter-spacing: 0.14em; text-transform: uppercase;">
+        Built on Paul McKenna's clinical hypnotherapy framework
+      </div>
+    </div>
+
+    <div class="gold-rule my-20"></div>
+
+    <div id="how" class="max-w-5xl mx-auto">
+      <div class="text-center mb-14">
+        <span class="label-tag">How it works</span>
+        <h2 class="serif font-bold navy mt-5" style="font-size: 36px;">A 12-minute diagnostic. A protocol you'll run for life.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-5">
+        ${[
+          { n: '01', t: 'Surface', d: 'We surface the limiting beliefs running underneath your goal — money, visibility, worth, identity. You see the wiring you didn\'t know was there.' },
+          { n: '02', t: 'Rewire', d: 'For each belief: source, cost, upgrade. You receive operator-grade replacements your nervous system can install.' },
+          { n: '03', t: 'Embody', d: 'You build your alter ego — name, posture, voice, anchor. We generate your daily ritual + a personalised activation sequence.' },
+        ].map(c => `
+          <div class="protocol-card">
+            <div class="serif font-bold gold text-2xl mb-3">${c.n}</div>
+            <div class="serif font-semibold navy text-xl mb-2">${c.t}</div>
+            <div class="text-sm text-slate leading-relaxed">${c.d}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="gold-rule my-20"></div>
+
+    <div id="science" class="max-w-3xl mx-auto text-center">
+      <span class="label-tag">The science</span>
+      <h2 class="serif font-bold navy mt-5" style="font-size: 36px;">Identity is plastic. State is callable. Beliefs are unwireable.</h2>
+      <p class="text-slate mt-5 leading-relaxed">
+        REWIRED is built on three principles from clinical hypnotherapy and behavioural neuroscience: state creates performance, identity drives behaviour, and the subconscious responds to emotion + repetition + imagery + your own voice. Run the protocol; the wiring follows.
+      </p>
+      <div class="quote">"You don't need to become confident. You need to remove the interference between you and the operator you already are."</div>
+    </div>
+
+    <div class="gold-rule my-20"></div>
+
+    <div id="pricing" class="max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <span class="label-tag">Pricing</span>
+        <h2 class="serif font-bold navy mt-5" style="font-size: 36px;">Three tiers. One protocol.</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-5">
+        ${[
+          { name: 'Self-Run',      price: '£297', sub: 'one-time', features: ['Full diagnostic + reframes','Alter ego builder','Personalised 30-day protocol','PDF + audio scripts','Lifetime access'], cta: 'Start now' },
+          { name: 'Founder',       price: '£997', sub: 'one-time', features: ['Everything in Self-Run','12 weeks of weekly check-ins','Personalised AI hypnosis audio (your name + voice)','Pre-pitch power stacks (5)','Private operator community'], cta: 'Become her', highlight: true },
+          { name: 'Inner Circle',  price: '£4,997', sub: 'one-time', features: ['Everything in Founder','1-on-1 protocol design call','Custom alter ego deep work (90 min)','Quarterly re-stack sessions for 12 months','Direct line for stage-day power stacks'], cta: 'Apply' },
+        ].map(p => `
+          <div class="protocol-card ${p.highlight ? 'ring-2' : ''}" style="${p.highlight ? 'border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold) inset;' : ''}">
+            ${p.highlight ? '<div class="label-tag mb-3">Most chosen</div>' : ''}
+            <div class="serif font-semibold navy text-xl">${p.name}</div>
+            <div class="mt-2 mb-4">
+              <span class="serif navy font-bold" style="font-size: 36px;">${p.price}</span>
+              <span class="text-sm text-slate ml-1">${p.sub}</span>
+            </div>
+            <ul class="space-y-2 mb-6">
+              ${p.features.map(f => `<li class="text-sm text-slate flex gap-2"><span class="gold font-bold">·</span> ${f}</li>`).join('')}
+            </ul>
+            <button onclick="goTo('diagnostic')" class="btn-primary w-full justify-center text-sm">${p.cta}</button>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  </section>
+  `;
+}
+
+function renderDiagnostic() {
+  return `
+    <section class="screen max-w-2xl mx-auto pt-10">
+      ${stepIndicator()}
+      <span class="label-tag">Step 1 — Diagnostic</span>
+      <h2 class="serif font-bold navy mt-4" style="font-size: 38px; line-height: 1.1;">Where do you want to be 12 months from now?</h2>
+      <p class="text-slate mt-3 leading-relaxed">Specific goals install faster than abstract ones. Be concrete: a number, a stage, a person you become.</p>
+
+      <div class="mt-10 space-y-7">
+        <div>
+          <label class="text-sm font-semibold navy mb-2 block">The goal you're chasing</label>
+          <input type="text" id="goal" value="${state.diagnostic.goal}"
+                 placeholder="e.g. Raise £5M seed round, give a 10K-person keynote, hit £64M valuation by 2027"
+                 oninput="state.diagnostic.goal = this.value; updateDiagButton();" />
+        </div>
+
+        <div>
+          <label class="text-sm font-semibold navy mb-2 block">How loud is the inner doubt around this goal?</label>
+          <div class="flex items-center gap-4">
+            <span class="text-xs text-slate" style="min-width: 60px;">Whisper</span>
+            <input type="range" min="1" max="10" value="${state.diagnostic.fearLevel}" class="slider-input"
+                   oninput="state.diagnostic.fearLevel = +this.value; document.getElementById('fearVal').textContent = this.value;" />
+            <span class="text-xs text-slate" style="min-width: 60px; text-align: right;">Roar</span>
+            <span class="serif font-bold navy text-2xl" id="fearVal" style="min-width: 30px;">${state.diagnostic.fearLevel}</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm font-semibold navy mb-2 block">What is the actual ceiling you're hitting? (Optional but powerful)</label>
+          <textarea rows="3" oninput="state.diagnostic.ceiling = this.value;"
+                    placeholder="e.g. I freeze when I have to ask for money. I shrink in rooms with senior people. I sabotage right before I ship.">${state.diagnostic.ceiling}</textarea>
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center mt-12">
+        <button onclick="goTo('hero')" class="btn-ghost text-sm">← Back</button>
+        <button id="diagBtn" onclick="goTo('beliefs')" class="btn-primary" ${state.diagnostic.goal.trim().length < 4 ? 'disabled' : ''}>Surface my beliefs →</button>
+      </div>
+    </section>
+  `;
+}
+
+function renderBeliefs() {
+  return `
+    <section class="screen max-w-4xl mx-auto pt-10">
+      ${stepIndicator()}
+      <span class="label-tag">Step 2 — Surface</span>
+      <h2 class="serif font-bold navy mt-4" style="font-size: 38px; line-height: 1.1;">Which of these are running under your goal?</h2>
+      <p class="text-slate mt-3 leading-relaxed">Don't overthink it. The ones that <em>flinch</em> when you read them — those are the ones. Pick all that resonate.</p>
+
+      <div class="grid md:grid-cols-2 gap-3 mt-10">
+        ${allBeliefs.map(b => `
+          <div class="card ${state.beliefs.includes(b.id) ? 'selected' : ''}" onclick="toggleBelief('${b.id}')">
+            <div class="flex items-start gap-3">
+              <div class="text-2xl">${b.icon}</div>
+              <div class="flex-1">
+                <div class="serif font-semibold navy text-base mb-1">${b.short}</div>
+                <div class="text-sm text-slate leading-relaxed">${b.full}</div>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+
+      <div class="flex justify-between items-center mt-10">
+        <button onclick="goTo('diagnostic')" class="btn-ghost text-sm">← Back</button>
+        <div class="flex items-center gap-4">
+          <span class="text-sm text-slate">${state.beliefs.length} selected</span>
+          <button onclick="goTo('reframe')" class="btn-primary" ${state.beliefs.length === 0 ? 'disabled' : ''}>Reframe them →</button>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function toggleBelief(id) {
+  if (state.beliefs.includes(id)) state.beliefs = state.beliefs.filter(x => x !== id);
+  else state.beliefs.push(id);
+  render();
+}
+
+function renderReframe() {
+  const selected = allBeliefs.filter(b => state.beliefs.includes(b.id));
+  return `
+    <section class="screen max-w-3xl mx-auto pt-10">
+      ${stepIndicator()}
+      <span class="label-tag">Step 3 — Rewire</span>
+      <h2 class="serif font-bold navy mt-4" style="font-size: 38px; line-height: 1.1;">Each belief — sourced, costed, upgraded.</h2>
+      <p class="text-slate mt-3 leading-relaxed">For each one: where it came from, what it costs you, and the operator-grade replacement to install.</p>
+
+      <div class="mt-10 space-y-5">
+        ${selected.map(b => {
+          const r = reframes[b.id];
+          return `
+            <div class="protocol-card">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="text-3xl">${b.icon}</div>
+                <div class="serif font-semibold navy text-xl">${b.short}</div>
+              </div>
+              <div class="text-sm italic text-slate mb-5">"${b.full}"</div>
+
+              <div class="reveal-block">
+                <div class="text-xs gold font-semibold mb-1" style="letter-spacing: 0.16em; text-transform: uppercase;">Source</div>
+                <div class="text-sm text-slate">${r.source}</div>
+              </div>
+
+              <div class="reveal-block">
+                <div class="text-xs gold font-semibold mb-1" style="letter-spacing: 0.16em; text-transform: uppercase;">The Upgrade</div>
+                <div class="text-base navy serif font-semibold">${r.upgrade}</div>
+              </div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <div class="quote">"You don't argue with a belief. You replace it. Then you anchor the replacement."</div>
+
+      <div class="flex justify-between items-center mt-8">
+        <button onclick="goTo('beliefs')" class="btn-ghost text-sm">← Back</button>
+        <button onclick="goTo('alterego')" class="btn-primary">Build your alter ego →</button>
+      </div>
+    </section>
+  `;
+}
+
+function renderAlterEgo() {
+  return `
+    <section class="screen max-w-3xl mx-auto pt-10">
+      ${stepIndicator()}
+      <span class="label-tag">Step 4 — Embody</span>
+      <h2 class="serif font-bold navy mt-4" style="font-size: 38px; line-height: 1.1;">Build the operator you become on cue.</h2>
+      <p class="text-slate mt-3 leading-relaxed">Beyoncé becomes Sasha Fierce. Bowie becomes Ziggy. You become <em>her.</em> Names give the subconscious a clear address. Define her — specific, sensory.</p>
+
+      <div class="mt-10 space-y-7">
+
+        <div>
+          <label class="text-sm font-semibold navy mb-2 block">Her name</label>
+          <input type="text" id="aeName" placeholder="Speak it out loud. Does it land?"
+                 value="${state.alterEgo.name}"
+                 oninput="state.alterEgo.name = this.value;" />
+          <div class="mt-3">
+            <div class="text-xs text-slate mb-2" style="letter-spacing: 0.14em; text-transform: uppercase;">Spark options — click to use</div>
+            <div>
+              ${alterEgoNamePool.map(n => `
+                <span class="pill-option ${state.alterEgo.name === n.name ? 'active' : ''}" onclick="state.alterEgo.name='${n.name}'; render();" title="${n.energy}">${n.name}</span>
+              `).join('')}
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-sm font-semibold navy mb-2 block">Her posture (how she holds her body)</label>
+          <input type="text" placeholder="e.g. Spine long. Shoulders wide and low. Chin level. Grounded through her feet."
+                 value="${state.alterEgo.posture}"
+                 oninput="state.alterEgo.posture = this.value;" />
+        </div>
+
+        <div>
+          <label class="text-sm font-semibold navy mb-2 block">Her voice (pace, pitch, signature)</label>
+          <input type="text" placeholder="e.g. Slow. Mid-low register. Pauses for full seconds. Never rushes."
+                 value="${state.alterEgo.voice}"
+                 oninput="state.alterEgo.voice = this.value;" />
+        </div>
+
+        <div>
+          <label class="text-sm font-semibold navy mb-2 block">Her walk + room entrance</label>
+          <input type="text" placeholder="e.g. Unhurried. She arrives, she doesn't appear. Pause at the door. One slow scan. Then in."
+                 value="${state.alterEgo.walk}"
+                 oninput="state.alterEgo.walk = this.value;" />
+        </div>
+
+        <div>
+          <label class="text-sm font-semibold navy mb-2 block">What she does NOT tolerate</label>
+          <input type="text" placeholder="e.g. Being talked over. Self-doubt loops. Begging. People dimming her."
+                 value="${state.alterEgo.tolerance}"
+                 oninput="state.alterEgo.tolerance = this.value;" />
+        </div>
+
+        <div>
+          <label class="text-sm font-semibold navy mb-2 block">Her superpower (her one signature move)</label>
+          <input type="text" placeholder="e.g. She doesn't fill silence. She lets the room fill it for her."
+                 value="${state.alterEgo.superpower}"
+                 oninput="state.alterEgo.superpower = this.value;" />
+        </div>
+
+        <div>
+          <label class="text-sm font-semibold navy mb-2 block">Her one-line statement (you'll speak this daily)</label>
+          <input type="text" placeholder="e.g. This is my room. I lead. The room leans in."
+                 value="${state.alterEgo.statement}"
+                 oninput="state.alterEgo.statement = this.value;" />
+        </div>
+
+      </div>
+
+      <div class="flex justify-between items-center mt-12">
+        <button onclick="goTo('reframe')" class="btn-ghost text-sm">← Back</button>
+        <button onclick="goTo('anchor')" class="btn-primary" ${state.alterEgo.name.trim().length < 2 ? 'disabled' : ''}>Design her anchor →</button>
+      </div>
+    </section>
+  `;
+}
+
+function renderAnchor() {
+  return `
+    <section class="screen max-w-3xl mx-auto pt-10">
+      ${stepIndicator()}
+      <span class="label-tag">Step 5 — Anchor</span>
+      <h2 class="serif font-bold navy mt-4" style="font-size: 38px; line-height: 1.1;">The trigger that summons her in 2 seconds.</h2>
+      <p class="text-slate mt-3 leading-relaxed">Two anchors. The <span class="navy font-semibold">power anchor</span> calls peak state. The <span class="navy font-semibold">${state.alterEgo.name || 'alter ego'} anchor</span> calls the operator herself.</p>
+
+      <div class="protocol-card mt-10">
+        <div class="text-xs gold font-semibold mb-2" style="letter-spacing: 0.16em; text-transform: uppercase;">Power Anchor — your primary state trigger</div>
+        <div class="serif navy text-lg font-semibold mb-4">Pick the trigger you'll build first</div>
+        <div class="space-y-2">
+          ${triggerOptions.map(t => `
+            <div class="checkbox-row ${state.anchor.trigger === t.id ? 'checked' : ''}" onclick="state.anchor.trigger='${t.id}'; render();">
+              <div class="check-box"></div>
+              <div>
+                <div class="navy font-medium text-sm">${t.label}</div>
+                <div class="text-xs text-slate">${t.note}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="protocol-card">
+        <div class="text-xs gold font-semibold mb-2" style="letter-spacing: 0.16em; text-transform: uppercase;">${state.alterEgo.name || 'Alter ego'} Anchor — separate trigger</div>
+        <div class="serif navy text-lg font-semibold mb-4">Pick a different trigger that summons HER specifically</div>
+        <div class="space-y-2">
+          ${triggerOptions.filter(t => t.id !== state.anchor.trigger).map(t => `
+            <div class="checkbox-row ${state.anchor.alterTrigger === t.id ? 'checked' : ''}" onclick="state.anchor.alterTrigger='${t.id}'; render();">
+              <div class="check-box"></div>
+              <div>
+                <div class="navy font-medium text-sm">${t.label}</div>
+                <div class="text-xs text-slate">${t.note}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="protocol-card">
+        <div class="text-xs gold font-semibold mb-2" style="letter-spacing: 0.16em; text-transform: uppercase;">Costume Cue — the physical signal that summons her</div>
+        <div class="serif navy text-lg font-semibold mb-4">One signature item that itself becomes a trigger</div>
+        <div class="space-y-2">
+          ${costumeOptions.map(c => `
+            <div class="checkbox-row ${state.anchor.costume === c.id ? 'checked' : ''}" onclick="state.anchor.costume='${c.id}'; render();">
+              <div class="check-box"></div>
+              <div>
+                <div class="navy font-medium text-sm">${c.label}</div>
+                <div class="text-xs text-slate">${c.note}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="flex justify-between items-center mt-8">
+        <button onclick="goTo('alterego')" class="btn-ghost text-sm">← Back</button>
+        <button onclick="goTo('protocol')" class="btn-primary"
+          ${(!state.anchor.trigger || !state.anchor.alterTrigger || !state.anchor.costume) ? 'disabled' : ''}>
+          Generate my protocol →
+        </button>
+      </div>
+    </section>
+  `;
+}
+
+function getTriggerLabel(id) { return (triggerOptions.find(t => t.id === id) || {label:'—'}).label; }
+function getCostumeLabel(id) { return (costumeOptions.find(c => c.id === id) || {label:'—'}).label; }
+
+function renderProtocol() {
+  const selected = allBeliefs.filter(b => state.beliefs.includes(b.id));
+  const ae = state.alterEgo;
+  const a = state.anchor;
+  const today = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+  return `
+    <section class="screen max-w-4xl mx-auto pt-10">
+      ${stepIndicator()}
+
+      <div class="text-center mb-12">
+        <span class="label-tag">Your protocol — generated ${today}</span>
+        <h2 class="serif font-bold navy mt-5" style="font-size: 42px; line-height: 1.05;">${ae.name || 'Your Operator'} <span class="gold">·</span> Personalised</h2>
+        <p class="text-slate mt-3 leading-relaxed max-w-xl mx-auto">Print this. Stick it where you do the work. Run it for 30 days. Then do it again at higher altitude.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-5 mb-8">
+        <div class="stat-block">
+          <div class="text-xs gold font-semibold mb-1" style="letter-spacing: 0.16em; text-transform: uppercase;">Goal</div>
+          <div class="navy serif font-semibold text-lg">${state.diagnostic.goal || '—'}</div>
+        </div>
+        <div class="stat-block">
+          <div class="text-xs gold font-semibold mb-1" style="letter-spacing: 0.16em; text-transform: uppercase;">Inner doubt baseline</div>
+          <div class="navy serif font-semibold text-lg">${state.diagnostic.fearLevel} / 10 — to be reduced to 3 within 30 days</div>
+        </div>
+      </div>
+
+      <!-- ALTER EGO -->
+      <div class="protocol-card">
+        <div class="flex items-center justify-between mb-4">
+          <span class="label-tag">Your Alter Ego</span>
+          <span class="text-xs text-slate">Step into her. Daily.</span>
+        </div>
+        <div class="serif font-bold navy mb-3" style="font-size: 32px;">${ae.name || '—'}</div>
+        <div class="grid md:grid-cols-2 gap-x-8 gap-y-4 text-sm">
+          ${[
+            ['Posture', ae.posture],
+            ['Voice', ae.voice],
+            ['Walk + entrance', ae.walk],
+            ['Does not tolerate', ae.tolerance],
+            ['Her superpower', ae.superpower],
+            ['One-line statement', ae.statement],
+          ].map(([label, val]) => `
+            <div>
+              <div class="text-xs gold font-semibold mb-1" style="letter-spacing: 0.14em; text-transform: uppercase;">${label}</div>
+              <div class="text-slate">${val || '<span style="opacity:0.3">— add later</span>'}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- BELIEFS REWIRED -->
+      <div class="protocol-card">
+        <span class="label-tag">Your Belief Rewires</span>
+        <div class="serif font-bold navy mt-3 mb-5" style="font-size: 28px;">Speak each upgrade out loud. Daily. With feeling.</div>
+        ${selected.map(b => {
+          const r = reframes[b.id];
+          return `
+            <div class="reveal-block">
+              <div class="text-xs text-slate mb-1 italic">Was: "${b.full}"</div>
+              <div class="navy serif font-semibold">${r.upgrade}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+
+      <!-- ACTIVATION SEQUENCE -->
+      <div class="protocol-card">
+        <span class="label-tag">Your 90-Second Activation Sequence</span>
+        <div class="serif font-bold navy mt-3 mb-5" style="font-size: 28px;">Run this before any high-stakes moment.</div>
+        <div class="space-y-3">
+          ${[
+            { t: '0:00', step: 'Put on your costume cue', detail: getCostumeLabel(a.costume) },
+            { t: '0:05', step: 'Fire your power anchor', detail: getTriggerLabel(a.trigger) + ' · install state · 10 sec' },
+            { t: '0:15', step: 'Fire your ' + (ae.name || 'alter ego') + ' anchor', detail: getTriggerLabel(a.alterTrigger) + ' · summon her · 10 sec' },
+            { t: '0:25', step: 'Whisper internally', detail: '"I am ' + (ae.name || 'her') + '. This is my room."' },
+            { t: '0:35', step: 'Three slow breaths', detail: 'Let her settle in your body' },
+            { t: '1:30', step: 'Walk in. Pause 3 seconds. Begin.', detail: 'Speak the first word from her, not from you' },
+          ].map(s => `
+            <div class="flex gap-4 items-start">
+              <div class="serif gold font-bold text-base" style="min-width: 50px;">${s.t}</div>
+              <div>
+                <div class="navy font-semibold text-sm">${s.step}</div>
+                <div class="text-xs text-slate mt-0.5">${s.detail}</div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- DAILY RITUAL -->
+      <div class="protocol-card">
+        <span class="label-tag">Your Daily Ritual — 30 to 45 minutes</span>
+        <div class="serif font-bold navy mt-3 mb-5" style="font-size: 28px;">Same time. Same place. Daily.</div>
+        <div class="grid md:grid-cols-3 gap-4">
+          ${[
+            { when: 'Morning', time: '10 min', items: [
+              'Anchor: fire ' + getTriggerLabel(a.trigger) + ' (3 min)',
+              ae.name + ' embodiment: walk her walk, speak her statement (5 min)',
+              'Voice + breath drill (2 min)',
+            ]},
+            { when: 'Midday', time: '5 min', items: [
+              'Pattern interrupt: shake + smile when contracted',
+              'Re-fire power anchor 3× during normal moments',
+            ]},
+            { when: 'Evening', time: '15-25 min', items: [
+              'Self-hypnosis induction (5 min)',
+              'Belief rewire: speak ' + selected.length + ' upgrades aloud (5 min)',
+              'Identity install: become ' + ae.name + ' in trance (5-10 min)',
+              'Day Log: state before/after, one piece of evidence (2 min)',
+            ]},
+          ].map(b => `
+            <div class="stat-block">
+              <div class="text-xs gold font-semibold mb-1" style="letter-spacing: 0.16em; text-transform: uppercase;">${b.when}</div>
+              <div class="navy serif font-bold text-lg mb-3">${b.time}</div>
+              <ul class="space-y-2 text-sm text-slate">
+                ${b.items.map(i => `<li class="flex gap-2"><span class="gold">·</span> <span>${i}</span></li>`).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- 30 DAY ARC -->
+      <div class="protocol-card">
+        <span class="label-tag">Your 30-Day Arc</span>
+        <div class="serif font-bold navy mt-3 mb-5" style="font-size: 28px;">From belief to embodiment.</div>
+        <div class="space-y-3">
+          ${[
+            { d: 'Days 1–7',  t: 'Anchor + belief collapse', x: 'Build power anchor (Stage 2). Run belief collapse on each rewired belief.' },
+            { d: 'Days 8–14', t: ae.name + ' install', x: 'Build ' + ae.name + ' anchor (10 min/day). Daily embodiment routine. 5-min mirror reps.' },
+            { d: 'Days 15–21', t: 'Stack + deploy', x: 'Test anchors in low-stakes real moments. Stack new peak states weekly.' },
+            { d: 'Days 22–30', t: 'High-stakes deploy', x: 'Run activation sequence before every meaningful moment. ' + (ae.name || 'She') + ' becomes default.' },
+          ].map(d => `
+            <div class="flex gap-4 items-start border-l-2 pl-4" style="border-color: var(--gold);">
+              <div style="min-width: 100px;">
+                <div class="serif font-bold navy">${d.d}</div>
+                <div class="text-xs gold font-semibold" style="letter-spacing: 0.14em; text-transform: uppercase;">${d.t}</div>
+              </div>
+              <div class="text-sm text-slate flex-1">${d.x}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="quote">"By Day 30, your nervous system stops resisting your goal. By Day 90, it conspires with you to reach it."</div>
+
+      <!-- CTA -->
+      <div class="protocol-card no-print" style="background: var(--navy); border: none; color: var(--cream);">
+        <div class="text-center py-6">
+          <div class="serif font-bold mb-3" style="color: var(--gold); font-size: 28px;">Ready to lock it in?</div>
+          <p class="text-sm mb-6" style="color: rgba(250,247,242,0.85); max-width: 480px; margin: 0 auto;">
+            Get the full Founder tier: weekly check-ins, ${ae.name || 'your alter ego'}'s personalised hypnosis audio recorded in your own voice, and the private operator community.
+          </p>
+          <button class="btn-primary" style="background: var(--gold); color: var(--navy); border-color: var(--gold);">Become ${ae.name || 'her'} — £997</button>
+        </div>
+      </div>
+
+      <div class="flex justify-center gap-3 mt-6 no-print">
+        <button onclick="window.print()" class="btn-ghost text-sm">Print / save as PDF</button>
+        <button onclick="goTo('hero')" class="btn-ghost text-sm">Start over</button>
+      </div>
+
+    </section>
+  `;
+}
+
+// ------------------- RENDER -------------------
+function render() {
+  const root = document.getElementById('root');
+  let html = '';
+  switch (state.screen) {
+    case 'hero':       html = renderHero(); break;
+    case 'diagnostic': html = renderDiagnostic(); break;
+    case 'beliefs':    html = renderBeliefs(); break;
+    case 'reframe':    html = renderReframe(); break;
+    case 'alterego':   html = renderAlterEgo(); break;
+    case 'anchor':     html = renderAnchor(); break;
+    case 'protocol':   html = renderProtocol(); break;
+    default:           html = renderHero();
+  }
+  root.innerHTML = html;
+}
+
+function updateDiagButton() {
+  const btn = document.getElementById('diagBtn');
+  if (!btn) return;
+  if (state.diagnostic.goal.trim().length >= 4) btn.removeAttribute('disabled');
+  else btn.setAttribute('disabled', '');
+}
+
+render();
+</script>
+
+</body>
+</html>
