@@ -91,6 +91,8 @@ footer{margin-top:36px;color:var(--muted);font-size:12.5px;text-align:center}
     <div class="row"><label>Synth</label><input type="range" min="0" max="100" data-stem="synth"><output>–</output></div>
     <div class="row"><label>Pads</label><input type="range" min="0" max="100" data-stem="pad"><output>–</output></div>
     <div class="row"><label>Strings</label><input type="range" min="0" max="100" data-stem="strings"><output>–</output></div>
+    <div class="row"><label>Violin</label><input type="range" min="0" max="100" data-stem="violin"><output>–</output></div>
+    <div class="row"><label>Sax</label><input type="range" min="0" max="100" data-stem="sax"><output>–</output></div>
     <div class="row"><label>Guitar</label><input type="range" min="0" max="100" data-stem="guitar"><output>–</output></div>
     <div class="row"><label>Drums</label><input type="range" min="0" max="100" data-stem="drums"><output>–</output></div>
   </section>
@@ -163,7 +165,7 @@ footer{margin-top:36px;color:var(--muted);font-size:12.5px;text-align:center}
 
 </main>
 
-<footer>© Diana Simpson-Hernandez · Frequency Studio — synthesized live with the Web Audio API · <span id="build">build 8</span></footer>
+<footer>© Diana Simpson-Hernandez · Frequency Studio — synthesized live with the Web Audio API · <span id="build">build 9</span></footer>
 </div>
 
 <script>
@@ -205,7 +207,7 @@ const PRESETS = [
    bass:'seq', drums:'fourfloor', guitar:null, swing:.12,
    voice:{bass:{wave:'square',sub:.6,cut:.8,res:3}, arp:{shape:'velvet',wave:'sawtooth',detune:6,cut:.75}, pad:{wave:'sawtooth',detune:5,cut:.6,breath:0}, violin:.15},
    kit:{kick:[150,46,.26], snr:.9, hat:1, tom:1},
-   levels:{bass:.85, synth:.7, pad:.45, strings:.15, guitar:0, drums:.85},
+   levels:{bass:.85, synth:.7, pad:.45, strings:.15, violin:.25, sax:.5, guitar:0, drums:.85},
    bright:.55, space:.35, intensity:.6},
 
   {id:'sunrise', name:'Balcony Sunrise', tag:'Rufus Du Sol · Avoure',
@@ -217,7 +219,7 @@ const PRESETS = [
    bass:'seq', drums:'fourfloor', guitar:null, swing:.16,
    voice:{bass:{wave:'sine',sub:.8,cut:1,res:.5}, arp:{shape:'pluck',wave:'triangle',detune:8,cut:1.3}, pad:{wave:'sawtooth',detune:11,cut:1.1,breath:0}, violin:.2},
    kit:{kick:[130,44,.3], snr:.8, hat:.9, tom:1},
-   levels:{bass:.8, synth:.65, pad:.75, strings:.3, guitar:0, drums:.75},
+   levels:{bass:.8, synth:.65, pad:.75, strings:.3, violin:.3, sax:0, guitar:0, drums:.75},
    bright:.6, space:.55, intensity:.55},
 
   {id:'neon84', name:'Neon 84', tag:'80s synthwave',
@@ -229,7 +231,7 @@ const PRESETS = [
    bass:'seq', drums:'eighties', guitar:null, swing:.04,
    voice:{bass:{wave:'sawtooth',sub:.4,cut:1.2,res:2}, arp:{shape:'lead84',wave:'square',detune:10,cut:1.2}, pad:{wave:'square',detune:8,cut:.9,breath:0}, violin:.12},
    kit:{kick:[160,50,.22], snr:1.7, hat:1.15, tom:1},
-   levels:{bass:.8, synth:.75, pad:.6, strings:.25, guitar:0, drums:.8},
+   levels:{bass:.8, synth:.75, pad:.6, strings:.25, violin:.2, sax:0, guitar:0, drums:.8},
    bright:.75, space:.45, intensity:.6},
 
   {id:'richter', name:'On Light', tag:'Max Richter · neoclassical',
@@ -241,7 +243,7 @@ const PRESETS = [
    bass:'sustained', drums:'none', guitar:null, swing:0,
    voice:{bass:{wave:'triangle',sub:.5,cut:.7,res:.5}, arp:{shape:'piano',wave:'triangle'}, pad:{wave:'triangle',detune:4,cut:.8,breath:.15}, violin:.55},
    kit:{kick:[130,44,.3], snr:1, hat:1, tom:1},
-   levels:{bass:.6, synth:.5, pad:.8, strings:.9, guitar:0, drums:0},
+   levels:{bass:.6, synth:.5, pad:.8, strings:.9, violin:.6, sax:0, guitar:0, drums:0},
    bright:.35, space:.8, intensity:.35},
 
   {id:'f1', name:'F1 Rising', tag:'Hans Zimmer · epic pulse',
@@ -253,7 +255,7 @@ const PRESETS = [
    bass:'sustained', drums:'pulse', guitar:null, swing:0,
    voice:{bass:{wave:'sawtooth',sub:1,cut:1.1,res:2.5}, arp:{shape:'stab',wave:'sawtooth',detune:12,res:3,cut:.9}, pad:{wave:'sawtooth',detune:10,cut:.8,breath:0}, violin:.45},
    kit:{kick:[120,38,.45], snr:1, hat:.7, tom:1.9},
-   levels:{bass:.85, synth:.75, pad:.5, strings:.7, guitar:0, drums:.8},
+   levels:{bass:.85, synth:.75, pad:.5, strings:.7, violin:.5, sax:0, guitar:0, drums:.8},
    bright:.6, space:.45, intensity:.7},
 
   {id:'sadeness', name:'Sadeness Drift', tag:'Enigma · downtempo trance',
@@ -265,7 +267,7 @@ const PRESETS = [
    bass:'seq', drums:'downtempo', guitar:{steps:[0,8], prob:.8}, swing:.22,
    voice:{bass:{wave:'sine',sub:.7,cut:.8,res:.5}, arp:{shape:'flute',wave:'sine'}, pad:{wave:'triangle',detune:6,cut:.7,breath:.35}, violin:.3},
    kit:{kick:[125,45,.3], snr:.7, hat:.85, tom:1},
-   levels:{bass:.7, synth:.5, pad:.8, strings:.5, guitar:.4, drums:.65},
+   levels:{bass:.7, synth:.5, pad:.8, strings:.5, violin:.4, sax:0, guitar:.4, drums:.65},
    bright:.4, space:.7, intensity:.45},
 
   {id:'tulum', name:'Tulum Tape', tag:'Sofi Tukker · Theus Mago',
@@ -278,7 +280,7 @@ const PRESETS = [
    // the organ jabs become smoky sax licks answering the bass riff
    voice:{bass:{wave:'square',sub:.5,cut:1.1,res:4}, arp:{shape:'sax'}, pad:{wave:'sawtooth',detune:6,cut:.9,breath:0}, violin:.12},
    kit:{kick:[155,48,.22], snr:1.1, hat:1.05, tom:1},
-   levels:{bass:.9, synth:.55, pad:.35, strings:.1, guitar:.7, drums:.85},
+   levels:{bass:.9, synth:.4, pad:.35, strings:.1, violin:.15, sax:.8, guitar:.7, drums:.85},
    bright:.65, space:.4, intensity:.65},
 
   {id:'turandot', name:'Nessun Dorma', tag:'Puccini · Turandot',
@@ -291,7 +293,7 @@ const PRESETS = [
    bass:'sustained', drums:'none', guitar:null, swing:0,
    voice:{bass:{wave:'triangle',sub:.6,cut:.7,res:.5}, arp:{shape:'violin'}, pad:{wave:'triangle',detune:5,cut:.85,breath:.3}, violin:.9},
    kit:{kick:[130,44,.3], snr:1, hat:1, tom:1},
-   levels:{bass:.55, synth:.7, pad:.7, strings:.95, guitar:0, drums:0},
+   levels:{bass:.55, synth:.5, pad:.7, strings:.95, violin:1, sax:0, guitar:0, drums:0},
    bright:.45, space:.85, intensity:.4}
 ];
 
@@ -319,7 +321,7 @@ function chordExt(P, degree, n){
    ============================================================ */
 const state = {
   playing:false, preset:'crossfade', tuning:432,
-  levels:{bass:.85, synth:.7, pad:.45, strings:.2, guitar:0, drums:.85, drone:.25, bin:.2},
+  levels:{bass:.85, synth:.7, pad:.45, strings:.2, violin:.25, sax:.5, guitar:0, drums:.85, drone:.25, bin:.2},
   macros:{tempo:122, intensity:.6, bright:.55, space:.35},
   drone:0, bin:0
 };
@@ -333,7 +335,7 @@ function midiF(m){ return state.tuning * Math.pow(2,(m-69)/12); }
    ============================================================ */
 let ctx=null, master, warm, pump, comp, analyser, delayBus, delayFB, reverbBus, noiseBuf;
 const stems = {};          // name → {gain, dSend, rSend, dBase, rBase}
-const SENDS = {bass:{d:0,r:.05}, synth:{d:.4,r:.3}, pad:{d:.08,r:.6}, strings:{d:.05,r:.55}, guitar:{d:.25,r:.35}, drums:{d:.06,r:.12}};
+const SENDS = {bass:{d:0,r:.05}, synth:{d:.4,r:.3}, pad:{d:.08,r:.6}, strings:{d:.05,r:.55}, violin:{d:.1,r:.5}, sax:{d:.3,r:.35}, guitar:{d:.25,r:.35}, drums:{d:.06,r:.12}};
 
 function initAudio(){
   if(ctx) return;
@@ -376,10 +378,10 @@ function initAudio(){
   reverbBus.connect(rOut); rOut.connect(master);
 
   // instrument stems with per-stem send levels
-  for(const name of ['bass','synth','pad','strings','guitar','drums']){
+  for(const name of ['bass','synth','pad','strings','violin','sax','guitar','drums']){
     const g=ctx.createGain(); g.gain.value=state.levels[name];
     const dS=ctx.createGain(), rS=ctx.createGain();
-    const dest = ['pad','strings','synth'].includes(name) ? pump : master;
+    const dest = ['pad','strings','violin','synth'].includes(name) ? pump : master; // sax stays un-ducked: smoky presence over the kick
     g.connect(dest); g.connect(dS); dS.connect(delayBus); g.connect(rS); rS.connect(reverbBus);
     stems[name]={gain:g, dSend:dS, rSend:rS, dBase:SENDS[name].d, rBase:SENDS[name].r};
   }
@@ -394,7 +396,7 @@ function initAudio(){
 function updateSpace(){
   if(!ctx) return;
   const s = state.macros.space*2;
-  for(const n of ['bass','synth','pad','strings','guitar','drums']){
+  for(const n of ['bass','synth','pad','strings','violin','sax','guitar','drums']){
     stems[n].dSend.gain.value = stems[n].dBase*s;
     stems[n].rSend.gain.value = stems[n].rBase*s;
   }
@@ -512,7 +514,7 @@ function playSynth(t,m,dur,vel,shapeOv){
     const br=noiseSrc(t,dur), bf=ctx.createBiquadFilter(); bf.type='bandpass'; bf.frequency.value=2800; bf.Q.value=1;
     const bg=ctx.createGain(); bg.gain.value=vel*.05;
     br.connect(bf); bf.connect(bg); bg.connect(g);
-    g.connect(stems.synth.gain);
+    g.connect(stems.sax.gain);
     o.start(t); vib.start(t); o.stop(t+dur+.25); vib.stop(t+dur+.25);
     return;
   }
@@ -535,7 +537,7 @@ function playSynth(t,m,dur,vel,shapeOv){
       o.detune.value=det; vg.connect(o.detune);
       o.connect(lp); o.start(t); o.stop(t+dur+.3);
     }
-    lp.connect(pres); pres.connect(g); g.connect(stems.synth.gain);
+    lp.connect(pres); pres.connect(g); g.connect(stems.violin.gain);
     vib.start(t); vib.stop(t+dur+.3);
     return;
   }
@@ -682,7 +684,7 @@ function playStrings(t,notes,dur){
       o.detune.value=det; vg.connect(o.detune);
       o.connect(lp); o.start(t); o.stop(t+dur+1.4);
     }
-    lp.connect(pres); pres.connect(g); g.connect(pan); pan.connect(stems.strings.gain);
+    lp.connect(pres); pres.connect(g); g.connect(pan); pan.connect(stems.violin.gain);
     vib.start(t); vib.stop(t+dur+1.4);
   }
 }
