@@ -161,7 +161,8 @@ section.block{padding:56px 0 8px}
 .certificate .to{font-family:'Fraunces',serif;font-style:italic;font-size:56px;color:var(--coral);margin:22px 0 10px;line-height:1.1}
 .certificate p{color:var(--muted);font-size:15.5px;max-width:520px;margin:0 auto 8px}
 .certificate .rule{width:70px;height:2px;background:var(--gold);margin:24px auto}
-.certificate .sigs{display:flex;justify-content:center;gap:70px;margin-top:36px;flex-wrap:wrap}
+.certificate .sigs{display:flex;justify-content:center;align-items:flex-end;gap:70px;margin-top:36px;flex-wrap:wrap}
+.certificate .paw{display:block;margin:0 auto 6px;opacity:.92}
 .certificate .sig-block{text-align:center}
 .certificate .sig-name{font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:var(--navy)}
 .certificate .sig-role{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:6px;border-top:1px solid var(--line);padding-top:8px}
@@ -665,7 +666,19 @@ function renderCert(){
     <p>Average score ${avgPct()}% · ${totalXP()} Knowledge XP · ${earned().length} of ${BADGES.length} badges · Awarded ${d}</p>
     <div class="sigs">
       <div class="sig-block"><div class="sig-name">Diana Simpson-Hernandez</div><div class="sig-role">Course Director</div></div>
-      <div class="sig-block"><div class="sig-name">Lucas</div><div class="sig-role">Dean of Good Boys · pawprint on file</div></div>
+      <div class="sig-block">
+        <svg class="paw" width="72" height="64" viewBox="0 0 74 66" fill="none" aria-label="Lucas's labradoodle pawprint">
+          <g transform="rotate(-10 37 33)">
+            <ellipse cx="17" cy="23" rx="5.6" ry="7.6" transform="rotate(-22 17 23)" fill="#F96167"/>
+            <ellipse cx="30" cy="13.5" rx="5.6" ry="7.8" transform="rotate(-7 30 13.5)" fill="#F96167"/>
+            <ellipse cx="44" cy="13.5" rx="5.6" ry="7.8" transform="rotate(7 44 13.5)" fill="#F96167"/>
+            <ellipse cx="57" cy="23" rx="5.6" ry="7.6" transform="rotate(22 57 23)" fill="#F96167"/>
+            <path d="M37 30c-9 0-15.5 6.8-14.4 14.3.9 6.4 6 10.7 14.4 10.7s13.5-4.3 14.4-10.7C52.5 36.8 46 30 37 30z" fill="#F96167"/>
+            <path d="M10 17c-1.8-.6-2.6-2.2-2.3-3.9M13 9.5c-1.5-1-1.8-2.8-1-4.4M64 17c1.8-.6 2.6-2.2 2.3-3.9M61 9.5c1.5-1 1.8-2.8 1-4.4M25 4.5c-.4-1.7.4-3.3 1.9-4M49 4.5c.4-1.7-.4-3.3-1.9-4M19.5 44c-1.9.2-3.3-.8-3.9-2.5M54.5 44c1.9.2 3.3-.8 3.9-2.5M31 58.5c-.9 1.5-2.5 2.1-4.3 1.7M43 58.5c.9 1.5 2.5 2.1 4.3 1.7" stroke="#F96167" stroke-width="1.5" stroke-linecap="round"/>
+          </g>
+        </svg>
+        <div class="sig-name">Lucas</div><div class="sig-role">Dean of Good Boys · Labradoodle</div>
+      </div>
     </div>
   </div>
   <div class="cert-actions">
