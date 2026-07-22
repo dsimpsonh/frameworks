@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Curious Universe · Aeon Academy · Diana Simpson-Hernandez</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Curious Universe · Diana Simpson-Hernandez">
+<meta property="og:description" content="A private course for a brilliant mind: quantum physics and artificial intelligence, taught through philosophy, art history, travel — and one very good dog.">
+<meta property="og:url" content="https://frameworks.dianasimpsonhernandez.com/quantum-and-ai/">
+<meta property="og:image" content="https://frameworks.dianasimpsonhernandez.com/assets/preview-quantum-and-ai.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1E2761; --coral:#F96167; --gold:#F9E795; --cream:#FAF7F2;
+  --ink:#0E1330; --muted:#6B7089; --line:#C9CCD9; --white:#FFFFFF;
+  --r:14px; --r-sm:8px; --pad:32px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-family:'Inter',sans-serif;font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,.serif{font-family:'Fraunces',serif;color:var(--navy);line-height:1.2;font-weight:600}
+em.accent, .accent-i{font-family:'Fraunces',serif;font-style:italic;color:var(--coral)}
+a{color:var(--coral)}
+.wrap{max-width:880px;margin:0 auto;padding:0 24px}
+.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;color:var(--muted)}
+.on-navy .eyebrow{color:var(--gold)}
+
+/* Top bar */
+.topbar{background:var(--navy);padding:14px 0}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand .wordmark{font-family:'Fraunces',serif;color:var(--white);font-weight:600;font-size:18px;letter-spacing:.02em}
+.brand .wordmark span{color:var(--gold);font-style:italic}
+.brand .est{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.55);display:block;margin-top:1px}
+.xp-pill{background:rgba(249,231,149,.14);border:1px solid rgba(249,231,149,.45);color:var(--gold);border-radius:999px;padding:6px 16px;font-size:13px;font-weight:600;white-space:nowrap}
+
+/* Hero */
+.hero{background:var(--navy);color:var(--white);padding:72px 0 64px}
+.hero h1{color:var(--white);font-size:clamp(38px,6vw,58px);font-weight:550;margin:18px 0 20px;letter-spacing:-.01em}
+.hero h1 em{font-style:italic;color:var(--coral);font-weight:550}
+.hero p.lede{font-size:19px;color:rgba(255,255,255,.85);max-width:640px}
+.note{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-left:3px solid var(--gold);border-radius:var(--r);padding:24px 28px;margin-top:36px;max-width:680px}
+.note p{color:rgba(255,255,255,.88);font-size:16px}
+.note p+p{margin-top:10px}
+.note .sig{font-family:'Fraunces',serif;font-style:italic;color:var(--gold);margin-top:14px;font-size:17px}
+
+/* Dashboard */
+.dash{margin-top:-34px;position:relative;z-index:2}
+.dash-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.stat{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:0 8px 24px rgba(30,39,97,.07)}
+.stat .num{font-family:'Fraunces',serif;font-size:30px;font-weight:600;color:var(--navy)}
+.stat .num small{font-size:15px;color:var(--muted);font-family:'Inter',sans-serif;font-weight:500}
+.stat .lbl{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--muted);margin-top:2px}
+.bar{height:8px;background:#ECE8E0;border-radius:999px;overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--coral),#fb8a8e);border-radius:999px;transition:width .6s ease}
+
+/* Sections */
+section.block{padding:56px 0 8px}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:22px}
+.section-head h2{font-size:30px}
+.section-head .count{font-size:13px;color:var(--muted);font-weight:600}
+
+/* Lesson cards */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:26px 28px;display:flex;flex-direction:column;gap:10px;position:relative;transition:transform .15s ease, box-shadow .15s ease;cursor:pointer;text-decoration:none;color:inherit}
+.card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(30,39,97,.10)}
+.card h3{font-size:21px}
+.card p{font-size:15px;color:var(--muted)}
+.card .meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:auto;padding-top:8px}
+.pill{border-radius:999px;padding:4px 12px;font-size:12px;font-weight:600;letter-spacing:.04em}
+.pill.todo{background:#F1EDE5;color:var(--muted)}
+.pill.done{background:var(--gold);color:var(--navy)}
+.pill.score{background:var(--navy);color:var(--white)}
+.card .lnum{font-family:'Fraunces',serif;font-style:italic;color:var(--coral);font-size:14px}
+
+/* Badges */
+.badges{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.badge{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:20px 16px;text-align:center}
+.badge .ic{width:54px;height:54px;margin:0 auto 10px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--navy)}
+.badge.locked .ic{background:#ECE8E0}
+.badge.locked svg *{stroke:#B8B3A8 !important;fill:none !important}
+.badge b{display:block;font-size:14px;color:var(--navy)}
+.badge.locked b{color:var(--muted)}
+.badge span{font-size:12px;color:var(--muted);line-height:1.45;display:block;margin-top:3px}
+
+/* Certificate card */
+.cert-card{background:var(--navy);border-radius:var(--r);padding:34px;color:var(--white);display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.cert-card h3{color:var(--white);font-size:24px}
+.cert-card p{color:rgba(255,255,255,.75);font-size:15px;max-width:440px}
+
+/* Buttons */
+.btn{display:inline-block;background:var(--coral);color:var(--white);border:none;border-radius:999px;padding:13px 28px;font-weight:600;font-size:15px;font-family:'Inter',sans-serif;cursor:pointer;text-decoration:none;transition:filter .15s}
+.btn:hover{filter:brightness(1.06)}
+.btn.ghost{background:transparent;border:1.5px solid var(--line);color:var(--navy)}
+.btn.ghost:hover{border-color:var(--navy)}
+.btn.on-navy-ghost{background:transparent;border:1.5px solid rgba(255,255,255,.4);color:var(--white)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+
+/* Lesson view */
+.lesson-hero{background:var(--navy);color:var(--white);padding:52px 0 46px}
+.lesson-hero h1{color:var(--white);font-size:clamp(30px,5vw,44px);margin-top:14px}
+.lesson-hero h1 em{color:var(--coral);font-style:italic}
+.backlink{color:rgba(255,255,255,.7);text-decoration:none;font-size:14px;font-weight:600}
+.backlink:hover{color:var(--gold)}
+.prose{max-width:720px;margin:0 auto;padding:48px 24px 0}
+.prose p{margin-bottom:22px}
+.prose h2{font-size:26px;margin:38px 0 16px}
+.prose .drop::first-letter{font-family:'Fraunces',serif;font-size:56px;float:left;line-height:.9;padding-right:10px;color:var(--coral)}
+.insight{background:var(--gold);border-radius:var(--r);padding:26px 30px;margin:30px 0}
+.insight .tag{font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:700;color:var(--navy);opacity:.75}
+.insight p{font-family:'Fraunces',serif;font-size:19px;color:var(--navy);margin:8px 0 0;line-height:1.5}
+.video-card{border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--white);margin:34px 0}
+.video-thumb{position:relative;display:block;aspect-ratio:16/9;background:var(--navy);cursor:pointer;border:none;padding:0;width:100%}
+.video-thumb img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.video-thumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.video-thumb .play i{width:74px;height:74px;border-radius:50%;background:var(--coral);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.video-card iframe{width:100%;aspect-ratio:16/9;border:0;display:block}
+.video-card .vc-meta{padding:16px 22px;display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.video-card .vc-meta b{font-family:'Fraunces',serif;color:var(--navy);font-size:17px}
+.video-card .vc-meta span{font-size:13px;color:var(--muted)}
+.video-card .vc-meta a{font-size:13px;font-weight:600;white-space:nowrap}
+
+/* Quiz */
+.quiz{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:34px;margin:40px 0 20px}
+.quiz h2{font-size:26px;margin-bottom:4px}
+.quiz .sub{color:var(--muted);font-size:15px;margin-bottom:26px}
+.q{margin-bottom:30px}
+.q .qt{font-weight:600;color:var(--navy);margin-bottom:12px;font-size:16.5px}
+.q .qt .qn{font-family:'Fraunces',serif;font-style:italic;color:var(--coral);margin-right:8px}
+.opt{display:block;width:100%;text-align:left;background:var(--cream);border:1.5px solid var(--line);border-radius:var(--r-sm);padding:13px 16px;font-size:15px;font-family:'Inter',sans-serif;color:var(--ink);cursor:pointer;margin-bottom:9px;transition:border-color .12s}
+.opt:hover{border-color:var(--navy)}
+.opt.correct{background:var(--gold);border-color:#D8C55A;font-weight:600}
+.opt.wrong{background:#FDECEC;border-color:var(--coral)}
+.opt:disabled{cursor:default}
+.expl{font-size:14px;color:var(--muted);background:#F4F1EA;border-radius:var(--r-sm);padding:12px 16px;margin-top:4px;display:none}
+.expl.show{display:block}
+.expl b{color:var(--navy)}
+.quiz-result{display:none;background:var(--navy);border-radius:var(--r);padding:30px;color:var(--white);text-align:center;margin-top:10px}
+.quiz-result.show{display:block}
+.quiz-result .score{font-family:'Fraunces',serif;font-size:44px;color:var(--gold)}
+.quiz-result p{color:rgba(255,255,255,.85);margin:8px 0 18px}
+.lesson-nav{display:flex;justify-content:space-between;gap:14px;max-width:720px;margin:20px auto 0;padding:0 24px 70px}
+
+/* Toast */
+.toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,140%);background:var(--navy);color:var(--white);border-radius:var(--r);padding:16px 24px;display:flex;gap:14px;align-items:center;box-shadow:0 16px 40px rgba(14,19,48,.35);transition:transform .45s cubic-bezier(.2,.9,.3,1.2);z-index:50;max-width:92vw}
+.toast.show{transform:translate(-50%,0)}
+.toast .t-ic{width:40px;height:40px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.toast b{color:var(--gold);display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase}
+.toast span{font-size:15px}
+
+/* Certificate view */
+.certificate{background:var(--white);border:2px solid var(--navy);border-radius:var(--r);max-width:760px;margin:50px auto;padding:60px 56px;text-align:center;position:relative}
+.certificate::after{content:"";position:absolute;inset:10px;border:1px solid var(--gold);border-radius:8px;pointer-events:none}
+.certificate .c-eyebrow{font-size:12px;letter-spacing:.28em;text-transform:uppercase;font-weight:700;color:var(--coral)}
+.certificate h1{font-size:clamp(30px,5vw,44px);margin:16px 0 6px}
+.certificate .to{font-family:'Fraunces',serif;font-style:italic;font-size:56px;color:var(--coral);margin:22px 0 10px;line-height:1.1}
+.certificate p{color:var(--muted);font-size:15.5px;max-width:520px;margin:0 auto 8px}
+.certificate .rule{width:70px;height:2px;background:var(--gold);margin:24px auto}
+.certificate .sigs{display:flex;justify-content:center;gap:70px;margin-top:36px;flex-wrap:wrap}
+.certificate .sig-block{text-align:center}
+.certificate .sig-name{font-family:'Fraunces',serif;font-style:italic;font-size:22px;color:var(--navy)}
+.certificate .sig-role{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-top:6px;border-top:1px solid var(--line);padding-top:8px}
+.cert-actions{text-align:center;padding-bottom:70px}
+
+footer{background:var(--navy);color:rgba(255,255,255,.6);padding:36px 0;margin-top:70px;font-size:13.5px}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center}
+footer b{color:var(--white);font-family:'Fraunces',serif;font-weight:500}
+
+@media(max-width:760px){
+  :root{--pad:20px}
+  .dash-grid{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:1fr}
+  .badges{grid-template-columns:1fr 1fr}
+  .hero{padding:52px 0 56px}
+  .prose{padding-top:36px}
+  .quiz{padding:24px 20px}
+  .certificate{padding:44px 22px;margin:30px 16px}
+  .certificate .sigs{gap:34px}
+}
+@media print{
+  .topbar,footer,.cert-actions,.toast{display:none !important}
+  body{background:var(--white)}
+  .certificate{border-color:var(--navy);margin:0 auto;box-shadow:none}
+}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#/" aria-label="Aeon Academy home">
+      <svg width="38" height="38" viewBox="0 0 64 64" fill="none" aria-hidden="true">
+        <circle cx="32" cy="32" r="29" stroke="#F9E795" stroke-width="2"/>
+        <ellipse cx="32" cy="32" rx="29" ry="12" stroke="#F96167" stroke-width="2" transform="rotate(-24 32 32)"/>
+        <path d="M32 14 L44 48 H38.5 L32 28.5 L25.5 48 H20 Z" fill="#FFFFFF"/>
+        <circle cx="53.5" cy="21.5" r="4" fill="#F9E795"/>
+      </svg>
+      <span>
+        <span class="wordmark">Aeon <span>Academy</span></span>
+        <span class="est">Learning for the next hundred years</span>
+      </span>
+    </a>
+    <div class="xp-pill" id="xp-pill">0 XP</div>
+  </div>
+</div>
+<main id="app"></main>
+<footer>
+  <div class="wrap">
+    <div><b>Aeon Academy</b> · a fictional institute, founded with love</div>
+    <div>© Diana Simpson-Hernandez</div>
+  </div>
+</footer>
+<div class="toast" id="toast"><div class="t-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2l2.6 6.2L21 9l-4.8 4.4L17.5 20 12 16.6 6.5 20l1.3-6.6L3 9l6.4-.8L12 2z" fill="#1E2761"/></svg></div><div><b id="toast-title">Badge earned</b><span id="toast-msg"></span></div></div>
+<script>
+const LESSONS = [
+{
+  id:1, track:"I", trackName:"The Quantum World",
+  title:'Light <em>Misbehaves</em>',
+  card:"The double-slit experiment — the single strangest result in all of science, and the door into everything else.",
+  read:`
+  <p class="drop">Mama, we begin with an experiment so simple you could almost do it at the kitchen table, and so strange that a century of geniuses still argue about what it means. You shine light at a screen through two narrow slits. That is the whole setup. What comes out the other side quietly dismantles our common sense about what the world is made of.</p>
+  <p>If light were made of little particles — tiny cannonballs — you would expect two bright stripes on the screen, one behind each slit. Instead, in 1801, Thomas Young found a whole ladder of stripes: bright, dark, bright, dark. That is the signature of a <em class="accent-i">wave</em>. Where two ripples meet crest-to-crest they reinforce each other; where crest meets trough they cancel. Light, Young showed, interferes with itself like ripples on a pond in the Retiro.</p>
+  <p>Here is where it turns philosophical. Modern equipment can fire light one photon at a time — one indivisible grain of light, with the whole apparatus dark between shots. Each photon lands as a single dot, like a particle. But wait, and let thousands of dots accumulate, and the ladder of stripes reappears. Each individual photon, travelling alone, somehow behaves as a wave that passes through <em class="accent-i">both slits at once</em> and interferes with itself. And if you install a detector to catch which slit it "really" went through, the stripes vanish. Ask a particle question, and the world gives you a particle answer. Ask a wave question, and it gives you a wave answer.</p>
+  <p>You spent years with Plato, so you already own the right mental furniture for this. The prisoners in the cave mistake shadows on the wall for the things themselves. Quantum mechanics delivered the same humbling news to physics: the solid, definite objects of everyday life are the shadows — projections of a deeper reality that does not resemble them at all. Down at the smallest scale, the world is not made of tiny versions of the things we know. It is made of something else, something that has no perfect analogue in our experience, and "wave" and "particle" are just the two shadows it casts on our instruments.</p>
+  <p>Or think of standing close to a Seurat. From across the room, a serene Sunday afternoon on the Grande Jatte; from thirty centimetres, nothing but dots that refuse to be the picture. Nature, it turns out, is painted in pointillism — and the double-slit experiment is us pressing our nose against the canvas for the very first time.</p>
+  `,
+  insight:"The deepest lesson of the double slit is not that light is weird. It is that 'What is it really, a wave or a particle?' may be the wrong question — the way 'What colour is justice?' is the wrong question. Some concepts simply do not survive the journey down.",
+  video:{yt:"Iuv6hY6zsd0", title:"The Original Double Slit Experiment", by:"Veritasium", note:"Derek recreates Young's experiment outdoors with sunlight — watch the stripes appear in the real world."},
+  quiz:[
+    {q:"When light passes through two slits, the pattern of many stripes (not just two) tells us that light is behaving like…",
+     opts:["A stream of tiny cannonballs","A wave, whose ripples reinforce and cancel each other","A beam that bends randomly","Two separate beams that never meet"], a:1,
+     ex:"The ladder of bright and dark stripes is interference — the fingerprint of waves. Crest meets crest: bright. Crest meets trough: dark."},
+    {q:"What happens when photons are sent through the slits one at a time, with long gaps between them?",
+     opts:["The stripes disappear, since one particle cannot interfere with anything","Each lands as a dot, yet over time the dots still build up the striped pattern","The photons refuse to pass through","They always land exactly behind one of the two slits"], a:1,
+     ex:"This is the shocking part: each photon lands as a single dot, but the dots collectively paint the interference pattern — each one behaves as a wave passing through both slits at once."},
+    {q:"What happens if we install a detector to see which slit each photon actually went through?",
+     opts:["Nothing changes","The photons speed up","The interference stripes vanish and we get plain particle behaviour","The experiment becomes impossible to run"], a:2,
+     ex:"Extracting which-path information destroys the interference. Ask a particle question, get a particle answer — the deepest clue that measurement is not a passive act."},
+    {q:"Why did we bring in Plato's cave?",
+     opts:["Because Plato secretly discovered quantum physics","Because the everyday objects we know are like the shadows — deep reality does not resemble its appearances","Because caves are dark like the laboratory","Because Greek philosophy is older than physics"], a:1,
+     ex:"Exactly as in the allegory: our familiar categories — solid, definite, either-or — are projections. The underlying reality casts 'wave' and 'particle' as two different shadows."}
+  ]
+},
+{
+  id:2, track:"I", trackName:"The Quantum World",
+  title:'Being and <em>Possibility</em>',
+  card:"Superposition, one famous cat, and why Aristotle would have felt right at home. (Lucas remains safely outside all boxes.)",
+  read:`
+  <p class="drop">Before anything is measured, a quantum system does not sit secretly in one state waiting to be discovered. It exists in what physicists call a <em class="accent-i">superposition</em> — a genuine blend of possibilities, all of them real at once, each carrying a precise weight. This is not ignorance. It is not that the electron is here or there and we simply have not looked. The mathematics — and seventy years of exquisite experiments — insist that the blend itself is the reality.</p>
+  <p>Your Aristotle gives us the most honest language anyone has found for this. He distinguished <em class="accent-i">potentiality</em> from <em class="accent-i">actuality</em> — the acorn that is potentially an oak, the block of marble that is potentially a statue. Werner Heisenberg himself, late in life, reached for exactly this: a superposition, he wrote, is "a strange kind of physical reality just in the middle between possibility and reality" — Aristotelian potentia, resurrected in mathematics. Measurement is the moment potentiality becomes actual. The marble is struck, and one statue steps out of the many it might have been.</p>
+  <p>Now, the cat. In 1935 Erwin Schrödinger imagined sealing a cat in a box with a vial of poison triggered by a single radioactive atom. The atom, being quantum, enters a superposition of decayed-and-not-decayed; the whole grim contraption should therefore put the cat into a superposition of alive-and-dead. Here is what everyone forgets: Schrödinger was not proposing this as a marvel. He was protesting. He designed the scenario to be absurd — to demand of his colleagues how the crisp everyday world of definite cats emerges from a theory of blended possibilities. The cat is a philosophical objection wearing a laboratory coat. (And no, before you ask — nobody puts dogs in boxes either. Lucas's superpositions are limited to being simultaneously hungry and recently fed, a state he sustains with no help from physics.)</p>
+  <p>So why do we never meet a blurred cat, a half-open door, a traveller in two cities? The modern answer is called <em class="accent-i">decoherence</em>. Big things cannot keep secrets. A cat is constantly touched by air molecules, light, warmth — trillions of tiny interactions per second, each one effectively a measurement that leaks information into the world. The delicate blend collapses into a definite fact almost instantly. Isolation is what superposition requires, and nothing the size of a cat — or a dog, or a mother — can ever be that alone.</p>
+  `,
+  insight:"Heisenberg reached back past Descartes and Newton, all the way to Aristotle, for the word 'potentia'. Sometimes the newest physics needs the oldest philosophy — the quantum world is a world of real potentialities, and measurement is the act by which one of them becomes the case.",
+  video:{yt:"UjaAxUO6-Uw", title:"Schrödinger's cat: A thought experiment in quantum mechanics", by:"TED-Ed · Chad Orzel", note:"A beautiful animated telling of the cat, and what Schrödinger actually meant by it."},
+  quiz:[
+    {q:"A particle in superposition is best described as…",
+     opts:["Secretly in one definite state that we haven't discovered yet","Broken equipment giving fuzzy readings","A genuine blend of possibilities, each with a precise weight, until measurement","Moving too fast for us to see clearly"], a:2,
+     ex:"The blend is the reality — experiments rule out the idea that the particle 'really' had one value all along. It's ontology, not ignorance."},
+    {q:"Why did Schrödinger invent his famous cat?",
+     opts:["To show how absurd it seems when quantum blends are scaled up to everyday objects — it was a protest, not a party trick","To prove cats are quantum creatures","To design a real experiment he hoped to run","To demonstrate that poison is dangerous"], a:0,
+     ex:"The cat was an objection. Schrödinger wanted to force the question: how does the definite everyday world emerge from a theory of superpositions? Physicists are still answering him."},
+    {q:"In Aristotle's vocabulary, measurement is the moment when…",
+     opts:["Actuality becomes potentiality","Potentiality becomes actuality","Form separates from matter","The unmoved mover intervenes"], a:1,
+     ex:"Heisenberg's own comparison: superpositions are real potentiae, and measurement actualises exactly one of them — the marble struck into a single statue."},
+    {q:"Why do we never encounter a cat (or a dog) in superposition?",
+     opts:["Animals are too intelligent for quantum effects","Decoherence: large objects constantly interact with their environment, and every interaction collapses the blend almost instantly","Superposition was disproven in 1935","Cats move too quickly to be measured"], a:1,
+     ex:"Big things can't keep secrets — air, light and warmth 'measure' them trillions of times a second. Only exquisitely isolated systems can hold a superposition, and Lucas is never that alone."}
+  ]
+},
+{
+  id:3, track:"I", trackName:"The Quantum World",
+  title:'Spooky <em>Action</em>',
+  card:"Entanglement, Einstein's gloves, and the greatest philosophical duel of the twentieth century — settled by experiment.",
+  read:`
+  <p class="drop">Take two particles, let them interact, then send them to opposite ends of the Earth — one to Lisbon, one to Kyoto, further apart than any two of your suitcases have ever been. Quantum mechanics says they can remain <em class="accent-i">entangled</em>: measure one, and the other's result is instantly fixed, no matter the distance. Einstein loathed this. He called it "spukhafte Fernwirkung" — spooky action at a distance — and he meant it as an insult.</p>
+  <p>Einstein's objection was elegant, and you would have sided with him. Imagine I own one pair of gloves and post them absent-mindedly: left glove in one parcel, right in the other. When the Lisbon parcel is opened and reveals a left glove, we know instantly that Kyoto holds the right one. No spookiness — the answer was decided at the post office. Einstein argued entangled particles must be like the gloves: carrying secret pre-set instructions, "hidden variables" the theory was too incomplete to see. His decades-long duel with Niels Bohr over this question was philosophy of the highest order — two men arguing not about numbers but about what 'real' means — and for thirty years it was dismissed as mere metaphysics, undecidable by any experiment.</p>
+  <p>Then in 1964 John Bell did something extraordinary: he found an experimental test that could tell the difference. If the particles carried glove-like hidden instructions, their measurements could only agree up to a strict mathematical ceiling. Quantum mechanics predicted the ceiling would be broken. The experiments were run — decisively so from the 1980s onward, earning the 2022 Nobel Prize — and the ceiling broke, exactly as quantum mechanics said. There are no gloves. The particles do not carry pre-written answers. The correlation is something new in nature: a relationship more intimate than any classical connection, holding between things with no messenger passing between them.</p>
+  <p>Two consolations. First: entanglement cannot send messages. Each measurement, on its own, is pure coin-flip randomness; the eerie agreement only appears later, when the two labs compare notebooks by ordinary means. Physics still forbids faster-than-light gossip. Second, and this is the part I love: Einstein lost the argument but ennobled the science. His stubborn, precise philosophical objection is what forced the theory to sharpen itself, and his 'failed' critique became the seed of quantum computing and quantum cryptography. A beautiful proof that asking the right question matters more than being right.</p>
+  `,
+  insight:"For thirty years the Bohr–Einstein debate was dismissed as metaphysics — until Bell showed that a philosophical question about the nature of reality could be put to an experimental vote. Nature voted. The universe is not made of hidden gloves.",
+  video:{yt:"ZuvK-od647c", title:"Quantum Entanglement & Spooky Action at a Distance", by:"Veritasium", note:"The clearest walk-through of Einstein's objection and why the experiments proved him wrong."},
+  quiz:[
+    {q:"Two entangled particles are separated by thousands of kilometres. What does measuring one do?",
+     opts:["Nothing — distance breaks entanglement","Its partner's result is instantly correlated, no matter the distance","It destroys the other particle","It sends a radio signal to the other lab"], a:1,
+     ex:"The correlation holds across any distance — this is what Einstein derided as 'spooky action at a distance'."},
+    {q:"Einstein's gloves: what was he arguing?",
+     opts:["That particles, like separated gloves, must carry pre-set hidden answers decided at the start","That gloves are quantum objects","That measurement invents reality from nothing","That the particles communicate faster than light"], a:0,
+     ex:"His 'hidden variables' position: the spookiness is an illusion, and the answers were fixed all along — quantum theory just couldn't see them. Utterly reasonable. Also wrong."},
+    {q:"What did Bell's theorem and the later experiments establish?",
+     opts:["Einstein was right — hidden instructions exist","The question can never be tested","The correlations exceed what any pre-set instructions could produce — there are no hidden gloves","Entanglement only works in the laboratory"], a:2,
+     ex:"Bell found the ceiling any glove-like explanation must obey; the experiments (Nobel Prize, 2022) broke it. The correlation is genuinely new in nature."},
+    {q:"Can entanglement be used to send a message faster than light?",
+     opts:["Yes, that's what makes it useful","No — each lab sees only randomness, and the agreement is visible only when results are compared by ordinary channels","Only over short distances","Only with more than two particles"], a:1,
+     ex:"No usable signal travels. The spooky agreement appears only in the comparison of notebooks — relativity's speed limit survives untouched."}
+  ]
+},
+{
+  id:4, track:"I", trackName:"The Quantum World",
+  title:'The Limits of <em>Knowing</em>',
+  card:"Heisenberg's uncertainty principle, Kant's spectacles, and why humility is written into the laws of physics.",
+  read:`
+  <p class="drop">The most misunderstood sentence in physics is Heisenberg's uncertainty principle. It is usually retold as a story about clumsy instruments — as if the electron has a perfectly definite position and speed, and we oafish humans just keep nudging it when we look. The truth is far stranger and far more interesting: the electron <em class="accent-i">does not possess</em> both properties at once. The fuzziness is not in our measuring. It is in the world.</p>
+  <p>The reason is that everything quantum is, at bottom, wave-like — and waves make you choose. Think of music. A long, sustained note on a cello has a precise pitch, but ask "when exactly did it happen?" and there is no answer — the note is smeared across seconds. A sharp handclap happens at a precise instant, but has no pitch at all. Pitch and timing are not both available, not because microphones are crude, but because of what a wave <em class="accent-i">is</em>. Position and momentum stand in exactly this relationship. Sharpen one, and the other dissolves — a trade written into the mathematics of waves, with a hard limit no future technology can beat.</p>
+  <p>You will hear mystics claim quantum physics proves "consciousness creates reality." Let me save you from that dinner-party conversation: it does not. In quantum mechanics, a "measurement" is any physical interaction that leaves a record — a photon striking a detector, an air molecule bouncing off a dust grain. No mind required, no gaze, no soul. Bishop Berkeley's <em class="accent-i">esse est percipi</em> — to be is to be perceived — is lovely metaphysics, but it is not what the equations say. What the equations do say is subtle enough: the properties of quantum objects are not fully definite in themselves, but crystallise in interaction. Reality, at its base, seems to be less like a warehouse of objects and more like a web of relations.</p>
+  <p>Which brings us, inevitably, to Kant — you saw him coming. He argued that we never know things as they are in themselves, the <em class="accent-i">noumena</em>; we know only phenomena, the world as it appears through the structures of our understanding, as if through irremovable spectacles. Quantum mechanics is the closest physics has ever come to conceding his point, with one magnificent twist Kant never dreamed of: physics managed to discover, precisely and mathematically, the prescription of the spectacles. The uncertainty principle is that prescription — an exact law about the limits of knowing. Humility, it turns out, can be stated as an equation. And here the quantum story pivots to our second act: the same physics of the very small gave us the transistor, billions of which make up every computer chip — including the ones on which, in our next lesson, machines begin to learn.</p>
+  `,
+  insight:"Kant said we can never take off the spectacles through which we see the world. Quantum mechanics agreed — and then, astonishingly, measured the prescription. The uncertainty principle is epistemic humility, stated as an exact equation.",
+  video:{yt:"TQKELOE9eY4", title:"What is the Heisenberg Uncertainty Principle?", by:"TED-Ed · Chad Orzel", note:"Why the uncertainty is a property of waves themselves — not of clumsy scientists."},
+  quiz:[
+    {q:"The uncertainty principle says that position and momentum…",
+     opts:["Could both be measured perfectly with better instruments someday","Are not both sharply defined at once — the limit is in nature, not in our tools","Are uncertain only for very hot particles","Can be measured perfectly, but only one scientist at a time"], a:1,
+     ex:"It is not clumsiness — it follows from the wave nature of matter, and no technology can ever beat it."},
+    {q:"The music analogy: a sustained cello note versus a handclap shows that…",
+     opts:["Loud sounds are more precise than quiet ones","A wave cannot have both a precise pitch and a precise timing — sharpening one smears the other","Music is mathematically random","Claps are not sounds"], a:1,
+     ex:"Pitch needs duration; timing needs brevity. Position and momentum trade off in exactly the same way, because matter is wave-like at bottom."},
+    {q:"In quantum mechanics, a 'measurement' requires…",
+     opts:["A conscious human observer","A university laboratory","Any physical interaction that leaves a record — a detector click, even a bouncing air molecule","Government approval"], a:2,
+     ex:"No mind is needed. 'Observation' is physics, not psychology — which is why 'consciousness creates reality' is a misreading of the equations."},
+    {q:"Why did we invoke Kant's phenomena and noumena?",
+     opts:["Because Kant invented the uncertainty principle","Because quantum mechanics echoes his insight — we know the world through interaction, not as it is 'in itself' — and even quantifies the limit","Because Kant opposed all science","Because noumena are particles"], a:1,
+     ex:"Physics came closer to Kant than anyone expected: definite properties emerge in interaction, and the uncertainty principle states the exact prescription of our irremovable spectacles."}
+  ]
+},
+{
+  id:5, track:"II", trackName:"Thinking Machines",
+  title:'The Connoisseur <em>Machine</em>',
+  card:"What artificial intelligence actually is — explained through the art historians who invented pattern recognition first.",
+  read:`
+  <p class="drop">Forget the movie robots. To understand what artificial intelligence actually is, the best guide I can offer you comes from your own field. In the 1870s, Giovanni Morelli scandalised the art world with a new method of attribution. Forget the grand composition, he said — study the earlobes. The fingernails, the folds of drapery, the shape of a thumb. Every painter forms these minor details out of habit, unconsciously, and habits do not lie. Bernard Berenson built a career on the same gift: stand him before an unknown panel and he could say "Lotto, not Titian" — often without being able to fully articulate why. His eye had been trained by tens of thousands of examples into an instrument of judgment that outran his own explanations.</p>
+  <p>That — precisely that — is what modern AI is. Not a mind, not a robot, not a set of rules written by clever programmers. The old approach, in fact, was rules: for decades, engineers tried to hand-write instructions for intelligence ("if the email contains the word 'lottery', flag it") and hit a wall, because most of what we know, we cannot say. You recognise Lucas's bark among a hundred dogs, but could you write instructions for it? The philosopher Michael Polanyi called this <em class="accent-i">tacit knowledge</em>: we know more than we can tell. The breakthrough of machine learning was to stop telling — and start showing. Feed the machine a million labelled examples, let it adjust itself until its guesses come right, and it acquires the skill without anyone ever writing the rule.</p>
+  <p>So when the airport machine reads your passport photo in Lisbon, when your phone sorts your travel pictures into "beaches" and "cathedrals", when a hospital system flags a shadow on a scan — you are watching Berenson's eye, industrialised. A connoisseurship of pixels, trained on more examples than any human eye could see in a thousand lifetimes, attributing not paintings but faces, tumours, road signs, words.</p>
+  <p>Hold on to two clarifications, because they are the antidote to most nonsense written about AI. First: the machine's knowledge is narrow. The system that reads scans brilliantly cannot sort your holiday photos, book a flight, or want anything at all — each is a single trained eye, not a person. Second: the machine is a mirror of its examples. Berenson's judgment was only as good as the collections he had studied; a connoisseur trained solely on Italians will misattribute every Vermeer. Machine learning inherits exactly this: show it a biased slice of the world, and it will learn the bias with perfect diligence. Remember this when we reach the ethics of it all in Lesson 8 — the question "what did the machine study?" is always the first question.</p>
+  `,
+  insight:"Machine learning is Morelli's method at industrial scale: judgment distilled from examples rather than derived from rules. We know more than we can tell — so we stopped telling machines, and started showing them.",
+  video:{yt:"0yCJMt9Mx9c", title:"How does artificial intelligence learn?", by:"TED-Ed · Briana Brownell", note:"The three ways machines learn — a perfect map of the territory in five minutes."},
+  quiz:[
+    {q:"Modern AI systems mostly acquire their abilities by…",
+     opts:["Following rules hand-written by programmers","Learning patterns from enormous numbers of examples","Copying the human brain cell by cell","Downloading knowledge from the internet consciously"], a:1,
+     ex:"The great shift was from telling to showing: instead of writing rules, we let the machine adjust itself against millions of examples until its judgments come right."},
+    {q:"Why is Morelli and Berenson's connoisseurship such a good analogy for machine learning?",
+     opts:["Because AI was invented by art historians","Because their trained eye distilled judgment from thousands of examples — often without being able to state the rule","Because computers prefer Renaissance art","Because attribution is always guesswork"], a:1,
+     ex:"Berenson couldn't always articulate why a panel was Lotto rather than Titian — his skill was tacit, built from examples. That is exactly the kind of knowledge machine learning captures."},
+    {q:"What is 'tacit knowledge', and why did it defeat rule-based AI?",
+     opts:["Knowledge kept secret by governments","Things we know but cannot fully put into words — like recognising a bark — which therefore can't be hand-coded as rules","Knowledge that machines refuse to learn","Facts too complicated for humans"], a:1,
+     ex:"Polanyi: 'We know more than we can tell.' Rule-writing failed because most human skill is unstatable; showing examples sidesteps the problem entirely."},
+    {q:"A system trained only on Italian Renaissance paintings is asked about a Vermeer. What does this illustrate?",
+     opts:["Dutch art is harder than Italian art","Machines are mirrors of their training examples — a biased or narrow diet produces biased, narrow judgment","Vermeer cannot be attributed by anyone","Training data doesn't matter much"], a:1,
+     ex:"The machine learns whatever its examples contain — including their gaps and prejudices, with perfect diligence. 'What did it study?' is always the first question to ask of any AI."}
+  ]
+},
+{
+  id:6, track:"II", trackName:"Thinking Machines",
+  title:'Training, Not <em>Programming</em>',
+  card:"How machines actually learn — a story Lucas already knows by heart, involving treats, repetition, and selective breeding.",
+  read:`
+  <p class="drop">You have already trained a neural network, Mama. His name is Lucas. Nobody ever explained "sit" to him in Spanish, English, or any language — explanation is not available to dogs. Instead: he happened to sit, a treat appeared, and some connection in his brain got a little stronger. Wrong move, no treat, connection fades. Repeat a few hundred times, and out of nothing but rewards and repetition emerges reliable, elegant behaviour. Nobody programmed Lucas. He was <em class="accent-i">trained</em>.</p>
+  <p>An artificial neural network learns by an honest mathematical version of the same ritual. Inside it are millions — nowadays billions — of tiny adjustable dials called weights, connections loosely inspired by the ones between neurons. Show the network a photo; it guesses "cat"; the answer was "dog". A procedure with a lovely name — <em class="accent-i">backpropagation</em> — then works backwards through the network asking, of every single dial: did you nudge this guess toward the error or away from it? Each dial turns a hair's breadth in the helpful direction. One photo teaches almost nothing. Ten million photos, each turning every dial a whisper at a time, produce a machine that recognises dogs it has never seen — including, presumably, one particularly good boy in Madrid.</p>
+  <p>The video for this lesson shows a second flavour of the ritual, closer to breeding than to treats. Build thousands of student machines with randomly set dials. Test them all. Most fail; a few do slightly less badly. Keep the best, discard the rest, copy the survivors with small random variations, and test again. Round after round after thousands of rounds, competence emerges — nobody designed it, it <em class="accent-i">evolved</em>, the way shepherds over centuries bred wolves into sheepdogs without once explaining sheep to them.</p>
+  <p>And now the philosophical sting, which I suspect you will feel immediately. When the training is done, the skill lives smeared across billions of dial-settings — and no one, including the engineers who built it, can fully read those dials and say <em class="accent-i">why</em> the machine decided as it did. The knowledge is tacit again, this time inside the machine. You know Lucas loves you; the evidence is overwhelming; but what is it actually like inside that head? Where exactly does the love sit? The engineers stand before their own creations in the same position — certain of what the machine does, unable to fully say how. An entire field called interpretability now works on opening that black box, and it matters: before we let these systems help decide loans, diagnoses, and sentences, "it works, but nobody knows why" deserves to make us pause.</p>
+  `,
+  insight:"We do not program these machines; we train them — with rewards, like Lucas, or with selection, like centuries of sheepdog breeding. And as with Lucas, we end up certain of the behaviour while the inside remains, in large part, a beloved mystery.",
+  video:{yt:"R9OHn5ZF4Uo", title:"How Machines Learn", by:"CGP Grey", note:"The bot classroom: thousands of students, ruthless exams, and the strange truth that nobody understands the graduates."},
+  quiz:[
+    {q:"How did Lucas learn to sit — and what does it share with machine learning?",
+     opts:["He understood a verbal explanation","Rewarded behaviour strengthened connections; unrewarded behaviour faded — learning through feedback, not instruction","He copied other dogs on television","Dogs are born knowing commands"], a:1,
+     ex:"No explanation, just feedback shaping connections through repetition. Neural networks learn by the same principle, stated mathematically."},
+    {q:"What does 'backpropagation' do after the network makes a wrong guess?",
+     opts:["Deletes the network and starts over","Works backwards through every dial, nudging each a tiny amount in the direction that would have reduced the error","Saves the error for a human to fix","Punishes the network by slowing it down"], a:1,
+     ex:"Every one of the millions of weights gets asked: did you help or hurt? — and turns a whisper in the helpful direction. Millions of examples later, competence has accumulated."},
+    {q:"In the 'bot classroom' of the video, how does ability arise?",
+     opts:["The teacher bot explains the task clearly","Engineers write better rules each round","Thousands of variants are tested; the best are kept and copied with small variations, round after round — competence evolves","The bots read the instruction manual"], a:2,
+     ex:"It is selective breeding for software — like turning wolves into sheepdogs over generations without ever explaining sheep."},
+    {q:"Why can't the engineers simply explain a trained network's decisions?",
+     opts:["They are forbidden by law from looking","The skill is smeared across billions of self-adjusted dials — the knowledge is tacit, and reading it back out is an unsolved problem","The networks deliberately hide their reasoning","Explanations would take only minutes but nobody bothers"], a:1,
+     ex:"Nobody set those dials by hand, and no one can fully read them. This is why interpretability research matters before such systems help with loans, diagnoses, or sentences."}
+  ]
+},
+{
+  id:7, track:"II", trackName:"Thinking Machines",
+  title:'The Word <em>Predictors</em>',
+  card:"How ChatGPT and its cousins actually work, and Searle's Chinese Room — the philosophy exam question of our century.",
+  read:`
+  <p class="drop">By now you have almost certainly met one of them — ChatGPT, Claude, Gemini — machines that converse, draft letters in flawless prose, and discuss Kant with what looks unnervingly like understanding. Here is their secret, and it sounds almost insultingly simple: a large language model does exactly one thing. Given a passage of text, it predicts the <em class="accent-i">next word</em>. That's all. It writes essays the way an excellent guesser wins a game: predict a word, add it, predict the next, thousands of times a second.</p>
+  <p>The astonishment is what that simple task forced the machine to acquire. These models were trained — dial-nudging, exactly as in our last lesson — on libraries beyond any scholar's dreams: essentially the text of the internet, millions of books, whole literatures. And it turns out you cannot get truly good at predicting the next word with grammar alone. To guess what follows "Kant argued that the categorical imperative…", something inside must track philosophy. To continue a story about a rainy arrival in Lisbon, something inside must model rain, luggage, and disappointment. Chasing one humble goal at unimaginable scale, the models absorbed grammar, facts, styles, arguments — a compressed mirror of everything humans have written down.</p>
+  <p>Which raises the question you are already asking, because your degree trained you to: does it <em class="accent-i">understand</em>? In 1980 — decades early — the philosopher John Searle built the perfect thought experiment. Seal a man who knows no Chinese in a room with a colossal rulebook for manipulating Chinese symbols. Questions slide in; he matches shapes, follows rules, slides flawless answers out. To everyone outside, the room understands Chinese. The man understands nothing. Searle's challenge: is the machine anything more than the room? Forty-five years later, philosophers still disagree — some say symbol-shuffling can never be understanding; others reply that perhaps the whole system understands, or that your neurons, individually as ignorant as the man in the room, are doing something eerily similar. I won't settle it here; I only note, with some satisfaction, that the deepest question about our newest technology is a pure philosophy exam question. Your degree turned out to be the relevant one, Mama.</p>
+  <p>Practical wisdom for living with these machines: they are performers of plausibility, not custodians of truth. A language model predicts what a correct answer would <em class="accent-i">sound like</em> — and mostly, because its library is vast, the plausible and the true coincide. But when it does not know, it does not fall silent; it produces something confident and wrong, delivered in perfect prose. These failures are politely called hallucinations. So treat one as you would a dazzlingly well-read friend who never admits uncertainty: marvellous company, wonderful for drafting and explaining and exploring ideas — and worth double-checking on anything that matters. Fluency, as every reader of beautiful nonsense knows, was never the same thing as truth.</p>
+  `,
+  insight:"Searle asked in 1980 whether flawless symbol-manipulation could ever be understanding. We spent decades treating it as a seminar puzzle — and then built the room. The deepest question about AI belongs to philosophy, not engineering.",
+  video:{yt:"LPZh9BOjkQs", title:"Large Language Models explained briefly", by:"3Blue1Brown", note:"The clearest eight minutes on what is actually happening inside ChatGPT."},
+  quiz:[
+    {q:"At its core, what single task does a large language model perform?",
+     opts:["Searching the internet for answers","Predicting the next word, over and over","Translating thoughts into code","Consulting a database of approved facts"], a:1,
+     ex:"Everything — the essays, the conversation, the apparent erudition — emerges from next-word prediction performed thousands of times in sequence."},
+    {q:"Why did learning to predict words force the models to absorb so much about the world?",
+     opts:["Words are stored with definitions attached","Because good prediction requires tracking what the text is about — philosophy, rain in Lisbon, disappointment — not just grammar","The engineers secretly added an encyclopedia","It didn't — they only know spelling"], a:1,
+     ex:"You cannot reliably continue 'Kant argued that…' on syntax alone. The humble goal, at vast scale, forced a compressed model of nearly everything written."},
+    {q:"What is Searle's Chinese Room designed to ask?",
+     opts:["Whether Chinese is harder than English","Whether producing flawless answers by rule-following amounts to genuine understanding","Whether rooms can be soundproofed","Whether translation software is accurate"], a:1,
+     ex:"The man follows rules perfectly and understands nothing. Is the machine more than the room? Philosophers still split on it — which is rather the point."},
+    {q:"Why do language models 'hallucinate' — and what's the right posture toward them?",
+     opts:["They are broken and will soon be fixed for good","They predict what an answer would sound like, so when they don't know, they produce confident plausible falsehoods — trust, but verify","They lie deliberately to please users","They only hallucinate about mathematics"], a:1,
+     ex:"Plausibility is their native product; truth usually rides along, but not always. Treat them as brilliant, well-read, occasionally overconfident company — and double-check what matters."}
+  ]
+},
+{
+  id:8, track:"II", trackName:"Thinking Machines",
+  title:'Art, Minds, and <em>Tomorrow</em>',
+  card:"Can a machine make art? Walter Benjamin, the photography panic of 1850, and how to face the future with judgment intact.",
+  read:`
+  <p class="drop">We end where you began: with art, and with the question of what happens to human things when machines learn to make them. Today an AI can produce, in seconds, an image in the manner of Vermeer — the light through the leaded window, the pearl, the silence. It can write sonnets, compose film scores. The panic this induces feels unprecedented. It is not. Art history — your history — has rehearsed this exact drama before, and how it ended is the most useful thing I can leave you with.</p>
+  <p>When photography arrived, the painter Paul Delaroche supposedly declared: "From today, painting is dead." The machine could capture a likeness in minutes that cost a portraitist weeks; what remained for the brush? You know what actually happened. Painting did not die — it was <em class="accent-i">liberated</em>. Freed from the duty of resemblance, it went looking for what the camera could not do: light as sensation became Impressionism; feeling became Expressionism; geometry's revenge became Cubism. The half-century after painting's "death" produced the most radical flowering in its history. New machines do not simply replace old arts; they interrogate them — they force the question <em class="accent-i">what were you really for?</em> — and the honest answers become the new art.</p>
+  <p>Walter Benjamin gave us the sharpest lens for the present moment. In 1935 he argued that mechanical reproduction strips the artwork of its <em class="accent-i">aura</em> — the unrepeatable presence of the original, here, now, bearing its history. A perfect print of the Sistine ceiling is not the ceiling; something real is missing, and that something is not information. AI sharpens Benjamin's point to a blade: when a machine generates infinite beautiful images that were never anywhere, never witnessed, never meant — is that art, or its costume? Perhaps what we value in art was never only the arrangement of forms, but the fact that a particular human, in a particular life, meant it. If so, the machines are not replacing art. They are clarifying, by contrast, what art was all along.</p>
+  <p>Beyond art, the stakes widen. In this lesson's film, the computer scientist Stuart Russell states the century's engineering problem: we are building systems of enormous capability, and the hard part is not making them clever but making sure their objectives are truly ours — a machine pursuing a carelessly specified goal is a genie holding you to the letter of the wish. The same technology is already reading scans, folding proteins, dissolving language barriers for travellers, tutoring children on every continent. Promise and peril arrive, as always, in the same parcel.</p>
+  <p>So how should an educated person stand before all this? Exactly, I think, as you were trained to stand before a canvas: with attention, with context, and without surrendering judgment. Ask of every system what you learned to ask in Lesson 5 — <em class="accent-i">what did it study?</em> Ask who trained it, and to what end. Admire the brushwork; question the provenance. The machines will keep astonishing us. The task — yours, mine, everyone's — is to remain the connoisseurs: the ones who decide what it is for, and what it means. That was never a job for machines. It is the oldest human profession of all: judgment.</p>
+  `,
+  insight:"Photography was supposed to kill painting; instead it freed painting to become Impressionism. New machines don't replace old arts — they force them to answer 'what were you really for?' AI is asking every human endeavour that question at once.",
+  video:{yt:"Srf7zrQMP3c", title:"How will AI change the world?", by:"TED-Ed · Stuart Russell", note:"One of the field's founders on the real challenge: making machines whose objectives are truly ours."},
+  quiz:[
+    {q:"What actually happened to painting after photography 'killed' it?",
+     opts:["It died out as predicted","Freed from resemblance, it exploded into Impressionism, Expressionism, Cubism — its most radical flowering","It merged with photography and disappeared","Nothing changed at all"], a:1,
+     ex:"Delaroche's funeral was premature. The camera took over likeness, and painting went looking for what machines couldn't do. New machines interrogate old arts — they rarely bury them."},
+    {q:"What did Walter Benjamin mean by the 'aura' of an artwork?",
+     opts:["Its price at auction","The unrepeatable presence of the original — here, now, bearing its history — which no reproduction carries","Its physical glow under gallery lighting","The artist's signature"], a:1,
+     ex:"A perfect print of the Sistine ceiling is not the ceiling. AI-generated images — infinite, placeless, unmeant — press Benjamin's question harder than he could have imagined."},
+    {q:"What is Stuart Russell's central worry about powerful AI?",
+     opts:["That computers will become too expensive","That machines pursuing carelessly specified objectives may achieve exactly what we asked and not what we meant","That AI will refuse to work","That robots will demand salaries"], a:1,
+     ex:"The genie problem: capability is advancing faster than our ability to specify goals that are truly ours. Alignment of objectives, not intelligence itself, is the hard part."},
+    {q:"The course's final counsel: how should an educated mind stand before AI?",
+     opts:["Refuse to use it on principle","Trust it completely — machines are objective","As before a canvas: with attention and context, asking what it studied and who trained it, without surrendering judgment","Leave the whole matter to engineers"], a:2,
+     ex:"Admire the brushwork; question the provenance. Deciding what things are for and what they mean was never the machines' job — it is judgment, the oldest human profession."}
+  ]
+}
+];
+/* ---------- State ---------- */
+const KEY='aeon-qai-v1';
+function load(){ try{return JSON.parse(localStorage.getItem(KEY))||{best:{},seen:[]}}catch(e){return{best:{},seen:[]}} }
+function save(s){ localStorage.setItem(KEY,JSON.stringify(s)); }
+let S=load();
+
+function doneCount(){ return Object.keys(S.best).length; }
+function isDone(id){ return !!S.best[id]; }
+function totalXP(){
+  let xp=0;
+  for(const id in S.best){ xp += S.best[id].score*25 + 50; }
+  return xp;
+}
+function avgPct(){
+  const ids=Object.keys(S.best); if(!ids.length)return 0;
+  let s=0,t=0; ids.forEach(id=>{s+=S.best[id].score;t+=S.best[id].total});
+  return Math.round(100*s/t);
+}
+function allDone(){ return LESSONS.every(l=>isDone(l.id)); }
+
+/* ---------- Badges ---------- */
+const ic=(p)=>'<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F9E795" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>';
+const BADGES=[
+ {id:'first-light', name:'First Light', desc:'Complete your first lesson', icon:ic('<circle cx="12" cy="14" r="4"/><path d="M12 3v4M5 6l2.5 2.5M19 6l-2.5 2.5M3 14h2M19 14h2M6 20h12"/>'), test:()=>doneCount()>=1},
+ {id:'grand-tour', name:'The Grand Tour', desc:'Complete any four lessons', icon:ic('<circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c2.5 2.5 2.5 13.5 0 16M12 4c-2.5 2.5-2.5 13.5 0 16"/>'), test:()=>doneCount()>=4},
+ {id:'wave-rider', name:'Wave Rider', desc:'Finish Part I — The Quantum World', icon:ic('<path d="M2 12c2.5-5 5-5 7.5 0s5 5 7.5 0 3-3.5 5-2"/><circle cx="7" cy="7" r="1.4" fill="#F9E795"/>'), test:()=>[1,2,3,4].every(isDone)},
+ {id:'machine-whisperer', name:'Machine Whisperer', desc:'Finish Part II — Thinking Machines', icon:ic('<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M19 5l-2 2M5 19l2-2M19 19l-2-2"/>'), test:()=>[5,6,7,8].every(isDone)},
+ {id:'flawless', name:'Flawless', desc:'Score 100% on any quiz', icon:ic('<path d="M12 2l2.7 6.3L21 9l-4.9 4.5L17.5 21 12 17.4 6.5 21l1.4-7.5L3 9l6.3-.7z"/>'), test:()=>Object.values(S.best).some(b=>b.score===b.total)},
+ {id:'lucas-copilot', name:"Lucas's Co-Pilot", desc:'Complete the lesson Lucas taught', icon:ic('<circle cx="12" cy="15.5" r="3.4"/><circle cx="6.5" cy="10" r="1.7"/><circle cx="10" cy="6.8" r="1.7"/><circle cx="14" cy="6.8" r="1.7"/><circle cx="17.5" cy="10" r="1.7"/>'), test:()=>isDone(6)},
+ {id:'summa', name:'Summa Cum Laude', desc:'Average score of 90% or higher across all lessons', icon:ic('<path d="M5 21c3-1.5 3-6 2-9M19 21c-3-1.5-3-6-2-9M7 12a5 5 0 0 1 10 0"/><circle cx="12" cy="5" r="2"/>'), test:()=>allDone()&&avgPct()>=90},
+ {id:'renaissance', name:'Renaissance Mind', desc:'Complete the entire curriculum', icon:ic('<circle cx="12" cy="12" r="2" fill="#F9E795"/><ellipse cx="12" cy="12" rx="9" ry="4"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(120 12 12)"/>'), test:()=>allDone()}
+];
+function earned(){ return BADGES.filter(b=>b.test()).map(b=>b.id); }
+
+/* ---------- Toast queue ---------- */
+let toastQ=[],toastBusy=false;
+function toast(title,msg){ toastQ.push([title,msg]); if(!toastBusy)nextToast(); }
+function nextToast(){
+  if(!toastQ.length){toastBusy=false;return}
+  toastBusy=true;
+  const [t,m]=toastQ.shift();
+  document.getElementById('toast-title').textContent=t;
+  document.getElementById('toast-msg').textContent=m;
+  const el=document.getElementById('toast');
+  el.classList.add('show');
+  setTimeout(()=>{el.classList.remove('show');setTimeout(nextToast,500)},3400);
+}
+
+/* ---------- Shared ---------- */
+function updateXP(){ document.getElementById('xp-pill').textContent=totalXP()+' XP'; }
+const app=document.getElementById('app');
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+
+/* ---------- Home ---------- */
+function renderHome(){
+  const pct=Math.round(100*doneCount()/LESSONS.length);
+  const got=earned();
+  const cards=t=>LESSONS.filter(l=>l.track===t).map(l=>{
+    const b=S.best[l.id];
+    const status=b
+      ?'<span class="pill done">Completed</span><span class="pill score">Best '+b.score+'/'+b.total+'</span>'
+      :'<span class="pill todo">Not started</span>';
+    return '<a class="card" href="#/lesson/'+l.id+'"><span class="lnum">Lesson '+l.id+'</span><h3>'+l.title+'</h3><p>'+l.card+'</p><div class="meta">'+status+'</div></a>';
+  }).join('');
+  const badges=BADGES.map(b=>{
+    const has=got.includes(b.id);
+    return '<div class="badge'+(has?'':' locked')+'"><div class="ic">'+b.icon+'</div><b>'+b.name+'</b><span>'+b.desc+'</span></div>';
+  }).join('');
+  const certReady=allDone();
+  app.innerHTML=`
+  <div class="hero on-navy">
+    <div class="wrap">
+      <span class="eyebrow">Aeon Academy · A private course, enrolment of one</span>
+      <h1>The Curious <em>Universe</em></h1>
+      <p class="lede">Eight lessons on the two great revolutions of our time — quantum physics and artificial intelligence — taught through philosophy, art history, travel, and one very good dog.</p>
+      <div class="note">
+        <p>Mama —</p>
+        <p>I built this for you. Not a simplified version of these ideas — the real ones, told in the languages you already speak: Plato and Kant, Vermeer and Seurat, journeys, and Lucas. Read each lesson, watch its film, take the quiz. Collect the badges; I made them for you too. There is a certificate at the end, and it is not a joke — almost nobody, at any age, bothers to understand both of these revolutions. You will.</p>
+        <p class="sig">— Diana</p>
+      </div>
+    </div>
+  </div>
+  <div class="dash wrap">
+    <div class="dash-grid">
+      <div class="stat"><div class="num">${doneCount()}<small> / ${LESSONS.length}</small></div><div class="lbl">Lessons</div><div class="bar"><i style="width:${pct}%"></i></div></div>
+      <div class="stat"><div class="num">${totalXP()}</div><div class="lbl">Knowledge XP</div></div>
+      <div class="stat"><div class="num">${doneCount()?avgPct()+'<small>%</small>':'—'}</div><div class="lbl">Average score</div></div>
+      <div class="stat"><div class="num">${got.length}<small> / ${BADGES.length}</small></div><div class="lbl">Badges</div></div>
+    </div>
+  </div>
+  <section class="block wrap">
+    <div class="section-head"><h2>Part I — The Quantum World</h2><span class="count">Lessons 1–4</span></div>
+    <div class="grid">${cards('I')}</div>
+  </section>
+  <section class="block wrap">
+    <div class="section-head"><h2>Part II — Thinking Machines</h2><span class="count">Lessons 5–8</span></div>
+    <div class="grid">${cards('II')}</div>
+  </section>
+  <section class="block wrap">
+    <div class="section-head"><h2>Your badges</h2><span class="count">${got.length} of ${BADGES.length} earned</span></div>
+    <div class="badges">${badges}</div>
+  </section>
+  <section class="block wrap">
+    <div class="cert-card">
+      <div><h3>Certificate of Completion</h3><p>${certReady?'Every lesson complete. Your certificate from Aeon Academy is ready — signed, sealed, and thoroughly deserved.':'Complete all eight lessons to unlock your official Aeon Academy certificate — signed by the course director and countersigned by a certain dog.'}</p></div>
+      ${certReady?'<a class="btn" href="#/certificate">View your certificate</a>':'<button class="btn on-navy-ghost" disabled>Locked · '+doneCount()+'/8</button>'}
+    </div>
+  </section>`;
+  updateXP();
+}
+
+/* ---------- Lesson ---------- */
+let answered={};
+function renderLesson(id){
+  const l=LESSONS.find(x=>x.id===id); if(!l){location.hash='#/';return}
+  answered={};
+  const next=LESSONS.find(x=>x.id===id+1);
+  const prev=LESSONS.find(x=>x.id===id-1);
+  const qs=l.quiz.map((q,qi)=>{
+    const opts=q.opts.map((o,oi)=>'<button class="opt" data-q="'+qi+'" data-o="'+oi+'">'+o+'</button>').join('');
+    return '<div class="q"><div class="qt"><span class="qn">'+(qi+1)+'.</span>'+q.q+'</div>'+opts+'<div class="expl" id="ex-'+qi+'">'+q.ex+'</div></div>';
+  }).join('');
+  app.innerHTML=`
+  <div class="lesson-hero on-navy">
+    <div class="wrap">
+      <a class="backlink" href="#/">← Back to the course map</a>
+      <div style="height:18px"></div>
+      <span class="eyebrow">Part ${l.track} · ${l.trackName} · Lesson ${l.id} of 8</span>
+      <h1>${l.title}</h1>
+    </div>
+  </div>
+  <div class="prose">
+    ${l.read}
+    <div class="insight"><div class="tag">The idea to keep</div><p>${l.insight}</p></div>
+    <h2>Now watch</h2>
+    <p>A film I chose for this lesson — watch it here, then come back for the quiz. It covers the same ground with pictures I could never draw.</p>
+    <div class="video-card">
+      <button class="video-thumb" id="vt" aria-label="Play video">
+        <img src="https://i.ytimg.com/vi/${l.video.yt}/hqdefault.jpg" alt="${esc(l.video.title)}">
+        <span class="play"><i><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></i></span>
+      </button>
+      <div class="vc-meta"><div><b>${l.video.title}</b><br><span>${l.video.by} — ${l.video.note}</span></div><a href="https://www.youtube.com/watch?v=${l.video.yt}" target="_blank" rel="noopener">Open on YouTube ↗</a></div>
+    </div>
+    <div class="quiz">
+      <h2>The quiz</h2>
+      <p class="sub">Four questions. Answer each one — you'll see the explanation straight away. Retakes are allowed and encouraged; only your best score counts.</p>
+      ${qs}
+      <div class="quiz-result" id="qr"></div>
+    </div>
+  </div>
+  <div class="lesson-nav">
+    ${prev?'<a class="btn ghost" href="#/lesson/'+prev.id+'">← Lesson '+prev.id+'</a>':'<a class="btn ghost" href="#/">Course map</a>'}
+    ${next?'<a class="btn ghost" href="#/lesson/'+next.id+'">Lesson '+next.id+' →</a>':'<a class="btn ghost" href="#/">Course map →</a>'}
+  </div>`;
+  document.getElementById('vt').addEventListener('click',()=>{
+    document.getElementById('vt').outerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+l.video.yt+'?autoplay=1&rel=0" title="'+esc(l.video.title)+'" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+  });
+  app.querySelectorAll('.opt').forEach(btn=>btn.addEventListener('click',()=>answer(l,btn)));
+  window.scrollTo(0,0);
+}
+
+function answer(l,btn){
+  const qi=+btn.dataset.q, oi=+btn.dataset.o;
+  if(answered[qi]!==undefined)return;
+  answered[qi]=oi;
+  const q=l.quiz[qi];
+  const opts=app.querySelectorAll('.opt[data-q="'+qi+'"]');
+  opts.forEach(b=>{
+    b.disabled=true;
+    const bo=+b.dataset.o;
+    if(bo===q.a)b.classList.add('correct');
+    else if(bo===oi)b.classList.add('wrong');
+  });
+  document.getElementById('ex-'+qi).classList.add('show');
+  if(Object.keys(answered).length===l.quiz.length)finishQuiz(l);
+}
+
+function finishQuiz(l){
+  const score=l.quiz.reduce((s,q,qi)=>s+(answered[qi]===q.a?1:0),0);
+  const total=l.quiz.length;
+  const before=earned();
+  const prevBest=S.best[l.id];
+  const firstTime=!prevBest;
+  if(!prevBest||score>prevBest.score){S.best[l.id]={score,total};save(S);}
+  const after=earned();
+  updateXP();
+  after.filter(b=>!before.includes(b)).forEach(bid=>{
+    const b=BADGES.find(x=>x.id===bid);
+    if(!S.seen.includes(bid)){S.seen.push(bid);save(S);toast('Badge earned — '+b.name,b.desc);}
+  });
+  if(firstTime)toast('Lesson '+l.id+' complete','+'+(score*25+50)+' XP added to your record');
+  const msgs=[
+    [1,'A brave first attempt — the retake button is your friend.'],
+    [2,'Halfway there. Skim the reading once more and try again — it will click.'],
+    [3,'Strong work. One idea got away — the explanations above will catch it.'],
+    [4,'Flawless. Berenson himself would nod approvingly.']
+  ];
+  const msg=(msgs.find(m=>m[0]===Math.max(1,score))||msgs[3])[1];
+  const next=LESSONS.find(x=>x.id===l.id+1);
+  const qr=document.getElementById('qr');
+  qr.innerHTML='<div class="score">'+score+' / '+total+'</div><p>'+msg+'</p>'
+    +'<button class="btn on-navy-ghost" onclick="renderLesson('+l.id+')" style="margin-right:10px">Retake quiz</button>'
+    +(next?'<a class="btn" href="#/lesson/'+next.id+'">Continue to Lesson '+next.id+'</a>':(allDone()?'<a class="btn" href="#/certificate">Claim your certificate</a>':'<a class="btn" href="#/">Back to the course map</a>'));
+  qr.classList.add('show');
+  qr.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* ---------- Certificate ---------- */
+function renderCert(){
+  if(!allDone()){location.hash='#/';return}
+  const d=new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+  app.innerHTML=`
+  <div class="certificate">
+    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style="margin-bottom:6px">
+      <circle cx="32" cy="32" r="29" stroke="#1E2761" stroke-width="2"/>
+      <ellipse cx="32" cy="32" rx="29" ry="12" stroke="#F96167" stroke-width="2" transform="rotate(-24 32 32)"/>
+      <path d="M32 14 L44 48 H38.5 L32 28.5 L25.5 48 H20 Z" fill="#1E2761"/>
+      <circle cx="53.5" cy="21.5" r="4" fill="#F9E795"/>
+    </svg>
+    <div class="c-eyebrow">Aeon Academy · Office of the Registrar</div>
+    <h1>Certificate of Completion</h1>
+    <p>This certifies that</p>
+    <div class="to">Mama</div>
+    <p>philosopher, art historian, traveller, and student of the future, has completed with distinction the full curriculum of</p>
+    <p style="font-family:'Fraunces',serif;color:var(--navy);font-size:19px"><b>The Curious Universe</b> — Quantum Physics &amp; Artificial Intelligence</p>
+    <div class="rule"></div>
+    <p>Average score ${avgPct()}% · ${totalXP()} Knowledge XP · ${earned().length} of ${BADGES.length} badges · Awarded ${d}</p>
+    <div class="sigs">
+      <div class="sig-block"><div class="sig-name">Diana Simpson-Hernandez</div><div class="sig-role">Course Director</div></div>
+      <div class="sig-block"><div class="sig-name">Lucas</div><div class="sig-role">Dean of Good Boys · pawprint on file</div></div>
+    </div>
+  </div>
+  <div class="cert-actions">
+    <button class="btn" onclick="window.print()">Print or save as PDF</button>
+    <a class="btn ghost" href="#/" style="margin-left:10px">Back to the course</a>
+  </div>`;
+  window.scrollTo(0,0);
+}
+
+/* ---------- Router ---------- */
+function route(){
+  S=load();
+  updateXP();
+  const h=location.hash||'#/';
+  const m=h.match(/^#\/lesson\/(\d+)$/);
+  if(m)renderLesson(+m[1]);
+  else if(h==='#/certificate')renderCert();
+  else renderHome();
+}
+window.addEventListener('hashchange',route);
+route();
+updateXP();
+</script>
+</body>
+</html>
