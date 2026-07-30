@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Read the Lead · Aletheai</title>
+<meta name="robots" content="noindex, nofollow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Read the Lead — a quick game for estate agents">
+<meta property="og:description" content="A five-minute game: read a lead, share your instinct. Fully anonymous, no real people.">
+<meta property="og:url" content="https://frameworks.dianasimpsonhernandez.com/read-the-lead/">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+:root{--navy:#1E2761;--coral:#F96167;--gold:#F9E795;--cream:#FAF7F2;--ink:#0E1330;--muted:#6B7089;--line:#D8DBE6;--ok:#2C5F2D}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+.wrap{max-width:640px;margin:0 auto;padding:18px}
+header{text-align:center;padding:22px 0 8px}
+h1{font-size:22px;margin:0;color:var(--navy)}
+.sub{color:var(--muted);font-size:14px;margin-top:4px}
+.bar{height:8px;background:var(--line);border-radius:99px;overflow:hidden;margin:14px 0 6px}
+.bar>i{display:block;height:100%;background:var(--coral);width:0;transition:width .3s}
+.count{font-size:12.5px;color:var(--muted);text-align:right}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;margin-top:10px;box-shadow:0 2px 10px rgba(30,39,97,.05)}
+.leadid{font-size:12px;letter-spacing:1px;text-transform:uppercase;color:var(--coral);font-weight:700}
+.text{font-size:16px;margin:10px 0 4px}
+.q{margin-top:16px}
+.q h3{font-size:14.5px;margin:0 0 3px;color:var(--navy)}
+.q .hint{font-size:12.5px;color:var(--muted);margin:0 0 8px}
+.opts{display:flex;gap:8px}
+.opts button{flex:1;padding:11px 6px;border-radius:11px;border:1.5px solid var(--line);background:#fff;color:var(--ink);font-size:14px;font-weight:600;cursor:pointer}
+.opts button.sel{background:var(--navy);color:#fff;border-color:var(--navy)}
+.opts button.na{font-size:12.5px}
+.nav{display:flex;gap:10px;margin-top:18px}
+.nav button{flex:1;padding:13px;border-radius:12px;border:none;font-size:15px;font-weight:700;cursor:pointer}
+.back{background:#fff;border:1.5px solid var(--line)!important;color:var(--muted)}
+.next{background:var(--coral);color:#fff}
+.next:disabled{opacity:.45;cursor:not-allowed}
+.intro,.done{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;margin-top:14px}
+.intro h2,.done h2{color:var(--navy);margin-top:0}
+.intro ul{padding-left:18px}.intro li{margin:6px 0}
+.namein{width:100%;padding:12px;border-radius:10px;border:1.5px solid var(--line);font-size:15px;margin:8px 0 4px}
+.start{width:100%;padding:14px;border:none;border-radius:12px;background:var(--navy);color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-top:10px}
+.dlbtn{width:100%;padding:14px;border:none;border-radius:12px;background:var(--coral);color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-top:10px}
+.foot{text-align:center;color:var(--muted);font-size:11.5px;padding:20px}
+.pill{display:inline-block;background:var(--gold);color:var(--navy);font-size:12px;font-weight:700;padding:3px 10px;border-radius:99px}
+</style></head><body>
+<div class="wrap">
+<header><h1>Read the Lead</h1><div class="sub">A quick game for estate agents · your gut instinct, no wrong answers</div></header>
+<div id="app"></div>
+<div class="foot">Fully synthetic leads — no real people. © Diana Simpson-Hernandez · Monomindai Ltd / Aletheai · fully synthetic, no real people.</div>
+</div>
+<script>
+const LEADS = [{"id": "Lead 1", "text": "Buyer lead, North region, Riverside branch. Viewed the property portal 1 time(s) this week. Has not replied to recent contact. Opens about 0% of our emails. Slow to respond (~68 hours). Last contact 31 days ago. No appointments booked. We've contacted them 1 time(s) this month.", "truth": {"motivation": "Low", "urgency": "Medium", "inertia": "Medium", "loss_aversion": "Low", "reactance": "Low"}}, {"id": "Lead 2", "text": "Seller lead, East region, Riverside branch. Viewed the property portal 3 time(s) this week. Has not replied to recent contact. Opens about 14% of our emails. Slow to respond (~153 hours). Last contact 47 days ago. No appointments booked. We've contacted them 1 time(s) this month.", "truth": {"motivation": "Low", "urgency": "Medium", "inertia": "Medium", "loss_aversion": "High", "reactance": "Medium"}}, {"id": "Lead 3", "text": "Buyer lead, East region, Harbour branch. Viewed the property portal 2 time(s) this week. Has not replied to recent contact. Opens about 11% of our emails. Slow to respond (~121 hours). Last contact 44 days ago. No appointments booked. We've contacted them 2 time(s) this month.", "truth": {"motivation": "Low", "urgency": "Medium", "inertia": "High", "loss_aversion": "Medium", "reactance": "Low"}}, {"id": "Lead 4", "text": "Buyer lead, Central region, Riverside branch. Viewed the property portal 1 time(s) this week. Replied to our last message. Opens about 27% of our emails. Slow to respond (~74 hours). Last contact 36 days ago. No appointments booked. We've contacted them 1 time(s) this month.", "truth": {"motivation": "Low", "urgency": "Low", "inertia": "Medium", "loss_aversion": "Medium", "reactance": "Low"}}, {"id": "Lead 5", "text": "Seller lead, North region, Summit branch. Viewed the property portal 3 time(s) this week. Has not replied to recent contact. Opens about 10% of our emails. Slow to respond (~55 hours). Last contact 30 days ago. Booked 1 appointment(s), cancelled 1. We've contacted them 4 time(s) this month.", "truth": {"motivation": "Low", "urgency": "Medium", "inertia": "High", "loss_aversion": "Medium", "reactance": "Medium"}}, {"id": "Lead 6", "text": "Buyer lead, Central region, Northgate branch. Viewed the property portal 1 time(s) this week. Replied to our last message. Opens about 40% of our emails. Typically replies within 37 hours. Last contact 29 days ago. No appointments booked. We've contacted them 3 time(s) this month.", "truth": {"motivation": "Low", "urgency": "High", "inertia": "Medium", "loss_aversion": "Low", "reactance": "Low"}}, {"id": "Lead 7", "text": "Buyer lead, South region, Northgate branch. Viewed the property portal 1 time(s) this week. Has not replied to recent contact. Opens about 13% of our emails. Typically replies within 25 hours. Last contact 33 days ago. No appointments booked. We've contacted them 1 time(s) this month.", "truth": {"motivation": "Low", "urgency": "Medium", "inertia": "High", "loss_aversion": "High", "reactance": "Medium"}}, {"id": "Lead 8", "text": "Buyer lead, Central region, Riverside branch. Viewed the property portal 7 time(s) this week. Has not replied to recent contact. Opens about 24% of our emails. Typically replies within 40 hours. Last contact 17 days ago. Booked 1 appointment(s). We've contacted them 5 time(s) this month.", "truth": {"motivation": "Medium", "urgency": "Medium", "inertia": "High", "loss_aversion": "High", "reactance": "Low"}}, {"id": "Lead 9", "text": "Buyer lead, West region, Riverside branch. Viewed the property portal 3 time(s) this week. Has not replied to recent contact. Opens about 27% of our emails. Slow to respond (~61 hours). Last contact 21 days ago. No appointments booked. We've contacted them 2 time(s) this month.", "truth": {"motivation": "Medium", "urgency": "Low", "inertia": "Medium", "loss_aversion": "Medium", "reactance": "Medium"}}, {"id": "Lead 10", "text": "Buyer lead, Central region, Riverside branch. Viewed the property portal 4 time(s) this week. Has not replied to recent contact. Opens about 27% of our emails. Typically replies within 25 hours. Last contact 20 days ago. Booked 1 appointment(s), cancelled 1. We've contacted them 4 time(s) this month.", "truth": {"motivation": "Medium", "urgency": "High", "inertia": "Low", "loss_aversion": "High", "reactance": "Low"}}, {"id": "Lead 11", "text": "Both lead, North region, Summit branch. Viewed the property portal 4 time(s) this week. Has not replied to recent contact. Opens about 33% of our emails. Slow to respond (~49 hours). Last contact 26 days ago. Booked 1 appointment(s). We've contacted them 1 time(s) this month.", "truth": {"motivation": "Medium", "urgency": "Medium", "inertia": "High", "loss_aversion": "Low", "reactance": "Medium"}}, {"id": "Lead 12", "text": "Seller lead, Central region, Northgate branch. Viewed the property portal 2 time(s) this week. Has not replied to recent contact. Opens about 28% of our emails. Slow to respond (~57 hours). Last contact 11 days ago. No appointments booked. We've contacted them 4 time(s) this month.", "truth": {"motivation": "Medium", "urgency": "Medium", "inertia": "High", "loss_aversion": "Low", "reactance": "Low"}}, {"id": "Lead 13", "text": "Both lead, Central region, Harbour branch. Viewed the property portal 2 time(s) this week. Used the online valuation tool. Has not replied to recent contact. Opens about 23% of our emails. Slow to respond (~53 hours). Last contact 24 days ago. No appointments booked. We've contacted them 3 time(s) this month.", "truth": {"motivation": "High", "urgency": "Low", "inertia": "High", "loss_aversion": "Medium", "reactance": "Low"}}, {"id": "Lead 14", "text": "Both lead, South region, Riverside branch. Viewed the property portal 1 time(s) this week. Has not replied to recent contact. Opens about 34% of our emails. Slow to respond (~70 hours). Last contact 16 days ago. No appointments booked. We've contacted them 6 time(s) this month.", "truth": {"motivation": "High", "urgency": "Low", "inertia": "Medium", "loss_aversion": "High", "reactance": "Medium"}}, {"id": "Lead 15", "text": "Seller lead, East region, Old Town branch. Viewed the property portal 4 time(s) this week. Has not replied to recent contact. Opens about 54% of our emails. Typically replies within 26 hours. Last contact 10 days ago. Booked 1 appointment(s). We've contacted them 3 time(s) this month.", "truth": {"motivation": "High", "urgency": "Medium", "inertia": "Low", "loss_aversion": "Low", "reactance": "Medium"}}, {"id": "Lead 16", "text": "Seller lead, North region, Summit branch. Viewed the property portal 3 time(s) this week. Has not replied to recent contact. Opens about 43% of our emails. Typically replies within 20 hours. Last contact 15 days ago. Booked 1 appointment(s). We've contacted them 2 time(s) this month.", "truth": {"motivation": "High", "urgency": "Medium", "inertia": "Medium", "loss_aversion": "High", "reactance": "Low"}}, {"id": "Lead 17", "text": "Seller lead, North region, Northgate branch. Viewed the property portal 2 time(s) this week. Replied to our last message. Opens about 50% of our emails. Slow to respond (~70 hours). Last contact 12 days ago. Booked 2 appointment(s), cancelled 1. We've contacted them 2 time(s) this month.", "truth": {"motivation": "High", "urgency": "Low", "inertia": "High", "loss_aversion": "Medium", "reactance": "Low"}}, {"id": "Lead 18", "text": "Seller lead, East region, Old Town branch. Viewed the property portal 2 time(s) this week. Replied to our last message. Opens about 80% of our emails. Typically replies within 38 hours. Last contact 10 days ago. No appointments booked. We've contacted them 5 time(s) this month.", "truth": {"motivation": "High", "urgency": "Low", "inertia": "Low", "loss_aversion": "Medium", "reactance": "Low"}}];
+const PRIMS = [
+ ["motivation","How much do they WANT to move?","Their underlying drive to act."],
+ ["urgency","How SOON do they need to act?","Time pressure — must-act-now vs someday."],
+ ["inertia","How STUCK are they?","Tendency to stay put / hard to get moving."],
+ ["loss_aversion","How much are they driven by FEAR OF MISSING OUT / losing?","Sensitivity to losing a deal or a home."],
+ ["reactance","How much do they RESIST being pushed?","Pull back when chased or pressured."]
+];
+let agent="", i=0, answers={};
+const app=document.getElementById('app');
+
+function intro(){
+ app.innerHTML=`<div class="intro">
+ <span class="pill">~5 minutes · 18 leads</span>
+ <h2>You're the expert — we want your read.</h2>
+ <p>You'll see ${LEADS.length} leads, one at a time. For each, just tell us your gut sense of five things on a High / Medium / Low scale. There are no right answers — we're testing whether experienced agents like you see leads the same way.</p>
+ <ul>
+   <li><b>Go with instinct</b> — first impression, don't overthink.</li>
+   <li><b>If you honestly can't tell</b>, choose “Can't tell”.</li>
+   <li>Please <b>don't confer</b> with anyone — we compare answers afterwards.</li>
+ </ul>
+ <input class="namein" id="nm" placeholder="Your first name or initials (for our records)">
+ <button class="start" onclick="start()">Start</button>
+ </div>`;
+}
+function start(){ agent=document.getElementById('nm').value.trim()||"Anon"; i=0; answers={}; render(); }
+
+function render(){
+ if(i>=LEADS.length) return done();
+ const L=LEADS[i]; answers[L.id]=answers[L.id]||{};
+ const pct=Math.round(i/LEADS.length*100);
+ let qs="";
+ PRIMS.forEach(([k,q,h])=>{
+   const cur=answers[L.id][k];
+   qs+=`<div class="q"><h3>${q}</h3><p class="hint">${h}</p><div class="opts">
+     ${["High","Medium","Low"].map(o=>`<button class="${cur===o?'sel':''}" onclick="pick('${k}','${o}')">${o}</button>`).join("")}
+     <button class="na ${cur==='NA'?'sel':''}" onclick="pick('${k}','NA')">Can't tell</button>
+   </div></div>`;
+ });
+ const complete=PRIMS.every(([k])=>answers[L.id][k]);
+ app.innerHTML=`<div class="bar"><i style="width:${pct}%"></i></div><div class="count">Lead ${i+1} of ${LEADS.length}</div>
+ <div class="card"><div class="leadid">${L.id}</div><div class="text">${L.text}</div>${qs}</div>
+ <div class="nav">${i>0?'<button class="back" onclick="i--,render()">Back</button>':''}
+ <button class="next" ${complete?'':'disabled'} onclick="i++,render()">${i===LEADS.length-1?'Finish':'Next lead'}</button></div>`;
+}
+function pick(k,o){ const L=LEADS[i]; answers[L.id][k]=o; render(); }
+
+function done(){
+ app.innerHTML=`<div class="done"><h2>Done — thank you! 🎉</h2>
+ <p>That's all ${LEADS.length} leads. Please download your answers and send the file back to Diana. Nothing is uploaded automatically.</p>
+ <button class="dlbtn" onclick="dl()">Download my answers</button></div>`;
+}
+function dl(){
+ let rows=[["agent","lead","primitive","rating","truth_hidden"]];
+ LEADS.forEach(L=>PRIMS.forEach(([k])=>{
+   rows.push([agent,L.id,k,(answers[L.id]||{})[k]||"",L.truth[k]]);
+ }));
+ const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(",")).join("\n");
+ const blob=new Blob([csv],{type:"text/csv"});const a=document.createElement("a");
+ a.href=URL.createObjectURL(blob);a.download=`read_the_lead_${agent}.csv`;a.click();
+}
+intro();
+</script></body></html>
