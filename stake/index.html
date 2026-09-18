@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The STAKE Method — I build it. I run it. You sell it.</title>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style>
+:root{--deep:#2A1B5E;--purple:#5B4BC4;--violet:#8A7BE8;--pop:#D9D1FF;--lilac:#F2EFFB;--coral:#F96167;--coral-ink:#B3252B;--corals:#FFEFF0;
+--ink:#1A1633;--body:#3A3560;--muted:#6E6A8A;--line:#E3E0F0;--white:#fff;--r:10px;--rs:6px;
+--sans:'Schibsted Grotesk',system-ui,sans-serif;--mono:'Martian Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:var(--body);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}@media(max-width:700px){.wrap{padding:0 16px}}
+h1,h2,h3,h4{color:var(--ink);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+h1{font-size:clamp(40px,6vw,62px)}h2{font-size:clamp(28px,3.6vw,37px);margin-bottom:8px}h3{font-size:22px;margin-bottom:8px}h4{font-size:16px}
+p+p{margin-top:12px}a{color:var(--coral-ink)}strong,b{color:var(--ink)}
+em{font-style:normal;font-weight:700;color:var(--coral-ink)}
+.eyebrow{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+section .wrap>.eyebrow:first-child:before{content:'';display:inline-block;width:22px;height:2px;background:var(--coral);vertical-align:middle;margin-right:9px}
+.dsh-nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.dsh-nav .wrap{display:flex;align-items:center;gap:20px;min-height:56px}
+.dsh-nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:14px}
+.dsh-nav .lib{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.dsh-nav ul{list-style:none;display:flex;gap:18px;margin-left:auto}
+.dsh-nav .btn{background:var(--ink);color:#fff;border-radius:999px;padding:8px 14px}
+@media(max-width:700px){.dsh-nav ul li:not(:last-child){display:none}}
+.hero{background:var(--deep);color:#fff;padding:72px 0 60px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-140px;top:-140px;width:460px;height:460px;border-radius:50%;background:rgba(217,209,255,.11)}
+.hero h1{color:#fff}.hero h1 em{color:var(--pop)}.hero .eyebrow{color:var(--pop)}
+.hero .lede{font-size:19.5px;color:#D8D2F5;max-width:700px;margin-top:20px}
+.hero .tag{margin-top:26px;font-size:21px;font-weight:700;color:var(--pop)}
+.metaline{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
+.pill{border-radius:999px;padding:7px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.18)}
+section{padding:62px 0;border-bottom:1px solid var(--line)}
+.sub{color:var(--muted);font-size:17px;max-width:760px;margin-bottom:30px}
+.card{background:#fff;border:1px solid var(--line);box-shadow:0 1px 2px rgba(42,27,94,.035);border-radius:var(--r);padding:26px;min-width:0}
+.card.dark{background:var(--deep);border:0;color:#D8D2F5}.card.dark h3,.card.dark h4,.card.dark b,.card.dark strong{color:#fff}.card.dark em{color:var(--coral)}.card.dark .eyebrow{color:var(--pop)}
+.card.pop{background:var(--pop);border:0}.card.pop .eyebrow{color:#3F31A8}
+.card.coral{border:2px solid var(--coral)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid2>*,.grid3>*,.grid4>*{min-width:0}
+@media(max-width:820px){.grid2,.grid3,.grid4{grid-template-columns:1fr 1fr}}@media(max-width:560px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.stat{padding:22px;border-radius:var(--r);background:var(--lilac)}.stat b{display:block;font-size:44px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;margin-bottom:8px;letter-spacing:-.03em}.stat span{font-size:14px;color:var(--muted)}
+.formula{background:var(--deep);color:#fff;border-radius:var(--r);padding:34px;text-align:center}
+.formula .eq{font-size:clamp(22px,3vw,32px);color:#fff;letter-spacing:.01em;line-height:1.5;font-weight:600}
+.formula .eq b{color:var(--pop)}.formula .eq i{color:var(--coral);font-style:normal}.formula p{color:#B6AEDD;font-size:14px;margin-top:14px}
+.tblwrap{overflow-x:auto;max-width:100%}table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+ul.clean{list-style:none;display:grid;gap:8px}ul.clean li{padding-left:18px;position:relative}ul.clean li:before{content:'';position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--violet)}
+ul.gate li:before{background:var(--coral)}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:820px){.calc{grid-template-columns:1fr}}
+.calc label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.calc input{width:100%;font:16px var(--sans);padding:10px 12px;border:1px solid var(--line);border-radius:var(--rs);color:var(--ink);font-variant-numeric:tabular-nums}
+.calc input:focus{outline:2px solid var(--purple);outline-offset:1px}
+.out{display:grid;gap:10px}.out div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.out div b{font-variant-numeric:tabular-nums;font-size:20px}
+.verdict{margin-top:16px;padding:16px 18px;border-radius:var(--rs);font-weight:700;font-size:15px}
+.v-yes{background:#E6F4EC;color:#1B5E3A}.v-no{background:var(--corals);color:var(--coral-ink)}.v-mid{background:#FFF5DD;color:#7A5200}
+blockquote{margin:0;font-size:clamp(20px,2.4vw,26px);font-weight:600;line-height:1.3;color:var(--ink)}blockquote:before{content:'“';color:var(--coral)}
+.who{margin-top:14px;font-size:14px;color:var(--muted)}.who b{display:block;color:var(--ink)}
+.dsh-foot{background:#1A1633;color:#C9C0F0;padding:56px 0 28px}
+.dsh-foot a{color:#fff;font-weight:600}.dsh-foot .q{font-size:22px;color:#fff;line-height:1.3;max-width:34ch;margin:0 0 20px;font-weight:600}.dsh-foot .q b{color:var(--coral)}
+.dsh-foot .row{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px;font-size:14px}.dsh-foot p{max-width:70ch}
+.dsh-foot .base{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8F87B8;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+</style>
+<!--dsh:head-->
+<meta name="description" content="The partnership method for a business that owns a vertical and needs a product it can&#x27;t build. Royalty + service fee priced from a Motion Ledger; carry a stream only if RQ ≥ 4. Live calculator.">
+<link rel="canonical" href="https://frameworks.dianasimpsonhernandez.com/stake/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Diana Simpson-Hernandez">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Open Frameworks · Diana Simpson-Hernandez"><meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://frameworks.dianasimpsonhernandez.com/stake/"><meta property="og:title" content="STAKE — I build it. I run it. You sell it."><meta property="og:description" content="The partnership method for a business that owns a vertical and needs a product it can&#x27;t build. Royalty + service fee priced from a Motion Ledger; carry a stream only if RQ ≥ 4. Live calculator.">
+<meta property="og:image" content="https://frameworks.dianasimpsonhernandez.com/assets/preview-stake.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="STAKE — I build it. I run it. You sell it.">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="STAKE — I build it. I run it. You sell it."><meta name="twitter:description" content="The partnership method for a business that owns a vertical and needs a product it can&#x27;t build. Royalty + service fee priced from a Motion Ledger; carry a stream only if RQ ≥ 4. Live calculator."><meta name="twitter:image" content="https://frameworks.dianasimpsonhernandez.com/assets/preview-stake.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<script defer data-domain="dianasimpsonhernandez.com" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script><script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "name": "STAKE", "headline": "STAKE — I build it. I run it. You sell it.", "description": "The partnership method for a business that owns a vertical and needs a product it can't build. Royalty + service fee priced from a Motion Ledger; carry a stream only if RQ ≥ 4. Live calculator.", "url": "https://frameworks.dianasimpsonhernandez.com/stake/", "author": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "publisher": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "inLanguage": "en", "isAccessibleForFree": true, "dateModified": "2026-09-18"}</script>
+
+<!--dsh:/head-->
+</head>
+<body>
+<nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· STAKE</span><ul><li><a href="/">Library</a></li><li><a href="https://dianasimpsonhernandez.com/work-with-me/">Work with me</a></li><li><a href="https://dianasimpsonhernandez.com/learn/">Learn</a></li><li><a href="https://dianasimpsonhernandez.com/">Main site</a></li><li><a class="btn plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-nav" href="https://dianasimpsonhernandez.com/work-with-me/">Hire the method →</a></li></ul></div></nav>
+
+<div class="hero"><div class="wrap">
+<div class="eyebrow">Partnership method · v2 · August 2026 · companion to LEVER and RECALL</div>
+<h1>The <em>STAKE</em> Method</h1>
+<p class="lede">For a business that owns a vertical and needs a product it can't build. I build it and run it on low input; you sell it into the market you already stand in and keep the larger share. The method prices both halves so neither side is quietly subsidising the other.</p>
+<p class="tag">I build it. I run it. You sell it.</p>
+<div class="metaline"><span class="pill">Partner keeps ~82%</span><span class="pill">Royalty + service fee, priced separately</span><span class="pill">Carry a stream only if RQ ≥ 4</span><span class="pill">Engine-neutral · zero Aletheai IP</span></div>
+</div></div>
+
+<section><div class="wrap">
+<div class="eyebrow">Where this sits</div>
+<h2>The third method, for a different situation</h2>
+<p class="sub">LEVER and RECALL are diagnostics: a client pays to find out what to build. STAKE is a partnership: a business that already knows what it needs, owns the route to the buyer, and lacks the capability to build and run it. The unit of analysis is a revenue stream, and the question is whether it pays both parties for years — not whether it launches.</p>
+<div class="grid3">
+<div class="card"><div class="eyebrow">The partner</div><h3>Owns the vertical</h3><p>Standing in the market, credibility with the buyer, the selling relationship. They do the selling and take the larger share.</p></div>
+<div class="card"><div class="eyebrow">Me</div><h3>Builds and runs it</h3><p>System, domain method, hosting, updates, second-line support. Paid by a royalty for the asset and a service fee for the running — two lines, because they fall at different rates.</p></div>
+<div class="card coral"><div class="eyebrow">The origin</div><h3>A Houston language-education company</h3><p>Ten full-time staff and around fifty contract teachers. While automating their operations, the tools the founder needed turned out to be tools the whole industry needed. <a href="/case-study-language-kids-world/">The case study →</a></p></div>
+</div></div></section>
+
+<section><div class="wrap">
+<div class="eyebrow">The model</div>
+<h2>Two lines, two equations</h2>
+<p class="sub">A royalty pays for the asset and falls as the partner's cash covers more of the build. A service fee pays for the running and does not fall when the build is paid for — because the support calls arrive in year two regardless.</p>
+<div class="grid2">
+<div class="formula"><div class="eq"><b>Ry</b> = 20% × <i>AS</i> × (1 − 0.4<i>c</i>)</div><p>Royalty. AS = asset share from the Motion Ledger (0–1). c = share of the build funded in cash (0–1). Clamped to 5–18%.</p></div>
+<div class="formula"><div class="eq"><b>Sv</b> = 10% × <i>RS</i></div><p>Service fee. RS = run share from the Motion Ledger (0–1). Clamped to 3–12%. Paid as a percentage with a monthly floor.</p></div>
+</div>
+<div class="tblwrap" style="margin-top:20px"><table>
+<thead><tr><th>Line</th><th>Equation</th><th class="n">Case</th><th>Pays for</th></tr></thead>
+<tbody>
+<tr><td><b>Royalty</b></td><td>Ry = 20% × AS × (1 − 0.4c), clamp 5–18%</td><td class="n"><b>9.0%</b></td><td>The asset. Falls as cash covers more of the build.</td></tr>
+<tr><td><b>Service fee</b></td><td>Sv = 10% × RS, clamp 3–12%</td><td class="n"><b>8.1%</b></td><td>The running. Does not fall when the build is paid for.</td></tr>
+<tr><td><b>Total</b></td><td>T = Ry + Sv</td><td class="n"><b>17.1%</b></td><td>The partner keeps <b>82.9%</b>.</td></tr>
+</tbody></table></div>
+<div class="grid2" style="margin-top:20px">
+<div class="card"><div class="eyebrow">The Motion Ledger</div><h3>Who does the work that produces each pound</h3><p><b>Asset</b> — system 50 · domain method 30 · concept 20 → <b>AS</b>.<br><b>Run</b> — hosting 25 · updates 40 · second-line support 20 · first-line support 15 → <b>RS</b>.</p><p>Score each row by who actually does it. The shares fall out of the ledger; nobody negotiates them.</p></div>
+<div class="card pop"><div class="eyebrow">The floor</div><h3>Floor = monthly run cost × 1.3</h3><p>A pure revenue percentage is a second royalty wearing a different name, and it pays nothing in the year the support calls arrive. In the case: <b>£350/month</b>, with the percentage overtaking the floor at <b>£52,174</b> of annual partner revenue.</p></div>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<div class="eyebrow">The decision</div>
+<h2>Carry the stream if RQ ≥ 4</h2>
+<p class="sub">RQ = annual income ÷ annual run cost. Below four, the stream is a hobby with an invoice attached. Try it with your own numbers — the calculator runs the equations above.</p>
+<div class="calc">
+<div class="card">
+<label for="rev">Partner revenue from the product, per year (£)</label><input id="rev" type="number" value="100000" min="0" step="1000">
+<label for="as">Asset share AS (0–1) — from the Motion Ledger</label><input id="as" type="number" value="0.45" min="0" max="1" step="0.01">
+<label for="c">Share of the build funded in cash, c (0–1)</label><input id="c" type="number" value="0" min="0" max="1" step="0.05">
+<label for="rs">Run share RS (0–1)</label><input id="rs" type="number" value="0.81" min="0" max="1" step="0.01">
+<label for="hrs">Your hours per month to run it</label><input id="hrs" type="number" value="2" min="0" step="0.5">
+<label for="rate">Your loaded hourly cost (£)</label><input id="rate" type="number" value="120" min="0" step="5">
+<label for="host">Hosting and tooling per month (£)</label><input id="host" type="number" value="30" min="0" step="5">
+</div>
+<div class="card">
+<div class="eyebrow" style="margin-bottom:12px">Output</div>
+<div class="out">
+<div><span>Royalty Ry</span><b id="o-ry">—</b></div>
+<div><span>Service fee Sv</span><b id="o-sv">—</b></div>
+<div><span>Total take T</span><b id="o-t">—</b></div>
+<div><span>Partner keeps</span><b id="o-keep">—</b></div>
+<div><span>Your income, per year</span><b id="o-inc">—</b></div>
+<div><span>Monthly floor (run cost × 1.3)</span><b id="o-floor">—</b></div>
+<div><span>Your run cost, per year</span><b id="o-cost">—</b></div>
+<div><span>RQ</span><b id="o-rq">—</b></div>
+</div>
+<div class="verdict" id="verdict">—</div>
+</div>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<div class="eyebrow">Three findings</div>
+<h2>What the model taught me</h2>
+<div class="grid3">
+<div class="card"><div class="eyebrow">01</div><h3>Profitability is an engineering problem, not a negotiating one</h3><p>At £100k of partner revenue: two hours a month to run it gives RQ 5.7 — carry. Eight hours gives RQ 2.2 — don't. The rate is irrelevant next to the hours.</p></div>
+<div class="card"><div class="eyebrow">02</div><h3>“Passive revenue” is a three-to-six-year build</h3><p>Raising maturity revenue from £100k to £150k pulls year six to year four — as powerful as doubling the signing rate. The take rate barely registers.</p></div>
+<div class="card"><div class="eyebrow">03</div><h3>Reporting outranks the rate</h3><p>Not honesty — capability. A business that invoices everything as one line cannot report product revenue separately even when it wants to. Build the reporting before the product.</p></div>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<div class="eyebrow">Gates</div>
+<h2>Six reasons to walk away</h2>
+<div class="grid2">
+<div class="card"><ul class="clean gate">
+<li><b>TI &lt; 0.50</b> on the Motion Ledger — the split isn't defensible.</li>
+<li><b>No second buyer named</b> — one customer is a project, not a product.</li>
+<li><b>No service floor</b> — the running is unpaid in the year it costs the most.</li>
+<li><b>No reporting obligation</b> — the royalty can't be verified, so it can't be collected.</li>
+<li><b>RQ &lt; 4</b> — the stream doesn't pay for its own upkeep.</li>
+<li><b>First-line support drifting to you</b> — the named failure mode of the whole model.</li>
+</ul></div>
+<div class="card dark"><div class="eyebrow">Structure</div><h3>Royalties from a UK company, no US membership interest</h3><p>Both lines are characterised as royalties paid to the UK company. No LLC membership interest in the partner. Structured for 0% withholding under Article 12 of the UK–US treaty. <em>Not tax advice</em> — confirm with counsel on both sides before signing.</p></div>
+</div>
+</div></section>
+
+<script>
+(function(){
+  var ids=['rev','as','c','rs','hrs','rate','host'],el={};ids.forEach(function(i){el[i]=document.getElementById(i)});
+  var gbp=function(n){return '£'+Math.round(n).toLocaleString('en-GB')};
+  var pct=function(n){return (n*100).toFixed(1)+'%'};
+  var clamp=function(v,a,b){return Math.min(b,Math.max(a,v))};
+  function calc(){
+    var rev=+el.rev.value||0, AS=clamp(+el.as.value||0,0,1), c=clamp(+el.c.value||0,0,1), RS=clamp(+el.rs.value||0,0,1);
+    var hrs=+el.hrs.value||0, rate=+el.rate.value||0, host=+el.host.value||0;
+    var ry=clamp(0.20*AS*(1-0.4*c),0.05,0.18), sv=clamp(0.10*RS,0.03,0.12), t=ry+sv;
+    var runMonth=hrs*rate+host, floor=runMonth*1.3, cost=runMonth*12;
+    var inc=ry*rev+Math.max(sv*rev, floor*12);  // service fee never falls below the floor
+    var rq=cost>0?inc/cost:Infinity;
+    document.getElementById('o-ry').textContent=pct(ry); document.getElementById('o-sv').textContent=pct(sv);
+    document.getElementById('o-t').textContent=pct(t); document.getElementById('o-keep').textContent=pct(1-t);
+    document.getElementById('o-inc').textContent=gbp(inc); document.getElementById('o-floor').textContent=gbp(floor)+'/mo';
+    document.getElementById('o-cost').textContent=gbp(cost); document.getElementById('o-rq').textContent=isFinite(rq)?rq.toFixed(2):'∞';
+    var v=document.getElementById('verdict'),cls,msg;
+    if(rq>=4){cls='v-yes';msg='Carry the stream. Income covers upkeep '+rq.toFixed(1)+'× over — the running is paid for in the year the support calls arrive.';}
+    else if(rq>=2.5){cls='v-mid';msg='Marginal. Cut the hours before you touch the rate: every hour a month you remove is worth more than a point of royalty.';}
+    else{cls='v-no';msg='Do not carry it. Below RQ 4 the stream is a hobby with an invoice attached — raise revenue or engineer the hours out.';}
+    v.className='verdict '+cls; v.textContent=msg;
+  }
+  ids.forEach(function(i){el[i].addEventListener('input',calc)}); calc();
+})();
+</script>
+
+<footer class="dsh-foot"><div class="wrap">
+<div class="eyebrow" style="color:#D9D1FF">The routing question</div>
+<p class="q">“When this goes wrong, is it because someone <b>chose badly</b>, or because someone <b>couldn't find out</b>?”</p>
+<p>Chose badly → <a class="plausible-event-name=framework_open plausible-event-framework=lever" href="/lever/">LEVER</a>. Couldn't find out → <a class="plausible-event-name=framework_open plausible-event-framework=recall" href="/recall/">RECALL</a>. Neither, but you own a vertical and need a product → <a href="/stake/">STAKE</a>.</p>
+<div class="row"><a class="plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-footer" href="https://dianasimpsonhernandez.com/work-with-me/">Fees and the free Friction Teardown →</a><a href="/case-study-language-kids-world/">Case study: Language Kids World →</a><a href="/">Every framework →</a></div>
+<div class="base"><span>STAKE v2 · Diana Simpson-Hernandez · engine-neutral · zero Aletheai IP</span><span>Free to read. Not free to run on your company — <a href="https://dianasimpsonhernandez.com/work-with-me/" style="font-weight:500">that's the job</a>.</span></div>
+</div></footer>
+</body>
+</html>

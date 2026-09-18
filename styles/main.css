@@ -3,22 +3,22 @@
    Editorial · Minimal · AI-Native
    ============================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('/assets/fonts/fonts.css');
 
 :root {
-  --font-display: 'Fraunces', Georgia, serif;
-  --font-body: 'Inter Tight', -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Schibsted Grotesk', system-ui, sans-serif;
+  --font-body: 'Schibsted Grotesk', -apple-system, sans-serif;
+  --font-mono: 'Martian Mono', ui-monospace, monospace;
 
-  --paper: #f6f4ef;
-  --paper-warm: #efece4;
-  --ink: #1a1a1a;
-  --ink-soft: #2c2c2c;
-  --muted: #6b6b6b;
-  --rule: #d8d4ca;
-  --rule-soft: #e8e4d9;
-  --accent: #c8462c;
-  --accent-soft: #f0d6cc;
+  --paper: #ffffff;
+  --paper-warm: #F2EFFB;
+  --ink: #1A1633;
+  --ink-soft: #3A3560;
+  --muted: #6E6A8A;
+  --rule: #E3E0F0;
+  --rule-soft: #EAE6FB;
+  --accent: #5B4BC4; --coral: #F96167; --coral-ink: #B3252B; --violet: #8A7BE8; --pop: #D9D1FF;
+  --accent-soft: #EAE6FB;
 
   --max-w: 1280px;
   --gutter: clamp(1.25rem, 4vw, 3rem);
@@ -181,6 +181,10 @@ a { color: inherit; text-decoration: none; }
 }
 @media (max-width: 720px) {
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer-grid > * { min-width: 0; }
+}
+@media (max-width: 480px) {
+  .footer-grid { grid-template-columns: 1fr; }
 }
 .footer h4 {
   font-family: var(--font-mono);
@@ -238,3 +242,8 @@ a { color: inherit; text-decoration: none; }
 }
 
 ::selection { background: var(--accent); color: var(--paper); }
+
+/* ── v2 register overrides (Schibsted Grotesk + Martian Mono) ── */
+h1, h2, h3, .hero h1 { font-weight: 800; font-variation-settings: normal; letter-spacing: -0.03em; }
+.hero h1 em, h2 em, h3 em, em { font-style: normal; font-weight: 800; color: var(--accent); }
+.eyebrow, .tag, .framework-num, .framework-meta, .filter-pill, .filter-count, .hero-meta { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.09em; }

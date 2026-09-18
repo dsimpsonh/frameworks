@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sixty people, one bottleneck — Language Kids World case study</title>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<style>
+:root{--deep:#2A1B5E;--purple:#5B4BC4;--violet:#8A7BE8;--pop:#D9D1FF;--lilac:#F2EFFB;--coral:#F96167;--coral-ink:#B3252B;--corals:#FFEFF0;
+--ink:#1A1633;--body:#3A3560;--muted:#6E6A8A;--line:#E3E0F0;--white:#fff;--r:10px;--rs:6px;
+--sans:'Schibsted Grotesk',system-ui,sans-serif;--mono:'Martian Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:var(--body);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}@media(max-width:700px){.wrap{padding:0 16px}}
+h1,h2,h3,h4{color:var(--ink);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+h1{font-size:clamp(40px,6vw,62px)}h2{font-size:clamp(28px,3.6vw,37px);margin-bottom:8px}h3{font-size:22px;margin-bottom:8px}h4{font-size:16px}
+p+p{margin-top:12px}a{color:var(--coral-ink)}strong,b{color:var(--ink)}
+em{font-style:normal;font-weight:700;color:var(--coral-ink)}
+.eyebrow{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+section .wrap>.eyebrow:first-child:before{content:'';display:inline-block;width:22px;height:2px;background:var(--coral);vertical-align:middle;margin-right:9px}
+.dsh-nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.dsh-nav .wrap{display:flex;align-items:center;gap:20px;min-height:56px}
+.dsh-nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:14px}
+.dsh-nav .lib{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.dsh-nav ul{list-style:none;display:flex;gap:18px;margin-left:auto}
+.dsh-nav .btn{background:var(--ink);color:#fff;border-radius:999px;padding:8px 14px}
+@media(max-width:700px){.dsh-nav ul li:not(:last-child){display:none}}
+.hero{background:var(--deep);color:#fff;padding:72px 0 60px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-140px;top:-140px;width:460px;height:460px;border-radius:50%;background:rgba(217,209,255,.11)}
+.hero h1{color:#fff}.hero h1 em{color:var(--pop)}.hero .eyebrow{color:var(--pop)}
+.hero .lede{font-size:19.5px;color:#D8D2F5;max-width:700px;margin-top:20px}
+.hero .tag{margin-top:26px;font-size:21px;font-weight:700;color:var(--pop)}
+.metaline{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
+.pill{border-radius:999px;padding:7px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.18)}
+section{padding:62px 0;border-bottom:1px solid var(--line)}
+.sub{color:var(--muted);font-size:17px;max-width:760px;margin-bottom:30px}
+.card{background:#fff;border:1px solid var(--line);box-shadow:0 1px 2px rgba(42,27,94,.035);border-radius:var(--r);padding:26px;min-width:0}
+.card.dark{background:var(--deep);border:0;color:#D8D2F5}.card.dark h3,.card.dark h4,.card.dark b,.card.dark strong{color:#fff}.card.dark em{color:var(--coral)}.card.dark .eyebrow{color:var(--pop)}
+.card.pop{background:var(--pop);border:0}.card.pop .eyebrow{color:#3F31A8}
+.card.coral{border:2px solid var(--coral)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid2>*,.grid3>*,.grid4>*{min-width:0}
+@media(max-width:820px){.grid2,.grid3,.grid4{grid-template-columns:1fr 1fr}}@media(max-width:560px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.stat{padding:22px;border-radius:var(--r);background:var(--lilac)}.stat b{display:block;font-size:44px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;margin-bottom:8px;letter-spacing:-.03em}.stat span{font-size:14px;color:var(--muted)}
+.formula{background:var(--deep);color:#fff;border-radius:var(--r);padding:34px;text-align:center}
+.formula .eq{font-size:clamp(22px,3vw,32px);color:#fff;letter-spacing:.01em;line-height:1.5;font-weight:600}
+.formula .eq b{color:var(--pop)}.formula .eq i{color:var(--coral);font-style:normal}.formula p{color:#B6AEDD;font-size:14px;margin-top:14px}
+.tblwrap{overflow-x:auto;max-width:100%}table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+ul.clean{list-style:none;display:grid;gap:8px}ul.clean li{padding-left:18px;position:relative}ul.clean li:before{content:'';position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--violet)}
+ul.gate li:before{background:var(--coral)}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:820px){.calc{grid-template-columns:1fr}}
+.calc label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.calc input{width:100%;font:16px var(--sans);padding:10px 12px;border:1px solid var(--line);border-radius:var(--rs);color:var(--ink);font-variant-numeric:tabular-nums}
+.calc input:focus{outline:2px solid var(--purple);outline-offset:1px}
+.out{display:grid;gap:10px}.out div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.out div b{font-variant-numeric:tabular-nums;font-size:20px}
+.verdict{margin-top:16px;padding:16px 18px;border-radius:var(--rs);font-weight:700;font-size:15px}
+.v-yes{background:#E6F4EC;color:#1B5E3A}.v-no{background:var(--corals);color:var(--coral-ink)}.v-mid{background:#FFF5DD;color:#7A5200}
+blockquote{margin:0;font-size:clamp(20px,2.4vw,26px);font-weight:600;line-height:1.3;color:var(--ink)}blockquote:before{content:'“';color:var(--coral)}
+.who{margin-top:14px;font-size:14px;color:var(--muted)}.who b{display:block;color:var(--ink)}
+.dsh-foot{background:#1A1633;color:#C9C0F0;padding:56px 0 28px}
+.dsh-foot a{color:#fff;font-weight:600}.dsh-foot .q{font-size:22px;color:#fff;line-height:1.3;max-width:34ch;margin:0 0 20px;font-weight:600}.dsh-foot .q b{color:var(--coral)}
+.dsh-foot .row{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px;font-size:14px}.dsh-foot p{max-width:70ch}
+.dsh-foot .base{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8F87B8;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+</style>
+<!--dsh:head-->
+<meta name="description" content="Ten full-time staff, fifty contract teachers, one founder as the critical path. 92% less curriculum-development time, 10–15 working weeks a year returned, two product revenue lines created.">
+<link rel="canonical" href="https://frameworks.dianasimpsonhernandez.com/case-study-language-kids-world/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Diana Simpson-Hernandez">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Open Frameworks · Diana Simpson-Hernandez"><meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://frameworks.dianasimpsonhernandez.com/case-study-language-kids-world/"><meta property="og:title" content="Sixty people, one bottleneck — Language Kids World, Houston — AI automations and a product business"><meta property="og:description" content="Ten full-time staff, fifty contract teachers, one founder as the critical path. 92% less curriculum-development time, 10–15 working weeks a year returned, two product revenue lines created.">
+<meta property="og:image" content="https://frameworks.dianasimpsonhernandez.com/assets/preview-case-study-language-kids-world.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Sixty people, one bottleneck — Language Kids World, Houston — AI automations and a product business">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Sixty people, one bottleneck — Language Kids World, Houston — AI automations and a product business"><meta name="twitter:description" content="Ten full-time staff, fifty contract teachers, one founder as the critical path. 92% less curriculum-development time, 10–15 working weeks a year returned, two product revenue lines created."><meta name="twitter:image" content="https://frameworks.dianasimpsonhernandez.com/assets/preview-case-study-language-kids-world.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<script defer data-domain="dianasimpsonhernandez.com" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script><script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "name": "Sixty people, one bottleneck", "headline": "Sixty people, one bottleneck — Language Kids World, Houston — AI automations and a product business", "description": "Ten full-time staff, fifty contract teachers, one founder as the critical path. 92% less curriculum-development time, 10–15 working weeks a year returned, two product revenue lines created.", "url": "https://frameworks.dianasimpsonhernandez.com/case-study-language-kids-world/", "author": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "publisher": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "inLanguage": "en", "isAccessibleForFree": true, "dateModified": "2026-09-18"}</script>
+
+<!--dsh:/head-->
+</head>
+<body>
+<nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· Case study</span><ul><li><a href="/">Library</a></li><li><a href="https://dianasimpsonhernandez.com/work-with-me/">Work with me</a></li><li><a href="https://dianasimpsonhernandez.com/learn/">Learn</a></li><li><a href="https://dianasimpsonhernandez.com/">Main site</a></li><li><a class="btn plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-nav" href="https://dianasimpsonhernandez.com/work-with-me/">Hire the method →</a></li></ul></div></nav>
+
+<div class="hero"><div class="wrap">
+<div class="eyebrow">Case study · 2026 · Houston, Texas · published with the client's permission</div>
+<h1>Sixty people, <em>one bottleneck</em>.</h1>
+<p class="lede">Language Kids World is a Houston language-education company: ten full-time staff and around fifty contract teachers, founder-led. At that size the founder isn't a busy individual — she is the single-threaded dependency for the output of a whole delivery organisation. This is what it took to move the bottleneck, what it returned, and the product business that fell out of it.</p>
+<div class="metaline"><span class="pill">10 full-time · ~50 contract teachers</span><span class="pill">AI automations across operations</span><span class="pill">STAKE partnership</span><span class="pill">Figures are the client's own measurements</span></div>
+</div></div>
+
+<section><div class="wrap">
+<div class="eyebrow">Outcomes</div>
+<h2>What came back</h2>
+<div class="grid4">
+<div class="stat"><b>92%</b><span>less curriculum-development time</span></div>
+<div class="stat"><b>10–15</b><span>working weeks a year returned to the founder</span></div>
+<div class="stat"><b>$28–42k</b><span>annual value of founder time returned, at the client's own loaded cost</span></div>
+<div class="stat"><b>1</b><span>security breach found unprompted, and closed</span></div>
+</div>
+<p style="margin-top:18px;font-size:14px;color:var(--muted)">No revenue uplift is claimed for the automations. The value model counts the founder's returned time only; the new product lines are reported separately under the partnership.</p>
+</div></section>
+
+<section><div class="wrap"><div class="grid2">
+<div>
+<div class="eyebrow">The situation</div>
+<h2>Founder as the critical path</h2>
+<p>Every curriculum, every teacher onboarding, every parent-facing document passed through one person. Curriculum development alone ran to weeks per cycle. Growth was capped not by demand but by the hours in the founder's week — the classic capacity-vs-demand shape that LEVER is built for.</p>
+<p>The starting point was the one <a href="/lever/">LEVER</a> is built around: find where the founder's time actually goes, from observation rather than interviews, before automating anything.</p>
+</div>
+<div>
+<div class="eyebrow">What was built</div>
+<h2>Automations, in the order that didn't break anything</h2>
+<p>A set of AI automations across the operation, sequenced so that each one relieved the next rather than moving the load somewhere else. Curriculum development went from weeks to hours and became the headline, but the returned time came from the whole sequence — the handoffs, the rework and the effort that sat around the founder rather than the single task.</p>
+<p>Along the way, a security problem nobody had asked about was found in the existing systems and fixed before it cost anything. It is in the case study because it is the kind of thing a blueprint surfaces and a feature request never does.</p>
+</div>
+</div></div></section>
+
+<section><div class="wrap">
+<div class="eyebrow">In her words</div>
+<div class="grid2">
+<div class="card"><blockquote>I was the bottleneck for a sixty-person delivery team and didn't know it. Diana built the automations that took curriculum development from weeks to hours and gave me back months of my year. For the first time I'm working on the business instead of inside it.</blockquote><div class="who"><b>Vanessa</b>Founder &amp; CEO, Language Kids World · Houston</div></div>
+<div style="display:grid;gap:20px">
+<div class="card"><blockquote>What I expected was time savings. What I got was time savings and two new revenue lines. While automating our operations Diana saw that the tools we needed were tools the whole industry needed — so we built them as products.</blockquote></div>
+<div class="card"><blockquote>She found a security problem in our systems that nobody had asked her to look for, and fixed it before it cost us.</blockquote></div>
+</div>
+</div>
+</div></section>
+
+<section><div class="wrap">
+<div class="eyebrow">The second half</div>
+<h2>From time saved to revenue <em>created</em></h2>
+<p class="sub">The tools the founder needed were tools every operator in the vertical needed. Rather than hand them over as internal software, they became products and services sold under the <a href="/stake/">STAKE</a> model: I build and run them, Language Kids World sells them into the market it already stands in and keeps around 82% of the revenue.</p>
+<div class="grid3">
+<div class="card"><div class="eyebrow">Why it works</div><h3>They own the vertical</h3><p>Fifteen years of standing in the market, credibility with the buyer, the selling relationship. Nobody I could hire would replace that.</p></div>
+<div class="card"><div class="eyebrow">Priced properly</div><h3>Royalty 9.0% · service fee 8.1%</h3><p>Two lines from the Motion Ledger, a £350/month service floor, and a reporting obligation so the royalty can actually be collected.</p></div>
+<div class="card dark"><div class="eyebrow">The lesson</div><h3>Time returned is the smaller half</h3><p>An automation engagement that stops at hours saved leaves the larger asset on the table: the products the operation needed were the products the industry needed. <em>Look for the second buyer</em> in month one.</p></div>
+</div>
+</div></section>
+
+<section><div class="wrap"><div class="card pop" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
+<div><div class="eyebrow">Your operation</div><h3>Founder as the critical path? Start with the free Friction Teardown.</h3><p style="margin:0">Thirty minutes. I tell you which method fits — or that neither does.</p></div>
+<a class="plausible-event-name=email_click plausible-event-position=case-study" href="mailto:dianasimpsonhernandez@gmail.com?subject=Friction%20Teardown" style="background:var(--ink);color:#fff;border-radius:999px;padding:12px 20px;text-decoration:none;font-weight:600;white-space:nowrap">Book it →</a>
+</div></div></section>
+
+<footer class="dsh-foot"><div class="wrap">
+<div class="eyebrow" style="color:#D9D1FF">The routing question</div>
+<p class="q">“When this goes wrong, is it because someone <b>chose badly</b>, or because someone <b>couldn't find out</b>?”</p>
+<p>Chose badly → <a class="plausible-event-name=framework_open plausible-event-framework=lever" href="/lever/">LEVER</a>. Couldn't find out → <a class="plausible-event-name=framework_open plausible-event-framework=recall" href="/recall/">RECALL</a>. Neither, but you own a vertical and need a product → <a href="/stake/">STAKE</a>.</p>
+<div class="row"><a class="plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-footer" href="https://dianasimpsonhernandez.com/work-with-me/">Fees and the free Friction Teardown →</a><a href="/case-study-language-kids-world/">Case study: Language Kids World →</a><a href="/">Every framework →</a></div>
+<div class="base"><span>Case study · Language Kids World · figures are the client's own measurements</span><span>Free to read. Not free to run on your company — <a href="https://dianasimpsonhernandez.com/work-with-me/" style="font-weight:500">that's the job</a>.</span></div>
+</div></footer>
+</body>
+</html>

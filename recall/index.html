@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The RECALL Method · v1 — Diana Simpson-Hernandez</title>
+<style>
+:root{
+  /* coral · white · purple-blue */
+  --deep:#2A1B5E; --purple:#5B4BC4; --violet:#8A7BE8; --pop:#D9D1FF; --lilac:#F2EFFB;
+  --coral:#F96167; --coral-ink:#B3252B; --corals:#FFEFF0; --white:#FFFFFF;
+  --ink:#1A1633; --muted:#6E6A8A; --line:#E3E0F0;
+  --r:14px; --rs:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;background-image:linear-gradient(180deg,#FFFFFF 0%,#FDFCFF 100%);
+     color:var(--ink);font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:16px;line-height:1.6;
+     -webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+h1,h2,h3,h4{font-family:'Schibsted Grotesk',system-ui,sans-serif;color:var(--deep);line-height:1.15;font-weight:600}
+em{font-style:italic;color:var(--coral-ink);font-family:'Schibsted Grotesk',system-ui,sans-serif}
+.eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+section .wrap>.eyebrow:first-child:before{content:'';display:inline-block;width:22px;height:2px;
+  background:var(--coral);vertical-align:middle;margin-right:9px}
+
+.hero{background:var(--deep);color:#fff;padding:72px 0 60px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-140px;top:-140px;width:460px;height:460px;
+            border-radius:50%;background:rgba(217,209,255,.11)}
+.hero h1{color:#fff;font-size:60px;letter-spacing:-.02em}
+.hero h1 em{color:var(--pop)}
+.hero .eyebrow{color:var(--pop)}
+.hero p.lede{font-size:19.5px;color:#D8D2F5;max-width:720px;margin-top:20px}
+.hero .tag{margin-top:26px;font-family:'Schibsted Grotesk',system-ui,sans-serif;font-style:italic;font-size:21px;color:var(--pop)}
+.metaline{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
+.pill{border-radius:999px;padding:7px 16px;font-size:12.5px;font-weight:600;
+      background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.18)}
+
+section{padding:62px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+h2{font-size:37px;letter-spacing:-.015em;margin-bottom:8px}
+.sub{color:var(--muted);font-size:17px;max-width:780px;margin-bottom:30px}
+h3{font-size:22px;margin-bottom:8px}
+p+p{margin-top:12px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px;
+      box-shadow:0 1px 2px rgba(42,27,94,.035)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.insight{background:var(--pop);border-radius:var(--r);padding:26px 30px}
+.insight .eyebrow{color:#3F31A8}
+.insight p{font-size:17px}
+.warn{background:var(--corals);border:1px solid #F6C9CB;border-radius:var(--r);padding:24px 28px}
+.warn h3{color:#B3252B}
+
+/* stages */
+.stage{display:grid;grid-template-columns:92px 1fr;gap:24px;background:#fff;
+       border:1px solid var(--line);border-radius:var(--r);padding:26px 28px;margin-bottom:12px;
+       box-shadow:0 1px 2px rgba(42,27,94,.035)}
+.letter{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:56px;font-weight:700;color:var(--deep);line-height:.9}
+.letter span{display:block;font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:10px;letter-spacing:.14em;font-weight:700;
+             color:var(--coral-ink);margin-top:8px;text-transform:uppercase}
+.stage h3 small{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;
+                text-transform:uppercase;color:var(--muted);margin-left:10px}
+.stage ul{margin:12px 0 0 18px;font-size:15px;color:#3A3560}
+.stage li{margin-bottom:5px}
+.out{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:14.5px}
+.out b{color:var(--deep)}
+.phase-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+           padding:4px 10px;border-radius:999px;background:var(--lilac);color:var(--deep);margin-bottom:14px}
+.phase-tag.build{background:#FFE0E1;color:#B3252B}
+
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--r);overflow:hidden;
+      border:1px solid var(--line);font-size:14.5px}
+th{background:var(--deep);color:#fff;text-align:left;padding:12px 14px;font-size:11.5px;
+   letter-spacing:.07em;text-transform:uppercase;font-weight:700}
+td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#FAF9FE}
+td b{color:var(--deep)}
+.plain,.plain tr:nth-child(even) td{background:transparent;border:0}
+.plain td{border:0;padding:8px 0}
+.notrag td{background:var(--corals) !important;box-shadow:inset 3px 0 0 var(--coral)}
+
+/* CCI */
+.dims{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dim{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.dim .n{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:13px;font-weight:700;color:var(--coral-ink);letter-spacing:.06em}
+.dim h4{font-size:17px;margin:5px 0 6px}
+.dim p{font-size:13.5px;color:var(--muted)}
+.dim .kill{margin-top:10px;font-size:12.5px;color:#B3252B;font-weight:600}
+
+/* formula */
+.formula{background:var(--deep);color:#fff;border-radius:var(--r);padding:34px;text-align:center}
+.formula .eq{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:32px;color:#fff;line-height:1.5}
+.formula .eq b{color:var(--pop)}
+.formula .eq i{color:var(--coral-ink);font-style:normal}
+.formula p{color:#B6AEDD;font-size:14px;margin-top:14px}
+.terms{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.term{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.term .sym{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:26px;font-weight:700;color:var(--coral-ink);line-height:1}
+.term h4{font-size:15px;margin:6px 0 4px}
+.term p{font-size:13px;color:var(--muted)}
+
+/* calc */
+.calc{display:grid;grid-template-columns:1fr 340px;gap:22px;align-items:start}
+.calcbox{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12.5px;font-weight:700;color:var(--deep);margin-bottom:5px}
+.field label span{font-weight:400;color:var(--muted);font-size:11.5px}
+.field input[type=number],.field select{width:100%;padding:9px 12px;border:1px solid var(--line);
+      border-radius:var(--rs);font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:15px;color:var(--ink);background:#FAF9FE}
+.field input[type=range]{width:100%;accent-color:var(--coral-ink)}
+.rowv{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.result{background:var(--deep);color:#fff;border-radius:var(--r);padding:26px;position:sticky;top:20px}
+.result .eyebrow{color:var(--pop)}
+.big{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:38px;color:#fff;font-weight:600;line-height:1.05;margin:8px 0 2px}
+.result .lbl{font-size:12px;color:#B6AEDD;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.result hr{border:0;border-top:1px solid rgba(255,255,255,.18);margin:18px 0}
+.result .sm{font-size:13px;color:#C7BFEA;margin-top:6px}
+.verdict{border-radius:var(--rs);padding:14px 16px;font-size:14px;font-weight:600;margin-top:16px}
+.v-go{background:#E4DEFB;color:#2A1B5E}
+.v-mid{background:var(--lilac);color:#3F31A8}
+.v-no{background:#FFE0E1;color:#B3252B}
+
+.gate{background:#fff;border-left:4px solid var(--coral);border-radius:0 var(--rs) var(--rs) 0;
+      padding:15px 20px;margin-bottom:10px}
+.gate b{color:var(--deep)}
+.gate p{font-size:14.5px;color:#3A3560;margin-top:3px}
+
+.tiers{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;align-items:start}
+.tier{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;height:100%}
+.tier.hero-tier{background:var(--deep);color:#fff;border-color:var(--deep)}
+.tier.hero-tier h3,.tier.hero-tier .price{color:#fff}
+.tier.hero-tier .eyebrow{color:var(--pop)}
+.tier.hero-tier li{color:#C7BFEA}
+.tier.hero-tier .len{color:#A79CD6;border-color:rgba(255,255,255,.2)}
+.price{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:26px;color:var(--deep);font-weight:600;margin:9px 0 2px}
+.len{font-size:12px;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:10px}
+.tier ul{list-style:none;font-size:12.5px;color:#3A3560}
+.tier li{padding-left:14px;position:relative;margin-bottom:6px}
+.tier li:before{content:"—";position:absolute;left:0;color:var(--coral-ink)}
+
+.route{display:grid;grid-template-columns:1fr 60px 1fr;gap:18px;align-items:center}
+.route .vs{text-align:center;font-family:'Schibsted Grotesk',system-ui,sans-serif;font-style:italic;font-size:20px;color:var(--muted)}
+
+.next{counter-reset:n}
+.next li{list-style:none;counter-increment:n;position:relative;padding-left:44px;margin-bottom:14px;font-size:15.5px}
+.next li:before{content:counter(n);position:absolute;left:0;top:-1px;width:28px;height:28px;border-radius:50%;
+  background:var(--deep);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;
+  justify-content:center;font-family:'Schibsted Grotesk',system-ui,sans-serif}
+.next li b{color:var(--deep)}
+footer{background:var(--deep);color:#A79CD6;padding:34px 0;font-size:13px}
+
+@media(max-width:980px){
+  .wrap{padding:0 20px}
+  .hero h1{font-size:40px}
+  h2{font-size:28px}
+  .grid2,.grid3,.tiers,.terms,.calc,.dims,.route{grid-template-columns:1fr}
+  .stage{grid-template-columns:1fr}
+  .result{position:static}
+  .formula .eq{font-size:21px}
+}
+
+/* ── v2 library chrome ── */
+.dsh-nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.dsh-nav .wrap{display:flex;align-items:center;gap:20px;min-height:56px}
+.dsh-nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:14px}
+.dsh-nav .lib{font-family:'Martian Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.dsh-nav ul{list-style:none;display:flex;gap:18px;margin-left:auto;padding:0}
+.dsh-nav .btn{background:var(--ink);color:#fff;border-radius:999px;padding:8px 14px}
+@media(max-width:700px){.dsh-nav ul li:not(:last-child){display:none}}
+.dsh-foot{background:#1A1633;color:#C9C0F0;padding:56px 0 28px;margin-top:40px}
+.dsh-foot h2{color:#fff;font-size:30px;margin-bottom:14px;font-weight:800}
+.dsh-foot p{max-width:70ch}
+.dsh-foot a{color:#fff;font-weight:600}
+.dsh-foot .q{font-size:22px;color:#fff;line-height:1.3;max-width:34ch;margin:0 0 20px}
+.dsh-foot .q b{color:#F96167}
+.dsh-foot .row{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px;font-size:14px}
+.dsh-foot .base{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-family:'Martian Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8F87B8;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+/* register: no serif → no italics; display weight 800; mono labels sized for Martian Mono */
+h1,h2,h3,h4{font-weight:800;letter-spacing:-.02em}
+em,.tag,.ex{font-style:normal}
+em{font-weight:700}
+.eyebrow{font-family:'Martian Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.09em;font-weight:500}
+.pill{font-family:'Martian Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.04em;font-weight:500}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.grid2>*,.grid3>*,.terms>*,.stage>*,.rung>*{min-width:0}
+.tblwrap table{min-width:640px}
+.tblwrap table.plain{min-width:0}
+.tabular,td,th{font-variant-numeric:tabular-nums}
+@media(max-width:700px){.wrap{padding:0 16px}.grid2,.grid3{grid-template-columns:1fr}.hero h1{font-size:42px}}
+.hero em{color:var(--coral)}.hero .eyebrow{color:var(--coral)}.dsh-foot b{color:var(--coral)}.formula .eq i{color:var(--coral)}.term[style*='--navy'] em{color:var(--coral)}.term[style*='--deep'] em{color:var(--coral)}
+</style>
+<!--dsh:head-->
+<meta name="description" content="The other half of AI consulting: making a company&#x27;s documents answerable. Question Ledger → Corpus Condition Index → Answerability Equation with a trust discount. Diagnostic £34,000.">
+<link rel="canonical" href="https://frameworks.dianasimpsonhernandez.com/recall/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Diana Simpson-Hernandez">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Open Frameworks · Diana Simpson-Hernandez"><meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://frameworks.dianasimpsonhernandez.com/recall/"><meta property="og:title" content="RECALL — Ask first. Score the corpus. Earn the right to build."><meta property="og:description" content="The other half of AI consulting: making a company&#x27;s documents answerable. Question Ledger → Corpus Condition Index → Answerability Equation with a trust discount. Diagnostic £34,000.">
+<meta property="og:image" content="https://frameworks.dianasimpsonhernandez.com/assets/preview-recall.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="RECALL — Ask first. Score the corpus. Earn the right to build.">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="RECALL — Ask first. Score the corpus. Earn the right to build."><meta name="twitter:description" content="The other half of AI consulting: making a company&#x27;s documents answerable. Question Ledger → Corpus Condition Index → Answerability Equation with a trust discount. Diagnostic £34,000."><meta name="twitter:image" content="https://frameworks.dianasimpsonhernandez.com/assets/preview-recall.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<script defer data-domain="dianasimpsonhernandez.com" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script><script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "name": "RECALL", "headline": "RECALL — Ask first. Score the corpus. Earn the right to build.", "description": "The other half of AI consulting: making a company's documents answerable. Question Ledger → Corpus Condition Index → Answerability Equation with a trust discount. Diagnostic £34,000.", "url": "https://frameworks.dianasimpsonhernandez.com/recall/", "author": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "publisher": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "inLanguage": "en", "isAccessibleForFree": true, "dateModified": "2026-09-18"}</script>
+
+<!--dsh:/head-->
+</head>
+<body>
+<nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· RECALL</span><ul><li><a href="/">Library</a></li><li><a href="https://dianasimpsonhernandez.com/work-with-me/">Work with me</a></li><li><a href="https://dianasimpsonhernandez.com/learn/">Learn</a></li><li><a href="https://dianasimpsonhernandez.com/">Main site</a></li><li><a class="btn plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-nav" href="https://dianasimpsonhernandez.com/work-with-me/">Hire the method →</a></li></ul></div></nav>
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Consulting Framework · v1 · 26 July 2026 · companion to LEVER</div>
+    <h1>The <em>RECALL</em> Method</h1>
+    <p class="lede">A six-stage system for the other half of AI consulting: making a company's
+    own documents answerable. Start with the questions the business actually needs answered,
+    score the corpus that would have to answer them, and only then build a retrieval system —
+    with a trust discount applied before anyone writes code.</p>
+    <p class="tag">Ask first. Score the corpus. Earn the right to build.</p>
+    <div class="metaline">
+      <span class="pill">Corpus Condition Index</span>
+      <span class="pill">Answerability Equation + Trust Discount</span>
+      <span class="pill">Diagnostic £34,000 · Build from £55,000</span>
+      <span class="pill">Engine-neutral · zero Aletheai IP</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Where this sits</div>
+    <h2>Two methods, one practice</h2>
+    <p class="sub">LEVER and RECALL share a spine — a signed goal, a scoring instrument, honest
+    gates, a sequenced plan, and a paid diagnostic that can recommend against building. They
+    differ only in the unit of analysis. One routing question decides which you sell.</p>
+
+    <div class="route">
+      <div class="card">
+        <div class="eyebrow" style="color:var(--coral-ink)">LEVER</div>
+        <h3>The unit is a <em>decision</em></h3>
+        <p style="font-size:14.5px;color:#3A3560;margin-top:8px">"We keep making this call badly."
+        Recurring operational judgements with recorded outcomes. Output: a bespoke ML decision
+        tool — a ranked worklist, a forecast, a flagged queue.</p>
+        <p style="font-size:13.5px;color:var(--muted)"><b>Binding constraint:</b> are past decisions
+        outcome-labelled?</p>
+      </div>
+      <div class="vs">or</div>
+      <div class="card" style="border-color:var(--purple);border-width:2px">
+        <div class="eyebrow" style="color:var(--coral-ink)">RECALL</div>
+        <h3>The unit is a <em>question</em></h3>
+        <p style="font-size:14.5px;color:#3A3560;margin-top:8px">"We can't find or trust what we
+        already know." Recurring questions whose answers exist somewhere in the document estate.
+        Output: a retrieval system people can rely on.</p>
+        <p style="font-size:13.5px;color:var(--muted)"><b>Binding constraint:</b> is the corpus
+        in a fit state to be retrieved from?</p>
+      </div>
+    </div>
+
+    <div class="insight" style="margin-top:22px">
+      <div class="eyebrow">The routing question</div>
+      <p><b>"When this goes wrong, is it because someone chose badly, or because someone
+      couldn't find out?"</b> Ask it in the first meeting. The answer tells you which method to
+      sell, and asking it out loud makes you sound like someone who has done this before —
+      because most sellers only have one product and will bend the client's problem to fit it.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The market gap</div>
+    <h2>The cost is in the corpus, not the model</h2>
+    <p class="sub">Published 2026 build data says the quiet part plainly. In one legal-tech
+    project, ingestion and OCR alone were <b>29% of total cost</b>. Access control, not the LLM,
+    is repeatedly named the dominant cost driver. And across every pricing tier, the same
+    sentence appears: <em>messy source documents are the biggest schedule risk.</em></p>
+
+    <div class="grid3">
+      <div class="card"><div class="eyebrow">Ingestion &amp; OCR</div>
+        <h3 style="font-size:32px">29%</h3>
+        <p style="font-size:14px;color:var(--muted)">of one documented legal-tech RAG build — before a single retrieval query was tuned.</p></div>
+      <div class="card" style="border-color:var(--coral-ink);border-width:2px">
+        <div class="eyebrow" style="color:var(--coral-ink)">Nobody prices it first</div>
+        <h3 style="font-size:32px">0</h3>
+        <p style="font-size:14px;color:var(--muted)">competitors selling a corpus diagnostic. Everyone quotes the build, discovers the mess, and eats the overrun — or passes it to the client as a change request.</p></div>
+      <div class="card"><div class="eyebrow">Typical production build</div>
+        <h3 style="font-size:32px">$40–80k</h3>
+        <p style="font-size:14px;color:var(--muted)">rising to $80–150k+ on-premises with SSO and compliance logging. That is the number at risk when the corpus turns out to be unfit.</p></div>
+    </div>
+
+    <div class="insight" style="margin-top:20px">
+      <div class="eyebrow">The thesis</div>
+      <p><b>A retrieval system cannot be better than the corpus it retrieves from — and nobody
+      measures the corpus before quoting the build.</b> That single omission is why these projects
+      overrun, why demos impress and production disappoints, and why a four-week paid diagnostic
+      is not an upsell but the cheapest insurance a buyer will ever be offered.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The system</div>
+    <h2>Six stages, two commercial phases</h2>
+    <p class="sub">R·E·C is the paid diagnostic and stands alone. A·L·L is the build. As in LEVER,
+    the client can stop after C and still own something valuable — which is exactly why they
+    say yes to C.</p>
+
+    <span class="phase-tag">Phase 1 · The RECALL Diagnostic · 4–5 weeks</span>
+
+    <div class="stage">
+      <div class="letter">R<span>Stage 01</span></div>
+      <div>
+        <h3>Requests <small>The question taxonomy</small></h3>
+        <p>Start with what people need to know, never with what documents exist. Every question
+        gets a row in the Question Ledger: who asks it, how often, how long it currently takes to
+        answer, and what it costs when the answer is late, wrong or never found.</p>
+        <ul>
+          <li>Harvest real questions from search logs, helpdesk tickets, inbox archaeology and shadowing — not from a workshop where people invent tidy ones</li>
+          <li>Cluster into question <em>classes</em>; a system serves classes, not individual queries</li>
+          <li>Time the current answer path end to end, including the "I'll ask Sarah" hop that never appears in a process map</li>
+          <li>Separate <b>questions</b> from <b>reports</b>. Most stated "search needs" are dashboards in disguise.</li>
+        </ul>
+        <div class="out"><b>Output:</b> The Question Ledger — 15–30 question classes with owner,
+        annual volume, current time-to-answer and cost of failure.</div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="letter">E<span>Stage 02</span></div>
+      <div>
+        <h3>Estate <small>Corpus census</small></h3>
+        <p>Find every place an answer could live, and who governs it. This is where projects
+        quietly die: the authoritative version is in a mailbox, a shared drive nobody admits to,
+        or a system whose owner left.</p>
+        <ul>
+          <li>Inventory repositories, volumes, formats, growth rate and access model</li>
+          <li>Identify the <b>system of record</b> per question class — and where a contradicting copy lives</li>
+          <li>Map governance early: PII, retention, confidentiality tiers, who may see what. Access control is the single biggest build cost, so it is scoped here, not discovered later.</li>
+          <li>Flag anything that must never be retrievable. This list is worth the fee on its own.</li>
+        </ul>
+        <div class="out"><b>Output:</b> Corpus census with an authority map and a governance
+        matrix per repository.</div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="letter">C<span>Stage 03</span></div>
+      <div>
+        <h3>Condition <small>Score the corpus, cost the answer</small></h3>
+        <p>Sample and score. This is the stage nobody else sells, and it is the reason your
+        build quote is safe when everyone else's is a guess.</p>
+        <ul>
+          <li>Stratified sample of each repository — 100–300 documents is usually enough to be decisive</li>
+          <li>Score the six dimensions of the <b>Corpus Condition Index</b></li>
+          <li>Type every question class on the <b>Retrievability Ladder</b> — and name the ones that are not retrieval problems at all</li>
+          <li>Build the <b>gold set</b>: 50–100 real questions with verified answers and source spans</li>
+          <li>Run the <b>Answerability Equation</b>; sequence remediation before build</li>
+        </ul>
+        <div class="out"><b>Output:</b> Corpus Condition Index, Retrievability map, gold set v1,
+        architecture blueprint, A£ and AQ per question class, sequenced plan. <b>This is the
+        sellable artefact.</b></div>
+      </div>
+    </div>
+
+    <span class="phase-tag build" style="margin-top:26px">Phase 2 · The RECALL Build · 8–14 weeks</span>
+
+    <div class="stage">
+      <div class="letter">A<span>Stage 04</span></div>
+      <div>
+        <h3>Architect <small>Chunking, metadata, retrieval</small></h3>
+        <p>The architecture is prescribed by the question archetype, not by fashion. Metadata is
+        designed before chunking, because chunking without metadata is how you build something
+        that retrieves confidently and wrongly.</p>
+        <ul>
+          <li><b>Metadata schema first</b>: source, authority tier, effective date, supersedes, confidentiality, entity tags. Budget for this properly — practitioners consistently report it consuming around 40% of build time.</li>
+          <li><b>Chunking to match the archetype</b>: hierarchy-preserving for procedures, parent-document for synthesis, small + filtered for lookup. Fixed-size chunks alone are a demo technique.</li>
+          <li><b>Hybrid retrieval by default</b>: lexical and dense together, then rerank. Pure vector search fails exactly where clients test it — names, codes, clause numbers.</li>
+          <li><b>Access control in the retrieval path</b>, never in the interface. Filter before you rank, or you have built a data breach with a chat window.</li>
+        </ul>
+        <div class="out"><b>Output:</b> Metadata schema, chunking policy per archetype, retrieval
+        design, and the permission model — all reviewed against the gold set before build.</div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="letter">L<span>Stage 05</span></div>
+      <div>
+        <h3>Loop <small>Evaluate before you ship</small></h3>
+        <p>The gold set exists from stage C, so evaluation is not an afterthought bolted on when
+        someone complains — it is the acceptance criterion the contract is written against.</p>
+        <ul>
+          <li>Measure retrieval and answer quality separately. Most "the AI is wrong" complaints are retrieval failures wearing a generation costume.</li>
+          <li>Regression-test every change against the gold set. No green run, no deploy.</li>
+          <li>Ship the honest baseline first — keyword search with good metadata filters. If the full stack cannot beat it on the gold set, say so and bill for finding out.</li>
+          <li>Instrument abstention. A system that says "I don't know" is worth more than one that is 90% right and unmarked.</li>
+        </ul>
+        <div class="out"><b>Output:</b> Evaluation harness, gold-set scores, an abstention policy
+        and a published accuracy claim you can actually defend.</div>
+      </div>
+    </div>
+
+    <div class="stage">
+      <div class="letter">L<span>Stage 06</span></div>
+      <div>
+        <h3>Live <small>Deploy, secure, monitor</small></h3>
+        <p>Adoption is a trust problem here, not a training problem. People abandon a retrieval
+        system the third time it answers confidently and wrongly, and they never come back.</p>
+        <ul>
+          <li>Every answer carries its sources, dates and authority tier. Citation is a product feature, not a nicety.</li>
+          <li>Immutable audit log of every retrieval call where the sector requires it</li>
+          <li>Monitor <b>corpus drift</b>: new documents degrade a tuned system silently, and the first sign is usually a user quietly going back to asking Sarah</li>
+          <li>Quarterly gold-set re-run tied to a published quality report</li>
+        </ul>
+        <div class="out"><b>Output:</b> Live system, audit trail, quality report — and the drift
+        curve that justifies the retainer honestly.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Instrument one</div>
+    <h2>The Corpus Condition Index</h2>
+    <p class="sub">Six dimensions, 0–5 each, scored from a stratified sample. Total 0–30, then
+    normalised to 0–1 as the <b>C</b> term in the equation. This is the instrument that turns
+    "your documents are a mess" — a sentence that sounds like blame and closes the conversation —
+    into a number the client can act on.</p>
+
+    <div class="dims">
+      <div class="dim"><div class="n">01</div><h4>Extractability</h4>
+        <p>Can clean text be got out at all? Scans, image-only PDFs, tables that collapse into soup, multi-column layouts, handwriting.</p>
+        <div class="kill">Score 0–1 → nothing downstream works. Remediation is not optional.</div></div>
+      <div class="dim"><div class="n">02</div><h4>Structure</h4>
+        <p>Is there hierarchy to preserve — headings, clause numbering, sections? Structure is what lets chunking keep meaning instead of slicing it.</p>
+        <div class="kill">Low structure caps synthesis and procedural questions permanently.</div></div>
+      <div class="dim"><div class="n">03</div><h4>Uniqueness</h4>
+        <p>Duplication and near-duplication. The classic finding: half a repository is the same documents with trivial format differences.</p>
+        <div class="kill">Duplicates don't just waste space — they split retrieval confidence and surface the wrong version.</div></div>
+      <div class="dim"><div class="n">04</div><h4>Currency</h4>
+        <p>How much is stale or superseded — and crucially, <em>can you tell?</em> An undated corpus cannot answer any time-sensitive question safely.</p>
+        <div class="kill">This is the dimension that creates confidently wrong answers.</div></div>
+      <div class="dim"><div class="n">05</div><h4>Provenance</h4>
+        <p>Do you know source, author, version, effective date and authority tier? Without provenance you cannot cite, and without citation nobody trusts it.</p>
+        <div class="kill">No provenance → no defensible answer in any regulated setting.</div></div>
+      <div class="dim"><div class="n">06</div><h4>Governance</h4>
+        <p>Access rules, PII, confidentiality tiers, retention obligations, and the material that must never be retrievable at all.</p>
+        <div class="kill">Scoped here or it becomes the largest unplanned cost in the build.</div></div>
+    </div>
+
+    <div class="insight" style="margin-top:20px">
+      <div class="eyebrow">Why it is worth the diagnostic fee on its own</div>
+      <p>A CCI is a <b>reusable asset for the client</b> even if they never build anything. It
+      tells them which repositories to consolidate, what their retention exposure is, and where
+      the authoritative version of the truth actually lives. Several clients will buy the
+      remediation and postpone the system — and that is a good outcome, not a lost sale.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Instrument two</div>
+    <h2>The Retrievability Ladder</h2>
+    <p class="sub">Seven question archetypes. The archetype prescribes the architecture — and,
+    more valuably, tells you when the honest answer is <em>this is not a retrieval problem.</em>
+    Three of the seven are not. Naming them is the most credible thing you will do all engagement.</p>
+
+    <div class="tblwrap"><table>
+      <thead><tr><th style="width:13%">Archetype</th><th style="width:25%">Example question</th>
+      <th style="width:36%">Architecture</th><th style="width:26%">Honest note</th></tr></thead>
+      <tbody>
+        <tr><td><b>Lookup</b></td><td>"What's the notice period in the Acme contract?"</td>
+          <td>Small chunks, hybrid lexical + dense, hard metadata filters, rerank. The easiest win.</td>
+          <td>Retrievable. Start here — it builds trust cheaply.</td></tr>
+        <tr><td><b>Procedural</b></td><td>"How do I onboard a supplier in France?"</td>
+          <td>Hierarchy-preserving chunking; a step must never be split. Parent-document retrieval.</td>
+          <td>Retrievable, but fixed-size chunking destroys it.</td></tr>
+        <tr><td><b>Compare</b></td><td>"How does this policy differ from the 2024 version?"</td>
+          <td>Multi-document retrieval with version metadata, then structured diff — not free-text generation.</td>
+          <td>Retrievable only if Currency and Provenance score well.</td></tr>
+        <tr><td><b>Trace</b></td><td>"What changed, when, and who approved it?"</td>
+          <td>Temporal metadata, versioned corpus, event-style indexing.</td>
+          <td>An archive-design problem before it is a retrieval one.</td></tr>
+        <tr><td><b>Synthesise</b></td><td>"What's our overall position on data residency?"</td>
+          <td>Hierarchical retrieval, map-reduce summarisation, mandatory citation, forced abstention on thin evidence.</td>
+          <td>Highest hallucination exposure. Apply a heavy Trust Discount.</td></tr>
+        <tr class="notrag"><td><b>Aggregate</b></td><td>"How many contracts have terms over 90 days?"</td>
+          <td><b>Not RAG.</b> Structured extraction into a table, then SQL. Retrieval cannot count and will confidently guess.</td>
+          <td>The single most common doomed request. Say no early and propose extraction instead.</td></tr>
+        <tr class="notrag"><td><b>Judgement</b></td><td>"Should we accept this clause?"</td>
+          <td><b>Not RAG alone.</b> Retrieve, cite and assemble the evidence — then a human decides. Never generate the conclusion.</td>
+          <td>If the client insists, this is where your professional-indemnity conversation starts.</td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="warn" style="margin-top:20px">
+      <h3>The two sentences that win the room</h3>
+      <p style="margin-top:8px;font-size:15.5px">"About a third of what you've described isn't a
+      search problem — it's a counting problem, and search will answer it confidently and wrongly.
+      Let me show you which ones."</p>
+      <p style="font-size:15.5px">Nobody selling a RAG build says this. It costs you scope and
+      buys you the entire engagement.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Instrument three</div>
+    <h2>The Answerability Equation</h2>
+    <p class="sub">Deliberately the same shape as LEVER's — one mental model across both methods —
+    with one term that only exists here. Output in pounds per year, per question class.</p>
+
+    <div class="formula">
+      <div class="eq">A£ &nbsp;=&nbsp; <b>N</b> × <b>Δ</b> × <b>a</b>
+      &nbsp;×&nbsp; (<i>C</i> × <i>R</i> × <i>A</i>) &nbsp;×&nbsp; (1 − <b>H</b>)</div>
+      <p>Value of the answer × Answerability × Trust discount</p>
+    </div>
+
+    <div class="terms">
+      <div class="term"><div class="sym">N</div><h4>Volume</h4><p>How many times a year this question class is asked. From search logs and ticket systems, never from a workshop.</p></div>
+      <div class="term"><div class="sym">Δ</div><h4>Cost per ask</h4><p>Time to answer at loaded cost, plus rework, plus duplicated effort, plus the cost of deciding without the answer.</p></div>
+      <div class="term"><div class="sym">a</div><h4>Retrieval-addressable share</h4><p>0–1. The fraction of Δ that <em>finding</em> could remove. If the answer genuinely does not exist anywhere, no retrieval system creates it — and pretending otherwise is how these projects earn their reputation.</p></div>
+      <div class="term"><div class="sym">C·R·A</div><h4>Answerability</h4><p>Corpus condition × retrievability of the archetype × adoption and trust feasibility. Multiplied, not averaged — any zero correctly kills the whole thing.</p></div>
+      <div class="term" style="background:var(--pop);border:0"><div class="sym" style="color:#3F31A8">H</div>
+        <h4>The Trust Discount</h4><p>0–1. The share of value destroyed by an unacceptable wrong-answer rate in this domain. The term that exists here and nowhere else.</p></div>
+      <div class="term"><div class="sym">AQ</div><h4>Answerability Quotient</h4><p>A£ ÷ (build cost + year-one run cost). The ranking number. Build if AQ ≥ 3.</p></div>
+      <div class="term" style="grid-column:span 2;background:var(--deep);border:0">
+        <div class="sym" style="color:var(--pop)">!</div>
+        <h4 style="color:#fff">Why H changes everything</h4>
+        <p style="color:#B6AEDD">In a high-stakes domain, a system that is right 90% of the time can be worth <em>less than nothing</em> — because every answer must now be verified by hand, so you have added a step rather than removed one. H is what stops you selling that system. Set H high for clinical, legal-advice, regulatory and financial-promotion contexts, low where a wrong answer is merely annoying and obvious.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Live instrument</div>
+    <h2>Run the numbers</h2>
+    <p class="sub">Pre-loaded with a 200-person professional services firm and the question class
+    <em>"Have we done work like this before, and what's reusable?"</em> — scored
+    <b>after</b> corpus remediation. Drag C down to 0.45 to see it today: A£ falls to £193,882 and
+    AQ to 1.88, which is the entire argument for selling remediation first.</p>
+
+    <div class="calc">
+      <div class="calcbox">
+        <div class="f2">
+          <div class="field"><label>N — times asked per year <span>from logs</span></label>
+            <input type="number" id="N" value="18000" min="0" step="100"></div>
+          <div class="field"><label>Δ — £ cost per unanswered ask <span>time + rework + duplication</span></label>
+            <input type="number" id="D_" value="85" min="0" step="5"></div>
+        </div>
+        <div class="field"><label>a — retrieval-addressable share <span id="aV">0.55</span></label>
+          <input type="range" id="a" min="0" max="1" step="0.01" value="0.55">
+          <div class="rowv"><span>0 · the answer doesn't exist anywhere</span><span>1 · it exists, nobody can find it</span></div></div>
+        <div class="field"><label>C — corpus condition <span id="cV">0.80</span></label>
+          <input type="range" id="c" min="0" max="1" step="0.05" value="0.8">
+          <div class="rowv"><span>unextractable, undated, duplicated</span><span>clean, structured, dated, deduplicated</span></div></div>
+        <div class="field"><label>R — retrievability of the archetype <span id="rV">0.80</span></label>
+          <input type="range" id="r" min="0" max="1" step="0.05" value="0.8">
+          <div class="rowv"><span>aggregate / judgement</span><span>lookup / procedural</span></div></div>
+        <div class="field"><label>A — adoption &amp; trust feasibility <span id="adV">0.80</span></label>
+          <input type="range" id="ad" min="0" max="1" step="0.05" value="0.8">
+          <div class="rowv"><span>no owner, no ritual</span><span>replaces something people already do</span></div></div>
+        <div class="field"><label>H — Trust Discount <span id="hV">0.20</span></label>
+          <input type="range" id="h" min="0" max="1" step="0.05" value="0.20">
+          <div class="rowv"><span>wrong answers are obvious and cheap</span><span>wrong answers are invisible and costly</span></div></div>
+        <div class="f2">
+          <div class="field"><label>Build cost <span>£</span></label>
+            <input type="number" id="bc" value="55000" min="0" step="1000"></div>
+          <div class="field"><label>Year-one run cost <span>£</span></label>
+            <input type="number" id="rc" value="48000" min="0" step="1000"></div>
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="eyebrow">Value of the answer</div>
+        <div class="big" id="oVas">£841,500</div>
+        <div class="lbl">before corpus &amp; trust effects</div>
+        <hr>
+        <div class="eyebrow">Recoverable · A£</div>
+        <div class="big" id="oA">£344,678</div>
+        <div class="lbl">per year</div>
+        <hr>
+        <div class="eyebrow">Answerability Quotient</div>
+        <div class="big" id="oAQ">3.35×</div>
+        <div class="lbl">return on year-one total cost</div>
+        <div class="verdict v-go" id="oV">Build. AQ ≥ 3 and the corpus supports it.</div>
+        <p class="sm" id="oPrice">Indicative build fee at 16–24% of A£: <b>£55,148 – £82,723</b></p>
+        <p class="sm" id="oS">Answerability C·R·A = 0.512 · the ceiling on everything downstream</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The gates</div>
+    <h2>Five ways the diagnostic says no</h2>
+    <p class="sub">Checked in this order, before AQ. A large A£ sitting on an unfit corpus is a
+    mirage, and AQ will happily endorse it.</p>
+    <div class="gate"><b>C &lt; 0.40 → Remediate first.</b><p>The corpus cannot support retrieval yet. Sell a corpus remediation project — dedup, OCR, dating, metadata backfill — then revisit. This is the honest recommendation that wins the follow-on, and it is a real revenue line, not a delay.</p></div>
+    <div class="gate"><b>Archetype is Aggregate or Compute → Extract, don't retrieve.</b><p>Structured extraction into a table plus SQL. Retrieval cannot count. This gate alone will save you one doomed build a year.</p></div>
+    <div class="gate"><b>H &gt; 0.50 → Assist, don't answer.</b><p>Build retrieve-and-cite for a human reviewer. Never generate the conclusion. The scope shrinks, the fee shrinks, and you keep your professional indemnity and your reputation.</p></div>
+    <div class="gate"><b>No gold set → no build.</b><p>Fifty to a hundred real questions with verified answers and source spans, before a line of code. Without it there is no acceptance criterion, fixed-fee is unsafe for both sides, and "is it working?" becomes a matter of opinion forever.</p></div>
+    <div class="gate"><b>AQ &lt; 3 → don't build.</b><p>Below three times year-one cost the risk premium on a bespoke retrieval system is not earned. Narrow to a single question class, or walk.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Commercials</div>
+    <h2>The pricing ladder</h2>
+    <p class="sub">Benchmarked against published 2026 build data — production RAG $40–80k, on-premises
+    enterprise $80–150k+, run £1–3k/month rising to £2–8k on-premises — and against the UK
+    consulting rates behind LEVER. Remediation is a separate SKU because it is separate work,
+    and because pricing it separately is what keeps the build quote honest.</p>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="eyebrow">Tier 0</div><h3>RECALL Scan</h3>
+        <div class="price">£6,500</div><div class="len">5 days · £5,000–8,500</div>
+        <ul><li>Question harvest from logs and tickets</li><li>One repository sampled and CCI-scored</li>
+        <li>Top 5 question classes typed on the ladder</li><li>Credited in full against the Diagnostic</li></ul>
+      </div>
+      <div class="tier hero-tier">
+        <div class="eyebrow">Tier 1 · core</div><h3>RECALL Diagnostic</h3>
+        <div class="price">£34,000</div><div class="len">4–5 weeks · £28,000–42,000</div>
+        <ul><li>Question Ledger, 15–30 classes</li><li>Corpus census + authority map</li>
+        <li>CCI across the estate</li><li>Retrievability map incl. the not-RAG list</li>
+        <li>Gold set v1 (50–100 questions)</li><li>A£ and AQ, client-signed</li>
+        <li>Architecture blueprint + governance matrix</li><li>50% credited against a Build</li></ul>
+      </div>
+      <div class="tier">
+        <div class="eyebrow">Tier 1.5 · new SKU</div><h3>Corpus Remediation</h3>
+        <div class="price">£28,000</div><div class="len">4–8 weeks · £18,000–45,000</div>
+        <ul><li>Dedup, OCR, structural repair</li><li>Dating and version resolution</li>
+        <li>Metadata backfill to schema</li><li>CCI re-scored, before and after</li>
+        <li>Sells on its own merits — the client owns a better estate whether or not they build</li></ul>
+      </div>
+      <div class="tier">
+        <div class="eyebrow">Tier 2 · delivery</div><h3>RECALL Build</h3>
+        <div class="price">£75,000</div><div class="len">8–14 weeks · £55,000–120,000</div>
+        <ul><li>Ingest, metadata, chunking, hybrid retrieval</li><li>Access control in the retrieval path</li>
+        <li>Evaluation harness + gold-set acceptance</li><li>Cited answers with abstention</li>
+        <li><b>16–24% of A£</b>, floor £55k</li></ul>
+      </div>
+      <div class="tier">
+        <div class="eyebrow">Tier 3 · recurring</div><h3>RECALL Run</h3>
+        <div class="price">£5,500<span style="font-size:14px;font-family:Inter">/mo</span></div>
+        <div class="len">12-month · £3,500–9,000</div>
+        <ul><li>Corpus drift monitoring</li><li>Quarterly gold-set regression</li>
+        <li>Published quality report</li><li>Audit-log integrity</li>
+        <li>Re-embedding on model change</li></ul>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:24px">
+      <div class="card">
+        <h3>Why remediation is the smartest SKU you own</h3>
+        <p>It is the work everyone treats as grunt work and hides inside a build estimate. Pull it
+        out and three things happen at once: your build quote becomes defensible because the
+        unknown has been removed, you get a second engagement from clients who aren't ready to
+        build, and you arrive at the build with a corpus you already understand — which is where
+        your delivery margin comes from.</p>
+        <p>It also converts the diagnostic's most uncomfortable finding into a purchase order
+        rather than an apology.</p>
+      </div>
+      <div class="card">
+        <h3>How the two methods compound</h3>
+        <p>A RECALL client has just handed you a map of every repository, every governance rule
+        and every question their people ask. That is most of a LEVER blueprint already gathered.
+        Equally, a LEVER diagnostic that hits a moment gated out by <em>D &lt; 0.40</em> —
+        the answer exists but isn't captured — is frequently a RECALL engagement in disguise.</p>
+        <p style="font-size:14.5px;color:var(--muted)"><b>Sequencing rule:</b> lead with whichever
+        method matches the pain they described, and let the other one surface as a finding.
+        Never pitch both in the first meeting; it reads as a menu rather than a diagnosis.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Protection</div>
+    <h2>IP guards — sharper here than for LEVER</h2>
+    <div class="warn">
+      <h3>RECALL sits closer to Aletheai's territory. Treat that seriously.</h3>
+      <ul style="margin:12px 0 0 18px;font-size:15px">
+        <li style="margin-bottom:6px">RECALL uses <b>standard open-source retrieval stacks only</b>. No Aletheai core, no behavioural primitives, no claim language in any client-facing document — and no reuse of the engine's extraction approach, even where it would be faster.</li>
+        <li style="margin-bottom:6px">Embeddings and rules-based extraction are exactly where the adjacency risk lives. If a client build starts to resemble the pending apparatus, <b>stop and re-scope</b>. Nothing in this practice is worth compromising the 4 September filing.</li>
+        <li style="margin-bottom:6px"><b>No RECALL engagements in property or wealth</b> before the PCT is filed. Both are Aletheai verticals; the separation must be visible, not merely intended.</li>
+        <li style="margin-bottom:6px">Contracts: client owns their corpus and any derived index. You own the method, the Question Ledger, the Corpus Condition Index, the Retrievability Ladder, the Answerability Equation, the gold-set protocol and the app shell — licensed for their instance.</li>
+        <li>Gold sets are client data. Never carry one between engagements, not even anonymised.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">A note on the source</div>
+    <h2>What I took, and what I left</h2>
+    <p class="sub">The trigger for this method was a social post about becoming a RAG engineer.
+    Its <em>observations</em> are sound and match published build data: document quality dominates,
+    metadata eats the schedule, evaluation is non-negotiable, security expectations are the hidden
+    cost. Those are load-bearing here.</p>
+    <p class="sub" style="margin-bottom:0">Its <em>numbers</em> — "$50K–$200K+ deals" — are
+    marketing, unsourced, and optimised for engagement. Every figure in the ladder above is
+    benchmarked to published 2026 pricing instead. And its <em>framing</em> is inverted for your
+    purposes: it tells an engineer how to acquire skills. You are not selling skills. You are
+    selling the diagnosis that tells a buyer whether those skills would help them at all —
+    which is a scarcer product, and a better-defended one.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">v2</div>
+    <h2>What we build next</h2>
+    <ol class="next">
+      <li><b>The Question Ledger workbook</b> — the RECALL twin of the Decision Ledger: CCI scoring across repositories, auto-computed A£ and AQ, gate verdicts, and the gold-set tracker.</li>
+      <li><b>The corpus sampling protocol</b> — how to draw a stratified 100–300 document sample and score six dimensions in under two days, repeatably. This is what makes the diagnostic profitable.</li>
+      <li><b>The gold-set builder</b> — template and interview script for extracting 50–100 verified question–answer–source triples from people who are busy.</li>
+      <li><b>Three reference corpus profiles</b> — professional services, regulated financial, and technical documentation — so you arrive knowing what you will find.</li>
+      <li><b>The RECALL Operating Manual</b> — first principles, load-bearing versus adjustable, failure modes, plain-English scripts, matching LEVER's.</li>
+      <li><b>The shared app shell</b> — one codebase serving both methods: worklist patterns for LEVER, cited-answer patterns for RECALL.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    The RECALL Method · v1 · 26 July 2026 · © Diana Simpson-Hernandez. Companion to the LEVER Method.
+    Build and run costs benchmarked to published 2026 RAG pricing data; calculator figures are a
+    worked illustration, not a forecast.
+  </div>
+</footer>
+
+<script>
+(function(){
+  var ids=['N','D_','a','c','r','ad','h','bc','rc'], el={};
+  ids.forEach(function(i){el[i]=document.getElementById(i)});
+  var money=function(n){return '£'+Math.round(n).toLocaleString('en-GB')};
+  function calc(){
+    var N=+el.N.value||0, dd=+el.D_.value||0, a=+el.a.value, C=+el.c.value,
+        R=+el.r.value, A=+el.ad.value, H=+el.h.value,
+        bc=+el.bc.value||0, rc=+el.rc.value||0;
+    document.getElementById('aV').textContent=a.toFixed(2);
+    document.getElementById('cV').textContent=C.toFixed(2);
+    document.getElementById('rV').textContent=R.toFixed(2);
+    document.getElementById('adV').textContent=A.toFixed(2);
+    document.getElementById('hV').textContent=H.toFixed(2);
+
+    var vas=N*dd*a, S=C*R*A, Ap=vas*S*(1-H), tot=bc+rc, AQ=tot>0?Ap/tot:0;
+    document.getElementById('oVas').textContent=money(vas);
+    document.getElementById('oA').textContent=money(Ap);
+    document.getElementById('oAQ').textContent=AQ.toFixed(2)+'×';
+    document.getElementById('oS').textContent='Answerability C·R·A = '+S.toFixed(3)+' · the ceiling on everything downstream';
+    document.getElementById('oPrice').innerHTML='Indicative build fee at 16–24% of A£: <b>'+money(Ap*0.16)+' – '+money(Ap*0.24)+'</b>';
+
+    var v=document.getElementById('oV'), cls, msg;
+    if(tot<=0){cls='v-mid';msg='Enter a build cost and a year-one run cost to compute AQ.';}
+    else if(C<0.40 && vas>0){cls='v-mid';msg='Remediate first. The corpus cannot support retrieval — sell dedup, OCR, dating and metadata backfill, then revisit.';}
+    else if(a<0.20){cls='v-no';msg='The answer does not exist to be found. This is a knowledge-capture problem, not a retrieval one.';}
+    else if(R<0.35){cls='v-no';msg='Wrong archetype. Aggregate and judgement questions are not retrieval problems — propose structured extraction, or a human in the loop.';}
+    else if(H>0.50){cls='v-mid';msg='Assist, don’t answer. Build retrieve-and-cite for a human reviewer; never generate the conclusion.';}
+    else if(AQ>=3){cls='v-go';msg='Build. AQ ≥ 3 and the corpus supports it.';}
+    else if(AQ>=1.5){cls='v-mid';msg='Marginal. Narrow to one question class, remediate the corpus first, or reduce build scope.';}
+    else{cls='v-no';msg='Do not build. Year-one return doesn’t cover the risk premium on a bespoke retrieval system.';}
+    v.className='verdict '+cls; v.textContent=msg;
+  }
+  ids.forEach(function(i){el[i].addEventListener('input',calc);el[i].addEventListener('change',calc)});
+  calc();
+})();
+</script>
+<footer class="dsh-foot"><div class="wrap">
+<div class="eyebrow" style="color:#D9D1FF">The routing question</div>
+<p class="q">“When this goes wrong, is it because someone <b>chose badly</b>, or because someone <b>couldn't find out</b>?”</p>
+<p>Chose badly → LEVER. Couldn't find out → RECALL. Neither, but you own a vertical and need a product → <a href="/stake/">STAKE</a>. The companion method to RECALL is <a class="plausible-event-name=framework_open plausible-event-framework=lever" href="/lever/">LEVER</a> — for when the problem is that a recurring decision keeps being made badly.</p>
+<div class="row"><a class="plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-footer" href="https://dianasimpsonhernandez.com/work-with-me/">Fees and the free Friction Teardown →</a><a href="/case-study-language-kids-world/">Case study: Language Kids World →</a><a href="/">Every framework →</a></div>
+<div class="base"><span>RECALL · Diana Simpson-Hernandez · engine-neutral · zero Aletheai IP</span><span>Free to read. Not free to run on your company — <a href="https://dianasimpsonhernandez.com/work-with-me/" style="font-weight:500">that's the job</a>.</span></div>
+</div></footer>
+</body>
+</html>

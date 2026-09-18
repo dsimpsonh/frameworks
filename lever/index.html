@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The LEVER Method · v3 — Diana Simpson-Hernandez</title>
+<style>
+:root{
+  /* coral · white · purple-blue */
+  --navy:#2A1B5E; --coral:#F96167; --coral-ink:#B3252B; --gold:#D9D1FF; --cream:#FFFFFF;
+  --purple:#5B4BC4; --violet:#8A7BE8; --lilac:#F2EFFB;
+  --ink:#1A1633; --muted:#6E6A8A; --line:#E3E0F0; --white:#FFFFFF;
+  --r:14px; --rs:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);background-image:linear-gradient(180deg,#FFFFFF 0%,#FDFCFF 100%);color:var(--ink);font-family:'Schibsted Grotesk',system-ui,sans-serif;
+     font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+h1,h2,h3,h4{font-family:'Schibsted Grotesk',system-ui,sans-serif;color:var(--navy);line-height:1.15;font-weight:600}
+em{font-style:italic;color:var(--coral-ink);font-family:'Schibsted Grotesk',system-ui,sans-serif}
+a{color:var(--coral-ink)}
+.eyebrow{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;
+         text-transform:uppercase;color:var(--muted)}
+
+.hero{background:var(--navy);color:#fff;padding:72px 0 60px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-140px;top:-140px;width:460px;height:460px;
+            border-radius:50%;background:rgba(217,209,255,.11)}
+.hero h1{color:#fff;font-size:62px;letter-spacing:-.02em}
+.hero h1 em{color:var(--gold)}
+.hero .eyebrow{color:var(--gold)}
+.hero p.lede{font-size:19.5px;color:#D8D2F5;max-width:700px;margin-top:20px}
+.hero .tag{margin-top:26px;font-family:'Schibsted Grotesk',system-ui,sans-serif;font-style:italic;font-size:21px;color:var(--gold)}
+.metaline{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
+.pill{border-radius:999px;padding:7px 16px;font-size:12.5px;font-weight:600;
+      background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.18)}
+
+section{padding:62px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+h2{font-size:37px;letter-spacing:-.015em;margin-bottom:8px}
+.eyebrow{position:relative}
+section .wrap>.eyebrow:first-child:before{content:'';display:inline-block;width:22px;height:2px;background:var(--coral);vertical-align:middle;margin-right:9px}
+.sub{color:var(--muted);font-size:17px;max-width:760px;margin-bottom:30px}
+h3{font-size:22px;margin-bottom:8px}
+h4{font-size:17px}
+p+p{margin-top:12px}
+.card{background:var(--white);border:1px solid var(--line);box-shadow:0 1px 2px rgba(42,27,94,.035);border-radius:var(--r);padding:26px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.insight{background:var(--gold);border:0;border-radius:var(--r);padding:26px 30px}
+.insight .eyebrow{color:#3F31A8}
+.insight p{font-size:17px}
+.whatsnew{background:#fff;border:2px solid var(--coral);border-radius:var(--r);padding:24px 28px}
+.whatsnew .eyebrow{color:var(--coral-ink)}
+.whatsnew ul{margin:10px 0 0 18px;font-size:15px}
+.whatsnew li{margin-bottom:5px}
+
+/* LADDER */
+.rung{display:grid;grid-template-columns:70px 1fr;gap:22px;align-items:start;
+      background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px 26px;margin-bottom:10px}
+.rungn{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:15px;font-weight:700;color:#fff;background:var(--navy);
+       border-radius:999px;padding:6px 0;text-align:center;letter-spacing:.06em}
+.rung p{font-size:14.5px;color:#3A3560}
+.rung .ex{margin-top:8px;font-size:13.5px;color:var(--muted);font-style:italic}
+
+/* STAGES */
+.stage{display:grid;grid-template-columns:92px 1fr;gap:24px;background:var(--white);box-shadow:0 1px 2px rgba(42,27,94,.035);
+       border:1px solid var(--line);border-radius:var(--r);padding:26px 28px;margin-bottom:12px}
+.letter{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:58px;font-weight:700;color:var(--navy);line-height:.9}
+.letter span{display:block;font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:10px;letter-spacing:.14em;
+             font-weight:700;color:var(--coral-ink);margin-top:8px;text-transform:uppercase}
+.stage h3 small{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.1em;
+                text-transform:uppercase;color:var(--muted);margin-left:10px}
+.stage ul{margin:12px 0 0 18px;font-size:15px;color:#3A3560}
+.stage li{margin-bottom:5px}
+.out{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line);font-size:14.5px}
+.out b{color:var(--navy)}
+.phase-tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.1em;
+           text-transform:uppercase;padding:4px 10px;border-radius:999px;
+           background:#EFECFB;color:var(--navy);margin-bottom:14px}
+.phase-tag.build{background:#FFE0E1;color:#B3252B}
+
+/* TABLES */
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:var(--r);
+      overflow:hidden;border:1px solid var(--line);font-size:14.5px}
+th{background:var(--navy);color:#fff;text-align:left;padding:12px 14px;font-size:11.5px;
+   letter-spacing:.07em;text-transform:uppercase;font-weight:700}
+td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
+tr:nth-child(even) td{background:#FAF9FE}
+td b{color:var(--navy)}
+.plain td{border:0;padding:8px 0}
+.plain tr:nth-child(even) td{background:transparent}
+.plain{border:0;background:transparent}
+.sc{text-align:center;font-weight:700}
+.s5{color:#3F31A8}.s4{color:#5B4BC4}.s3{color:#8A83A8}.s2{color:#B3252B}
+.win td{background:#EFECFB !important;box-shadow:inset 3px 0 0 var(--coral)}
+
+/* BLUEPRINT */
+.bp{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow-x:auto}
+.bp table{border:0;border-radius:0;min-width:900px;font-size:13px}
+.bp th{font-size:11px;padding:11px 10px}
+.bp td{padding:11px 10px}
+.lane{background:#F2EFFB !important;font-weight:700;color:var(--navy);font-size:12px;
+      letter-spacing:.03em;width:170px}
+.lane small{display:block;font-weight:400;color:var(--muted);letter-spacing:0;font-size:11px;text-transform:none}
+.newlane{background:var(--gold) !important}
+.fi{display:inline-block;border-radius:999px;padding:2px 9px;font-size:11px;font-weight:700}
+.fi.hi{background:#FFE0E1;color:#B3252B}.fi.md{background:#FFDCDE;color:#B3252B}
+.fi.lo{background:#EAE6FB;color:#3F31A8}
+.divline td{background:var(--navy) !important;color:var(--gold);font-size:10.5px;
+            letter-spacing:.14em;text-transform:uppercase;font-weight:700;padding:6px 10px}
+
+/* FORMULA */
+.formula{background:var(--navy);color:#fff;border-radius:var(--r);padding:34px;text-align:center}
+.formula .eq{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:34px;color:#fff;letter-spacing:.01em;line-height:1.5}
+.formula .eq b{color:var(--gold)}
+.formula .eq i{color:var(--coral-ink);font-style:normal}
+.formula p{color:#B6AEDD;font-size:14px;margin-top:14px}
+.terms{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.term{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.term .sym{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:26px;font-weight:700;color:var(--coral-ink);line-height:1}
+.term h4{font-size:15px;margin:6px 0 4px}
+.term p{font-size:13px;color:var(--muted)}
+
+/* CALC */
+.calc{display:grid;grid-template-columns:1fr 340px;gap:22px;align-items:start}
+.calcbox{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:26px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12.5px;font-weight:700;color:var(--navy);margin-bottom:5px}
+.field label span{font-weight:400;color:var(--muted);font-size:11.5px}
+.field input[type=number]{width:100%;padding:9px 12px;border:1px solid var(--line);
+      border-radius:var(--rs);font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:15px;color:var(--ink);background:#FAF9FE}
+.field input[type=range]{width:100%;accent-color:var(--coral-ink)}
+.rowv{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+.f2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.result{background:var(--navy);color:#fff;border-radius:var(--r);padding:26px;position:sticky;top:20px}
+.result .eyebrow{color:var(--gold)}
+.big{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:40px;color:#fff;font-weight:600;line-height:1.05;margin:8px 0 2px}
+.result .lbl{font-size:12px;color:#B6AEDD;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.result hr{border:0;border-top:1px solid rgba(255,255,255,.18);margin:18px 0}
+.verdict{border-radius:var(--rs);padding:14px 16px;font-size:14px;font-weight:600;margin-top:16px}
+.v-go{background:#E4DEFB;color:#2A1B5E}
+.v-no{background:#FFE0E1;color:#B3252B}
+.v-mid{background:var(--gold);color:#5C4A0A}
+.result .sm{font-size:13px;color:#C7BFEA;margin-top:6px}
+
+/* RIPPLE */
+.rip{overflow-x:auto}
+.rip table{min-width:760px}
+.cell{text-align:center;font-weight:700;font-size:15px}
+.rel{background:#EAE6FB !important;color:#3F31A8}
+.neu{background:#F5F4F8 !important;color:var(--muted)}
+.loa{background:#FFE0E1 !important;color:#B3252B}
+.flagbox{background:#FFEFF0;border:1px solid #F6C9CB;border-radius:var(--r);padding:20px 24px;margin-top:16px}
+.flagbox h4{color:#B3252B;margin-bottom:6px}
+
+/* PATH */
+.path{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;position:relative}
+.step{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px}
+.step .q{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--coral-ink)}
+.step h4{margin:6px 0 6px;font-size:16px}
+.step p{font-size:13px;color:var(--muted)}
+.step .typ{display:inline-block;margin-top:10px;font-size:10.5px;font-weight:700;letter-spacing:.08em;
+           text-transform:uppercase;padding:3px 9px;border-radius:999px;background:#EFECFB;color:var(--navy)}
+
+.act5{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.actc{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:18px;text-align:center}
+.actc .n{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:15px;color:var(--coral-ink);font-weight:700}
+.actc h4{font-size:15px;margin:6px 0 5px}
+.actc p{font-size:12.5px;color:var(--muted)}
+.actc.hot{border-color:var(--navy);border-width:2px}
+
+.rule{background:#fff;border-left:4px solid var(--coral);border-radius:0 var(--rs) var(--rs) 0;
+      padding:15px 20px;margin-bottom:10px}
+.rule b{color:var(--navy)}
+.rule p{font-size:14.5px;color:#3A3560;margin-top:3px}
+
+.tiers{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start}
+.tier{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:22px;height:100%}
+.tier.hero-tier{background:var(--navy);color:#fff;border-color:var(--navy)}
+.tier.hero-tier h3,.tier.hero-tier .price{color:#fff}
+.tier.hero-tier .eyebrow{color:var(--gold)}
+.tier.hero-tier li{color:#C7BFEA}
+.tier.hero-tier .len{color:#A79CD6;border-color:rgba(255,255,255,.2)}
+.price{font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:29px;color:var(--navy);font-weight:600;margin:10px 0 2px}
+.len{font-size:12.5px;color:var(--muted);padding-bottom:11px;border-bottom:1px solid var(--line);margin-bottom:11px}
+.tier ul{list-style:none;font-size:13px;color:#3A3560}
+.tier li{padding-left:15px;position:relative;margin-bottom:6px}
+.tier li:before{content:"—";position:absolute;left:0;color:var(--coral-ink)}
+
+.next{counter-reset:n}
+.next li{list-style:none;counter-increment:n;position:relative;padding-left:44px;margin-bottom:14px;font-size:15.5px}
+.next li:before{content:counter(n);position:absolute;left:0;top:-1px;width:28px;height:28px;
+  border-radius:50%;background:var(--navy);color:#fff;font-size:13px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;font-family:'Schibsted Grotesk',system-ui,sans-serif}
+.next li b{color:var(--navy)}
+footer{background:var(--navy);color:#A79CD6;padding:34px 0;font-size:13px}
+
+@media(max-width:980px){
+  .wrap{padding:0 20px}
+  .hero h1{font-size:40px}
+  h2{font-size:28px}
+  .grid2,.grid3,.tiers,.terms,.calc,.path,.act5{grid-template-columns:1fr}
+  .stage,.rung{grid-template-columns:1fr}
+  .result{position:static}
+  .formula .eq{font-size:21px}
+}
+
+/* ── v2 library chrome ── */
+.dsh-nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.dsh-nav .wrap{display:flex;align-items:center;gap:20px;min-height:56px}
+.dsh-nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:14px}
+.dsh-nav .lib{font-family:'Martian Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.dsh-nav ul{list-style:none;display:flex;gap:18px;margin-left:auto;padding:0}
+.dsh-nav .btn{background:var(--ink);color:#fff;border-radius:999px;padding:8px 14px}
+@media(max-width:700px){.dsh-nav ul li:not(:last-child){display:none}}
+.dsh-foot{background:#1A1633;color:#C9C0F0;padding:56px 0 28px;margin-top:40px}
+.dsh-foot h2{color:#fff;font-size:30px;margin-bottom:14px;font-weight:800}
+.dsh-foot p{max-width:70ch}
+.dsh-foot a{color:#fff;font-weight:600}
+.dsh-foot .q{font-size:22px;color:#fff;line-height:1.3;max-width:34ch;margin:0 0 20px}
+.dsh-foot .q b{color:#F96167}
+.dsh-foot .row{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px;font-size:14px}
+.dsh-foot .base{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-family:'Martian Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8F87B8;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+/* register: no serif → no italics; display weight 800; mono labels sized for Martian Mono */
+h1,h2,h3,h4{font-weight:800;letter-spacing:-.02em}
+em,.tag,.ex{font-style:normal}
+em{font-weight:700}
+.eyebrow{font-family:'Martian Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.09em;font-weight:500}
+.pill{font-family:'Martian Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.04em;font-weight:500}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%}
+.grid2>*,.grid3>*,.terms>*,.stage>*,.rung>*{min-width:0}
+.tblwrap table{min-width:640px}
+.tblwrap table.plain{min-width:0}
+.tabular,td,th{font-variant-numeric:tabular-nums}
+@media(max-width:700px){.wrap{padding:0 16px}.grid2,.grid3{grid-template-columns:1fr}.hero h1{font-size:42px}}
+.hero em{color:var(--coral)}.hero .eyebrow{color:var(--coral)}.dsh-foot b{color:var(--coral)}.formula .eq i{color:var(--coral)}.term[style*='--navy'] em{color:var(--coral)}.term[style*='--deep'] em{color:var(--coral)}
+</style>
+<!--dsh:head-->
+<meta name="description" content="The consulting method for operations businesses that have bought AI and can&#x27;t prove it worked. Goal Ladder → Decision Blueprint → Leverage Equation. Live calculator. Diagnostic £32,000.">
+<link rel="canonical" href="https://frameworks.dianasimpsonhernandez.com/lever/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Diana Simpson-Hernandez">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Open Frameworks · Diana Simpson-Hernandez"><meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://frameworks.dianasimpsonhernandez.com/lever/"><meta property="og:title" content="LEVER — Align the goal. Expose the friction. Sequence the fix."><meta property="og:description" content="The consulting method for operations businesses that have bought AI and can&#x27;t prove it worked. Goal Ladder → Decision Blueprint → Leverage Equation. Live calculator. Diagnostic £32,000.">
+<meta property="og:image" content="https://frameworks.dianasimpsonhernandez.com/assets/preview-lever.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="LEVER — Align the goal. Expose the friction. Sequence the fix.">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="LEVER — Align the goal. Expose the friction. Sequence the fix."><meta name="twitter:description" content="The consulting method for operations businesses that have bought AI and can&#x27;t prove it worked. Goal Ladder → Decision Blueprint → Leverage Equation. Live calculator. Diagnostic £32,000."><meta name="twitter:image" content="https://frameworks.dianasimpsonhernandez.com/assets/preview-lever.png">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<script defer data-domain="dianasimpsonhernandez.com" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script><script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "name": "LEVER", "headline": "LEVER — Align the goal. Expose the friction. Sequence the fix.", "description": "The consulting method for operations businesses that have bought AI and can't prove it worked. Goal Ladder → Decision Blueprint → Leverage Equation. Live calculator. Diagnostic £32,000.", "url": "https://frameworks.dianasimpsonhernandez.com/lever/", "author": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "publisher": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "inLanguage": "en", "isAccessibleForFree": true, "dateModified": "2026-09-18"}</script>
+
+<!--dsh:/head-->
+</head>
+<body>
+<nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· LEVER</span><ul><li><a href="/">Library</a></li><li><a href="https://dianasimpsonhernandez.com/work-with-me/">Work with me</a></li><li><a href="https://dianasimpsonhernandez.com/learn/">Learn</a></li><li><a href="https://dianasimpsonhernandez.com/">Main site</a></li><li><a class="btn plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-nav" href="https://dianasimpsonhernandez.com/work-with-me/">Hire the method →</a></li></ul></div></nav>
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Consulting Framework · v3 · 26 July 2026</div>
+    <h1>The <em>LEVER</em> Method</h1>
+    <p class="lede">Start at the business goal. Blueprint the operation until the friction
+    is visible. Score every friction moment for how much risk-adjusted money is actually
+    recoverable there — then build the one bespoke ML tool that recovers it, in the one
+    sequence that doesn't break something downstream.</p>
+    <p class="tag">Align the goal. Expose the friction. Sequence the fix.</p>
+    <div class="metaline">
+      <span class="pill">Wedge: capacity-vs-demand operations</span>
+      <span class="pill">Goal Ladder → Decision Blueprint → Leverage Equation</span>
+      <span class="pill">Diagnostic £32,000 · Build from £45,000</span>
+      <span class="pill">Engine-neutral · zero Aletheai IP</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="whatsnew">
+      <div class="eyebrow">What changed in v3</div>
+      <h3>New identity, and the method is now operable</h3>
+      <ul>
+        <li><b>Rebranded</b> to coral, white and purple-blue. Friction is encoded as <em>coral saturation</em> and system health as purple — so the colour carries meaning rather than decoration, on every canvas, workbook and slide from here on.</li>
+        <li><b>The Decision Ledger workbook</b> now exists: 30 moment rows, auto-computed Friction Index and data sufficiency, live L£ and LQ, a Ripple Matrix that feeds Λ straight back into the Ledger, and a Next Best Action sheet that writes itself. This is what makes a four-week diagnostic physically possible.</li>
+        <li><b>The Operating Manual</b> now exists: a private 27-page document explaining every instrument from first principles, with a load-bearing versus adjustable map so the method can be changed deliberately instead of accidentally.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">The market gap this exploits</div>
+    <h2>91% have deployed AI. 38% can prove it worked.</h2>
+    <p class="sub">That single pair of numbers — from a survey of 755 UK mid-market leaders
+    in early 2026 — is the whole commercial case for LEVER. The mid-market has already
+    bought AI. What it cannot do is prove which decision got better, by how much, or what
+    to do next. You are not selling adoption. You are selling <em>provable attribution</em>
+    to people who have already spent the money and cannot show the board a result.</p>
+    <div class="grid3">
+      <div class="card"><div class="eyebrow">Deployed</div><h3 style="font-size:34px">91%</h3><p style="font-size:14px;color:var(--muted)">of UK mid-market leaders have deployed AI somewhere in the organisation.</p></div>
+      <div class="card" style="border-color:var(--coral-ink);border-width:2px"><div class="eyebrow" style="color:var(--coral-ink)">Can prove ROI</div><h3 style="font-size:34px">38%</h3><p style="font-size:14px;color:var(--muted)">can demonstrate measurable return. The other 62% is your entire addressable market.</p></div>
+      <div class="card"><div class="eyebrow">Expectation gap</div><h3 style="font-size:34px">67%</h3><p style="font-size:14px;color:var(--muted)">expect results in 7–12 months, against a realistic 2–4 year payback on enterprise programmes. A 90-day thin slice is the only honest answer.</p></div>
+    </div>
+    <div class="insight" style="margin-top:20px">
+      <div class="eyebrow">The mechanism, restated</div>
+      <p><b>Data has no value. Decisions have value. Friction is where decisions leak value.</b>
+      Blueprinting makes the leak visible; the Leverage Equation prices it; the Ripple
+      Matrix stops you plugging one leak and bursting the pipe somewhere else.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Sector strategy</div>
+    <h2>Where this has the most impact</h2>
+    <p class="sub">Impact is not "which industry has the most money". It is
+    <em>value created per engagement × probability of winning it × how much of your IP
+    is reusable next time</em>. Scored against the eight things that actually determine
+    whether a LEVER engagement succeeds. The binding constraint is almost never money —
+    it is whether the outcomes of past decisions were ever recorded.</p>
+
+    <div class="tblwrap"><table>
+      <thead><tr>
+        <th style="width:20%">Sector</th><th class="sc">Decision<br>density</th>
+        <th class="sc">Outcome<br>labels exist</th><th class="sc">£ per<br>decision</th>
+        <th class="sc">Blueprint<br>fit</th><th class="sc">Budget &amp;<br>urgency</th>
+        <th class="sc">Low reg<br>drag</th><th class="sc">Access for<br>a solo</th>
+        <th class="sc">No Aletheai<br>conflict</th><th class="sc">Total<br>/40</th>
+      </tr></thead>
+      <tbody>
+        <tr class="win"><td><b>Logistics, distribution &amp; field service</b><br><span style="font-size:12.5px;color:var(--muted)">3PL, wholesale, last-mile, FM, engineer dispatch</span></td>
+          <td class="sc s5">5</td><td class="sc s5">5</td><td class="sc s4">4</td><td class="sc s5">5</td><td class="sc s4">4</td><td class="sc s5">5</td><td class="sc s4">4</td><td class="sc s5">5</td><td class="sc"><b>37</b></td></tr>
+        <tr><td><b>Professional &amp; B2B services</b><br><span style="font-size:12.5px;color:var(--muted)">recruitment, agencies, accountancy, consultancies</span></td>
+          <td class="sc s4">4</td><td class="sc s3">3</td><td class="sc s4">4</td><td class="sc s5">5</td><td class="sc s4">4</td><td class="sc s5">5</td><td class="sc s5">5</td><td class="sc s5">5</td><td class="sc"><b>35</b></td></tr>
+        <tr><td><b>Manufacturing &amp; industrials</b><br><span style="font-size:12.5px;color:var(--muted)">discrete &amp; process, £20–250m</span></td>
+          <td class="sc s4">4</td><td class="sc s3">3</td><td class="sc s5">5</td><td class="sc s4">4</td><td class="sc s3">3</td><td class="sc s4">4</td><td class="sc s3">3</td><td class="sc s5">5</td><td class="sc"><b>31</b></td></tr>
+        <tr><td><b>Multi-site consumer</b><br><span style="font-size:12.5px;color:var(--muted)">retail, hospitality, care groups</span></td>
+          <td class="sc s5">5</td><td class="sc s4">4</td><td class="sc s2">2</td><td class="sc s4">4</td><td class="sc s2">2</td><td class="sc s4">4</td><td class="sc s4">4</td><td class="sc s5">5</td><td class="sc"><b>30</b></td></tr>
+        <tr><td><b>Financial services &amp; insurance</b><br><span style="font-size:12.5px;color:var(--muted)">brokers, lenders, wealth</span></td>
+          <td class="sc s4">4</td><td class="sc s5">5</td><td class="sc s5">5</td><td class="sc s3">3</td><td class="sc s5">5</td><td class="sc s2">2</td><td class="sc s2">2</td><td class="sc s2">2</td><td class="sc"><b>28</b></td></tr>
+        <tr><td><b>Property &amp; real estate</b><br><span style="font-size:12.5px;color:var(--muted)">agency, lettings, developers</span></td>
+          <td class="sc s4">4</td><td class="sc s3">3</td><td class="sc s4">4</td><td class="sc s4">4</td><td class="sc s3">3</td><td class="sc s4">4</td><td class="sc s4">4</td><td class="sc s2">1</td><td class="sc"><b>27</b></td></tr>
+        <tr><td><b>Healthcare providers</b><br><span style="font-size:12.5px;color:var(--muted)">private clinics, diagnostics</span></td>
+          <td class="sc s4">4</td><td class="sc s3">3</td><td class="sc s4">4</td><td class="sc s5">5</td><td class="sc s3">3</td><td class="sc s2">1</td><td class="sc s2">2</td><td class="sc s5">5</td><td class="sc"><b>27</b></td></tr>
+      </tbody>
+    </table></div>
+
+    <div class="grid2" style="margin-top:22px">
+      <div class="card" style="border-color:var(--navy);border-width:2px">
+        <div class="eyebrow" style="color:var(--coral-ink)">The recommendation</div>
+        <h3>Lead with capacity-vs-demand operations</h3>
+        <p>Not "logistics" as an industry label — position by <b>operating model</b>:
+        businesses that allocate finite capacity (vehicles, engineers, machines, slots,
+        stock, shifts) against variable demand. That cuts across 3PL, wholesale
+        distribution, field service, facilities management and parts of manufacturing.</p>
+        <p>Five reasons it wins:</p>
+        <ul style="margin:10px 0 0 18px;font-size:14.5px">
+          <li style="margin-bottom:5px"><b>The labels already exist.</b> Every order, job and delivery has a recorded outcome — late/on-time, first-time-fix, short-picked, returned. Data sufficiency is LEVER's binding constraint and this sector relaxes it by default.</li>
+          <li style="margin-bottom:5px"><b>Blueprinting was built for this.</b> Physical flows with visible handoffs produce a friction map that a Managing Director recognises in four seconds.</li>
+          <li style="margin-bottom:5px"><b>Thin margins do your arithmetic.</b> On 2–5% net margin, recovering £370k of leakage is a profit story, not an efficiency story.</li>
+          <li style="margin-bottom:5px"><b>Constraint theory maps natively.</b> These <em>are</em> throughput systems, so your critical-path and ripple analysis is rigorous rather than metaphorical.</li>
+          <li><b>No competition at this tier.</b> The Big Four ignore £20–250m ops businesses; the software vendors sell tools, not diagnosis. Nobody is selling the middle.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="card" style="margin-bottom:18px">
+          <div class="eyebrow">Beachhead, first two clients</div>
+          <h3>Professional &amp; B2B services</h3>
+          <p>Scores one point lower but is materially <b>easier to sell</b>: founder-led
+          decisions, no procurement, four-week cycles, and it's the third-highest AI-adopting
+          UK sector (20–28%) so budget already exists. Weaker labels and a lower ceiling —
+          use it to buy your first two case studies and the decision-lift report you need
+          to charge £35k, then pivot the marketing to operations.</p>
+        </div>
+        <div class="card" style="background:#FFEFF0;border-color:#F6C9CB">
+          <div class="eyebrow" style="color:#B3252B">Deliberately excluded</div>
+          <h3 style="color:#B3252B">Financial services and property</h3>
+          <p>Both score respectably on the fundamentals and both are <b>strategically wrong
+          for you right now</b>. Property is Aletheai's live pilot vertical; wealth is its
+          next. Consulting there muddies the engine-neutrality that keeps LEVER publishable
+          and keeps the September filing clean. Revisit after the PCT is in.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Stage L</div>
+    <h2>The Goal Ladder</h2>
+    <p class="sub">The alignment spine. Four rungs, built in week one and
+    <b>signed by the client before any mapping starts</b>. Its job is to make orphaned work
+    impossible: if a friction moment cannot be traced up to rung one, it does not enter
+    the diagnostic — however painful it is.</p>
+
+    <div class="rung"><div class="rungn">Rung 1</div><div>
+      <h4>The Goal</h4>
+      <p>One business goal for the next 12–24 months, in the board's own words, with its
+      number attached. Not three goals. One.</p>
+      <div class="ex">"Lift EBITDA from 6% to 9% by FY28 without adding headcount."</div>
+    </div></div>
+    <div class="rung"><div class="rungn">Rung 2</div><div>
+      <h4>Value drivers</h4>
+      <p>The three to five levers that <em>arithmetically</em> move that number. Derived,
+      not brainstormed — you should be able to show the sum.</p>
+      <div class="ex">Throughput per vehicle · cost-to-serve per order · retention of top-quartile accounts · working-capital cycle</div>
+    </div></div>
+    <div class="rung"><div class="rungn">Rung 3</div><div>
+      <h4>Outcome metrics</h4>
+      <p>One measurable per driver, with today's baseline and the target. This is what the
+      Run stage measures lift against, so it has to be something already instrumented —
+      or instrumenting it becomes action #1.</p>
+      <div class="ex">Drops per route per day: 18.4 → 21.0 · Cost per order: £8.90 → £7.60</div>
+    </div></div>
+    <div class="rung"><div class="rungn">Rung 4</div><div>
+      <h4>Moments</h4>
+      <p>The specific operational moments on the Decision Blueprint that move each metric.
+      Every moment carries the ID of the metric it serves. This is the join between
+      strategy and operations, and it is the join everybody else skips.</p>
+      <div class="ex">M-07 "4pm allocation of next-day slots" → serves Drops/route/day and Cost per order</div>
+    </div></div>
+
+    <div class="insight" style="margin-top:18px">
+      <div class="eyebrow">The one-line rule that makes alignment real</div>
+      <p><b>No moment enters the Ledger without a rung-4 link to rung 1.</b> Say this out
+      loud in the kickoff. It kills the client's pet projects diplomatically, kills your own
+      scope creep, and means the final readout is structurally incapable of drifting from
+      what the board asked for. It is also why the diagnostic can be delivered in four weeks.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Stage E · Expose</div>
+    <h2>The Decision Blueprint</h2>
+    <p class="sub">A classic service blueprint has customer actions, frontstage, backstage
+    and support processes, separated by lines of interaction and visibility. That shows you
+    where friction <em>is</em>. It cannot tell you where a model could help. So LEVER adds
+    two lanes — and those two lanes are the entire bridge between design research and
+    machine learning.</p>
+
+    <div class="bp">
+      <div class="tblwrap"><table>
+        <thead><tr><th class="lane" style="background:var(--navy) !important;color:#fff">Lane</th>
+        <th>M-05 · Order placed after cut-off</th><th>M-06 · Stock check &amp; substitution</th>
+        <th>M-07 · 4pm slot allocation</th><th>M-08 · Route build &amp; despatch</th>
+        <th>M-09 · Failed delivery recovery</th></tr></thead>
+        <tbody>
+          <tr><td class="lane">Physical evidence<small>what the customer sees</small></td>
+            <td>Confirmation email</td><td>Substitution notice</td><td>Delivery window text</td><td>Tracking link</td><td>"Sorry we missed you" card</td></tr>
+          <tr><td class="lane">Customer actions<small></small></td>
+            <td>Places order</td><td>Accepts or rejects sub</td><td>—</td><td>Waits</td><td>Re-books, or churns</td></tr>
+          <tr class="divline"><td colspan="6">Line of interaction</td></tr>
+          <tr><td class="lane">Frontstage<small>customer-facing staff</small></td>
+            <td>CS confirms feasibility</td><td>CS calls customer</td><td>—</td><td>Driver briefing</td><td>CS handles complaint</td></tr>
+          <tr class="divline"><td colspan="6">Line of visibility</td></tr>
+          <tr><td class="lane">Backstage<small>internal operations</small></td>
+            <td>Order queued manually</td><td>Warehouse checks pick face</td><td>Planner builds slot list in Excel</td><td>TMS optimiser + manual override</td><td>Depot re-schedules</td></tr>
+          <tr><td class="lane">Support processes<small>systems &amp; policy</small></td>
+            <td>WMS, cut-off policy</td><td>WMS stock, sub rules</td><td>TMS, capacity policy</td><td>TMS, driver rota</td><td>CRM, credit policy</td></tr>
+          <tr class="divline"><td colspan="6">The two lanes LEVER adds</td></tr>
+          <tr><td class="lane newlane">Decision lane<small>where judgement happens, and who owns it</small></td>
+            <td>Accept late order? <b>CS agent, gut feel</b></td><td>Which substitute? <b>Picker, gut feel</b></td><td>Which orders get which slot? <b>One planner, tacit rules</b></td><td>Override the optimiser? <b>Transport manager</b></td><td>Retry, refund or write off? <b>CS agent</b></td></tr>
+          <tr><td class="lane newlane">Data lane<small>is it recorded, at what grain, is the outcome captured?</small></td>
+            <td>Recorded · order grain · <b>outcome not captured</b></td><td>Recorded · line grain · outcome captured (accept/reject)</td><td>Excel, <b>overwritten daily — no history</b></td><td>TMS logs plan + actual · outcome captured</td><td>CRM notes · free text · partial</td></tr>
+          <tr><td class="lane">Friction Index<small>0–25</small></td>
+            <td><span class="fi md">11</span></td><td><span class="fi md">14</span></td><td><span class="fi hi">21</span></td><td><span class="fi hi">17</span></td><td><span class="fi md">13</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="grid2" style="margin-top:20px">
+      <div class="card">
+        <h3>The Friction Index — how a moment gets scored</h3>
+        <p style="font-size:14.5px;color:var(--muted);margin-bottom:10px">Five dimensions,
+        0–5 each, observed not asked. Total 0–25. Friction is the <em>discovery</em>
+        instrument: it decides which moments are worth costing. It is deliberately not a
+        term in the money equation.</p>
+        <div class="tblwrap"><table class="plain">
+          <tr><td style="width:120px"><b>Delay</b></td><td>Waiting time before or inside the moment</td></tr>
+          <tr><td><b>Rework</b></td><td>Proportion that comes back round again</td></tr>
+          <tr><td><b>Handoffs</b></td><td>Number of swim-lane crossings it triggers</td></tr>
+          <tr><td><b>Effort</b></td><td>Manual touches, re-keying, spreadsheet gymnastics</td></tr>
+          <tr><td><b>Strain</b></td><td>Emotional cost to customer or staff — predicts churn and attrition before the numbers do</td></tr>
+        </table></div>
+        <p style="margin-top:12px;font-size:14px"><b>FI ≥ 15</b> = cost it. <b>FI ≥ 15 in
+        the Decision lane with a broken Data lane</b> = you have just found the client's
+        most valuable blind spot.</p>
+      </div>
+      <div class="card" style="border-color:var(--navy);border-width:2px">
+        <div class="eyebrow" style="color:var(--coral-ink)">Why the two new lanes are the whole innovation</div>
+        <h3>Friction is visible. Judgement isn't.</h3>
+        <p>A standard blueprint would show M-07 as a backstage task called "slot planning".
+        The Decision lane reveals that a single planner is making 400 allocation judgements
+        a day from tacit rules in their head. The Data lane reveals the spreadsheet is
+        <b>overwritten every night</b> — so there is no record of what was decided or
+        whether it worked.</p>
+        <p>That is simultaneously the highest-leverage moment in the business, the biggest
+        single-person risk, and <em>currently unbuildable</em>. No data audit finds this.
+        No AI-readiness score finds this. A blueprint with a Decision lane finds it in
+        ninety minutes — and the recommendation writes itself: <b>instrument first, model
+        next quarter.</b></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Stage V · The instrument</div>
+    <h2>The Leverage Equation</h2>
+    <p class="sub">One formula, six terms, output in pounds per year. Every term is
+    separately arguable with the client, which is the point — you are not asking them to
+    trust a black box, you are getting them to sign each number. The output is
+    <em>risk-adjusted recoverable annual value</em>, not "AI opportunity".</p>
+
+    <div class="formula">
+      <div class="eq">L£ &nbsp;=&nbsp; <b>N</b> × <b>Δ</b> × <b>a</b>
+      &nbsp;×&nbsp; (<i>D</i> × <i>T</i> × <i>A</i>) &nbsp;×&nbsp; <b>κ</b> &nbsp;×&nbsp; (1 − <b>Λ</b>)</div>
+      <p>Value at Stake × Solvability × Constraint position × Ripple discount</p>
+    </div>
+
+    <div class="terms">
+      <div class="term"><div class="sym">N</div><h4>Occurrences</h4><p>How many times a year this moment happens. From the system, never from an interview.</p></div>
+      <div class="term"><div class="sym">Δ</div><h4>Gap cost</h4><p>£ cost per occurrence of the gap between current and achievable — delay + rework + loss.</p></div>
+      <div class="term"><div class="sym">a</div><h4>Decision-addressable share</h4><p>0–1. The fraction of Δ that better <em>information or judgement</em> could remove. The rest is capacity or process, and pretending otherwise is how ML projects die.</p></div>
+      <div class="term"><div class="sym">D·T·A</div><h4>Solvability</h4><p>Data sufficiency × model tractability × adoption feasibility, each 0–1. Multiplied, not averaged — these are AND conditions, so any zero correctly kills the whole thing.</p></div>
+      <div class="term"><div class="sym">κ</div><h4>Constraint position</h4><p>1.0 if this moment is the system constraint or feeds it directly; 0.5 on the critical path; 0.15 off-constraint. Improving a non-bottleneck produces local tidiness, not throughput.</p></div>
+      <div class="term"><div class="sym">Λ</div><h4>Ripple loss</h4><p>0–1. The share of the gain expected to be re-absorbed elsewhere in the system. Read straight off the Ripple Matrix.</p></div>
+      <div class="term" style="background:var(--gold);border:0"><div class="sym" style="color:#3F31A8">LQ</div><h4>Leverage Quotient</h4><p>L£ ÷ (build cost + year-one run cost). The ranking number. Build if LQ ≥ 3.</p></div>
+      <div class="term" style="background:var(--navy);border:0"><div class="sym" style="color:var(--gold)">✓</div><h4 style="color:#fff">The calibration rule</h4><p style="color:#B6AEDD">Every Δ and every <em>a</em> is signed off by a named client owner. That turns the model from your spreadsheet into their number — and makes the build fee unarguable.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Live instrument</div>
+    <h2>Run the numbers</h2>
+    <p class="sub">Pre-loaded with M-07b from the Decision Ledger — the same numbers, so the canvas and the workbook always agree — the 4pm slot allocation
+    in a mid-market distribution business. Use this live on the whiteboard: change one
+    number, watch the verdict flip, and let the client argue you into their own business case.</p>
+
+    <div class="calc">
+      <div class="calcbox">
+        <div class="f2">
+          <div class="field">
+            <label>N — occurrences per year <span>from the system</span></label>
+            <input type="number" id="N" value="12000" min="0" step="100">
+          </div>
+          <div class="field">
+            <label>Δ — £ gap cost per occurrence <span>delay + rework + loss</span></label>
+            <input type="number" id="D_" value="180" min="0" step="5">
+          </div>
+        </div>
+        <div class="field">
+          <label>a — decision-addressable share <span id="aV">0.35</span></label>
+          <input type="range" id="a" min="0" max="1" step="0.01" value="0.35">
+          <div class="rowv"><span>0 · purely a capacity problem</span><span>1 · purely a judgement problem</span></div>
+        </div>
+        <div class="field">
+          <label>D — data sufficiency <span id="dV">0.80</span></label>
+          <input type="range" id="d" min="0" max="1" step="0.05" value="0.8">
+          <div class="rowv"><span>no labelled history</span><span>clean, at-grain, outcome-labelled</span></div>
+        </div>
+        <div class="field">
+          <label>T — model tractability <span id="tV">0.90</span></label>
+          <input type="range" id="t" min="0" max="1" step="0.05" value="0.9">
+          <div class="rowv"><span>research problem</span><span>known algorithm class</span></div>
+        </div>
+        <div class="field">
+          <label>A — adoption feasibility <span id="adV">0.80</span></label>
+          <input type="range" id="ad" min="0" max="1" step="0.05" value="0.8">
+          <div class="rowv"><span>no owner, no ritual</span><span>fits an existing daily ritual</span></div>
+        </div>
+        <div class="f2">
+          <div class="field">
+            <label>κ — constraint position</label>
+            <select id="k" style="width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:8px;font-family:'Schibsted Grotesk',system-ui,sans-serif;font-size:15px;background:#FAF9FE;color:var(--ink)">
+              <option value="1">1.00 — is the constraint, or feeds it directly</option>
+              <option value="0.5">0.50 — on the critical path</option>
+              <option value="0.15">0.15 — off-constraint, local gain only</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Λ — ripple loss <span id="lV">0.10</span></label>
+            <input type="range" id="l" min="0" max="1" step="0.05" value="0.10">
+            <div class="rowv"><span>contained</span><span>fully re-absorbed</span></div>
+          </div>
+        </div>
+        <div class="f2">
+          <div class="field">
+            <label>Build cost <span>£</span></label>
+            <input type="number" id="bc" value="65000" min="0" step="1000">
+          </div>
+          <div class="field">
+            <label>Year-one run cost <span>£</span></label>
+            <input type="number" id="rc" value="54000" min="0" step="1000">
+          </div>
+        </div>
+      </div>
+
+      <div class="result">
+        <div class="eyebrow">Value at Stake</div>
+        <div class="big" id="oVas">£756,000</div>
+        <div class="lbl">before solvability &amp; system effects</div>
+        <hr>
+        <div class="eyebrow">Risk-adjusted recoverable · L£</div>
+        <div class="big" id="oL">£391,910</div>
+        <div class="lbl">per year</div>
+        <hr>
+        <div class="eyebrow">Leverage Quotient</div>
+        <div class="big" id="oLQ">3.29×</div>
+        <div class="lbl">return on year-one total cost</div>
+        <div class="verdict v-go" id="oV">Build. LQ ≥ 3 and the moment sits on the constraint.</div>
+        <p class="sm" id="oPrice">Indicative build fee at 12–18% of L£: <b>£47,029 – £70,544</b></p>
+        <p class="sm" id="oS">Solvability S = 0.576 · the ceiling on everything downstream</p>
+      </div>
+    </div>
+
+    <div class="grid3" style="margin-top:22px">
+      <div class="card"><div class="eyebrow">Decision rule</div><h4>LQ ≥ 3 → Build</h4><p style="font-size:14px;color:var(--muted)">Three times year-one cost. Below that the risk premium on a bespoke build isn't earned.</p></div>
+      <div class="card"><div class="eyebrow">Decision rule</div><h4>D &lt; 0.4 → Instrument</h4><p style="font-size:14px;color:var(--muted)">High L£ but no labelled history means the answer is a three-week instrumentation project, then revisit next quarter. This is the honest recommendation that wins the follow-on.</p></div>
+      <div class="card"><div class="eyebrow">Decision rule</div><h4>a &lt; 0.2 → Redesign</h4><p style="font-size:14px;color:var(--muted)">If less than a fifth of the cost is decision-addressable, it's a capacity or process problem. Service redesign, not a model. Say so.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Stage V · Systemic safety</div>
+    <h2>The Ripple Matrix</h2>
+    <p class="sub">In a complex operation, every fix redistributes load. Improve slot
+    allocation and you push volume into a pick face that was already the second-tightest
+    point in the system. The Ripple Matrix makes that arithmetic visible <em>before</em>
+    anyone writes code — and it is the single hardest thing for a competitor to copy,
+    because it requires the blueprint to exist first.</p>
+
+    <div class="rip">
+      <div class="tblwrap"><table>
+        <thead><tr><th style="width:26%">Candidate intervention</th>
+        <th class="sc">M-05<br><span style="font-weight:400;text-transform:none">FI 11</span></th>
+        <th class="sc">M-06<br><span style="font-weight:400;text-transform:none">FI 14</span></th>
+        <th class="sc">M-07<br><span style="font-weight:400;text-transform:none">FI 21</span></th>
+        <th class="sc">M-08<br><span style="font-weight:400;text-transform:none">FI 17</span></th>
+        <th class="sc">M-09<br><span style="font-weight:400;text-transform:none">FI 13</span></th>
+        <th style="width:26%">Net read</th></tr></thead>
+        <tbody>
+          <tr><td><b>A.</b> Slot-allocation model at the 4pm cut</td>
+            <td class="cell neu">0</td><td class="cell loa">−</td><td class="cell rel">+ +</td><td class="cell rel">+</td><td class="cell rel">+</td>
+            <td style="font-size:13.5px"><b style="color:#B3252B">Migration flag.</b> Loads M-06, which is already at FI 14. Must pair with B.</td></tr>
+          <tr><td><b>B.</b> Substitution recommender at M-06</td>
+            <td class="cell neu">0</td><td class="cell rel">+ +</td><td class="cell rel">+</td><td class="cell neu">0</td><td class="cell rel">+</td>
+            <td style="font-size:13.5px">Clean. Relieves the moment A would load. <b>Sequence before or with A.</b></td></tr>
+          <tr><td><b>C.</b> Late-order acceptance rules at M-05</td>
+            <td class="cell rel">+</td><td class="cell loa">−</td><td class="cell loa">− −</td><td class="cell loa">−</td><td class="cell neu">0</td>
+            <td style="font-size:13.5px"><b style="color:#B3252B">Reject for now.</b> Local win at M-05 bought by loading the constraint. Classic false economy.</td></tr>
+          <tr><td><b>D.</b> Failed-delivery triage at M-09</td>
+            <td class="cell neu">0</td><td class="cell neu">0</td><td class="cell neu">0</td><td class="cell neu">0</td><td class="cell rel">+ +</td>
+            <td style="font-size:13.5px">Safe but off-constraint (κ = 0.15). Real money, but small. Park at Q4.</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+
+    <div class="flagbox">
+      <h4>The three flags that change a recommendation</h4>
+      <ul style="margin:8px 0 0 18px;font-size:14.5px">
+        <li style="margin-bottom:5px"><b>Constraint migration</b> — the intervention loads a moment already at FI ≥ 15. The recommendation becomes a <em>paired</em> intervention, never a single one.</li>
+        <li style="margin-bottom:5px"><b>Sequencing conflict</b> — two interventions load the same downstream moment. They cannot ship in the same quarter, whatever the ranking says.</li>
+        <li><b>Policy collision</b> — the intervention's optimum contradicts a standing rule (a cut-off time, an SLA, a commission scheme). Someone has to change the policy first, and that someone is not you.</li>
+      </ul>
+    </div>
+
+    <h3 style="margin-top:38px;margin-bottom:6px">The Critical Path</h3>
+    <p class="sub" style="margin-bottom:18px">The output is not a ranked list. It is the
+    shortest ordered sequence that moves the system constraint without triggering a
+    migration flag — with the honest label on each step.</p>
+    <div class="path">
+      <div class="step"><div class="q">Quarter 1</div><h4>Instrument M-07</h4>
+        <p>Stop overwriting the planner's spreadsheet. Log every allocation decision and its outcome. Three weeks, no ML.</p>
+        <span class="typ">Instrument</span></div>
+      <div class="step"><div class="q">Quarter 1–2</div><h4>Build B — substitution recommender</h4>
+        <p>Data already labelled at M-06. Ships first because it pre-relieves the moment that A will load.</p>
+        <span class="typ">Model</span></div>
+      <div class="step" style="border-color:var(--navy);border-width:2px"><div class="q">Quarter 2–3</div><h4>Build A — slot allocation</h4>
+        <p>The main event. Now safe, because M-06 has headroom and M-07 has ten weeks of labelled history.</p>
+        <span class="typ" style="background:var(--navy);color:#fff">Model · the lever</span></div>
+      <div class="step"><div class="q">Quarter 4</div><h4>Revisit C, then D</h4>
+        <p>C only becomes viable once the constraint has moved. D is safe but small — do it when capacity allows.</p>
+        <span class="typ">Sequenced later</span></div>
+    </div>
+
+    <h3 style="margin-top:38px;margin-bottom:14px">The Next Best Action report</h3>
+    <p class="sub" style="margin-bottom:16px">The diagnostic's closing artefact. Every
+    recommendation is typed — and being honest that most moments are <em>not</em> ML
+    problems is precisely what makes the one that is credible.</p>
+    <div class="act5">
+      <div class="actc"><div class="n">01</div><h4>Instrument</h4><p>The signal isn't recorded yet. Start capturing outcomes. Weeks, not months.</p></div>
+      <div class="actc"><div class="n">02</div><h4>Redesign</h4><p>Remove the moment entirely. Service design. No technology at all.</p></div>
+      <div class="actc"><div class="n">03</div><h4>Automate</h4><p>Deterministic rules. Cheap, transparent, and often enough.</p></div>
+      <div class="actc hot"><div class="n">04</div><h4>Model</h4><p>A bespoke ML decision tool. Where your Build fee lives — honestly, one or two moments in twenty-five.</p></div>
+      <div class="actc"><div class="n">05</div><h4>Leave</h4><p>Explicitly deprioritised, with the reason written down. Naming these is half the value.</p></div>
+    </div>
+    <p style="margin-top:16px;font-size:15px;color:var(--muted)">Each of the top five
+    carries: the action, its type, L£, LQ, prerequisites, ripple flags, a named owner, and
+    <b>the single measurement that will prove it worked</b>. Plus a "do not do these, and
+    why" section — the part clients quote back to you eighteen months later.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Stages E &amp; R</div>
+    <h2>Engineer and Run</h2>
+    <p class="sub">Unchanged from v1 in structure, now fed by a sequenced plan instead of
+    a ranked list — which is what makes fixed-fee builds safe to quote.</p>
+    <span class="phase-tag build">Phase 2 · The LEVER Build · 6–10 weeks per tool</span>
+    <div class="stage">
+      <div class="letter">E<span>Stage 04</span></div>
+      <div>
+        <h3>Engineer <small>Archetype → algorithm → interface</small></h3>
+        <p>The decision archetype prescribes the algorithm family and the interface pattern.
+        Eight archetypes: <b>Prioritise, Forecast, Classify, Detect, Segment, Allocate,
+        Extract, Match</b> — each with a laddered algorithm path (heuristic → linear →
+        gradient boosting → specialist) and a matching UI pattern (ranked worklist,
+        forecast chart, flagged queue, exception feed, cohort explorer, what-if calculator,
+        review queue, suggested pairs).</p>
+        <ul>
+          <li>Build the <b>decision table</b>: one row per historical decision instance, its context at the time, and the outcome — with no leakage of future information</li>
+          <li>Ship a transparent heuristic baseline in week one and measure it</li>
+          <li>Backtest against real past decisions; the model ships only if it beats the baseline</li>
+          <li>Five-layer reference stack: Ingest → Ground truth → Model → Serve → Interface, single-tenant, your reusable app shell re-skinned</li>
+        </ul>
+        <div class="out"><b>The rule that protects your margin:</b> the baseline always
+        ships first. Roughly a third of the time the honest answer is "you didn't need ML
+        for this one" — the most trust-building sentence available to you, and the reason
+        the diagnostic must be priced to stand alone.</div>
+      </div>
+    </div>
+    <div class="stage">
+      <div class="letter">R<span>Stage 05</span></div>
+      <div>
+        <h3>Run <small>Embed, measure, compound</small></h3>
+        <p>Adoption is a design problem, not a training problem — which is exactly where a
+        design researcher beats a data scientist.</p>
+        <ul>
+          <li>Embed into the existing ritual: the morning list, the 4pm planning slot, the depot standup</li>
+          <li>Capture the human's actual decision in the interface — it becomes next quarter's labelled training data (<b>the Decision Loop</b>)</li>
+          <li>Measure lift against the rung-3 baseline at 30 / 60 / 90 days, and re-run the Ripple Matrix to confirm the constraint moved where you predicted</li>
+          <li>Hand over, or transition to the Run retainer</li>
+        </ul>
+        <div class="out"><b>Output:</b> decision-lift report tied to the signed Goal Ladder —
+        the artefact that makes tool #2 a conversation rather than a pitch, and lets you
+        raise your Diagnostic price.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Commercials · revised</div>
+    <h2>The pricing ladder</h2>
+    <p class="sub">The diagnostic gained a signed Goal Ladder, a Decision Blueprint, a
+    costed Leverage model, a Ripple Matrix and a sequenced Next Best Action report. That is
+    a materially different product from v1's decision audit, and it prices at the top of
+    the boutique band.</p>
+    <div class="tiers">
+      <div class="tier">
+        <div class="eyebrow">Tier 0 · Entry</div><h3>LEVER Scan</h3>
+        <div class="price">£6,500</div><div class="len">5 days · range £5,000–8,500</div>
+        <ul><li>Goal Ladder, drafted and signed</li><li>One value stream blueprinted</li>
+        <li>Top 5 moments Friction-Indexed</li><li>One moment costed through the equation</li>
+        <li>Credited in full against the Diagnostic within 30 days</li></ul>
+      </div>
+      <div class="tier hero-tier">
+        <div class="eyebrow">Tier 1 · The core product</div><h3>LEVER Diagnostic</h3>
+        <div class="price">£32,000</div><div class="len">4 weeks · range £28,000–38,000</div>
+        <ul><li>Signed Goal Ladder</li><li>Decision Blueprint across 2–3 value streams</li>
+        <li>20–30 moments Friction-Indexed</li><li>Top 8 costed: L£ and LQ, client-signed</li>
+        <li>Ripple Matrix + migration flags</li><li>Sequenced 4-quarter Critical Path</li>
+        <li>Next Best Action report with owners and measures</li>
+        <li>Architecture blueprint for the top two</li>
+        <li>50% credited against a Build signed within 30 days</li></ul>
+      </div>
+      <div class="tier">
+        <div class="eyebrow">Tier 2 · Delivery</div><h3>LEVER Build</h3>
+        <div class="price">£65,000</div><div class="len">6–10 weeks · range £45,000–95,000</div>
+        <ul><li>One decision tool, end to end</li><li>Ingest → decision table → model → backtest</li>
+        <li>Branded single-tenant browser app</li><li>Baseline-vs-model evidence pack</li>
+        <li>30 days adoption support</li>
+        <li><b>Priced at 12–18% of L£</b>, floor £45k</li></ul>
+      </div>
+      <div class="tier">
+        <div class="eyebrow">Tier 1+ · New SKU</div><h3>Programme Diagnostic</h3>
+        <div class="price">£55,000</div><div class="len">7–9 weeks · range £45,000–70,000</div>
+        <ul><li>Multi-site, multi-entity or post-acquisition</li>
+        <li>3–5 value streams blueprinted</li><li>Cross-entity Ripple Matrix</li>
+        <li>Portfolio critical path, not a site-by-site list</li>
+        <li>The PE and buy-and-build play — where complexity makes ripple analysis indispensable</li></ul>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-top:24px">
+      <div class="card">
+        <h3>What the market pays (UK, 2026)</h3>
+        <div class="tblwrap"><table class="plain" style="margin-top:10px">
+          <tr><td><b>Independent consultants</b></td><td>£500–2,000/day; London £700–1,200</td></tr>
+          <tr><td><b>Mid-tier consultancies</b></td><td>£900–1,600/day</td></tr>
+          <tr><td><b>Boutique ML specialists</b></td><td>£200–400/hour</td></tr>
+          <tr><td><b>Big Four</b></td><td>£2,000–5,000/day, £100k minimums</td></tr>
+          <tr><td><b>Fixed-fee PoC</b></td><td>£15,000–40,000, 2–4 weeks</td></tr>
+          <tr><td><b>Pilot / MVP</b></td><td>£40,000–120,000, 6–10 weeks</td></tr>
+          <tr><td><b>Mid-market production build</b></td><td>£120,000–400,000</td></tr>
+          <tr><td><b>Annual run &amp; support</b></td><td>15–25% of build cost per year</td></tr>
+        </table></div>
+      </div>
+      <div class="card">
+        <h3>Breaking the day-rate ceiling</h3>
+        <p>A £32,000 Diagnostic is roughly 15 working days once the templates and the
+        blueprint library exist. That is an <b>effective rate near £2,130/day</b> — double
+        the top of your current £500–1,000 band — with no day rate ever appearing on a
+        client document.</p>
+        <p>The mechanism isn't confidence. It's that a <em>signed, costed, sequenced
+        decision portfolio with interference analysis</em> has no comparable, whereas
+        "days of a consultant" has an obvious one.</p>
+        <div class="insight" style="margin-top:14px;padding:18px 20px">
+          <div class="eyebrow">Illustrative year one</div>
+          <p style="font-size:15px">8 Scans (£52k) → 5 Diagnostics (£160k, less credits)
+          → 2 Builds (£130k) → 2 Run retainers (£108k annualised).
+          <b>Roughly £300–340k</b> at realistic solo capacity. A capacity model to
+          pressure-test, not a forecast to bank.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:34px;margin-bottom:12px">The pricing rules</h3>
+    <div class="rule"><b>Never quote days.</b><p>Quote moments, deliverables and dates. A day rate on the page turns you into a contractor.</p></div>
+    <div class="rule"><b>Always three options.</b><p>Scan / Diagnostic / Diagnostic + Build. The question becomes "which one", never "whether".</p></div>
+    <div class="rule"><b>Anchor the Build to L£, not to effort.</b><p>12–18% of a number <em>they signed</em> in the Diagnostic. You are pricing their recovery, not your hours.</p></div>
+    <div class="rule"><b>Credits, never discounts.</b><p>Crediting the Scan protects the rate and creates a 30-day clock. Discounting destroys both.</p></div>
+    <div class="rule"><b>Raise the floor every third client.</b><p>Diagnostics start at £28k, £32k after two references, £38k once you can show a decision-lift report against a signed Goal Ladder.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Protection</div>
+    <h2>IP and disclosure guards</h2>
+    <div class="card" style="background:#FFEFF0;border-color:#F6C9CB">
+      <h3 style="color:#B3252B">Non-negotiable while the September clock runs</h3>
+      <ul style="margin:12px 0 0 18px;font-size:15px">
+        <li style="margin-bottom:6px">LEVER is <b>engine-neutral</b>: standard open-source tooling only. No Aletheai core code, no behavioural primitives, no claim language in any client-facing document.</li>
+        <li style="margin-bottom:6px">Contracts: the client owns <b>their data and the model trained on it</b>. You own the <b>method, the Goal Ladder, the Decision Blueprint format, the Friction Index, the Leverage Equation, the Ripple Matrix, the templates and the app shell</b> — licensed to them for their instance.</li>
+        <li style="margin-bottom:6px">No engagement may generate new matter that reads on the pending claims. If a build drifts toward the patented apparatus, stop and re-scope.</li>
+        <li style="margin-bottom:6px"><b>Do not consult in property or wealth</b> before the PCT is filed. Both are Aletheai verticals; the separation has to be visible, not merely intended.</li>
+        <li>Publishing LEVER publicly is safe and desirable <em>because</em> it contains none of the protected material. Keep it that way on purpose.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">v3</div>
+    <h2>What we build next</h2>
+    <ol class="next">
+      <li><b>Delivered — the Decision Ledger workbook.</b> Runs the equation across 30 moments, generates the Ripple Matrix, flags constraint migration, and produces the Next Best Action report without retyping. Your delivery engine.</li>
+      <li><b>Delivered — the Operating Manual.</b> Every instrument from first principles, the load-bearing versus adjustable map, failure modes, plain-English scripts and a change log. The document you study and rewrite.</li>
+      <li><b>The blueprint capture kit</b> — the 18-question interview protocol plus the wall-sized blueprint template with both new lanes pre-drawn. Where design research is your unfair advantage over every data consultancy.</li>
+      <li><b>Three reference blueprints</b> for capacity-vs-demand businesses (3PL, field service, wholesale distribution), so you arrive at week one already 60% mapped. This is what protects the margin on a fixed-fee diagnostic.</li>
+      <li><b>The sales motion</b> — the free 45-minute Friction Teardown, the proposal template built off the Goal Ladder, and the objection playbook.</li>
+      <li><b>The app shell</b> — reusable browser-tool codebase carrying the eight interface patterns, so Build #2 costs 40% of Build #1.</li>
+      <li><b>The public framework page</b> on frameworks.dianasimpsonhernandez.com — safe to publish precisely because it holds no Aletheai IP.</li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    The LEVER Method · v3 · 26 July 2026 · © Diana Simpson-Hernandez.
+    Market pricing and adoption figures benchmarked against published 2026 UK sources.
+    Blueprint, Ripple Matrix and calculator figures are a worked illustration.
+    Illustrative revenue is a capacity model, not a forecast.
+  </div>
+</footer>
+
+<script>
+(function(){
+  var ids=['N','D_','a','d','t','ad','k','l','bc','rc'];
+  var el={}; ids.forEach(function(i){el[i]=document.getElementById(i)});
+  var money=function(n){return '£'+Math.round(n).toLocaleString('en-GB')};
+  function calc(){
+    var N=+el.N.value||0, dd=+el.D_.value||0, a=+el.a.value,
+        D=+el.d.value, T=+el.t.value, A=+el.ad.value,
+        k=+el.k.value, L=+el.l.value, bc=+el.bc.value||0, rc=+el.rc.value||0;
+    document.getElementById('aV').textContent=a.toFixed(2);
+    document.getElementById('dV').textContent=D.toFixed(2);
+    document.getElementById('tV').textContent=T.toFixed(2);
+    document.getElementById('adV').textContent=A.toFixed(2);
+    document.getElementById('lV').textContent=L.toFixed(2);
+
+    var vas=N*dd*a, S=D*T*A, Lp=vas*S*k*(1-L), tot=bc+rc, LQ=tot>0?Lp/tot:0;
+    document.getElementById('oVas').textContent=money(vas);
+    document.getElementById('oL').textContent=money(Lp);
+    document.getElementById('oLQ').textContent=LQ.toFixed(2)+'×';
+    document.getElementById('oS').textContent='Solvability S = '+S.toFixed(3)+' · the ceiling on everything downstream';
+    document.getElementById('oPrice').innerHTML='Indicative build fee at 12–18% of L£: <b>'+money(Lp*0.12)+' – '+money(Lp*0.18)+'</b>';
+
+    var v=document.getElementById('oV'), cls='v-mid', msg='';
+    if(tot<=0){cls='v-mid';msg='Enter a build cost and a year-one run cost to compute the Leverage Quotient.';}
+    else if(D<0.4 && vas*a>0){cls='v-mid';msg='Instrument first. Data sufficiency is too low to model — sell a 3-week instrumentation project and revisit next quarter.';}
+    else if(a<0.2){cls='v-mid';msg='Redesign, don’t model. Under a fifth of the cost is decision-addressable — this is a capacity or process problem.';}
+    else if(k<=0.15){cls='v-no';msg='Off-constraint. Real money but local only — park it behind the constraint path.';}
+    else if(LQ>=3){cls='v-go';msg='Build. LQ ≥ 3 and the moment carries enough constraint weight to justify a bespoke tool.';}
+    else if(LQ>=1.5){cls='v-mid';msg='Marginal. Reduce build scope, raise adoption feasibility, or find the paired intervention that lowers Λ.';}
+    else{cls='v-no';msg='Do not build. Year-one return doesn’t cover the risk premium on a bespoke model.';}
+    v.className='verdict '+cls; v.textContent=msg;
+  }
+  ids.forEach(function(i){el[i].addEventListener('input',calc);el[i].addEventListener('change',calc)});
+  calc();
+})();
+</script>
+<footer class="dsh-foot"><div class="wrap">
+<div class="eyebrow" style="color:#D9D1FF">The routing question</div>
+<p class="q">“When this goes wrong, is it because someone <b>chose badly</b>, or because someone <b>couldn't find out</b>?”</p>
+<p>Chose badly → LEVER. Couldn't find out → RECALL. Neither, but you own a vertical and need a product → <a href="/stake/">STAKE</a>. The companion method to LEVER is <a class="plausible-event-name=framework_open plausible-event-framework=recall" href="/recall/">RECALL</a> — for when the problem is that people can't find or trust what the company already knows.</p>
+<div class="row"><a class="plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-footer" href="https://dianasimpsonhernandez.com/work-with-me/">Fees and the free Friction Teardown →</a><a href="/case-study-language-kids-world/">Case study: Language Kids World →</a><a href="/">Every framework →</a></div>
+<div class="base"><span>LEVER · Diana Simpson-Hernandez · engine-neutral · zero Aletheai IP</span><span>Free to read. Not free to run on your company — <a href="https://dianasimpsonhernandez.com/work-with-me/" style="font-weight:500">that's the job</a>.</span></div>
+</div></footer>
+</body>
+</html>
