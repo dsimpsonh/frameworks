@@ -84,13 +84,13 @@ def shell(title, active, body, footer_note):
 <style>{CSS}</style>
 </head>
 <body>
-<nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· {active}</span><ul><li><a href="/">Library</a></li><li><a href="{MAIN}/work-with-me/">Work with me</a></li><li><a href="{MAIN}/learn/">Learn</a></li><li><a href="{MAIN}/">Main site</a></li><li><a class="btn plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-nav" href="{MAIN}/work-with-me/">Hire the method →</a></li></ul></div></nav>
+<nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· {active}</span><ul><li><a href="/">Library</a></li><li><a href="{MAIN}/work-with-me/">Work with me</a></li><li><a href="{MAIN}/learn/">Learn</a></li><li><a href="{MAIN}/">Main site</a></li><li><a class="btn" data-umami-event="cta_click" data-umami-event-kind="work-with-me" data-umami-event-position="method-nav" href="{MAIN}/work-with-me/">Hire the method →</a></li></ul></div></nav>
 {body}
 <footer class="dsh-foot"><div class="wrap">
 <div class="eyebrow" style="color:#D9D1FF">The routing question</div>
 <p class="q">“When this goes wrong, is it because someone <b>chose badly</b>, or because someone <b>couldn't find out</b>?”</p>
-<p>Chose badly → <a class="plausible-event-name=framework_open plausible-event-framework=lever" href="/lever/">LEVER</a>. Couldn't find out → <a class="plausible-event-name=framework_open plausible-event-framework=recall" href="/recall/">RECALL</a>. Neither, but you own a vertical and need a product → <a href="/stake/">STAKE</a>.</p>
-<div class="row"><a class="plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-footer" href="{MAIN}/work-with-me/">Fees and the free Friction Teardown →</a><a href="/case-study-language-kids-world/">Case study: Language Kids World →</a><a href="/">Every framework →</a></div>
+<p>Chose badly → <a data-umami-event="framework_open" data-umami-event-framework="lever" href="/lever/">LEVER</a>. Couldn't find out → <a data-umami-event="framework_open" data-umami-event-framework="recall" href="/recall/">RECALL</a>. Neither, but you own a vertical and need a product → <a href="/stake/">STAKE</a>.</p>
+<div class="row"><a data-umami-event="cta_click" data-umami-event-kind="work-with-me" data-umami-event-position="method-footer" href="{MAIN}/work-with-me/">Fees and the free Friction Teardown →</a><a href="/case-study-language-kids-world/">Case study: Language Kids World →</a><a href="/">Every framework →</a></div>
 <div class="base"><span>{footer_note}</span><span>Free to read. Not free to run on your company — <a href="{MAIN}/work-with-me/" style="font-weight:500">that's the job</a>.</span></div>
 </div></footer>
 </body>
@@ -283,7 +283,7 @@ CASE_BODY = f"""
 
 <section><div class="wrap"><div class="card pop" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
 <div><div class="eyebrow">Your operation</div><h3>Founder as the critical path? Start with the free Friction Teardown.</h3><p style="margin:0">Thirty minutes. I tell you which method fits — or that neither does.</p></div>
-<a class="plausible-event-name=email_click plausible-event-position=case-study" href="mailto:{EMAIL}?subject=Friction%20Teardown" style="background:var(--ink);color:#fff;border-radius:999px;padding:12px 20px;text-decoration:none;font-weight:600;white-space:nowrap">Book it →</a>
+<a data-umami-event="email_click" data-umami-event-position="case-study" href="mailto:{EMAIL}?subject=Friction%20Teardown" style="background:var(--ink);color:#fff;border-radius:999px;padding:12px 20px;text-decoration:none;font-weight:600;white-space:nowrap">Book it →</a>
 </div></div></section>
 """
 

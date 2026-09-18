@@ -16,8 +16,10 @@ import json, os, re, sys, datetime, html as H
 ROOT = os.path.dirname(os.path.abspath(__file__))
 DOMAIN = "https://frameworks.dianasimpsonhernandez.com"
 MAIN = "https://dianasimpsonhernandez.com"
-PLAUSIBLE = ('<script defer data-domain="dianasimpsonhernandez.com" src="https://plausible.io/js/script.tagged-events.outbound-links.js"></script>'
-             '<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>')
+# Umami Cloud (free). Same Website ID as the main site — one website covers both hosts. Empty = no script emitted.
+UMAMI_WEBSITE_ID = "a98055b4-17b2-4091-b09e-3b3b5b34b4ad"
+ANALYTICS = (f'<script defer src="https://cloud.umami.is/script.js" data-website-id="{UMAMI_WEBSITE_ID}"></script>'
+             if UMAMI_WEBSITE_ID.strip() else "<!-- analytics: set UMAMI_WEBSITE_ID in build_library.py -->")
 TODAY = datetime.date.today().isoformat()
 
 # Unlisted pages (not in frameworks.json) still get correct SEO. noindex keeps client-specific pages out of search.
@@ -74,7 +76,7 @@ def head_block(slug, m, has_preview):
 <meta property="og:image" content="{og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{t}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{t}"><meta name="twitter:description" content="{d}"><meta name="twitter:image" content="{og}">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
-{PLAUSIBLE}
+{ANALYTICS}
 <script type="application/ld+json">{json.dumps(jsonld(slug, m, url), ensure_ascii=False)}</script>
 {('<style>'+m['extra_css']+'</style>') if m.get('extra_css') else ''}
 <!--dsh:/head-->"""
@@ -107,7 +109,7 @@ def all_pages():
 def build_404():
     body = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Not found — Open Frameworks</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/assets/fonts/fonts.css"><link rel="stylesheet" href="/styles/main.css">
-{PLAUSIBLE}
+{ANALYTICS}
 <style>.nf{{min-height:70vh;display:flex;flex-direction:column;justify-content:center;gap:1rem;max-width:60ch}}.nf h1{{font-size:clamp(2.4rem,7vw,5rem);line-height:1;letter-spacing:-.02em}}.nf a{{color:var(--accent);font-weight:600}}</style></head>
 <body><div class="container nf"><span class="eyebrow">404</span><h1>That framework moved.</h1><p>The library was rebuilt in September 2026. Everything is still here — start from the index.</p>
 <p><a href="/">Browse the library →</a> &nbsp; <a href="{MAIN}/">Main site →</a></p></div></body></html>"""

@@ -57,15 +57,15 @@ em{font-weight:700}
 def nav(active):
     items = [("/", "Library"), (f"{MAIN}/work-with-me/", "Work with me"), (f"{MAIN}/learn/", "Learn"), (f"{MAIN}/", "Main site")]
     lis = "".join(f'<li><a href="{h}">{t}</a></li>' for h, t in items)
-    return f"""<nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· {active}</span><ul>{lis}<li><a class="btn plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-nav" href="{MAIN}/work-with-me/">Hire the method →</a></li></ul></div></nav>
+    return f"""<nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· {active}</span><ul>{lis}<li><a class="btn" data-umami-event="cta_click" data-umami-event-kind="work-with-me" data-umami-event-position="method-nav" href="{MAIN}/work-with-me/">Hire the method →</a></li></ul></div></nav>
 """
 
 def footer(this, other, other_slug, other_line):
     return f"""<footer class="dsh-foot"><div class="wrap">
 <div class="eyebrow" style="color:#D9D1FF">The routing question</div>
 <p class="q">“When this goes wrong, is it because someone <b>chose badly</b>, or because someone <b>couldn't find out</b>?”</p>
-<p>Chose badly → LEVER. Couldn't find out → RECALL. Neither, but you own a vertical and need a product → <a href="/stake/">STAKE</a>. The companion method to {this} is <a class="plausible-event-name=framework_open plausible-event-framework={other_slug}" href="/{other_slug}/">{other}</a> — {other_line}</p>
-<div class="row"><a class="plausible-event-name=cta_click plausible-event-kind=work-with-me plausible-event-position=method-footer" href="{MAIN}/work-with-me/">Fees and the free Friction Teardown →</a><a href="/case-study-language-kids-world/">Case study: Language Kids World →</a><a href="/">Every framework →</a></div>
+<p>Chose badly → LEVER. Couldn't find out → RECALL. Neither, but you own a vertical and need a product → <a href="/stake/">STAKE</a>. The companion method to {this} is <a data-umami-event="framework_open" data-umami-event-framework="{other_slug}" href="/{other_slug}/">{other}</a> — {other_line}</p>
+<div class="row"><a data-umami-event="cta_click" data-umami-event-kind="work-with-me" data-umami-event-position="method-footer" href="{MAIN}/work-with-me/">Fees and the free Friction Teardown →</a><a href="/case-study-language-kids-world/">Case study: Language Kids World →</a><a href="/">Every framework →</a></div>
 <div class="base"><span>{this} · Diana Simpson-Hernandez · engine-neutral · zero Aletheai IP</span><span>Free to read. Not free to run on your company — <a href="{MAIN}/work-with-me/" style="font-weight:500">that's the job</a>.</span></div>
 </div></footer>
 """
