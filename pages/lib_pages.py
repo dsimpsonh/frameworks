@@ -70,6 +70,14 @@ blockquote{margin:0;font-size:clamp(20px,2.4vw,26px);font-weight:600;line-height
 .dsh-foot{background:#1A1633;color:#C9C0F0;padding:56px 0 28px}
 .dsh-foot a{color:#fff;font-weight:600}.dsh-foot .q{font-size:22px;color:#fff;line-height:1.3;max-width:34ch;margin:0 0 20px;font-weight:600}.dsh-foot .q b{color:var(--coral)}
 .dsh-foot .row{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px;font-size:14px}.dsh-foot p{max-width:70ch}
+/* mailto fallback */
+.mailfb{flex-basis:100%;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:10px;padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:#fff;color:var(--ink);font-size:14px;box-shadow:0 12px 30px -18px rgba(42,27,94,.35)}
+.mailfb b{font-weight:600;user-select:all;-webkit-user-select:all;word-break:break-all}
+.mailfb button,.mailfb a.gm{font:600 13px/1 var(--sans);padding:8px 12px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;text-decoration:none}
+.mailfb a.gm{background:transparent;color:var(--ink)}
+.mailfb .x{margin-left:auto;background:transparent;border:0;color:var(--muted);font-size:18px;padding:4px 8px}
+.mailfb.fixed{position:fixed;right:16px;top:72px;z-index:50;max-width:min(420px,calc(100vw - 32px));flex-basis:auto}
+.mailfb .ok{color:#1B5E3A;font-weight:600}
 .dsh-foot .base{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8F87B8;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
 """
 
@@ -93,6 +101,28 @@ def shell(title, active, body, footer_note):
 <div class="row"><a data-umami-event="cta_click" data-umami-event-kind="work-with-me" data-umami-event-position="method-footer" href="{MAIN}/work-with-me/">Fees and the free Friction Teardown →</a><a href="/case-study-language-kids-world/">Case study: Language Kids World →</a><a href="/">Every framework →</a></div>
 <div class="base"><span>{footer_note}</span><span>Free to read. Not free to run on your company — <a href="{MAIN}/work-with-me/" style="font-weight:500">that's the job</a>.</span></div>
 </div></footer>
+<script>
+(function(){{
+  var GM='https://mail.google.com/mail/?view=cm&fs=1&to=';
+  function show(a,addr,subj){{
+    var old=document.querySelector('.mailfb'); if(old) old.remove();
+    var box=document.createElement('div'); box.className='mailfb'+(a.closest('.nav, .dsh-nav')?' fixed':''); box.setAttribute('role','dialog');
+    box.innerHTML='<span>Write to <b>'+addr+'</b></span><button type="button" class="cp">Copy address</button><a class="gm" target="_blank" rel="noopener" href="'+GM+encodeURIComponent(addr)+(subj?'&su='+encodeURIComponent(subj):'')+'">Open in Gmail</a><button type="button" class="x" aria-label="Close">×</button>';
+    box.querySelector('.cp').onclick=function(){{var b=this;(navigator.clipboard?navigator.clipboard.writeText(addr):Promise.reject()).then(function(){{b.textContent='Copied';b.classList.add('ok')}},function(){{var r=document.createRange();r.selectNodeContents(box.querySelector('b'));var s=getSelection();s.removeAllRanges();s.addRange(r)}})}};
+    box.querySelector('.x').onclick=function(){{box.remove()}};
+    if(box.classList.contains('fixed')) document.body.appendChild(box); else a.insertAdjacentElement('afterend',box);
+  }}
+  document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){{
+    a.addEventListener('click',function(){{
+      var href=a.getAttribute('href'),addr=href.slice(7).split('?')[0],q=href.split('?')[1]||'',subj='';
+      try{{subj=new URLSearchParams(q).get('subject')||''}}catch(e){{}}
+      var t=setTimeout(function(){{show(a,addr,subj)}},900);
+      window.addEventListener('blur',function(){{clearTimeout(t)}},{{once:true}});
+      document.addEventListener('visibilitychange',function(){{if(document.hidden)clearTimeout(t)}},{{once:true}});
+    }});
+  }});
+}})();
+</script>
 </body>
 </html>
 """
