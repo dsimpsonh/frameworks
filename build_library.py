@@ -75,6 +75,10 @@ def head_block(slug, m, has_preview):
 <meta property="og:url" content="{url}"><meta property="og:title" content="{t}"><meta property="og:description" content="{d}">
 <meta property="og:image" content="{og}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="{t}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{t}"><meta name="twitter:description" content="{d}"><meta name="twitter:image" content="{og}">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/assets/site.webmanifest">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 {ANALYTICS}
 <script type="application/ld+json">{json.dumps(jsonld(slug, m, url), ensure_ascii=False)}</script>
@@ -85,6 +89,7 @@ STRIP = [  # legacy tags the block replaces
     re.compile(r'<meta\s+name="description"[^>]*>\s*', re.I),
     re.compile(r'<meta\s+(?:property|name)="(?:og:|twitter:)[^"]*"[^>]*>\s*', re.I),
     re.compile(r'<link\s+rel="canonical"[^>]*>\s*', re.I),
+    re.compile(r'<link\s+rel="(?:icon|shortcut icon|apple-touch-icon|manifest)"[^>]*>\s*', re.I),
     re.compile(r'<!--dsh:head-->.*?<!--dsh:/head-->\s*', re.S),
 ]
 
@@ -108,7 +113,7 @@ def all_pages():
 
 def build_404():
     body = f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Not found — Open Frameworks</title><meta name="robots" content="noindex"><link rel="stylesheet" href="/assets/fonts/fonts.css"><link rel="stylesheet" href="/styles/main.css">
+<title>Not found — Open Frameworks</title><meta name="robots" content="noindex"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><link rel="stylesheet" href="/assets/fonts/fonts.css"><link rel="stylesheet" href="/styles/main.css">
 {ANALYTICS}
 <style>.nf{{min-height:70vh;display:flex;flex-direction:column;justify-content:center;gap:1rem;max-width:60ch}}.nf h1{{font-size:clamp(2.4rem,7vw,5rem);line-height:1;letter-spacing:-.02em}}.nf a{{color:var(--accent);font-weight:600}}</style></head>
 <body><div class="container nf"><span class="eyebrow">404</span><h1>That framework moved.</h1><p>The library was rebuilt in September 2026. Everything is still here — start from the index.</p>
