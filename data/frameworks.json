@@ -72,7 +72,7 @@
     },
     {
       "slug": "flywheel",
-      "title": "The Flywheel",
+      "title": "FLYWHEEL",
       "subtitle": "Compounding leverage in AI-native businesses",
       "category": "Strategy",
       "year": "2025",
@@ -86,7 +86,7 @@
       "url": "/flywheel/",
       "access": "free",
       "product": {
-        "name": "Flywheel Masterclass",
+        "name": "FLYWHEEL Masterclass",
         "price": "£39",
         "url": "https://www.skool.com/@diana-simpson-hernandez-4490"
       }
@@ -159,6 +159,121 @@
       "status": "Live",
       "url": "/case-study-language-kids-world/",
       "access": "free"
+    },
+    {
+      "slug": "canvas-category-design-canvas",
+      "title": "The Category Design Canvas",
+      "subtitle": "Stop competing in someone else's category. Name your own.",
+      "category": "Canvas",
+      "year": "2026",
+      "tags": [
+        "Strategy",
+        "Positioning",
+        "Founders"
+      ],
+      "summary": "Nine boxes that take you from a painful problem to a named category you can lead — problem, customer, landscape, point of view, solution, name, business model, category lead and the unfair advantage that makes it defensible.",
+      "status": "Live",
+      "seo_title": "Category Design Canvas — free A3 download",
+      "description": "Nine boxes from a painful problem to a named category you can lead. Free watermarked A3 PDF and quick guide; clean files in the £49 pack.",
+      "url": "/canvas/category-design-canvas/",
+      "access": "free",
+      "product": {
+        "name": "The DSH Canvas Pack",
+        "price": "£49",
+        "url": "/canvas/category-design-canvas/#pack"
+      }
+    },
+    {
+      "slug": "canvas-empathy-canvas",
+      "title": "The Empathy Canvas",
+      "subtitle": "Four rings from what they see to what they feel.",
+      "category": "Canvas",
+      "year": "2026",
+      "tags": [
+        "Research",
+        "UX",
+        "Discovery"
+      ],
+      "summary": "Who they are, what they need to do, their pains and gains — then four concentric rings of experience: social (what they see), physical (what they do), personal (what they think and say) and emotional (how they feel).",
+      "status": "Live",
+      "seo_title": "Empathy Canvas — free A3 download",
+      "description": "Who they are, what they need to do, pains, gains, and four rings from what they see to how they feel. Free A3 PDF and quick guide.",
+      "url": "/canvas/empathy-canvas/",
+      "access": "free",
+      "product": {
+        "name": "The DSH Canvas Pack",
+        "price": "£49",
+        "url": "/canvas/empathy-canvas/#pack"
+      }
+    },
+    {
+      "slug": "canvas-user-story-evaluation-matrix",
+      "title": "The User Story Evaluation Matrix",
+      "subtitle": "Score every competitor against the stories your user actually has.",
+      "category": "Canvas",
+      "year": "2026",
+      "tags": [
+        "Research",
+        "Competitive",
+        "Product"
+      ],
+      "summary": "A grid: your user stories down the side, competitors across the top. Score how well each alternative serves each story, and the gaps become your roadmap and your positioning in one move.",
+      "status": "Live",
+      "seo_title": "User Story Evaluation Matrix — free download",
+      "description": "Score every competitor against your user stories and read the gap. Free watermarked A3 PDF and quick guide; clean files in the pack.",
+      "url": "/canvas/user-story-evaluation-matrix/",
+      "access": "free",
+      "product": {
+        "name": "The DSH Canvas Pack",
+        "price": "£49",
+        "url": "/canvas/user-story-evaluation-matrix/#pack"
+      }
+    },
+    {
+      "slug": "canvas-ux-strategy-canvas",
+      "title": "The UX Strategy Canvas",
+      "subtitle": "The clever “how” between a business goal and a design team.",
+      "category": "Canvas",
+      "year": "2026",
+      "tags": [
+        "UX",
+        "Strategy",
+        "Leadership"
+      ],
+      "summary": "Seven boxes that turn a business goal into a UX strategy stakeholders will back: goal, stakeholders, user, insights and analytics, the strategy itself, guiding principles, and the tactics that deliver it.",
+      "status": "Live",
+      "seo_title": "UX Strategy Canvas — free A3 download",
+      "description": "Seven boxes from a business goal to a branded UX strategy, principles and measured tactics. Free A3 PDF and quick guide.",
+      "url": "/canvas/ux-strategy-canvas/",
+      "access": "free",
+      "product": {
+        "name": "The DSH Canvas Pack",
+        "price": "£49",
+        "url": "/canvas/ux-strategy-canvas/#pack"
+      }
+    },
+    {
+      "slug": "canvas-ai-agent-design-canvas",
+      "title": "The AI Agent Design Canvas",
+      "subtitle": "Design the person first. Then the agent that serves them.",
+      "category": "Canvas",
+      "year": "2026",
+      "tags": [
+        "AI",
+        "Agents",
+        "Product"
+      ],
+      "summary": "The empathy canvas on the left, your agent on the right. Who the customer is, what they need, their pains and wants, their four rings of experience — then the agent's personality and tone, core tasks, specialisms, and the actions and APIs it needs.",
+      "status": "Live",
+      "seo_title": "AI Agent Design Canvas — free A3 download",
+      "description": "Design the person first, then the agent: empathy rings, personality, core tasks, specialisms, actions and APIs. Free A3 PDF and guide.",
+      "url": "/canvas/ai-agent-design-canvas/",
+      "access": "free",
+      "product": {
+        "name": "The DSH Canvas Pack",
+        "price": "£49",
+        "url": "/canvas/ai-agent-design-canvas/#pack"
+      }
     }
   ]
 }

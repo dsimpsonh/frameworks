@@ -1,0 +1,917 @@
+{
+  "_comment": "Source of truth for the DSH canvas collection. build_canvases.py renders PDFs, PNGs, guides and landing pages from this file.",
+  "pack": {
+    "name": "The DSH Canvas Pack",
+    "price": "£49",
+    "checkout_url": "https://dsh.lemonsqueezy.com/buy/REPLACE-WITH-PRODUCT-ID",
+    "includes": [
+      "All five canvases as clean, print-ready A3 PDFs — no watermark",
+      "4K PNG of each canvas for Miro, FigJam, Figma and Notion",
+      "The full walkthrough guide for each canvas: box-by-box prompts, a worked example, a facilitation agenda and the mistakes to avoid",
+      "Free updates when a canvas gets a new version"
+    ]
+  },
+  "canvases": [
+    {
+      "slug": "category-design-canvas",
+      "title": "The Category Design Canvas",
+      "short": "Category Design",
+      "subtitle": "Stop competing in someone else's category. Name your own.",
+      "summary": "Nine boxes that take you from a painful problem to a named category you can lead — problem, customer, landscape, point of view, solution, name, business model, category lead and the unfair advantage that makes it defensible.",
+      "tags": [
+        "Strategy",
+        "Positioning",
+        "Founders"
+      ],
+      "year": "2026",
+      "time": "90 minutes",
+      "for": "Founders and product leads positioning a new product, or repositioning one that is losing on price.",
+      "layout": "grid9",
+      "boxes": [
+        {
+          "id": "problem",
+          "title": "the problem",
+          "icon": "frown",
+          "prompts": [
+            "What is wrong or painful about the situation as it stands?",
+            "What is wrong with the status quo — and why has nobody fixed it?",
+            "Can you name a new need that your skills let you solve, or a skill you have and find the need for it?"
+          ]
+        },
+        {
+          "id": "customers",
+          "title": "your customers",
+          "icon": "user",
+          "prompts": [
+            "Who cares about this problem and is directly affected by it?",
+            "Define the customer avatar as: a specific user (who) experiencing pain x (what) in scenario y (when), who wants to do z (how)."
+          ]
+        },
+        {
+          "id": "landscape",
+          "title": "the landscape",
+          "icon": "globe",
+          "prompts": [
+            "Are there direct or indirect competitors in this space?",
+            "How do you differentiate from them?",
+            "Is there a category already in place — and who named it?"
+          ]
+        },
+        {
+          "id": "pov",
+          "title": "your point of view",
+          "icon": "megaphone",
+          "prompts": [
+            "What do you believe about this problem that the incumbents don't?",
+            "What is the old way, what is the new way, and what changed in the world to make the new way possible now?",
+            "How do you want people to see your company in one sentence?"
+          ]
+        },
+        {
+          "id": "frame",
+          "title": "frame the problem",
+          "icon": "chat",
+          "prompts": [
+            "Describe the problem as if you were explaining it to a five-year-old.",
+            "If they can repeat it back, you have a frame. If they can't, keep cutting."
+          ]
+        },
+        {
+          "id": "solution",
+          "title": "your solution",
+          "icon": "puzzle",
+          "prompts": [
+            "How does your solution directly solve the problem as you framed it?",
+            "What is your unique angle — the thing about the solution only you would build?"
+          ]
+        },
+        {
+          "id": "name",
+          "title": "name the category",
+          "icon": "speech",
+          "prompts": [
+            "The category name should describe the nature of the problem, not your product.",
+            "Make it snappy, short, descriptive and unique. Facebook coined “social network”; Uber coined “on-demand transportation”.",
+            "Say it out loud. Would a journalist use it in a headline?"
+          ]
+        },
+        {
+          "id": "advantage",
+          "title": "your unfair advantage",
+          "icon": "star",
+          "tall": true,
+          "prompts": [
+            "What do you have that nobody else can copy quickly — a dataset, a distribution partner, a method, a licence, a decade of domain knowledge?",
+            "Why you, why now?",
+            "What would a well-funded competitor still lack after twelve months of trying?"
+          ]
+        },
+        {
+          "id": "model",
+          "title": "the business model",
+          "icon": "box",
+          "wide": true,
+          "prompts": [
+            "Explain how the offering makes money using a familiar comparison, so people can picture it instantly. Example: “the Lululemon of scrubs” (Figs).",
+            "Who pays, how often, and what do they get each time they pay?"
+          ]
+        },
+        {
+          "id": "lead",
+          "title": "the category lead",
+          "icon": "heart",
+          "wide": true,
+          "prompts": [
+            "Who is seen as the leader of this category today — or of the nearest existing category?",
+            "What would it take for customers, press and investors to see you as the leader instead: proof, language, distribution, or a public point of view?",
+            "What is the first move that makes the category exist in other people's minds?"
+          ]
+        }
+      ],
+      "guide": {
+        "what": "Category design is the discipline of creating and naming the market you want to win, rather than fighting for share of one that already has a leader. The canvas forces a specific sequence: understand the problem and the person before you touch the solution, take a public point of view before you take a name, and prove you can defend the category before you announce it. Most positioning work goes wrong because it starts in the middle — with the product — and works outwards. This canvas starts at the edges.",
+        "when": [
+          "You are launching something genuinely new and the existing labels make it sound like a cheaper version of an incumbent.",
+          "You keep losing deals on price, which usually means you are being compared inside someone else's category.",
+          "Investors or partners describe your company in words you would never choose."
+        ],
+        "steps": [
+          {
+            "box": "the problem",
+            "do": "Write the pain in the customer's words, not yours. Then write what is wrong with how it is handled today.",
+            "good": "Specific, observable, and slightly uncomfortable to read. If it could describe any company, it is not done.",
+            "example": "“Estate agents get 200 enquiries a week and ring them in the order they arrived. The ones ready to move are buried under the ones who are just browsing.”"
+          },
+          {
+            "box": "your customers",
+            "do": "Fill the avatar sentence: who, what pain, when, and what they want to do instead. One person, not a segment.",
+            "good": "You could phone this person tomorrow.",
+            "example": "“A branch manager (who) drowning in unqualified leads (what) on a Monday morning (when) who wants to spend the day with the five people ready to sell (how).”"
+          },
+          {
+            "box": "the landscape",
+            "do": "List the direct and indirect alternatives, including doing nothing. Name the category they sit in and who is credited with it.",
+            "good": "Honest about how good the incumbents are.",
+            "example": "“CRM add-ons and lead-scoring plugins, all in the ‘CRM’ category, led by the CRM vendors themselves.”"
+          },
+          {
+            "box": "your point of view",
+            "do": "State the belief the incumbents don't hold, the old way versus the new way, and what changed in the world to make the new way possible now.",
+            "good": "Someone could disagree with it. A point of view nobody could argue with is a platitude.",
+            "example": "“Lead scoring ranks people by who they are. We think behaviour in the last 48 hours predicts intent better than any profile.”"
+          },
+          {
+            "box": "frame the problem",
+            "do": "Explain it to a five-year-old. Read it aloud to someone outside your industry and ask them to repeat it.",
+            "good": "One sentence, no jargon, and they can repeat it.",
+            "example": "“The phone rings all day and nobody knows which calls matter.”"
+          },
+          {
+            "box": "your solution",
+            "do": "Now, and only now, describe the solution — as the direct answer to the frame, and with the angle only you would take.",
+            "good": "It reads as inevitable given the frame.",
+            "example": "“A layer over the CRM that reorders the day by intent, and explains why each person is at the top.”"
+          },
+          {
+            "box": "name the category",
+            "do": "Draft five names. Each must describe the problem space, not the product. Test each in a fake headline.",
+            "good": "Short, descriptive, and not already owned. A journalist would use it without quotes.",
+            "example": "“Decision intelligence for estate agency.”"
+          },
+          {
+            "box": "your unfair advantage",
+            "do": "List what you have that a well-funded competitor would still lack after a year: data, distribution, method, licence, domain knowledge.",
+            "good": "At least one item is structural, not just ‘we are faster’.",
+            "example": "“A live pilot with the CRM that 10,000 agencies already use, and a patent-pending model.”"
+          },
+          {
+            "box": "the business model",
+            "do": "Use a familiar comparison so anyone can picture how you make money, then state who pays, how often, and for what.",
+            "good": "The comparison is flattering and accurate.",
+            "example": "“Per-seat SaaS, like the CRM it sits on — the Grammarly of lead handling.”"
+          },
+          {
+            "box": "the category lead",
+            "do": "Name who is seen as the leader today, what it would take to displace them in the minds of customers and press, and the first public move that makes your category exist.",
+            "good": "The first move is something you can do this quarter.",
+            "example": "“Publish the method and the benchmark, then get the CRM to co-announce the pilot.”"
+          }
+        ],
+        "agenda": [
+          [
+            "0–10 min",
+            "Silent writing: everyone fills the problem and customer boxes alone."
+          ],
+          [
+            "10–30 min",
+            "Converge on one avatar and one problem statement. Argue until it is one sentence."
+          ],
+          [
+            "30–45 min",
+            "Landscape and point of view. The facilitator plays the incumbent."
+          ],
+          [
+            "45–60 min",
+            "Frame it for a five-year-old. Test on someone outside the room."
+          ],
+          [
+            "60–75 min",
+            "Solution, then five category names. Fake-headline test."
+          ],
+          [
+            "75–90 min",
+            "Unfair advantage, business model, category lead. Agree the first public move and who owns it."
+          ]
+        ],
+        "mistakes": [
+          "Starting with the solution and reverse-engineering a problem for it.",
+          "Naming the product instead of the problem space (“AI-powered lead scoring” is a feature, not a category).",
+          "A point of view nobody could disagree with.",
+          "Claiming a category you cannot defend: if a competitor could copy the whole canvas in a quarter, the advantage box is empty.",
+          "Announcing the category before there is any proof — a name without a benchmark is a slogan."
+        ],
+        "next": "Take the named category and the unfair advantage into the FLYWHEEL canvas to score whether the business behind it can compound, and into REWIRED if the thing holding it back is the operator rather than the strategy."
+      },
+      "seo": {
+        "title": "Category Design Canvas — free A3 download",
+        "description": "Nine boxes from a painful problem to a named category you can lead. Free watermarked A3 PDF and quick guide; clean files in the £49 pack."
+      }
+    },
+    {
+      "slug": "empathy-canvas",
+      "title": "The Empathy Canvas",
+      "short": "Empathy",
+      "subtitle": "Four rings from what they see to what they feel.",
+      "summary": "Who they are, what they need to do, their pains and gains — then four concentric rings of experience: social (what they see), physical (what they do), personal (what they think and say) and emotional (how they feel).",
+      "tags": [
+        "Research",
+        "UX",
+        "Discovery"
+      ],
+      "year": "2026",
+      "time": "45 minutes",
+      "for": "Product, UX and service teams before they design anything — and founders who have never met their customer.",
+      "layout": "rings",
+      "boxes": [
+        {
+          "id": "who",
+          "title": "who",
+          "prompts": [
+            "Who are we empathising with?",
+            "What is their situation at the moment?",
+            "What is their role in that situation?"
+          ]
+        },
+        {
+          "id": "need",
+          "title": "what do they need to do?",
+          "prompts": [
+            "What do they need to do?",
+            "What tasks do they need to get done?",
+            "What decisions do they need to make?",
+            "How will they know they were successful?"
+          ]
+        },
+        {
+          "id": "pains",
+          "title": "pains",
+          "prompts": [
+            "What are their fears, challenges and frustrations?",
+            "What pain are they trying to move away from?"
+          ]
+        },
+        {
+          "id": "gains",
+          "title": "gains",
+          "prompts": [
+            "What are their desires, wants and needs?",
+            "What gain or benefit are they trying to move towards?"
+          ]
+        }
+      ],
+      "rings": [
+        {
+          "id": "social",
+          "title": "social experience",
+          "question": "what are they seeing?",
+          "prompts": [
+            "What are they observing in their environment?",
+            "What do they see others saying or doing?",
+            "What are they watching or reading that might influence them?"
+          ]
+        },
+        {
+          "id": "physical",
+          "title": "physical experience",
+          "question": "what are they doing?",
+          "prompts": [
+            "What are they doing today about their situation?",
+            "What is their behaviour?",
+            "Follow them in your mind and expand on what they do in a day."
+          ]
+        },
+        {
+          "id": "personal",
+          "title": "personal experience",
+          "question": "what do they think and say?",
+          "prompts": [
+            "What are some of the thoughts they are having?",
+            "List a few quotes they might say, or have said, about their pains, gains or situation."
+          ]
+        },
+        {
+          "id": "emotional",
+          "title": "emotional experience",
+          "question": "how do they feel?",
+          "prompts": [
+            "How do they feel about the situation they are in?",
+            "List some of the feelings they might be experiencing."
+          ]
+        }
+      ],
+      "guide": {
+        "what": "The empathy canvas is a structured way to stand in one person's situation before you decide what to build for them. The left side establishes the facts — who they are, what they must get done, what they fear and what they want. The rings on the right move from the outside in: what the person sees around them, what they actually do, what they think and say, and finally what they feel. Working from the outside in matters. Teams that start with feelings guess; teams that start with observable behaviour earn the right to infer a feeling.",
+        "when": [
+          "Before any design or product decision that assumes you know the user.",
+          "When a team is arguing about what the customer wants and nobody has evidence.",
+          "As the first forty-five minutes of a discovery workshop, or as a synthesis tool after interviews."
+        ],
+        "steps": [
+          {
+            "box": "who",
+            "do": "Name one real person or a composite built from at least three interviews. Write their situation and their role in it.",
+            "good": "A name, a context, and a role — not a demographic.",
+            "example": "“Priya, branch manager, first Monday after a bank holiday, responsible for the week's viewings.”"
+          },
+          {
+            "box": "what do they need to do?",
+            "do": "List the tasks and decisions in their own words, then write how they would know they had succeeded.",
+            "good": "The success criterion is theirs, not yours.",
+            "example": "“Book ten viewings by Wednesday with people who will actually turn up.”"
+          },
+          {
+            "box": "pains",
+            "do": "Fears, frustrations, and the specific pain they are trying to leave behind.",
+            "good": "Concrete enough to be observed.",
+            "example": "“Wasting Monday on people who were only curious.”"
+          },
+          {
+            "box": "gains",
+            "do": "Desires, wants, needs, and the benefit they are moving towards.",
+            "good": "Distinguishable from the mere absence of pain.",
+            "example": "“A day where every call is with someone ready to move.”"
+          },
+          {
+            "box": "social experience — what are they seeing?",
+            "do": "What is in their environment, what others around them say and do, and what they read or watch that shapes them.",
+            "good": "Includes things they see but do not comment on.",
+            "example": "“Colleagues bragging about listings; a WhatsApp group full of vendor complaints.”"
+          },
+          {
+            "box": "physical experience — what are they doing?",
+            "do": "Their actual behaviour today. Follow them through a day in your mind and write it down.",
+            "good": "Verbs, in sequence, with the workarounds included.",
+            "example": "“Opens the CRM, sorts by newest, calls the top twenty, gives up after lunch.”"
+          },
+          {
+            "box": "personal experience — what do they think and say?",
+            "do": "Thoughts and real or plausible quotes about the situation.",
+            "good": "At least one quote is verbatim from research.",
+            "example": "“I know half these people won't pick up.”"
+          },
+          {
+            "box": "emotional experience — how do they feel?",
+            "do": "Only now, name the feelings — and tie each to something in the outer rings.",
+            "good": "Each feeling can be traced to an observation.",
+            "example": "“Resigned by 2pm; anxious about the Friday numbers.”"
+          }
+        ],
+        "agenda": [
+          [
+            "0–5 min",
+            "Choose the person. One, not a segment."
+          ],
+          [
+            "5–15 min",
+            "Left column, silently, then share."
+          ],
+          [
+            "15–35 min",
+            "Rings from the outside in. The facilitator refuses feelings until behaviour is on the board."
+          ],
+          [
+            "35–45 min",
+            "Read the whole canvas aloud as a story. Mark anything that is a guess for research."
+          ]
+        ],
+        "mistakes": [
+          "Starting with feelings.",
+          "Describing a segment (“SMB owners”) instead of a person.",
+          "Filling pains and gains with the product's features inverted.",
+          "Treating a plausible quote as evidence — mark guesses and go and check them.",
+          "Stopping at the canvas. The output is a list of things to validate, not a finished insight."
+        ],
+        "next": "Take the pains, gains and the ‘what they need to do’ list into the User Story Evaluation Matrix, and the whole canvas into the AI Agent Design Canvas if the thing you are building talks back."
+      },
+      "seo": {
+        "title": "Empathy Canvas — free A3 download",
+        "description": "Who they are, what they need to do, pains, gains, and four rings from what they see to how they feel. Free A3 PDF and quick guide."
+      }
+    },
+    {
+      "slug": "user-story-evaluation-matrix",
+      "title": "The User Story Evaluation Matrix",
+      "short": "User Story Matrix",
+      "subtitle": "Score every competitor against the stories your user actually has.",
+      "summary": "A grid: your user stories down the side, competitors across the top. Score how well each alternative serves each story, and the gaps become your roadmap and your positioning in one move.",
+      "tags": [
+        "Research",
+        "Competitive",
+        "Product"
+      ],
+      "year": "2026",
+      "time": "60 minutes",
+      "for": "Product managers and founders deciding what to build first, and anyone writing a competitive slide that needs to be true.",
+      "layout": "matrix",
+      "matrix": {
+        "rows": 8,
+        "cols": 4,
+        "row_label": "User story",
+        "col_label": "Competitor",
+        "scale": "0 = not served · 1 = partial · 2 = served · 3 = served exceptionally"
+      },
+      "guide": {
+        "what": "A competitive analysis that starts from the user rather than the feature list. Down the side go the user stories you learned from research — “as a [who], I need to [what] so that [why]”. Across the top go the real alternatives, including the spreadsheet and doing nothing. Each cell is scored on how well that alternative serves that story. The pattern in the grid tells you three things at once: where every competitor is strong (table stakes you must match), where they are all weak (your opening), and which stories nobody else has even noticed (your category).",
+        "when": [
+          "Before committing a roadmap, to check you are building where the gap is.",
+          "When a competitive slide is needed for investors or a board and the usual feature checklist feels dishonest.",
+          "After an empathy canvas or interview round, to turn stories into priorities."
+        ],
+        "steps": [
+          {
+            "box": "the rows — user stories",
+            "do": "Write eight to twelve stories from research, in the form: as a [who], I need to [what], so that [why]. Order them by how often they came up.",
+            "good": "Each story names an outcome, not a feature.",
+            "example": "“As a branch manager, I need to know which enquiries are ready to move so that I spend Monday on the right calls.”"
+          },
+          {
+            "box": "the columns — competitors",
+            "do": "List the real alternatives your user has today: direct competitors, indirect ones, the spreadsheet, and doing nothing.",
+            "good": "Includes at least one non-software alternative.",
+            "example": "“CRM lead scoring · a rival AI plugin · the office spreadsheet · gut feel.”"
+          },
+          {
+            "box": "the scores",
+            "do": "Score every cell 0–3 with evidence: a demo, a review, a customer interview. Colour the cells.",
+            "good": "Every 3 has a source. Unknowns are left blank, not guessed.",
+            "example": "“Rival plugin: 2 on ranking, 0 on explaining why.”"
+          },
+          {
+            "box": "reading the grid",
+            "do": "Find the columns of 3s (table stakes), the rows of 0s (nobody serves this) and the rows where scores disagree (contested).",
+            "good": "You can say in one sentence where the gap is.",
+            "example": "“Everyone ranks; nobody explains. The explanation is the product.”"
+          },
+          {
+            "box": "your column",
+            "do": "Add yourself as the last column and score honestly, today — not the roadmap.",
+            "good": "You have at least one 0 you are willing to admit.",
+            "example": "“We: 3 on explaining, 1 on integrations.”"
+          }
+        ],
+        "agenda": [
+          [
+            "0–15 min",
+            "Stories from research onto the rows. Vote to cut to twelve."
+          ],
+          [
+            "15–25 min",
+            "Agree the columns, including the non-software alternatives."
+          ],
+          [
+            "25–50 min",
+            "Score in pairs, one competitor each, with evidence."
+          ],
+          [
+            "50–60 min",
+            "Read the pattern. Write the one-sentence gap and the three stories to build first."
+          ]
+        ],
+        "mistakes": [
+          "Rows written as features (“dark mode”) instead of stories.",
+          "Leaving out ‘doing nothing’ — usually the strongest competitor.",
+          "Scoring from memory rather than evidence.",
+          "Scoring your own roadmap instead of your product today.",
+          "Treating a full grid as a finished strategy: the grid shows the gap, the canvas before it shows whether anyone cares."
+        ],
+        "next": "Take the gap rows into the Category Design Canvas (they are your problem statement) and the table-stakes rows into the UX Strategy Canvas as constraints."
+      },
+      "seo": {
+        "title": "User Story Evaluation Matrix — free download",
+        "description": "Score every competitor against your user stories and read the gap. Free watermarked A3 PDF and quick guide; clean files in the pack."
+      }
+    },
+    {
+      "slug": "ux-strategy-canvas",
+      "title": "The UX Strategy Canvas",
+      "short": "UX Strategy",
+      "subtitle": "The clever “how” between a business goal and a design team.",
+      "summary": "Seven boxes that turn a business goal into a UX strategy stakeholders will back: goal, stakeholders, user, insights and analytics, the strategy itself, guiding principles, and the tactics that deliver it.",
+      "tags": [
+        "UX",
+        "Strategy",
+        "Leadership"
+      ],
+      "year": "2026",
+      "time": "90 minutes",
+      "for": "Design leads, heads of product and anyone who has to explain what UX is going to do about a revenue number.",
+      "layout": "grid7",
+      "boxes": [
+        {
+          "id": "goal",
+          "title": "business goal",
+          "prompts": [
+            "Describe in detail what the business goal is — with its number and its deadline.",
+            "Whose goal is it, and what happens if it is missed?"
+          ]
+        },
+        {
+          "id": "stakeholders",
+          "title": "stakeholders",
+          "prompts": [
+            "Who are the key decision makers involved in this goal?",
+            "What are their needs, challenges and priorities?",
+            "The better you understand them, the better you can create a strategy that makes sense to them and gathers momentum."
+          ]
+        },
+        {
+          "id": "user",
+          "title": "who is our user?",
+          "wide": true,
+          "prompts": [
+            "What are your users' needs, challenges and pain points?",
+            "The deeper your knowledge of the target market, the more impactful the strategy will be.",
+            "What do they do today instead of what you want them to do?"
+          ]
+        },
+        {
+          "id": "insights",
+          "title": "insights, landscape and analytics",
+          "tall": true,
+          "prompts": [
+            "What insights and data have you gathered about the landscape relevant to this goal?",
+            "From these, what conclusion can you draw?",
+            "How does this change how you will deliver the business goal?"
+          ]
+        },
+        {
+          "id": "strategy",
+          "title": "UX strategy",
+          "tall": true,
+          "prompts": [
+            "This is the clever “how we will deliver on the business goal”.",
+            "Brand the strategy so it fits your audience and gets more traction with stakeholders.",
+            "One sentence a stakeholder could repeat in a board meeting."
+          ]
+        },
+        {
+          "id": "principles",
+          "title": "guiding principles",
+          "tall": true,
+          "prompts": [
+            "What principles will guide how you implement the strategy?",
+            "Are there considerations about your users, business rules, culture and ethics?",
+            "What will you refuse to do, even if it would hit the number?"
+          ]
+        },
+        {
+          "id": "tactics",
+          "title": "UX tactics",
+          "tall": true,
+          "prompts": [
+            "What tactics could you employ to support delivery of the strategy?",
+            "Brainstorm a few, then mark the two you would start on Monday.",
+            "For each: what will you measure, and when will you know?"
+          ]
+        }
+      ],
+      "guide": {
+        "what": "A UX strategy is the bridge between a business goal expressed as a number and a design team expressed as a backlog. Without it, design work is judged on taste and delivered late. The canvas insists that you understand the goal and the people who own it before you describe users, that you draw a conclusion from evidence before you write a strategy, and that the strategy is branded — given a name and a sentence — so that people outside the design team can carry it into rooms you are not in.",
+        "when": [
+          "A new business goal has landed and design has been asked ‘what are you going to do about it?’",
+          "The design team is busy but nobody can say what it is for.",
+          "Before a redesign, a platform migration or a design-system investment that needs executive backing."
+        ],
+        "steps": [
+          {
+            "box": "business goal",
+            "do": "Write the goal with its number, its deadline and its owner. Write what happens if it is missed.",
+            "good": "Somebody's job depends on it and you can name them.",
+            "example": "“Grow self-serve conversion from 3% to 5% by Q2. Owner: CRO. Miss it and the sales hiring plan is cut.”"
+          },
+          {
+            "box": "stakeholders",
+            "do": "List the decision makers, their priorities and what they are afraid of.",
+            "good": "Each has a stated priority you did not have to guess.",
+            "example": "“CRO wants pipeline; CFO wants lower CAC; Head of Support wants fewer tickets.”"
+          },
+          {
+            "box": "who is our user?",
+            "do": "Needs, challenges, pain points, and what they do today instead of the thing you want.",
+            "good": "Grounded in research, not personas from a slide.",
+            "example": "“Small-agency owners who start the trial on a phone at 10pm and abandon at the pricing page.”"
+          },
+          {
+            "box": "insights, landscape and analytics",
+            "do": "Put the evidence on the board: analytics, research, competitor moves. Then write the one conclusion.",
+            "good": "A conclusion, not a list.",
+            "example": "“70% of trial abandonment happens at pricing; competitors show price on day one. We hide it.”"
+          },
+          {
+            "box": "UX strategy",
+            "do": "Write the clever how in one sentence, then brand it with a name the stakeholders will repeat.",
+            "good": "A stakeholder can say it without notes.",
+            "example": "“‘No surprises’: show the price, the limits and the exit before we ask for a card.”"
+          },
+          {
+            "box": "guiding principles",
+            "do": "Three to five principles, including at least one thing you will refuse to do.",
+            "good": "Each principle would change a decision.",
+            "example": "“Never hide a cost behind a click. Mobile first, because that is where trials start.”"
+          },
+          {
+            "box": "UX tactics",
+            "do": "Brainstorm tactics, then pick the two to start on Monday. For each, name the metric and the date you will know.",
+            "good": "Every tactic has a measure.",
+            "example": "“Pricing page in onboarding step 2 — measure step-2 drop-off weekly.”"
+          }
+        ],
+        "agenda": [
+          [
+            "0–15 min",
+            "Goal and stakeholders, with the goal owner in the room if at all possible."
+          ],
+          [
+            "15–30 min",
+            "User: what the research says, and what we are guessing."
+          ],
+          [
+            "30–50 min",
+            "Evidence on the board. Write one conclusion."
+          ],
+          [
+            "50–65 min",
+            "Strategy sentence. Name it."
+          ],
+          [
+            "65–80 min",
+            "Principles, including the refusals."
+          ],
+          [
+            "80–90 min",
+            "Tactics, metrics, owners, dates."
+          ]
+        ],
+        "mistakes": [
+          "A goal without a number, or a number without an owner.",
+          "Listing stakeholders without their fears.",
+          "Writing the strategy before the conclusion, so the evidence gets cherry-picked to fit.",
+          "Principles that are compliments (“delightful”, “intuitive”) rather than decisions.",
+          "Tactics with no metric — they become a backlog nobody can defend."
+        ],
+        "next": "Run the Empathy Canvas on the user box if it was thin, and use the User Story Evaluation Matrix to check the tactics against what competitors already do."
+      },
+      "seo": {
+        "title": "UX Strategy Canvas — free A3 download",
+        "description": "Seven boxes from a business goal to a branded UX strategy, principles and measured tactics. Free A3 PDF and quick guide."
+      }
+    },
+    {
+      "slug": "ai-agent-design-canvas",
+      "title": "The AI Agent Design Canvas",
+      "short": "AI Agent Design",
+      "subtitle": "Design the person first. Then the agent that serves them.",
+      "summary": "The empathy canvas on the left, your agent on the right. Who the customer is, what they need, their pains and wants, their four rings of experience — then the agent's personality and tone, core tasks, specialisms, and the actions and APIs it needs.",
+      "tags": [
+        "AI",
+        "Agents",
+        "Product"
+      ],
+      "year": "2026",
+      "time": "2 hours",
+      "for": "Teams specifying a customer-facing AI agent, assistant or copilot — before the first prompt is written.",
+      "layout": "agent",
+      "boxes": [
+        {
+          "id": "who",
+          "title": "who is our customer?",
+          "prompts": [
+            "Who are we empathising with?",
+            "What is their situation at the moment?",
+            "What is their role in that situation?"
+          ]
+        },
+        {
+          "id": "need",
+          "title": "what do they need to do?",
+          "prompts": [
+            "What do they need to do?",
+            "What tasks do they need to get done?",
+            "What decisions do they need to make?",
+            "How will they know they were successful?"
+          ]
+        },
+        {
+          "id": "pains",
+          "title": "pains and frustrations",
+          "prompts": [
+            "What are their fears, challenges and frustrations?",
+            "What pain are they trying to move away from?"
+          ]
+        },
+        {
+          "id": "gains",
+          "title": "wants and needs",
+          "prompts": [
+            "What are their desires, wants and needs?",
+            "What gain or benefit are they trying to move towards?"
+          ]
+        }
+      ],
+      "rings": [
+        {
+          "id": "social",
+          "title": "social experience",
+          "question": "what are they seeing?",
+          "prompts": [
+            "What are they observing in their environment?",
+            "What do they see others saying or doing?",
+            "What are they watching or reading that might influence them?"
+          ]
+        },
+        {
+          "id": "physical",
+          "title": "physical experience",
+          "question": "what are they doing?",
+          "prompts": [
+            "What are they doing today about their situation?",
+            "What is their behaviour?",
+            "Follow them in your mind and expand on what they do in a day."
+          ]
+        },
+        {
+          "id": "personal",
+          "title": "personal experience",
+          "question": "what do they think and say?",
+          "prompts": [
+            "What are some of the thoughts they are having?",
+            "List a few quotes they might say, or have said, about their pains, gains or situation."
+          ]
+        },
+        {
+          "id": "emotional",
+          "title": "emotional experience",
+          "question": "how do they feel?",
+          "prompts": [
+            "How do they feel about the situation they are in?",
+            "List some of the feelings they might be experiencing."
+          ]
+        }
+      ],
+      "agent": [
+        {
+          "id": "personality",
+          "title": "personality and tone of voice",
+          "prompts": [
+            "What kind of personality would resonate most with this person — friendly, professional, humorous, calm?",
+            "What tone of communication do they prefer: casual, formal, empathetic?",
+            "Which human-like traits, if any, should the agent exhibit to make the user feel understood — and which would feel fake?",
+            "Are there cultural or situational contexts that should change the tone?",
+            "How can tone and personality build trust and rapport with this user?"
+          ]
+        },
+        {
+          "id": "tasks",
+          "title": "core tasks",
+          "prompts": [
+            "What are the essential tasks the agent must perform to meet the person's key objectives?",
+            "Which specific problems or frustrations from the left should the agent address first?",
+            "How can the agent go beyond solving problems to delight the user?",
+            "Are the tasks about providing information, facilitating decisions, or executing workflows?",
+            "How should the agent adapt its handling to the user's journey and emotional state?"
+          ]
+        },
+        {
+          "id": "specialisms",
+          "title": "specialisms",
+          "prompts": [
+            "What specific knowledge or expertise must the agent have to serve this person effectively?",
+            "Are there niche domains where the agent must excel — financial advice, technical troubleshooting, a regulated field?",
+            "Should it tailor responses to particular industries, demographics or cultural contexts?",
+            "How can the agent demonstrate expertise to instil confidence?",
+            "What must it refuse or hand to a human?"
+          ]
+        },
+        {
+          "id": "actions",
+          "title": "actions and APIs required",
+          "prompts": [
+            "What actions must the agent perform to meet user needs — retrieving data, initiating processes, making recommendations?",
+            "What APIs or integrations are needed to facilitate these actions?",
+            "Should it use third-party services — payment gateways, CRM tools — to complete tasks?",
+            "What real-time data is required for accurate, timely responses?",
+            "How should the agent handle failures or fallback scenarios when APIs are unavailable or actions cannot be completed?"
+          ]
+        }
+      ],
+      "context_line": true,
+      "guide": {
+        "what": "Most AI agents are specified from the model outwards: pick a model, write a system prompt, bolt on tools, then discover in testing that nobody wanted to talk to it. This canvas reverses the order. The left half is the empathy canvas — a real person, their tasks, their pains and wants, and the four rings of what they see, do, think and feel. Only when that is on the board do you move right and design the agent: the personality and tone that person would trust, the core tasks in priority order, the specialisms it must have (and the things it must refuse), and finally the actions, APIs and fallbacks that make it real. The arrow between the halves is the point of the canvas: everything on the right must be traceable to something on the left.",
+        "when": [
+          "Before writing the first system prompt for a customer-facing agent, assistant or copilot.",
+          "When an existing agent has good accuracy and poor adoption — usually a personality or task-priority problem, not a model problem.",
+          "As the shared specification between product, design and engineering, so the prompt, the UI and the integrations are built from one document."
+        ],
+        "steps": [
+          {
+            "box": "who is our customer? · what do they need to do? · pains · wants",
+            "do": "Run the left column as you would the Empathy Canvas: one person, their tasks and success criterion, what they fear and what they want.",
+            "good": "Named person, observable pains, a success criterion in their words.",
+            "example": "“Marta, parent of two, re-enrolling for the autumn term at 9pm; needs to confirm class times and pay without a phone call.”"
+          },
+          {
+            "box": "the four rings",
+            "do": "Outside in: what they see, what they do, what they think and say, how they feel. Refuse to write feelings until behaviour is down.",
+            "good": "Every feeling traces to an observation.",
+            "example": "“Sees other parents in the group chat asking the same question; scrolls a PDF timetable on a phone; thinks ‘I'll just email’; feels she is bothering someone.”"
+          },
+          {
+            "box": "context",
+            "do": "Write the single situation the agent serves. One line.",
+            "good": "Names the moment, the channel and the constraint.",
+            "example": "“Evening re-enrolment on mobile, no human available until morning.”"
+          },
+          {
+            "box": "personality and tone of voice",
+            "do": "Choose the personality this person would trust in this moment. Name the traits to show, the ones to avoid, and how tone changes with their state.",
+            "good": "You can say why each trait is there, pointing at a ring.",
+            "example": "“Warm, brief, never jokey about money; switches to plain confirmation language once she is paying.”"
+          },
+          {
+            "box": "core tasks",
+            "do": "List the tasks in the order they relieve the pains on the left. Mark each as inform, decide or execute.",
+            "good": "The first task is the biggest pain, not the easiest build.",
+            "example": "“1. Confirm class and time (inform). 2. Take payment (execute). 3. Send the calendar invite (execute).”"
+          },
+          {
+            "box": "specialisms",
+            "do": "The knowledge it must have, the domains it must excel in, how it shows expertise, and what it must refuse or hand to a human.",
+            "good": "The refusal list is as long as the expertise list.",
+            "example": "“Knows every class, level and price; never advises on a child's level — hands to a teacher.”"
+          },
+          {
+            "box": "actions and APIs required",
+            "do": "For each task: the action, the integration behind it, the real-time data it needs, and what happens when it fails.",
+            "good": "Every action has a fallback that is not ‘apologise’.",
+            "example": "“Payment via Stripe; if it fails, hold the place for 24h and send a pay link — never ask for the card again in chat.”"
+          }
+        ],
+        "agenda": [
+          [
+            "0–30 min",
+            "Left column and rings, as an Empathy Canvas. Product and design lead."
+          ],
+          [
+            "30–40 min",
+            "Write the context line. Argue until it is one situation."
+          ],
+          [
+            "40–65 min",
+            "Personality and core tasks. Read them back against the rings."
+          ],
+          [
+            "65–90 min",
+            "Specialisms and refusals. Engineering joins."
+          ],
+          [
+            "90–120 min",
+            "Actions, APIs, fallbacks. Each task gets an owner and a failure mode."
+          ]
+        ],
+        "mistakes": [
+          "Starting on the right-hand side.",
+          "A personality chosen because the team likes it rather than because the person would trust it.",
+          "Core tasks ordered by ease of build.",
+          "No refusal list — the agent that answers everything is the one that gets you in the press.",
+          "Fallbacks that are apologies rather than actions.",
+          "Treating the canvas as the prompt: it is the specification the prompt, the UI and the integrations are all built from."
+        ],
+        "next": "The completed right-hand side maps directly onto a system prompt (personality, specialisms, refusals), a task backlog (core tasks) and an integration plan (actions and APIs). If the agent will be judged on decisions rather than answers, read the LEVER method for how to measure whether it made them better."
+      },
+      "seo": {
+        "title": "AI Agent Design Canvas — free A3 download",
+        "description": "Design the person first, then the agent: empathy rings, personality, core tasks, specialisms, actions and APIs. Free A3 PDF and guide."
+      }
+    }
+  ]
+}

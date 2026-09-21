@@ -1,0 +1,165 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Empathy Canvas — free A3 download</title><link rel="stylesheet" href="/assets/fonts/fonts.css"><style>
+:root{--deep:#2A1B5E;--purple:#5B4BC4;--violet:#8A7BE8;--pop:#D9D1FF;--lilac:#F2EFFB;--coral:#F96167;--coral-ink:#B3252B;--corals:#FFEFF0;
+--ink:#1A1633;--body:#3A3560;--muted:#6E6A8A;--line:#E3E0F0;--white:#fff;--r:10px;--rs:6px;
+--sans:'Schibsted Grotesk',system-ui,sans-serif;--mono:'Martian Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:var(--body);font:16px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}@media(max-width:700px){.wrap{padding:0 16px}}
+h1,h2,h3,h4{color:var(--ink);font-weight:800;letter-spacing:-.02em;line-height:1.1}
+h1{font-size:clamp(40px,6vw,62px)}h2{font-size:clamp(28px,3.6vw,37px);margin-bottom:8px}h3{font-size:22px;margin-bottom:8px}h4{font-size:16px}
+p+p{margin-top:12px}a{color:var(--coral-ink)}strong,b{color:var(--ink)}
+em{font-style:normal;font-weight:700;color:var(--coral-ink)}
+.eyebrow{font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+section .wrap>.eyebrow:first-child:before{content:'';display:inline-block;width:22px;height:2px;background:var(--coral);vertical-align:middle;margin-right:9px}
+.dsh-nav{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:30}
+.dsh-nav .wrap{display:flex;align-items:center;gap:20px;min-height:56px}
+.dsh-nav a{color:var(--ink);text-decoration:none;font-weight:600;font-size:14px}
+.dsh-nav .lib{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.dsh-nav ul{list-style:none;display:flex;gap:18px;margin-left:auto}
+.dsh-nav .btn{background:var(--ink);color:#fff;border-radius:999px;padding:8px 14px}
+@media(max-width:700px){.dsh-nav ul li:not(:last-child){display:none}}
+.hero{background:var(--deep);color:#fff;padding:72px 0 60px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-140px;top:-140px;width:460px;height:460px;border-radius:50%;background:rgba(217,209,255,.11)}
+.hero h1{color:#fff}.hero h1 em{color:var(--pop)}.hero .eyebrow{color:var(--pop)}
+.hero .lede{font-size:19.5px;color:#D8D2F5;max-width:700px;margin-top:20px}
+.hero .tag{margin-top:26px;font-size:21px;font-weight:700;color:var(--pop)}
+.metaline{margin-top:32px;display:flex;gap:10px;flex-wrap:wrap}
+.pill{border-radius:999px;padding:7px 14px;font-family:var(--mono);font-size:10.5px;letter-spacing:.04em;background:rgba(255,255,255,.09);color:#fff;border:1px solid rgba(255,255,255,.18)}
+section{padding:62px 0;border-bottom:1px solid var(--line)}
+.sub{color:var(--muted);font-size:17px;max-width:760px;margin-bottom:30px}
+.card{background:#fff;border:1px solid var(--line);box-shadow:0 1px 2px rgba(42,27,94,.035);border-radius:var(--r);padding:26px;min-width:0}
+.card.dark{background:var(--deep);border:0;color:#D8D2F5}.card.dark h3,.card.dark h4,.card.dark b,.card.dark strong{color:#fff}.card.dark em{color:var(--coral)}.card.dark .eyebrow{color:var(--pop)}
+.card.pop{background:var(--pop);border:0}.card.pop .eyebrow{color:#3F31A8}
+.card.coral{border:2px solid var(--coral)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.grid2>*,.grid3>*,.grid4>*{min-width:0}
+@media(max-width:820px){.grid2,.grid3,.grid4{grid-template-columns:1fr 1fr}}@media(max-width:560px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.stat{padding:22px;border-radius:var(--r);background:var(--lilac)}.stat b{display:block;font-size:44px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums;margin-bottom:8px;letter-spacing:-.03em}.stat span{font-size:14px;color:var(--muted)}
+.formula{background:var(--deep);color:#fff;border-radius:var(--r);padding:34px;text-align:center}
+.formula .eq{font-size:clamp(22px,3vw,32px);color:#fff;letter-spacing:.01em;line-height:1.5;font-weight:600}
+.formula .eq b{color:var(--pop)}.formula .eq i{color:var(--coral);font-style:normal}.formula p{color:#B6AEDD;font-size:14px;margin-top:14px}
+.tblwrap{overflow-x:auto;max-width:100%}table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:560px}
+th,td{text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+ul.clean{list-style:none;display:grid;gap:8px}ul.clean li{padding-left:18px;position:relative}ul.clean li:before{content:'';position:absolute;left:0;top:.62em;width:8px;height:8px;border-radius:50%;background:var(--violet)}
+ul.gate li:before{background:var(--coral)}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:20px}@media(max-width:820px){.calc{grid-template-columns:1fr}}
+.calc label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.calc input{width:100%;font:16px var(--sans);padding:10px 12px;border:1px solid var(--line);border-radius:var(--rs);color:var(--ink);font-variant-numeric:tabular-nums}
+.calc input:focus{outline:2px solid var(--purple);outline-offset:1px}
+.out{display:grid;gap:10px}.out div{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.out div b{font-variant-numeric:tabular-nums;font-size:20px}
+.verdict{margin-top:16px;padding:16px 18px;border-radius:var(--rs);font-weight:700;font-size:15px}
+.v-yes{background:#E6F4EC;color:#1B5E3A}.v-no{background:var(--corals);color:var(--coral-ink)}.v-mid{background:#FFF5DD;color:#7A5200}
+blockquote{margin:0;font-size:clamp(20px,2.4vw,26px);font-weight:600;line-height:1.3;color:var(--ink)}blockquote:before{content:'“';color:var(--coral)}
+.who{margin-top:14px;font-size:14px;color:var(--muted)}.who b{display:block;color:var(--ink)}
+.dsh-foot{background:#1A1633;color:#C9C0F0;padding:56px 0 28px}
+.dsh-foot a{color:#fff;font-weight:600}.dsh-foot .q{font-size:22px;color:#fff;line-height:1.3;max-width:34ch;margin:0 0 20px;font-weight:600}.dsh-foot .q b{color:var(--coral)}
+.dsh-foot .row{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px;font-size:14px}.dsh-foot p{max-width:70ch}
+/* email toast */
+.etoast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(12px);z-index:60;display:flex;align-items:center;gap:10px;max-width:min(560px,calc(100vw - 32px));padding:12px 16px;border-radius:999px;background:#1A1633;color:#fff;font:500 14px/1.3 var(--sans);box-shadow:0 18px 40px -18px rgba(26,22,51,.6);opacity:0;pointer-events:none;transition:opacity .22s ease,transform .22s ease}
+.etoast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.etoast i{flex:0 0 auto;width:18px;height:18px;border-radius:50%;background:#F96167;display:inline-grid;place-items:center;font-style:normal;font-size:11px;color:#1A1633;font-weight:800}
+.etoast b{font-weight:600;white-space:nowrap}
+.etoast span{color:#C9C0F0}
+@media(prefers-reduced-motion:reduce){.etoast{transition:none}}
+@media(max-width:480px){.etoast{width:calc(100vw - 32px);border-radius:14px;align-items:flex-start;padding:12px 14px}.etoast i{margin-top:1px}.etoast b{white-space:normal;overflow-wrap:anywhere}}
+.dsh-foot .base{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8F87B8;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+
+.hero.canvas{padding:56px 0 48px}
+.hero .grid-hero{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+@media(max-width:820px){.hero .grid-hero{grid-template-columns:1fr}}
+.thumb{border-radius:10px;overflow:hidden;box-shadow:0 30px 60px -30px rgba(0,0,0,.6);background:#fff;border:1px solid rgba(255,255,255,.15)}
+.thumb img{display:block;width:100%;height:auto}
+.dl{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:12px 20px;font-weight:700;font-size:15px;text-decoration:none;border:2px solid transparent}
+.btn.primary{background:var(--coral);color:#1A1633}.btn.primary:hover{background:#ff7a7f}
+.btn.ghost{border-color:rgba(255,255,255,.35);color:#fff}.btn.ghost:hover{border-color:#fff}
+.btn.ink{background:var(--ink);color:#fff}.btn.ink:hover{background:var(--deep)}
+.btn.line{border-color:var(--line);color:var(--ink)}.btn.line:hover{border-color:var(--ink)}
+.btn small{font-weight:500;opacity:.75}
+.boxes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;counter-reset:b}
+@media(max-width:820px){.boxes{grid-template-columns:1fr 1fr}}@media(max-width:560px){.boxes{grid-template-columns:1fr}}
+.boxes .card{padding:18px 20px}.boxes .card h4{margin-bottom:6px;font-size:15px}.boxes .card p{font-size:14px;color:var(--muted)}
+.boxes .card .k{font-family:var(--mono);font-size:10px;letter-spacing:.09em;color:var(--coral-ink);margin-bottom:8px;display:block}
+.tiers{display:grid;grid-template-columns:1fr 1.15fr;gap:20px;align-items:stretch}
+@media(max-width:820px){.tiers{grid-template-columns:1fr}}
+.tier{border-radius:var(--r);padding:30px;min-width:0}
+.tier.free{background:var(--lilac)}.tier.paid{background:var(--deep);color:#D8D2F5}
+.tier h3{display:flex;justify-content:space-between;align-items:baseline;gap:12px}.tier.paid h3,.tier.paid b,.tier.paid strong{color:#fff}
+.tier .price{font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--coral-ink);white-space:nowrap}.tier.paid .price{color:var(--pop)}
+.tier ul{margin:16px 0 22px}.tier.paid ul.clean li:before{background:var(--coral)}
+.tier .fine{font-size:12.5px;color:var(--muted);margin-top:14px}.tier.paid .fine{color:#B6AEDD}
+.canvas-list{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media(max-width:700px){.canvas-list{grid-template-columns:1fr}}
+.canvas-list a.card{text-decoration:none;color:inherit;display:block;padding:0;overflow:hidden}
+.canvas-list a.card img{display:block;width:100%;height:auto;border-bottom:1px solid var(--line)}
+.canvas-list a.card .in{padding:20px 22px}.canvas-list a.card h3{font-size:19px;margin-bottom:6px}.canvas-list a.card p{font-size:14.5px;color:var(--muted)}
+.canvas-list a.card:hover{border-color:var(--purple)}
+.steps-mini{display:grid;gap:0}.steps-mini div{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:12px 0;border-top:1px solid var(--line);font-size:15px}
+.steps-mini div span:first-child{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--coral-ink);padding-top:3px}
+.faq details{border-top:1px solid var(--line);padding:14px 0}.faq summary{cursor:pointer;font-weight:700;color:var(--ink);list-style:none;display:flex;justify-content:space-between}.faq summary:after{content:'+';color:var(--purple)}.faq details[open] summary:after{content:'–'}.faq p{margin-top:8px;font-size:15px}
+</style><!--dsh:head-->
+<meta name="description" content="Who they are, what they need to do, pains, gains, and four rings from what they see to how they feel. Free A3 PDF and quick guide.">
+<link rel="canonical" href="https://frameworks.dianasimpsonhernandez.com/canvas/empathy-canvas/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="Diana Simpson-Hernandez">
+<meta property="og:type" content="article"><meta property="og:site_name" content="Open Frameworks · Diana Simpson-Hernandez"><meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://frameworks.dianasimpsonhernandez.com/canvas/empathy-canvas/"><meta property="og:title" content="Empathy Canvas — free A3 download"><meta property="og:description" content="Who they are, what they need to do, pains, gains, and four rings from what they see to how they feel. Free A3 PDF and quick guide.">
+<meta property="og:image" content="https://frameworks.dianasimpsonhernandez.com/assets/preview-canvas-empathy-canvas.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Empathy Canvas — free A3 download">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Empathy Canvas — free A3 download"><meta name="twitter:description" content="Who they are, what they need to do, pains, gains, and four rings from what they see to how they feel. Free A3 PDF and quick guide."><meta name="twitter:image" content="https://frameworks.dianasimpsonhernandez.com/assets/preview-canvas-empathy-canvas.png">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+<link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="a98055b4-17b2-4091-b09e-3b3b5b34b4ad"></script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "The Empathy Canvas", "headline": "Empathy Canvas — free A3 download", "description": "Who they are, what they need to do, pains, gains, and four rings from what they see to how they feel. Free A3 PDF and quick guide.", "url": "https://frameworks.dianasimpsonhernandez.com/canvas/empathy-canvas/", "author": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "publisher": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "inLanguage": "en", "isAccessibleForFree": true, "dateModified": "2026-09-21", "learningResourceType": "canvas", "offers": [{"@type": "Offer", "price": "0", "priceCurrency": "GBP", "url": "https://frameworks.dianasimpsonhernandez.com/canvas/empathy-canvas/", "name": "Free edition (watermarked)"}, {"@type": "Offer", "price": "49", "priceCurrency": "GBP", "url": "https://frameworks.dianasimpsonhernandez.com/canvas/#pack", "name": "The DSH Canvas Pack"}]}</script>
+
+<!--dsh:/head-->
+</head><body><nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· Empathy</span><ul><li><a href="/">Library</a></li><li><a href="/canvas/">Canvases</a></li><li><a href="https://dianasimpsonhernandez.com/learn/">Learn</a></li><li><a href="https://dianasimpsonhernandez.com/">Main site</a></li><li><a class="btn" data-umami-event="cta_click" data-umami-event-kind="canvas-pack" data-umami-event-position="canvas-nav" href="/canvas/#pack">Canvas Pack £49 →</a></li></ul></div></nav>
+<div class="hero canvas"><div class="wrap"><div class="grid-hero"><div>
+<div class="eyebrow">DSH canvas · Empathy · v1 · 2026 · 45 minutes</div>
+<h1>The Empathy Canvas</h1>
+<p class="lede">Four rings from what they see to what they feel. Who they are, what they need to do, their pains and gains — then four concentric rings of experience: social (what they see), physical (what they do), personal (what they think and say) and emotional (how they feel).</p>
+<div class="dl"><a class="btn primary" data-umami-event="canvas_download" data-umami-event-canvas="empathy-canvas" data-umami-event-file="canvas" data-umami-event-position="hero" href="/canvas/empathy-canvas/empathy-canvas-canvas.pdf" download>Download free (A3 PDF)</a>
+<a class="btn ghost" data-umami-event="cta_click" data-umami-event-kind="canvas-pack" data-umami-event-position="hero" data-umami-event-canvas="empathy-canvas" href="#pack">Get the clean version + full guide · £49</a></div>
+<div class="metaline"><span class="pill">Research</span><span class="pill">UX</span><span class="pill">Discovery</span><span class="pill">Free · watermarked</span><span class="pill">Pack · clean + 4K PNG</span></div>
+</div><div class="thumb"><img src="/assets/canvas-empathy-canvas-thumb.png" alt="The Empathy Canvas — preview" width="1400" height="990"></div></div></div></div>
+
+<section><div class="wrap"><div class="grid2">
+<div><div class="eyebrow">What it does</div><h2>Why this canvas exists</h2><p class="sub" style="margin-bottom:0">The empathy canvas is a structured way to stand in one person&#x27;s situation before you decide what to build for them. The left side establishes the facts — who they are, what they must get done, what they fear and what they want. The rings on the right move from the outside in: what the person sees around them, what they actually do, what they think and say, and finally what they feel. Working from the outside in matters. Teams that start with feelings guess; teams that start with observable behaviour earn the right to infer a feeling.</p></div>
+<div class="card"><div class="eyebrow">Reach for it when</div><ul class="clean" style="margin-top:12px"><li>Before any design or product decision that assumes you know the user.</li><li>When a team is arguing about what the customer wants and nobody has evidence.</li><li>As the first forty-five minutes of a discovery workshop, or as a synthesis tool after interviews.</li></ul><p style="margin-top:18px;font-size:14px;color:var(--muted)"><b>Built for:</b> Product, UX and service teams before they design anything — and founders who have never met their customer.</p></div>
+</div></div></section>
+
+<section><div class="wrap"><div class="eyebrow">On the canvas</div><h2>What you fill in</h2><p class="sub">Work the boxes in the numbered order. The order is the method.</p><div class="boxes"><div class="card"><span class="k">01</span><h4>who</h4><p>Who are we empathising with?</p></div><div class="card"><span class="k">02</span><h4>what do they need to do?</h4><p>What do they need to do?</p></div><div class="card"><span class="k">03</span><h4>pains</h4><p>What are their fears, challenges and frustrations?</p></div><div class="card"><span class="k">04</span><h4>gains</h4><p>What are their desires, wants and needs?</p></div><div class="card"><span class="k">05</span><h4>social experience — what are they seeing?</h4><p>What are they observing in their environment?</p></div><div class="card"><span class="k">06</span><h4>physical experience — what are they doing?</h4><p>What are they doing today about their situation?</p></div><div class="card"><span class="k">07</span><h4>personal experience — what do they think and say?</h4><p>What are some of the thoughts they are having?</p></div><div class="card"><span class="k">08</span><h4>emotional experience — how do they feel?</h4><p>How do they feel about the situation they are in?</p></div></div></div></section>
+
+<section id="download"><div class="wrap"><div class="eyebrow">Get it</div><h2>Free edition, or the pack</h2><p class="sub">The free edition is the whole canvas — nothing held back except the watermark. The pack is for people who will run it more than once and want it clean, in Miro, with the full guide.</p>
+<div class="tiers"><div class="tier free"><div class="eyebrow">Free edition</div><h3>Download and run it today<span class="price">£0</span></h3><p>The full canvas at A3 with every prompt, and a two-page quick guide. Watermarked with the DSH mark, otherwise complete.</p><ul class="clean"><li>The Empathy Canvas — A3 PDF, watermarked</li><li>Quick guide — what it is, when to use it, the box-by-box short version</li><li>No email required</li></ul><div class="dl"><a class="btn ink" data-umami-event="canvas_download" data-umami-event-canvas="empathy-canvas" data-umami-event-file="canvas" href="/canvas/empathy-canvas/empathy-canvas-canvas.pdf" download>Download the canvas (PDF)</a><a class="btn line" data-umami-event="canvas_download" data-umami-event-canvas="empathy-canvas" data-umami-event-file="quick-guide" href="/canvas/empathy-canvas/empathy-canvas-quick-guide.pdf" download>Quick guide (PDF)</a></div><p class="fine">Print at A3 landscape. Or open the PDF in Miro / FigJam as a board background.</p></div><div class="tier paid" id="pack"><div class="eyebrow">The paid pack</div><h3>The DSH Canvas Pack<span class="price">£49 · one-off</span></h3><p>All five canvases, clean and print-ready, with the full walkthrough guides. Buy once, use it in every workshop you ever run.</p><ul class="clean"><li>All five canvases as clean, print-ready A3 PDFs — no watermark</li><li>4K PNG of each canvas for Miro, FigJam, Figma and Notion</li><li>The full walkthrough guide for each canvas: box-by-box prompts, a worked example, a facilitation agenda and the mistakes to avoid</li><li>Free updates when a canvas gets a new version</li></ul><a class="btn primary" data-umami-event="cta_click" data-umami-event-kind="canvas-pack" data-umami-event-position="landing" data-umami-event-canvas="empathy-canvas" href="https://dsh.lemonsqueezy.com/buy/REPLACE-WITH-PRODUCT-ID" target="_blank" rel="noopener">Buy the Canvas Pack — £49 →</a><p class="fine">Secure checkout by Lemon Squeezy. Instant download. VAT handled at checkout. Single-team licence — run it on your company and your clients, don't resell it.</p></div></div></div></section>
+
+<section><div class="wrap"><div class="grid2">
+<div><div class="eyebrow">Box by box</div><h2>The short version</h2><p class="sub">The full guide in the pack adds what good looks like for each box, a worked example, the agenda and the mistakes.</p><div class="steps-mini"><div><span>01</span><span><b>who</b> — Name one real person or a composite built from at least three interviews. Write their situation and their role in it.</span></div><div><span>02</span><span><b>what do they need to do?</b> — List the tasks and decisions in their own words, then write how they would know they had succeeded.</span></div><div><span>03</span><span><b>pains</b> — Fears, frustrations, and the specific pain they are trying to leave behind.</span></div><div><span>04</span><span><b>gains</b> — Desires, wants, needs, and the benefit they are moving towards.</span></div><div><span>05</span><span><b>social experience — what are they seeing?</b> — What is in their environment, what others around them say and do, and what they read or watch that shapes them.</span></div><div><span>06</span><span><b>physical experience — what are they doing?</b> — Their actual behaviour today. Follow them through a day in your mind and write it down.</span></div><div><span>07</span><span><b>personal experience — what do they think and say?</b> — Thoughts and real or plausible quotes about the situation.</span></div><div><span>08</span><span><b>emotional experience — how do they feel?</b> — Only now, name the feelings — and tie each to something in the outer rings.</span></div></div></div>
+<div><div class="eyebrow">What next</div><h2>After the canvas</h2><p class="sub">Take the pains, gains and the ‘what they need to do’ list into the User Story Evaluation Matrix, and the whole canvas into the AI Agent Design Canvas if the thing you are building talks back.</p>
+<div class="faq"><details><summary>Can I use this with clients?</summary><p>Yes — both editions. Run it in your workshops, your company and your client work. The one thing you can't do is resell the files or upload them to template marketplaces.</p></details>
+<details><summary>What does the watermark look like?</summary><p>A light tiled DSH mark and the site address across the sheet. Prompts, boxes and layout are identical to the pack version. The preview above is the free edition.</p></details>
+<details><summary>Miro or FigJam?</summary><p>The pack includes a 4K PNG of each canvas. Drop it on a board, lock it, and put sticky notes on top.</p></details>
+<details><summary>Do I get updates?</summary><p>Pack buyers get every new version of every canvas by email. The free edition is always the current version on this page.</p></details></div></div>
+</div></div></section>
+
+<section><div class="wrap"><div class="eyebrow">The collection</div><h2>The other canvases</h2><div class="canvas-list"><a class="card" data-umami-event="framework_open" data-umami-event-framework="canvas-category-design-canvas" href="/canvas/category-design-canvas/"><img src="/assets/canvas-category-design-canvas-thumb.png" alt="The Category Design Canvas" loading="lazy" width="1400" height="990"><div class="in"><h3>The Category Design Canvas</h3><p>Stop competing in someone else&#x27;s category. Name your own.</p></div></a><a class="card" data-umami-event="framework_open" data-umami-event-framework="canvas-user-story-evaluation-matrix" href="/canvas/user-story-evaluation-matrix/"><img src="/assets/canvas-user-story-evaluation-matrix-thumb.png" alt="The User Story Evaluation Matrix" loading="lazy" width="1400" height="990"><div class="in"><h3>The User Story Evaluation Matrix</h3><p>Score every competitor against the stories your user actually has.</p></div></a><a class="card" data-umami-event="framework_open" data-umami-event-framework="canvas-ux-strategy-canvas" href="/canvas/ux-strategy-canvas/"><img src="/assets/canvas-ux-strategy-canvas-thumb.png" alt="The UX Strategy Canvas" loading="lazy" width="1400" height="990"><div class="in"><h3>The UX Strategy Canvas</h3><p>The clever “how” between a business goal and a design team.</p></div></a><a class="card" data-umami-event="framework_open" data-umami-event-framework="canvas-ai-agent-design-canvas" href="/canvas/ai-agent-design-canvas/"><img src="/assets/canvas-ai-agent-design-canvas-thumb.png" alt="The AI Agent Design Canvas" loading="lazy" width="1400" height="990"><div class="in"><h3>The AI Agent Design Canvas</h3><p>Design the person first. Then the agent that serves them.</p></div></a></div></div></section>
+<footer class="dsh-foot"><div class="wrap"><div class="eyebrow" style="color:#D9D1FF">Use it, then tell me</div><p class="q">“Which box did the room <b>argue about</b>? That is the one that was <b>worth the session</b>.”</p><p>Every canvas here is free to run in your company and your workshops. If you run one and something in it doesn't work, <a data-umami-event="email_click" data-umami-event-position="canvas-footer" href="mailto:dianasimpsonhernandez@gmail.com?subject=Canvas%20feedback">email me</a> — the next version is built from that.</p><div class="row"><a href="/canvas/">All five canvases →</a><a href="/">Every framework →</a><a data-umami-event="cta_click" data-umami-event-kind="work-with-me" data-umami-event-position="canvas-footer" href="https://dianasimpsonhernandez.com/work-with-me/">Work with me →</a></div><div class="base"><span>The Empathy Canvas · v1 · 2026</span><span>Free to use. Not free to resell.</span></div></div></footer><script>
+(function(){
+  var toast;
+  function say(addr,copied){
+    if(!toast){toast=document.createElement('div');toast.className='etoast';toast.setAttribute('role','status');toast.setAttribute('aria-live','polite');document.body.appendChild(toast);}
+    toast.innerHTML='<i>✓</i><div><b>'+addr+'</b> <span>'+(copied?'copied — opening your email app':'— opening your email app')+'</span></div>';
+    toast.classList.add('on'); clearTimeout(toast._t); toast._t=setTimeout(function(){toast.classList.remove('on')},3800);
+  }
+  document.querySelectorAll('a[href^="mailto:"]').forEach(function(a){
+    a.addEventListener('click',function(){
+      var addr=a.getAttribute('href').slice(7).split('?')[0];
+      var p=navigator.clipboard&&window.isSecureContext?navigator.clipboard.writeText(addr):Promise.reject();
+      p.then(function(){say(addr,true)},function(){say(addr,false)});
+    });
+  });
+})();
+</script></body></html>

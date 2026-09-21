@@ -30,10 +30,14 @@ META = {
     "frequency-studio": {"title": "Frequency Studio — an interactive tone generator", "description": "Generate, layer and export frequencies in the browser. Companion to the Frequency Menu."},
     "flywheel": {"extra_css": "@media(max-width:700px){.grid>*{min-width:0}#dimensions{max-width:100%}}"},
     "rediscovery-canvas": {"extra_css": "@media(max-width:700px){.progress{margin-left:0;margin-right:0}.log-row{flex-wrap:wrap}.log-row input{max-width:100%;min-width:0}}"},
+    "canvas": {"title": "DSH Canvases — five strategy canvases, free to download", "description": "Category Design, Empathy, User Story Matrix, UX Strategy and AI Agent Design canvases. Free A3 PDFs and quick guides; £49 pack adds clean files.", "type": "website", "name": "DSH Canvases"},
     "launcher": {"title": "Framework Launcher", "description": "Quick launcher for every DSH framework.", "noindex": True},
     "read-the-lead": {"title": "Read the Lead — a quick game for estate agents", "description": "Label the lead: a two-minute game on reading buyer intent, built on synthetic data.", "noindex": True},
     "STFC_faq": {"title": "Aletheai × STFC — technical FAQ", "description": "Technical FAQ for the Aletheai STFC application.", "noindex": True},
 }
+
+def pname(slug):  # preview/OG file stem for a page slug ("canvas/x" -> "canvas-x")
+    return "library" if slug == "index" else slug.replace("/", "-")
 
 def load_frameworks():
     with open(os.path.join(ROOT, "data", "frameworks.json"), encoding="utf-8") as f:
@@ -41,7 +45,7 @@ def load_frameworks():
 
 def page_meta(slug: str, fw: dict | None):
     if fw:
-        return {"title": f"{fw['title']} — {fw['subtitle']}", "description": fw["summary"], "type": "article",
+        return {"title": fw.get("seo_title") or f"{fw['title']} — {fw['subtitle']}", "description": fw.get("description") or fw["summary"], "type": "article",
                 "noindex": False, "category": fw["category"], "name": fw["title"], "extra_css": META.get(slug, {}).get("extra_css", "")}
     m = dict(META.get(slug, {"title": slug, "description": ""}))
     m.setdefault("type", "article"); m.setdefault("noindex", False); m.setdefault("name", m["title"].split(" — ")[0])
@@ -55,6 +59,10 @@ def jsonld(slug, m, url):
     kind = {"Course": "Course", "Case Study": "Article", "Method": "TechArticle"}.get(m.get("category", ""), "CreativeWork")
     d = {"@context": "https://schema.org", "@type": kind, "name": m["name"], "headline": m["title"], "description": m["description"], "url": url,
          "author": person, "publisher": person, "inLanguage": "en", "isAccessibleForFree": True, "dateModified": TODAY}
+    if m.get("category") == "Canvas" and slug.startswith("canvas/"):
+        d["@type"] = "CreativeWork"; d["learningResourceType"] = "canvas"
+        d["offers"] = [{"@type": "Offer", "price": "0", "priceCurrency": "GBP", "url": url, "name": "Free edition (watermarked)"},
+                       {"@type": "Offer", "price": "49", "priceCurrency": "GBP", "url": DOMAIN + "/canvas/#pack", "name": "The DSH Canvas Pack"}]
     if kind == "Course":
         d["provider"] = person; d["offers"] = {"@type": "Offer", "price": "0", "priceCurrency": "GBP", "availability": "https://schema.org/InStock", "url": url}
         d["hasCourseInstance"] = [{"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT8H"}]
@@ -63,7 +71,7 @@ def jsonld(slug, m, url):
 def head_block(slug, m, has_preview):
     path = "/" if slug == "index" else f"/{slug}/"
     url = DOMAIN + path
-    og = f"{DOMAIN}/assets/preview-{'library' if slug=='index' else slug}.png" if has_preview else f"{DOMAIN}/assets/preview-library.png"
+    og = f"{DOMAIN}/assets/preview-{pname(slug)}.png" if has_preview else f"{DOMAIN}/assets/preview-library.png"
     robots = '<meta name="robots" content="noindex,follow">' if m.get("noindex") else '<meta name="robots" content="index,follow,max-image-preview:large">'
     t = H.escape(m["title"]); d = H.escape(m["description"])
     return f"""<!--dsh:head-->
@@ -107,8 +115,13 @@ def all_pages():
     out = [("index", os.path.join(ROOT, "index.html"), None)]
     for d in sorted(os.listdir(ROOT)):
         p = os.path.join(ROOT, d, "index.html")
-        if os.path.isfile(p) and d not in ("assets", "data", "styles", "pages", "og"):
+        if os.path.isfile(p) and d not in ("assets", "data", "styles", "pages", "og", "canvases"):
             out.append((d, p, fws.get(d)))
+    cdir = os.path.join(ROOT, "canvas")
+    if os.path.isdir(cdir):
+        for d in sorted(os.listdir(cdir)):
+            p = os.path.join(cdir, d, "index.html")
+            if os.path.isfile(p): out.append((f"canvas/{d}", p, fws.get(f"canvas/{d}")))
     return out
 
 def build_404():
@@ -150,7 +163,7 @@ def build_og(pages, force=False):
     with sync_playwright() as pw:
         b = pw.chromium.launch(); pg = b.new_page(viewport={"width": 1200, "height": 630})
         for slug, path, fw in pages:
-            out = os.path.join(ROOT, "assets", f"preview-{'library' if slug=='index' else slug}.png")
+            out = os.path.join(ROOT, "assets", f"preview-{pname(slug)}.png")
             if os.path.exists(out) and not force: continue
             m = page_meta(slug, fw)
             if m.get("noindex"): continue
@@ -168,6 +181,6 @@ if __name__ == "__main__":
     print("injecting head + analytics")
     for slug, path, fw in pages:
         m = page_meta(slug, fw)
-        prev = os.path.exists(os.path.join(ROOT, "assets", f"preview-{'library' if slug=='index' else slug}.png"))
+        prev = os.path.exists(os.path.join(ROOT, "assets", f"preview-{pname(slug)}.png"))
         n = inject(path, slug, m, prev); print(f"  ✓ {slug:28} {n//1024:3} KB  preview={'y' if prev else '-'}  {'noindex' if m.get('noindex') else ''}")
     build_404(); build_sitemap(pages); print("  ✓ 404.html, sitemap.xml, robots.txt\ndone")
