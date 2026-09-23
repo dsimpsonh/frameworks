@@ -70,9 +70,69 @@ def footer(this, other, other_slug, other_line):
 </div></footer>
 """
 
-def port(src, slug, this, other, other_slug, other_line, dark_selectors, fee_from=None, fee_to=None):
+
+# ── public-facing cleanup ────────────────────────────────────────────────────
+# The recovered sources were written as Diana's own operating notes. Everything here removes or rewrites
+# material addressed to her (targeting, IP strategy, pricing tactics, roadmap) so the page reads for a client.
+def public_cleanup(s, drop_headings, trim_after_tiers, subs):
+    def keep(sec):
+        body = re.sub(r"<[^>]+>", " ", sec); body = re.sub(r"\s+", " ", body)
+        return not any(h in body for h in drop_headings)
+    parts = re.split(r"(<section[^>]*>.*?</section>)", s, flags=re.S)
+    out = []
+    for part in parts:
+        if part.startswith("<section"):
+            if not keep(part): continue
+            if trim_after_tiers and 'class="tiers"' in part:
+                part = re.sub(r'<div class="grid2"[^>]*>.*?(</div>\s*</section>)', r"\1", part, flags=re.S)
+        out.append(part)
+    s = "".join(out)
+    for a, b in subs:   # whitespace-insensitive match, so line breaks in the source don't matter
+        rx = re.compile(r"\s+".join(re.escape(t) for t in a.split()))
+        s, n = rx.subn(lambda m: b, s)
+        assert n, f"cleanup substitution not found: {a[:70]}"
+    return s
+
+LEVER_DROP = ["What changed in v3", "Sector strategy", "IP and disclosure guards", "What we build next"]
+LEVER_SUBS = [
+    ("The market gap this exploits", "The market gap"),
+    ("You are not selling adoption. You are selling <em>provable attribution</em> to people who have already spent the money and cannot show the board a result.", "This is not about adoption. It is about <em>provable attribution</em> — for people who have already spent the money and cannot yet show the board a result."),
+    ("The other 62% is your entire addressable market.", "The other 62% is where LEVER works."),
+    ("Say this out loud in the kickoff. It kills the client's pet projects diplomatically, kills your own scope creep, and means the final readout is structurally incapable of drifting from what the board asked for.", "Said out loud at kickoff, it rules out pet projects diplomatically, prevents scope creep, and means the final readout is structurally incapable of drifting from what the board asked for."),
+    ("This is the honest recommendation that wins the follow-on.", "This is the honest recommendation."),
+    ("That turns the model from your spreadsheet into their number — and makes the build fee unarguable.", "That turns the model from a consultant's spreadsheet into the client's own number."),
+    ("and let the client argue you into their own business case.", "and let the room build its own business case."),
+    ("and it is the single hardest thing for a competitor to copy, because it requires the blueprint to exist first.", "and it only works because the blueprint exists first."),
+    ("single-tenant, your reusable app shell re-skinned", "single-tenant, in the client's environment"),
+    ("<b>The rule that protects your margin:</b> the baseline always ships first. Roughly a third of the time the honest answer is \"you didn't need ML for this one\" — the most trust-building sentence available to you, and the reason the diagnostic must be priced to stand alone.", "<b>The rule:</b> the baseline always ships first. Roughly a third of the time the honest answer is \"you didn't need ML for this one\" — which is why the diagnostic is priced to stand alone."),
+    ("the artefact that makes tool #2 a conversation rather than a pitch, and lets you raise your Diagnostic price.", "the artefact that makes tool #2 a conversation rather than a pitch."),
+    ("Commercials · revised", "Commercials"),
+    ("Illustrative revenue is a capacity model, not a forecast.", ""),
+]
+RECALL_DROP = ["IP guards", "What I took, and what I left", "What we build next"]
+RECALL_SUBS = [
+    ("One routing question decides which you sell.", "One routing question decides which applies."),
+    ("The answer tells you which method to sell, and asking it out loud makes you sound like someone who has done this before — because most sellers only have one product and will bend the client's problem to fit it.", "The answer decides which method applies. Most sellers have one product and bend the problem to fit it; the question exists so that does not happen here."),
+    ("and it is the reason your   build quote is safe when everyone else's is a guess.", "and it is the reason the   build quote is safe when everyone else's is a guess."),
+    ("<b>This is the   sellable artefact.</b>", "<b>This is the   artefact the client keeps.</b>"),
+    ("say so and bill for finding out.", "say so."),
+    ("Several clients will buy the remediation and postpone the system — and that is a good outcome, not a lost sale.", "Some clients remediate and postpone the system — and that is a good outcome."),
+    ("The two sentences that win the room", "Two sentences from the first meeting"),
+    ("Nobody selling a RAG build says this. It costs you scope and buys you the entire engagement.", "Nobody selling a RAG build says this."),
+    ("If the client insists, this is where your professional-indemnity conversation starts.", "If a client insists, this is a professional-indemnity conversation, not a build."),
+    ("H is what stops you selling that system.", "H is what stops that system being built."),
+    ("which is the entire argument for selling remediation first.", "which is the entire argument for remediation first."),
+    ("Sell a corpus remediation project", "Run a corpus remediation project"),
+    ("This is the honest recommendation that wins the follow-on, and it is a real revenue line, not a delay.", "This is the honest recommendation, and it is real work, not a delay."),
+    ("This gate alone will save you one doomed build a year.", "This gate alone saves one doomed build a year."),
+    ("The scope shrinks, the fee shrinks, and you keep your professional indemnity and your reputation.", "The scope shrinks, the fee shrinks, and the answer stays defensible."),
+    ("Sells on its own merits", "Stands on its own merits"),
+]
+
+def port(src, slug, this, other, other_slug, other_line, dark_selectors, fee_from=None, fee_to=None, drop=(), subs=()):
     s = open(src, encoding="utf-8").read()
     s = s[s.find("<!DOCTYPE"):] if "<!DOCTYPE" in s else s          # drop anything before the doctype
+    s = public_cleanup(s, drop, True, subs)
     s = re.sub(r'<link[^>]+fonts\.g(?:oogleapis|static)\.com[^>]*>\s*', "", s)
     s = s.replace("<head>", f"<head>\n{FONT_LINK}", 1)
     # fonts
@@ -102,7 +162,7 @@ if __name__ == "__main__":
     lever_src, recall_src = sys.argv[1], sys.argv[2]
     port(lever_src, "lever", "LEVER", "RECALL", "recall", "for when the problem is that people can't find or trust what the company already knows.",
          dark_selectors=[".hero em", ".hero .eyebrow", ".dsh-foot b", ".formula .eq i", ".term[style*='--navy'] em", ".term[style*='--deep'] em"],
-         fee_from="Diagnostic £28–35k · Build £45–95k", fee_to="Diagnostic £32,000 · Build from £45,000")
+         fee_from="Diagnostic £28–35k · Build £45–95k", fee_to="Diagnostic £32,000 · Build from £45,000", drop=LEVER_DROP, subs=LEVER_SUBS)
     port(recall_src, "recall", "RECALL", "LEVER", "lever", "for when the problem is that a recurring decision keeps being made badly.",
          dark_selectors=[".hero em", ".hero .eyebrow", ".dsh-foot b", ".formula .eq i", ".term[style*='--navy'] em", ".term[style*='--deep'] em"],
-         fee_from="Diagnostic £34k · Build £55–120k", fee_to="Diagnostic £34,000 · Build from £55,000")
+         fee_from="Diagnostic £34k · Build £55–120k", fee_to="Diagnostic £34,000 · Build from £55,000", drop=RECALL_DROP, subs=RECALL_SUBS)
