@@ -93,8 +93,27 @@ def public_cleanup(s, drop_headings, trim_after_tiers, subs):
         assert n, f"cleanup substitution not found: {a[:70]}"
     return s
 
+
+def strip_pricing(s):
+    """Public pages carry no fees: remove price tags, ranges, %-of-value fees, credits and the fee line under the calculator."""
+    n0 = len(s)
+    s = re.sub(r'\s*<div class="price">.*?</div>', "", s, flags=re.S)                                  # tier price tags
+    s = re.sub(r'<div class="len">([^<]*?)\s*·\s*(?:range\s*)?£[^<]*</div>', r'<div class="len">\1</div>', s)  # "4 weeks · range £28,000–38,000" → "4 weeks"
+    s = re.sub(r'<div class="len">12-month[^<]*</div>', '<div class="len">12-month</div>', s)
+    s = re.sub(r'\s*<li><b>(?:Priced at )?\d+–\d+% of [AL]£</b>, floor £\d+k</li>', "", s)              # %-of-value fee bullets
+    s = re.sub(r'\s*<li>(?:Credited in full against the Diagnostic(?: within 30 days)?|50% credited against a Build(?: signed within 30 days)?)</li>', "", s)
+    s = re.sub(r'\s*<p class="sm" id="oPrice">.*?</p>', "", s, flags=re.S)                             # calculator fee line
+    s = re.sub(r"\s*document\.getElementById\('oPrice'\)\.innerHTML=[^\n]*\n", "\n", s)                  # …and its JS
+    s = s.replace("<h2>The pricing ladder</h2>", "<h2>The engagement ladder</h2>")
+    s = s.replace("Tier 1+ · New SKU", "Tier 1+ · Programme").replace("Tier 1.5 · new SKU", "Tier 1.5 · Remediation")
+    s = re.sub(r'<div class="eyebrow">Commercials(?: · revised)?</div>', '<div class="eyebrow">Engagements</div>', s)
+    assert len(s) < n0 and "oPrice" not in s and 'class="price"' not in s
+    return s
+
 LEVER_DROP = ["What changed in v3", "Sector strategy", "IP and disclosure guards", "What we build next"]
 LEVER_SUBS = [
+    ("The diagnostic gained a signed Goal Ladder,", "The diagnostic delivers a signed Goal Ladder,"),
+    ("That is a materially different product from v1's decision audit, and it prices at the top of the boutique band.", "Each tier is scoped so the client can stop after any one of them with something signed and usable."),
     ("The market gap this exploits", "The market gap"),
     ("You are not selling adoption. You are selling <em>provable attribution</em> to people who have already spent the money and cannot show the board a result.", "This is not about adoption. It is about <em>provable attribution</em> — for people who have already spent the money and cannot yet show the board a result."),
     ("The other 62% is your entire addressable market.", "The other 62% is where LEVER works."),
@@ -111,6 +130,7 @@ LEVER_SUBS = [
 ]
 RECALL_DROP = ["IP guards", "What I took, and what I left", "What we build next"]
 RECALL_SUBS = [
+    ("Benchmarked against published 2026 build data — production RAG $40–80k, on-premises enterprise $80–150k+, run £1–3k/month rising to £2–8k on-premises — and against the UK consulting rates behind LEVER. Remediation is a separate SKU because it is separate work, and because pricing it separately is what keeps the build quote honest.", "Remediation is a separate engagement because it is separate work — and keeping it separate is what keeps the build scope honest."),
     ("One routing question decides which you sell.", "One routing question decides which applies."),
     ("The answer tells you which method to sell, and asking it out loud makes you sound like someone who has done this before — because most sellers only have one product and will bend the client's problem to fit it.", "The answer decides which method applies. Most sellers have one product and bend the problem to fit it; the question exists so that does not happen here."),
     ("and it is the reason your   build quote is safe when everyone else's is a guess.", "and it is the reason the   build quote is safe when everyone else's is a guess."),
@@ -147,6 +167,7 @@ def port(src, slug, this, other, other_slug, other_line, dark_selectors, fee_fro
     dark = "".join(f"{sel}{{color:var(--coral)}}" for sel in dark_selectors)
     # fee pill normalisation
     if fee_from: s = s.replace(fee_from, fee_to)
+    s = strip_pricing(s)
     # chrome css + nav + footer
     s = s.replace("</style>", CHROME_CSS + dark + "\n</style>", 1)
     s = re.sub(r"<body>\s*", "<body>\n" + nav(this), s, count=1)
@@ -162,7 +183,7 @@ if __name__ == "__main__":
     lever_src, recall_src = sys.argv[1], sys.argv[2]
     port(lever_src, "lever", "LEVER", "RECALL", "recall", "for when the problem is that people can't find or trust what the company already knows.",
          dark_selectors=[".hero em", ".hero .eyebrow", ".dsh-foot b", ".formula .eq i", ".term[style*='--navy'] em", ".term[style*='--deep'] em"],
-         fee_from="Diagnostic £28–35k · Build £45–95k", fee_to="Diagnostic £32,000 · Build from £45,000", drop=LEVER_DROP, subs=LEVER_SUBS)
+         fee_from="Diagnostic £28–35k · Build £45–95k", fee_to="Scan · Diagnostic · Build · Programme", drop=LEVER_DROP, subs=LEVER_SUBS)
     port(recall_src, "recall", "RECALL", "LEVER", "lever", "for when the problem is that a recurring decision keeps being made badly.",
          dark_selectors=[".hero em", ".hero .eyebrow", ".dsh-foot b", ".formula .eq i", ".term[style*='--navy'] em", ".term[style*='--deep'] em"],
-         fee_from="Diagnostic £34k · Build £55–120k", fee_to="Diagnostic £34,000 · Build from £55,000", drop=RECALL_DROP, subs=RECALL_SUBS)
+         fee_from="Diagnostic £34k · Build £55–120k", fee_to="Scan · Diagnostic · Remediation · Build · Run", drop=RECALL_DROP, subs=RECALL_SUBS)
