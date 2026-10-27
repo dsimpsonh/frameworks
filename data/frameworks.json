@@ -63,12 +63,7 @@
       "summary": "A framework for rewiring the cognitive defaults that hold operators back from building AI-native businesses. Belief audit → identity reframe → action protocol.",
       "status": "Live",
       "url": "/REWIRED/",
-      "access": "free",
-      "product": {
-        "name": "REWIRED community",
-        "price": "Free",
-        "url": "https://www.skool.com/@diana-simpson-hernandez-4490"
-      }
+      "access": "free"
     },
     {
       "slug": "flywheel",
@@ -84,12 +79,7 @@
       "summary": "How to architect a self-reinforcing loop where every action compounds the next. The mechanics behind AI-native businesses that scale without linear effort.",
       "status": "Live",
       "url": "/flywheel/",
-      "access": "free",
-      "product": {
-        "name": "FLYWHEEL Masterclass",
-        "price": "£39",
-        "url": "https://www.skool.com/@diana-simpson-hernandez-4490"
-      }
+      "access": "free"
     },
     {
       "slug": "rediscovery-canvas",
@@ -127,7 +117,7 @@
       "slug": "vibecoding",
       "title": "Vibecoding",
       "subtitle": "Shipping production code with AI as your co-pilot",
-      "category": "Course",
+      "category": "Method",
       "year": "2025",
       "tags": [
         "AI",
@@ -137,12 +127,7 @@
       "summary": "An interactive course for non-engineers shipping real software with AI. From prompt to pull request — the workflow founders actually use.",
       "status": "Live",
       "url": "/vibecoding/",
-      "access": "free",
-      "product": {
-        "name": "Build Room",
-        "price": "£39/month",
-        "url": "https://www.skool.com/@diana-simpson-hernandez-4490"
-      }
+      "access": "free"
     },
     {
       "slug": "case-study-language-kids-world",

@@ -3,26 +3,24 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
 <title>REWIRED — Build the operator before you build the company.</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="/REWIRED/tw.css">
 <style>
   :root {
-    --navy: #0B2545;
-    --navy-soft: #122E55;
-    --gold: #C9A227;
-    --gold-soft: #E5C964;
-    --cream: #FAF7F2;
-    --paper: #F2EEE6;
-    --slate: #3D4451;
-    --line: #E2DCCF;
+    --navy: #1A1633;
+    --navy-soft: #2A1B5E;
+    --gold: #5B4BC4;
+    --gold-soft: #8A7BE8;
+    --cream: #FFFFFF;
+    --paper: #F2EFFB;
+    --slate: #3A3560;
+    --line: #E3E0F0;
     --white: #FFFFFF;
   }
   * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-  html, body { background: var(--cream); color: var(--slate); font-family: 'Inter', system-ui, sans-serif; }
-  .serif { font-family: 'Fraunces', Georgia, serif; letter-spacing: -0.01em; }
+  html, body { background: var(--cream); color: var(--slate); font-family: 'Schibsted Grotesk', system-ui, sans-serif; }
+  .serif { font-family: 'Schibsted Grotesk', system-ui, sans-serif; letter-spacing: -0.01em; }
   .navy { color: var(--navy); }
   .gold { color: var(--gold); }
   .bg-navy { background: var(--navy); }
@@ -73,7 +71,7 @@
   .card:hover { border-color: var(--navy); transform: translateY(-2px); box-shadow: 0 14px 30px rgba(11,37,69,0.08); }
   .card.selected {
     border-color: var(--gold);
-    background: linear-gradient(180deg, var(--white) 0%, #FFF9E8 100%);
+    background: linear-gradient(180deg, var(--white) 0%, #F2EFFB 100%);
     box-shadow: 0 0 0 2px var(--gold) inset, 0 14px 30px rgba(201,162,39,0.12);
   }
   .card.selected::after {
@@ -105,7 +103,7 @@
     border: 1px solid var(--line);
     border-radius: 12px;
     padding: 14px 18px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Schibsted Grotesk', sans-serif;
     color: var(--navy);
     width: 100%;
     transition: all .15s ease;
@@ -183,8 +181,8 @@
   }
 
   .quote {
-    font-family: 'Fraunces', serif;
-    font-style: italic;
+    font-family: 'Schibsted Grotesk', serif;
+    font-style:normal;
     font-size: 22px;
     line-height: 1.4;
     color: var(--navy);
@@ -261,8 +259,35 @@
     border: 1px solid var(--line);
     color: var(--navy);
     display: inline-flex; align-items: center; justify-content: center;
-    font-family: 'Fraunces', serif; font-weight: 700;
+    font-family: 'Schibsted Grotesk', serif; font-weight: 700;
   }
+</style>
+<style id="dsh-v5">
+/* design system v2 · library register (injected by pages/align_v5.py) */
+body{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif}
+h1,h2{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif;font-weight:800;letter-spacing:-.02em}
+h3,h4{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif;font-weight:700;letter-spacing:-.01em}
+em,i,h1 em,h2 em,h3 em,.serif em,.italic{font-style:normal}
+code,kbd,pre,samp{font-family:'Martian Mono',ui-monospace,monospace}
+.dsh-nav,.dsh-foot{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.dsh-nav *,.dsh-foot *{box-sizing:border-box}
+.dsh-nav{background:#fff;border-bottom:1px solid #E3E0F0;position:relative;z-index:60}
+.dsh-wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.dsh-nav .dsh-wrap{display:flex;align-items:center;gap:20px;min-height:56px}
+.dsh-nav a{color:#1A1633;text-decoration:none;font-weight:600;font-size:14px;line-height:1.2}
+.dsh-nav .lib{font-family:'Martian Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#6E6A8A;font-weight:500}
+.dsh-nav ul{list-style:none;display:flex;align-items:center;gap:18px;margin:0 0 0 auto;padding:0}
+.dsh-nav .btn{background:#1A1633;color:#fff;border-radius:999px;padding:8px 14px}
+.dsh-foot{background:#1A1633;color:#C9C0F0;padding:56px 0 28px;margin-top:0;font-size:16px;line-height:1.6}
+.dsh-foot .eyebrow{font-family:'Martian Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#D9D1FF;font-weight:500}
+.dsh-foot p{max-width:70ch;margin:0}
+.dsh-foot a{color:#fff;font-weight:600;text-decoration:none}
+.dsh-foot .q{font-size:22px;color:#fff;line-height:1.3;max-width:34ch;margin:12px 0 16px;font-weight:700}
+.dsh-foot .q b{color:#F96167}
+.dsh-foot .row{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px;font-size:14px}
+.dsh-foot .base{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-family:'Martian Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8F87B8;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+@media(max-width:700px){.dsh-wrap{padding:0 16px}.dsh-nav ul li:not(:last-child){display:none}}
+body>.fixed.top-0.z-50{position:sticky!important}body>div[style^="height: 76px"]{display:none}
 </style>
 <!--dsh:head-->
 <meta name="description" content="A framework for rewiring the cognitive defaults that hold operators back from building AI-native businesses. Belief audit → identity reframe → action protocol.">
@@ -279,16 +304,19 @@
 <link rel="manifest" href="/assets/site.webmanifest">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="a98055b4-17b2-4091-b09e-3b3b5b34b4ad"></script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "REWIRED", "headline": "REWIRED — Rebuilding belief systems for AI-native operators", "description": "A framework for rewiring the cognitive defaults that hold operators back from building AI-native businesses. Belief audit → identity reframe → action protocol.", "url": "https://frameworks.dianasimpsonhernandez.com/REWIRED/", "author": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "publisher": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "inLanguage": "en", "isAccessibleForFree": true, "dateModified": "2026-09-29"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "REWIRED", "headline": "REWIRED — Rebuilding belief systems for AI-native operators", "description": "A framework for rewiring the cognitive defaults that hold operators back from building AI-native businesses. Belief audit → identity reframe → action protocol.", "url": "https://frameworks.dianasimpsonhernandez.com/REWIRED/", "author": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://dianasimpsonhernandez.substack.com", "https://github.com/dsimpsonh"]}, "publisher": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://dianasimpsonhernandez.substack.com", "https://github.com/dsimpsonh"]}, "inLanguage": "en", "isAccessibleForFree": true, "dateModified": "2026-10-27"}</script>
 
 <!--dsh:/head-->
 </head>
 <body>
+<!--dsh:v5-nav--><nav class="dsh-nav" aria-label="Site"><div class="dsh-wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· REWIRED</span><ul><li><a href="/">Library</a></li><li><a href="https://dianasimpsonhernandez.com/writing/">Writing</a></li><li><a href="https://dianasimpsonhernandez.com/teaching/">Teaching</a></li><li><a href="https://dianasimpsonhernandez.com/">Main site</a></li><li><a class="btn" data-umami-event="cta_click" data-umami-event-kind="contact" data-umami-event-position="legacy-nav" href="https://dianasimpsonhernandez.com/contact/">Contact →</a></li></ul></div></nav><!--dsh:/v5-nav-->
+
+
 
 <!-- ======================================================== -->
 <!-- TOP BAR -->
 <!-- ======================================================== -->
-<div class="no-print fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="background: rgba(250,247,242,0.85); border-bottom: 1px solid var(--line);">
+<div class="no-print fixed top-0 left-0 right-0 z-50 backdrop-blur-md" style="background: rgba(255,255,255,0.85); border-bottom: 1px solid var(--line);">
   <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 rounded-full bg-navy flex items-center justify-center" style="background: var(--navy);">
@@ -302,7 +330,6 @@
     <div class="hidden md:flex items-center gap-6 text-sm text-slate">
       <a href="#how" class="hover:text-navy">How it works</a>
       <a href="#science" class="hover:text-navy">Science</a>
-      <a href="#pricing" class="hover:text-navy">Pricing</a>
       <button onclick="goTo('diagnostic')" class="btn-primary text-sm" style="padding: 10px 20px;">Start your rewire →</button>
     </div>
   </div>
@@ -429,7 +456,7 @@ function renderHero() {
     <div class="max-w-3xl mx-auto text-center">
       <span class="label-tag mb-8 inline-block">For founders building above their current self-image</span>
       <h1 class="serif font-bold navy mt-6 leading-[1.05]" style="font-size: clamp(40px, 6vw, 72px);">
-        Build the operator <em class="gold" style="font-style: italic;">before</em> you build the company.
+        Build the operator <em class="gold" style="font-style:normal;">before</em> you build the company.
       </h1>
       <p class="text-lg md:text-xl text-slate mt-6 leading-relaxed" style="max-width: 620px; margin-left: auto; margin-right: auto;">
         Strategy and skills are 20% of the game. The other 80% is your nervous system, identity, and beliefs about money, visibility, and power. <span class="navy font-semibold">REWIRED is the protocol that handles the 80%.</span>
@@ -475,35 +502,6 @@ function renderHero() {
         REWIRED is built on three principles from clinical hypnotherapy and behavioural neuroscience: state creates performance, identity drives behaviour, and the subconscious responds to emotion + repetition + imagery + your own voice. Run the protocol; the wiring follows.
       </p>
       <div class="quote">"You don't need to become confident. You need to remove the interference between you and the operator you already are."</div>
-    </div>
-
-    <div class="gold-rule my-20"></div>
-
-    <div id="pricing" class="max-w-4xl mx-auto">
-      <div class="text-center mb-12">
-        <span class="label-tag">Pricing</span>
-        <h2 class="serif font-bold navy mt-5" style="font-size: 36px;">Three tiers. One protocol.</h2>
-      </div>
-      <div class="grid md:grid-cols-3 gap-5">
-        ${[
-          { name: 'Self-Run',      price: '£297', sub: 'one-time', features: ['Full diagnostic + reframes','Alter ego builder','Personalised 30-day protocol','PDF + audio scripts','Lifetime access'], cta: 'Start now' },
-          { name: 'Founder',       price: '£997', sub: 'one-time', features: ['Everything in Self-Run','12 weeks of weekly check-ins','Personalised AI hypnosis audio (your name + voice)','Pre-pitch power stacks (5)','Private operator community'], cta: 'Become her', highlight: true },
-          { name: 'Inner Circle',  price: '£4,997', sub: 'one-time', features: ['Everything in Founder','1-on-1 protocol design call','Custom alter ego deep work (90 min)','Quarterly re-stack sessions for 12 months','Direct line for stage-day power stacks'], cta: 'Apply' },
-        ].map(p => `
-          <div class="protocol-card ${p.highlight ? 'ring-2' : ''}" style="${p.highlight ? 'border-color: var(--gold); box-shadow: 0 0 0 2px var(--gold) inset;' : ''}">
-            ${p.highlight ? '<div class="label-tag mb-3">Most chosen</div>' : ''}
-            <div class="serif font-semibold navy text-xl">${p.name}</div>
-            <div class="mt-2 mb-4">
-              <span class="serif navy font-bold" style="font-size: 36px;">${p.price}</span>
-              <span class="text-sm text-slate ml-1">${p.sub}</span>
-            </div>
-            <ul class="space-y-2 mb-6">
-              ${p.features.map(f => `<li class="text-sm text-slate flex gap-2"><span class="gold font-bold">·</span> ${f}</li>`).join('')}
-            </ul>
-            <button onclick="goTo('diagnostic')" class="btn-primary w-full justify-center text-sm">${p.cta}</button>
-          </div>
-        `).join('')}
-      </div>
     </div>
   </section>
   `;
@@ -928,17 +926,6 @@ function renderProtocol() {
 
       <div class="quote">"By Day 30, your nervous system stops resisting your goal. By Day 90, it conspires with you to reach it."</div>
 
-      <!-- CTA -->
-      <div class="protocol-card no-print" style="background: var(--navy); border: none; color: var(--cream);">
-        <div class="text-center py-6">
-          <div class="serif font-bold mb-3" style="color: var(--gold); font-size: 28px;">Ready to lock it in?</div>
-          <p class="text-sm mb-6" style="color: rgba(250,247,242,0.85); max-width: 480px; margin: 0 auto;">
-            Get the full Founder tier: weekly check-ins, ${ae.name || 'your alter ego'}'s personalised hypnosis audio recorded in your own voice, and the private operator community.
-          </p>
-          <button class="btn-primary" style="background: var(--gold); color: var(--navy); border-color: var(--gold);">Become ${ae.name || 'her'} — £997</button>
-        </div>
-      </div>
-
       <div class="flex justify-center gap-3 mt-6 no-print">
         <button onclick="window.print()" class="btn-ghost text-sm">Print / save as PDF</button>
         <button onclick="goTo('hero')" class="btn-ghost text-sm">Start over</button>
@@ -975,5 +962,8 @@ function updateDiagButton() {
 render();
 </script>
 
+
+
+<!--dsh:v5-foot--><footer class="dsh-foot"><div class="dsh-wrap"><div class="eyebrow">Open Frameworks</div><p class="q">Published in full. <b>Free to read, use and cite.</b></p><p>Part of an open library of methods by Diana Simpson-Hernandez, designer, researcher and founder of Aletheai. If you use one in teaching or research, <a data-umami-event="email_click" data-umami-event-position="legacy-footer" href="mailto:dianasimpsonhernandez@gmail.com?subject=REWIRED">tell me how it went</a>.</p><div class="row"><a href="/">Every framework →</a><a href="https://dianasimpsonhernandez.com/methods/">Methods on the main site →</a><a href="https://dianasimpsonhernandez.com/contact/">Contact →</a></div><div class="base"><span>REWIRED · Diana Simpson-Hernandez</span><span>frameworks.dianasimpsonhernandez.com</span></div></div></footer><!--dsh:/v5-foot-->
 </body>
 </html>

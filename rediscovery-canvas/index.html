@@ -3,41 +3,39 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
 <title>The Human Rediscovery Canvas — Diana Simpson-Hernandez</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
 :root{
-  --navy:#1E2761;
+  --navy:#2A1B5E;
   --coral:#F96167;
-  --gold:#F9E795;
-  --cream:#FAF7F2;
-  --ink:#0E1330;
-  --muted:#6B7089;
-  --line:#C9CCD9;
+  --gold:#D9D1FF;
+  --cream:#FFFFFF;
+  --ink:#1A1633;
+  --muted:#6E6A8A;
+  --line:#E3E0F0;
   --white:#FFFFFF;
   --radius:14px;
   --radius-sm:8px;
-  --shadow:0 1px 2px rgba(14,19,48,.04), 0 8px 24px rgba(14,19,48,.06);
-  --shadow-lg:0 2px 8px rgba(14,19,48,.06), 0 24px 48px rgba(14,19,48,.10);
+  --shadow:0 1px 2px rgba(26,22,51,.04), 0 8px 24px rgba(26,22,51,.06);
+  --shadow-lg:0 2px 8px rgba(26,22,51,.06), 0 24px 48px rgba(26,22,51,.10);
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--cream);color:var(--ink);font-family:"Inter",system-ui,-apple-system,sans-serif;line-height:1.55;font-weight:400;-webkit-font-smoothing:antialiased}
+html,body{background:var(--cream);color:var(--ink);font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif;line-height:1.55;font-weight:400;-webkit-font-smoothing:antialiased}
 body{padding:0;min-height:100vh}
 
 /* Layout */
 .canvas{max-width:880px;margin:0 auto;padding:56px 28px 120px}
 
 /* Typography */
-h1,h2,h3,h4{font-family:"Fraunces","Georgia",serif;font-weight:500;color:var(--navy);letter-spacing:-0.01em;line-height:1.15}
+h1,h2,h3,h4{font-family:'Schibsted Grotesk',system-ui, sans-serif;font-weight:500;color:var(--navy);letter-spacing:-0.01em;line-height:1.15}
 h1{font-size:clamp(36px,6vw,64px);font-weight:400}
 h2{font-size:clamp(26px,3.4vw,38px);font-weight:500}
 h3{font-size:22px;font-weight:600}
-h4{font-size:16px;font-family:"Inter",sans-serif;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em}
+h4{font-size:16px;font-family:'Schibsted Grotesk',sans-serif;font-weight:600;color:var(--navy);text-transform:uppercase;letter-spacing:0.08em}
 p{color:var(--ink);font-size:16px}
-em{font-family:"Fraunces",serif;font-style:italic;color:var(--navy)}
+em{font-family:'Schibsted Grotesk',serif;font-style:normal;color:var(--navy)}
 .lede{font-size:19px;line-height:1.6;color:var(--ink);font-weight:300}
 .muted{color:var(--muted);font-size:14px}
 .caps{text-transform:uppercase;letter-spacing:0.14em;font-size:11px;font-weight:600;color:var(--muted)}
@@ -47,7 +45,7 @@ em{font-family:"Fraunces",serif;font-style:italic;color:var(--navy)}
 .hero .eyebrow{display:inline-flex;align-items:center;gap:10px;padding:6px 14px;background:var(--navy);color:var(--gold);border-radius:999px;font-size:11px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;margin-bottom:28px}
 .hero .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--coral);display:inline-block}
 .hero h1{margin-bottom:24px}
-.hero h1 span{color:var(--coral);font-style:italic}
+.hero h1 span{color:var(--coral);font-style:normal}
 .hero .lede{max-width:680px;margin-bottom:32px}
 .hero .meta{display:flex;gap:24px;flex-wrap:wrap;color:var(--muted);font-size:13px;letter-spacing:0.04em}
 .hero .meta span::before{content:"—";margin-right:10px;color:var(--coral)}
@@ -68,23 +66,23 @@ em{font-family:"Fraunces",serif;font-style:italic;color:var(--navy)}
 .layer.open{box-shadow:var(--shadow-lg)}
 .layer-head{display:flex;align-items:center;gap:20px;padding:28px 32px;cursor:pointer;user-select:none;background:var(--white);transition:background .2s}
 .layer-head:hover{background:var(--cream)}
-.layer-num{width:48px;height:48px;border-radius:12px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:"Fraunces",serif;font-size:22px;font-weight:500;flex-shrink:0;transition:all .3s}
+.layer-num{width:48px;height:48px;border-radius:12px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Schibsted Grotesk',serif;font-size:22px;font-weight:500;flex-shrink:0;transition:all .3s}
 .layer.open .layer-num{background:var(--coral);color:var(--white)}
 .layer-head-text{flex:1;min-width:0}
 .layer-head-text .caps{margin-bottom:4px}
-.layer-head-text h3{font-family:"Fraunces",serif;font-weight:500;font-size:22px;color:var(--navy)}
+.layer-head-text h3{font-family:'Schibsted Grotesk',serif;font-weight:500;font-size:22px;color:var(--navy)}
 .layer-chevron{color:var(--muted);font-size:24px;transition:transform .3s;flex-shrink:0}
 .layer.open .layer-chevron{transform:rotate(180deg);color:var(--coral)}
 .layer-body{max-height:0;overflow:hidden;transition:max-height .5s ease}
 .layer.open .layer-body{max-height:5000px}
 .layer-body-inner{padding:0 32px 32px 100px;border-top:1px solid var(--line);padding-top:32px}
-.layer-intro{font-family:"Fraunces",serif;font-size:22px;color:var(--navy);line-height:1.4;font-style:italic;margin-bottom:24px;padding-left:16px;border-left:3px solid var(--gold)}
+.layer-intro{font-family:'Schibsted Grotesk',serif;font-size:22px;color:var(--navy);line-height:1.4;font-style:normal;margin-bottom:24px;padding-left:16px;border-left:3px solid var(--gold)}
 
 /* Question blocks */
 .question-block{margin-bottom:32px}
 .question-block .caps{margin-bottom:16px;color:var(--coral)}
 .q{margin-bottom:20px}
-.q-text{font-family:"Fraunces",serif;font-size:17px;color:var(--navy);margin-bottom:10px;line-height:1.4}
+.q-text{font-family:'Schibsted Grotesk',serif;font-size:17px;color:var(--navy);margin-bottom:10px;line-height:1.4}
 .q-text::before{content:"◦";color:var(--coral);margin-right:10px;font-size:18px}
 
 textarea,input[type="text"]{
@@ -93,7 +91,7 @@ textarea,input[type="text"]{
   border:1px solid var(--line);
   border-radius:var(--radius-sm);
   padding:12px 14px;
-  font-family:"Inter",sans-serif;
+  font-family:'Schibsted Grotesk',sans-serif;
   font-size:15px;
   color:var(--ink);
   resize:vertical;
@@ -101,12 +99,12 @@ textarea,input[type="text"]{
 }
 textarea{min-height:70px}
 textarea:focus,input[type="text"]:focus{outline:none;border-color:var(--coral);background:var(--white)}
-textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-style:italic}
+textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-style:normal}
 
 /* Exercise blocks */
 .exercise{background:var(--cream);border-radius:var(--radius);padding:28px;margin-top:24px;border:1px dashed var(--line)}
 .exercise .caps{color:var(--navy);margin-bottom:6px}
-.exercise h4{color:var(--navy);font-family:"Fraunces",serif;font-size:20px;font-weight:500;text-transform:none;letter-spacing:0;margin-bottom:6px}
+.exercise h4{color:var(--navy);font-family:'Schibsted Grotesk',serif;font-size:20px;font-weight:500;text-transform:none;letter-spacing:0;margin-bottom:6px}
 .exercise .ex-sub{color:var(--muted);font-size:14px;margin-bottom:20px}
 .exercise label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px;letter-spacing:0.04em}
 
@@ -119,11 +117,11 @@ textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-st
 .strip-row.stripped input{text-decoration:line-through;opacity:0.4;background:var(--line)}
 .strip-row.stripped .strip-btn{background:var(--navy);color:var(--gold);border-color:var(--navy)}
 .strip-reveal{margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
-.strip-reveal-label{font-family:"Fraunces",serif;font-style:italic;color:var(--coral);font-size:17px;margin-bottom:10px}
+.strip-reveal-label{font-family:'Schibsted Grotesk',serif;font-style:normal;color:var(--coral);font-size:17px;margin-bottom:10px}
 
 /* Pattern recall */
 .moment-row{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:start;margin-bottom:10px}
-.moment-num{font-family:"Fraunces",serif;color:var(--coral);font-size:15px;padding-top:12px;text-align:center}
+.moment-num{font-family:'Schibsted Grotesk',serif;color:var(--coral);font-size:15px;padding-top:12px;text-align:center}
 .moment-tags{display:flex;gap:4px;flex-wrap:wrap;padding-top:8px}
 .tag-btn{padding:6px 10px;border-radius:999px;border:1px solid var(--line);background:var(--white);color:var(--muted);font-size:11px;font-weight:500;cursor:pointer;letter-spacing:0.04em;text-transform:uppercase;transition:all .15s}
 .tag-btn:hover{border-color:var(--navy);color:var(--navy)}
@@ -131,7 +129,7 @@ textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-st
 
 .pattern-summary{margin-top:20px;padding:16px;background:var(--white);border-radius:var(--radius-sm);border-left:3px solid var(--coral)}
 .pattern-summary .caps{color:var(--coral);margin-bottom:8px}
-.pattern-summary .pattern-text{font-family:"Fraunces",serif;font-style:italic;color:var(--navy);font-size:16px}
+.pattern-summary .pattern-text{font-family:'Schibsted Grotesk',serif;font-style:normal;color:var(--navy);font-size:16px}
 
 /* Intuition log */
 .log-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px;padding:12px;background:var(--white);border-radius:var(--radius-sm);border:1px solid var(--line)}
@@ -147,7 +145,7 @@ textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-st
 .day{padding:14px 8px;background:var(--white);border:1px solid var(--line);border-radius:var(--radius-sm);text-align:center;cursor:pointer;transition:all .2s}
 .day:hover{border-color:var(--navy)}
 .day.done{background:var(--navy);color:var(--gold);border-color:var(--navy)}
-.day .day-num{font-family:"Fraunces",serif;font-size:20px;font-weight:500;display:block;margin-bottom:4px}
+.day .day-num{font-family:'Schibsted Grotesk',serif;font-size:20px;font-weight:500;display:block;margin-bottom:4px}
 .day .day-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted)}
 .day.done .day-label{color:var(--gold);opacity:0.8}
 .day-notes{display:grid;gap:8px}
@@ -159,13 +157,13 @@ textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-st
 .integration{background:var(--navy);color:var(--white);border-radius:var(--radius);padding:48px 40px;margin-top:48px;position:relative;overflow:hidden}
 .integration::before{content:"";position:absolute;top:-60px;right:-60px;width:240px;height:240px;background:radial-gradient(circle,var(--coral) 0%,transparent 70%);opacity:0.2;border-radius:50%}
 .integration .caps{color:var(--gold);margin-bottom:14px;position:relative}
-.integration h2{color:var(--white);font-family:"Fraunces",serif;font-size:34px;font-weight:400;margin-bottom:10px;position:relative}
+.integration h2{color:var(--white);font-family:'Schibsted Grotesk',serif;font-size:34px;font-weight:400;margin-bottom:10px;position:relative}
 .integration h2 em{color:var(--gold)}
 .integration .int-sub{color:rgba(255,255,255,0.75);font-size:16px;margin-bottom:32px;max-width:560px;position:relative}
 
 .int-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:32px;position:relative}
 .int-card{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-sm);padding:18px}
-.int-card label{display:block;font-family:"Fraunces",serif;font-style:italic;color:var(--gold);font-size:16px;margin-bottom:10px}
+.int-card label{display:block;font-family:'Schibsted Grotesk',serif;font-style:normal;color:var(--gold);font-size:16px;margin-bottom:10px}
 .int-card textarea{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.15);color:var(--white);min-height:80px}
 .int-card textarea::placeholder{color:rgba(255,255,255,0.4)}
 .int-card textarea:focus{background:rgba(255,255,255,0.12);border-color:var(--gold)}
@@ -173,8 +171,8 @@ textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-st
 /* Synthesis */
 .synthesis{background:rgba(0,0,0,0.2);border:1px solid rgba(249,231,149,0.3);border-radius:var(--radius);padding:28px;position:relative;margin-top:24px}
 .synthesis .caps{color:var(--gold)}
-.synthesis h3{color:var(--white);font-family:"Fraunces",serif;font-size:22px;margin:8px 0 18px;font-weight:500}
-.synthesis-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;background:var(--coral);color:var(--white);border:none;border-radius:999px;font-family:"Inter",sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:0.04em;transition:transform .15s, background .2s}
+.synthesis h3{color:var(--white);font-family:'Schibsted Grotesk',serif;font-size:22px;margin:8px 0 18px;font-weight:500}
+.synthesis-btn{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;background:var(--coral);color:var(--white);border:none;border-radius:999px;font-family:'Schibsted Grotesk',sans-serif;font-size:14px;font-weight:600;cursor:pointer;letter-spacing:0.04em;transition:transform .15s, background .2s}
 .synthesis-btn:hover{transform:translateY(-1px);background:#f84b52}
 .synthesis-btn::before{content:"✦";font-size:16px}
 .synthesis-out{margin-top:20px;display:none}
@@ -183,14 +181,14 @@ textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-st
 .theme-chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
 .theme-chip{padding:8px 14px;background:var(--gold);color:var(--navy);border-radius:999px;font-weight:600;font-size:13px;letter-spacing:0.03em}
 .theme-chip.coral{background:var(--coral);color:var(--white)}
-.signal-line{padding:14px 16px;background:rgba(255,255,255,0.06);border-left:3px solid var(--gold);border-radius:6px;margin-bottom:10px;color:var(--white);font-family:"Fraunces",serif;font-style:italic;font-size:16px}
+.signal-line{padding:14px 16px;background:rgba(255,255,255,0.06);border-left:3px solid var(--gold);border-radius:6px;margin-bottom:10px;color:var(--white);font-family:'Schibsted Grotesk',serif;font-style:normal;font-size:16px}
 
 /* Actions */
 .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:48px;padding:32px;background:var(--white);border-radius:var(--radius);border:1px solid var(--line)}
 .actions-text{flex:1;min-width:240px}
 .actions-text .caps{margin-bottom:4px}
 .actions-text p{font-size:14px;color:var(--muted)}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;border:1px solid var(--navy);background:var(--navy);color:var(--white);font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;font-family:"Inter",sans-serif;letter-spacing:0.02em}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;border:1px solid var(--navy);background:var(--navy);color:var(--white);font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;font-family:'Schibsted Grotesk',sans-serif;letter-spacing:0.02em}
 .btn:hover{background:var(--coral);border-color:var(--coral)}
 .btn.secondary{background:transparent;color:var(--navy)}
 .btn.secondary:hover{background:var(--navy);color:var(--white)}
@@ -202,15 +200,15 @@ textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-st
 .save-pill.show{opacity:1;transform:translateY(0)}
 
 /* Deep insight */
-.insight{margin-top:56px;padding:40px;background:linear-gradient(135deg,var(--gold) 0%,#faeba9 100%);border-radius:var(--radius);text-align:center;position:relative}
+.insight{margin-top:56px;padding:40px;background:linear-gradient(135deg,var(--gold) 0%,#EAE6FB 100%);border-radius:var(--radius);text-align:center;position:relative}
 .insight .caps{color:var(--navy);margin-bottom:16px}
-.insight-text{font-family:"Fraunces",serif;font-size:clamp(22px,3vw,28px);color:var(--navy);line-height:1.35;font-weight:400;max-width:640px;margin:0 auto}
-.insight-text em{color:var(--coral);font-style:italic}
+.insight-text{font-family:'Schibsted Grotesk',serif;font-size:clamp(22px,3vw,28px);color:var(--navy);line-height:1.35;font-weight:400;max-width:640px;margin:0 auto}
+.insight-text em{color:var(--coral);font-style:normal}
 
 /* Footer */
 .footer{margin-top:64px;padding-top:32px;border-top:1px solid var(--line);text-align:center}
 .footer p{color:var(--muted);font-size:13px;letter-spacing:0.04em}
-.footer .sig{font-family:"Fraunces",serif;font-style:italic;color:var(--navy);font-size:16px;margin-bottom:8px}
+.footer .sig{font-family:'Schibsted Grotesk',serif;font-style:normal;color:var(--navy);font-size:16px;margin-bottom:8px}
 
 /* Print */
 @media print{
@@ -240,6 +238,33 @@ textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-st
   .actions .btn{justify-content:center}
 }
 </style>
+<style id="dsh-v5">
+/* design system v2 · library register (injected by pages/align_v5.py) */
+body{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif}
+h1,h2{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif;font-weight:800;letter-spacing:-.02em}
+h3,h4{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif;font-weight:700;letter-spacing:-.01em}
+em,i,h1 em,h2 em,h3 em,.serif em,.italic{font-style:normal}
+code,kbd,pre,samp{font-family:'Martian Mono',ui-monospace,monospace}
+.dsh-nav,.dsh-foot{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.dsh-nav *,.dsh-foot *{box-sizing:border-box}
+.dsh-nav{background:#fff;border-bottom:1px solid #E3E0F0;position:relative;z-index:60}
+.dsh-wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.dsh-nav .dsh-wrap{display:flex;align-items:center;gap:20px;min-height:56px}
+.dsh-nav a{color:#1A1633;text-decoration:none;font-weight:600;font-size:14px;line-height:1.2}
+.dsh-nav .lib{font-family:'Martian Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#6E6A8A;font-weight:500}
+.dsh-nav ul{list-style:none;display:flex;align-items:center;gap:18px;margin:0 0 0 auto;padding:0}
+.dsh-nav .btn{background:#1A1633;color:#fff;border-radius:999px;padding:8px 14px}
+.dsh-foot{background:#1A1633;color:#C9C0F0;padding:56px 0 28px;margin-top:0;font-size:16px;line-height:1.6}
+.dsh-foot .eyebrow{font-family:'Martian Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#D9D1FF;font-weight:500}
+.dsh-foot p{max-width:70ch;margin:0}
+.dsh-foot a{color:#fff;font-weight:600;text-decoration:none}
+.dsh-foot .q{font-size:22px;color:#fff;line-height:1.3;max-width:34ch;margin:12px 0 16px;font-weight:700}
+.dsh-foot .q b{color:#F96167}
+.dsh-foot .row{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px;font-size:14px}
+.dsh-foot .base{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-family:'Martian Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8F87B8;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+@media(max-width:700px){.dsh-wrap{padding:0 16px}.dsh-nav ul li:not(:last-child){display:none}}
+
+</style>
 <!--dsh:head-->
 <meta name="description" content="A structured canvas for operators in transition — between roles, industries, or identities. Maps assets, edges, and unfair advantages onto a single page.">
 <link rel="canonical" href="https://frameworks.dianasimpsonhernandez.com/rediscovery-canvas/">
@@ -255,11 +280,14 @@ textarea::placeholder,input[type="text"]::placeholder{color:var(--muted);font-st
 <link rel="manifest" href="/assets/site.webmanifest">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="a98055b4-17b2-4091-b09e-3b3b5b34b4ad"></script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "The Rediscovery Canvas", "headline": "The Rediscovery Canvas — A diagnostic for finding your edge after a transition", "description": "A structured canvas for operators in transition — between roles, industries, or identities. Maps assets, edges, and unfair advantages onto a single page.", "url": "https://frameworks.dianasimpsonhernandez.com/rediscovery-canvas/", "author": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "publisher": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "inLanguage": "en", "isAccessibleForFree": true, "dateModified": "2026-09-29"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "CreativeWork", "name": "The Rediscovery Canvas", "headline": "The Rediscovery Canvas — A diagnostic for finding your edge after a transition", "description": "A structured canvas for operators in transition — between roles, industries, or identities. Maps assets, edges, and unfair advantages onto a single page.", "url": "https://frameworks.dianasimpsonhernandez.com/rediscovery-canvas/", "author": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://dianasimpsonhernandez.substack.com", "https://github.com/dsimpsonh"]}, "publisher": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://dianasimpsonhernandez.substack.com", "https://github.com/dsimpsonh"]}, "inLanguage": "en", "isAccessibleForFree": true, "dateModified": "2026-10-27"}</script>
 <style>@media(max-width:700px){.progress{margin-left:0;margin-right:0}.log-row{flex-wrap:wrap}.log-row input{max-width:100%;min-width:0}}</style>
 <!--dsh:/head-->
 </head>
 <body>
+<!--dsh:v5-nav--><nav class="dsh-nav" aria-label="Site"><div class="dsh-wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· Rediscovery Canvas</span><ul><li><a href="/">Library</a></li><li><a href="https://dianasimpsonhernandez.com/writing/">Writing</a></li><li><a href="https://dianasimpsonhernandez.com/teaching/">Teaching</a></li><li><a href="https://dianasimpsonhernandez.com/">Main site</a></li><li><a class="btn" data-umami-event="cta_click" data-umami-event-kind="contact" data-umami-event-position="legacy-nav" href="https://dianasimpsonhernandez.com/contact/">Contact →</a></li></ul></div></nav><!--dsh:/v5-nav-->
+
+
 
 <div class="canvas">
 
@@ -950,5 +978,8 @@ if (!Object.keys(state).length){
 }
 </script>
 
+
+
+<!--dsh:v5-foot--><footer class="dsh-foot"><div class="dsh-wrap"><div class="eyebrow">Open Frameworks</div><p class="q">Published in full. <b>Free to read, use and cite.</b></p><p>Part of an open library of methods by Diana Simpson-Hernandez, designer, researcher and founder of Aletheai. If you use one in teaching or research, <a data-umami-event="email_click" data-umami-event-position="legacy-footer" href="mailto:dianasimpsonhernandez@gmail.com?subject=Rediscovery Canvas">tell me how it went</a>.</p><div class="row"><a href="/">Every framework →</a><a href="https://dianasimpsonhernandez.com/methods/">Methods on the main site →</a><a href="https://dianasimpsonhernandez.com/contact/">Contact →</a></div><div class="base"><span>Rediscovery Canvas · Diana Simpson-Hernandez</span><span>frameworks.dianasimpsonhernandez.com</span></div></div></footer><!--dsh:/v5-foot-->
 </body>
 </html>

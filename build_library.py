@@ -22,12 +22,12 @@ ANALYTICS = (f'<script defer src="https://cloud.umami.is/script.js" data-website
              if UMAMI_WEBSITE_ID.strip() else "<!-- analytics: set UMAMI_WEBSITE_ID in build_library.py -->")
 TODAY = datetime.date.today().isoformat()
 
-# Unlisted pages (not in frameworks.json) still get correct SEO. noindex keeps client-specific pages out of search.
+# Unlisted pages (not in frameworks.json) still get correct SEO. noindex keeps client-specific and personal pages out of search.
 META = {
-    "index": {"title": "Open Frameworks — the DSH library", "description": "Interactive frameworks, consulting methods and case studies for AI-native operators, by Diana Simpson-Hernandez. Versioned. Forkable. Free to run.", "type": "website"},
-    "quantum-and-ai": {"title": "The Curious Universe — quantum & AI, explained for the curious", "description": "A guided course on quantum computing and AI for curious non-physicists. Aeon Academy, by Diana Simpson-Hernandez."},
-    "frequency": {"title": "The Frequency Menu — sound and frequency reference", "description": "A reference menu of frequencies and sound-therapy protocols, with what each is claimed to do and the evidence grade."},
-    "frequency-studio": {"title": "Frequency Studio — an interactive tone generator", "description": "Generate, layer and export frequencies in the browser. Companion to the Frequency Menu."},
+    "index": {"title": "Open Frameworks — methods by Diana Simpson-Hernandez", "description": "Frameworks, canvases and case studies by Diana Simpson-Hernandez, designer, researcher and founder of Aletheai. Published in full. Free to read, use and cite.", "type": "website"},
+    "quantum-and-ai": {"title": "The Curious Universe — quantum & AI, explained for the curious", "description": "A private guided course on quantum computing and AI.", "noindex": True},
+    "frequency": {"title": "The Frequency Menu — sound and frequency reference", "description": "A reference menu of frequencies and sound-therapy protocols, with what each is claimed to do and the evidence grade.", "noindex": True},
+    "frequency-studio": {"title": "Frequency Studio — an interactive tone generator", "description": "Generate, layer and export frequencies in the browser. Companion to the Frequency Menu.", "noindex": True},
     "flywheel": {"extra_css": "@media(max-width:700px){.grid>*{min-width:0}#dimensions{max-width:100%}}"},
     "rediscovery-canvas": {"extra_css": "@media(max-width:700px){.progress{margin-left:0;margin-right:0}.log-row{flex-wrap:wrap}.log-row input{max-width:100%;min-width:0}}"},
     "canvas": {"title": "DSH Canvases — five strategy canvases, free to download", "description": "Category Design, Empathy, User Story Matrix, UX Strategy and AI Agent Design canvases. Free A3 PDFs and quick guides; £49 pack adds clean files.", "type": "website", "name": "DSH Canvases"},
@@ -52,7 +52,7 @@ def page_meta(slug: str, fw: dict | None):
     return m
 
 def jsonld(slug, m, url):
-    person = {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": MAIN + "/", "sameAs": [MAIN + "/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}
+    person = {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": MAIN + "/", "sameAs": [MAIN + "/", "https://linkedin.com/in/dianasimpson", "https://dianasimpsonhernandez.substack.com", "https://github.com/dsimpsonh"]}
     if slug == "index":
         return {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Open Frameworks", "url": url, "author": person,
                 "isPartOf": {"@type": "WebSite", "name": "Diana Simpson-Hernandez", "url": MAIN + "/"}}
@@ -129,7 +129,7 @@ def build_404():
 <title>Not found — Open Frameworks</title><meta name="robots" content="noindex"><link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png"><link rel="stylesheet" href="/assets/fonts/fonts.css"><link rel="stylesheet" href="/styles/main.css">
 {ANALYTICS}
 <style>.nf{{min-height:70vh;display:flex;flex-direction:column;justify-content:center;gap:1rem;max-width:60ch}}.nf h1{{font-size:clamp(2.4rem,7vw,5rem);line-height:1;letter-spacing:-.02em}}.nf a{{color:var(--accent);font-weight:600}}</style></head>
-<body><div class="container nf"><span class="eyebrow">404</span><h1>That framework moved.</h1><p>The library was rebuilt in September 2026. Everything is still here — start from the index.</p>
+<body><div class="container nf"><span class="eyebrow">404</span><h1>That framework moved.</h1><p>The library was reorganised in 2026. Everything public is still here: start from the index.</p>
 <p><a href="/">Browse the library →</a> &nbsp; <a href="{MAIN}/">Main site →</a></p></div></body></html>"""
     open(os.path.join(ROOT, "404.html"), "w", encoding="utf-8").write(body)
 

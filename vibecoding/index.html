@@ -3,27 +3,26 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="/assets/fonts/fonts.css">
 <title>Designing Intelligence · The Complete Course</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700;900&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #1E2761;
+    --navy: #2A1B5E;
     --coral: #F96167;
-    --gold: #F9E795;
-    --cream: #FAF7F2;
-    --ink: #1A1A1A;
-    --muted: #6B6B6B;
+    --gold: #D9D1FF;
+    --cream: #FFFFFF;
+    --ink: #1A1633;
+    --muted: #6E6A8A;
     --paper: #FFFFFF;
-    --soft-line: #E8E2D2;
+    --soft-line: #E3E0F0;
     --green: #10B981;
     --w1: #E76F51;
     --w2: #9D4EDD;
     --w3: #2A9D8F;
     --w4: #E9C46A;
-    --serif: 'Fraunces', Georgia, serif;
-    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --mono: 'JetBrains Mono', monospace;
+    --serif: 'Schibsted Grotesk', system-ui, sans-serif;
+    --sans: 'Schibsted Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'Martian Mono', monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html, body { background: var(--cream); color: var(--ink); font-family: var(--sans); line-height: 1.5; }
@@ -68,7 +67,7 @@
   }
   .hero h1 .accent { color: var(--coral); }
   .hero p {
-    font-family: var(--serif); font-style: italic;
+    font-family: var(--serif); font-style:normal;
     font-size: clamp(16px, 2vw, 22px);
     color: var(--coral);
     max-width: 720px; margin: 0 auto 36px;
@@ -151,7 +150,7 @@
     font-size: 28px; line-height: 1.1;
   }
   .lane-header .lane-sub {
-    font-style: italic; opacity: .85; margin-left: auto;
+    font-style:normal; opacity: .85; margin-left: auto;
     font-size: 14px;
   }
 
@@ -189,7 +188,7 @@
   .step.w4::before { background: var(--w4); }
   .step:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 24px rgba(30,39,97,.15);
+    box-shadow: 0 12px 24px rgba(42,27,94,.15);
     border-color: transparent;
   }
   .step:hover::before { transform: scaleX(1); }
@@ -305,7 +304,7 @@
     background: var(--cream);
     padding: 20px; border-radius: 10px;
     border-left: 4px solid var(--coral);
-    font-style: italic;
+    font-style:normal;
     font-size: 16px;
     color: var(--navy);
   }
@@ -364,7 +363,7 @@
     text-align: center;
   }
   .footer h3 {
-    font-family: var(--serif); font-style: italic; font-weight: 400;
+    font-family: var(--serif); font-style:normal; font-weight: 400;
     font-size: clamp(22px, 3vw, 32px);
     color: var(--paper);
     margin-bottom: 12px;
@@ -390,6 +389,33 @@
     .modal { padding: 24px; }
   }
 </style>
+<style id="dsh-v5">
+/* design system v2 · library register (injected by pages/align_v5.py) */
+body{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif}
+h1,h2{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif;font-weight:800;letter-spacing:-.02em}
+h3,h4{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif;font-weight:700;letter-spacing:-.01em}
+em,i,h1 em,h2 em,h3 em,.serif em,.italic{font-style:normal}
+code,kbd,pre,samp{font-family:'Martian Mono',ui-monospace,monospace}
+.dsh-nav,.dsh-foot{font-family:'Schibsted Grotesk',system-ui,-apple-system,sans-serif;-webkit-font-smoothing:antialiased}
+.dsh-nav *,.dsh-foot *{box-sizing:border-box}
+.dsh-nav{background:#fff;border-bottom:1px solid #E3E0F0;position:relative;z-index:60}
+.dsh-wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.dsh-nav .dsh-wrap{display:flex;align-items:center;gap:20px;min-height:56px}
+.dsh-nav a{color:#1A1633;text-decoration:none;font-weight:600;font-size:14px;line-height:1.2}
+.dsh-nav .lib{font-family:'Martian Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#6E6A8A;font-weight:500}
+.dsh-nav ul{list-style:none;display:flex;align-items:center;gap:18px;margin:0 0 0 auto;padding:0}
+.dsh-nav .btn{background:#1A1633;color:#fff;border-radius:999px;padding:8px 14px}
+.dsh-foot{background:#1A1633;color:#C9C0F0;padding:56px 0 28px;margin-top:0;font-size:16px;line-height:1.6}
+.dsh-foot .eyebrow{font-family:'Martian Mono',ui-monospace,monospace;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:#D9D1FF;font-weight:500}
+.dsh-foot p{max-width:70ch;margin:0}
+.dsh-foot a{color:#fff;font-weight:600;text-decoration:none}
+.dsh-foot .q{font-size:22px;color:#fff;line-height:1.3;max-width:34ch;margin:12px 0 16px;font-weight:700}
+.dsh-foot .q b{color:#F96167}
+.dsh-foot .row{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:22px;font-size:14px}
+.dsh-foot .base{margin-top:36px;padding-top:18px;border-top:1px solid rgba(255,255,255,.14);font-family:'Martian Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#8F87B8;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between}
+@media(max-width:700px){.dsh-wrap{padding:0 16px}.dsh-nav ul li:not(:last-child){display:none}}
+
+</style>
 <!--dsh:head-->
 <meta name="description" content="An interactive course for non-engineers shipping real software with AI. From prompt to pull request — the workflow founders actually use.">
 <link rel="canonical" href="https://frameworks.dianasimpsonhernandez.com/vibecoding/">
@@ -405,11 +431,14 @@
 <link rel="manifest" href="/assets/site.webmanifest">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
 <script defer src="https://cloud.umami.is/script.js" data-website-id="a98055b4-17b2-4091-b09e-3b3b5b34b4ad"></script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Vibecoding", "headline": "Vibecoding — Shipping production code with AI as your co-pilot", "description": "An interactive course for non-engineers shipping real software with AI. From prompt to pull request — the workflow founders actually use.", "url": "https://frameworks.dianasimpsonhernandez.com/vibecoding/", "author": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "publisher": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "inLanguage": "en", "isAccessibleForFree": true, "dateModified": "2026-09-29", "provider": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://www.youtube.com/@DianaSimpsonHernandez"]}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "GBP", "availability": "https://schema.org/InStock", "url": "https://frameworks.dianasimpsonhernandez.com/vibecoding/"}, "hasCourseInstance": [{"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT8H"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "TechArticle", "name": "Vibecoding", "headline": "Vibecoding — Shipping production code with AI as your co-pilot", "description": "An interactive course for non-engineers shipping real software with AI. From prompt to pull request — the workflow founders actually use.", "url": "https://frameworks.dianasimpsonhernandez.com/vibecoding/", "author": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://dianasimpsonhernandez.substack.com", "https://github.com/dsimpsonh"]}, "publisher": {"@type": "Person", "name": "Diana Simpson-Hernandez", "url": "https://dianasimpsonhernandez.com/", "sameAs": ["https://dianasimpsonhernandez.com/", "https://linkedin.com/in/dianasimpson", "https://dianasimpsonhernandez.substack.com", "https://github.com/dsimpsonh"]}, "inLanguage": "en", "isAccessibleForFree": true, "dateModified": "2026-10-27"}</script>
 
 <!--dsh:/head-->
 </head>
 <body>
+<!--dsh:v5-nav--><nav class="dsh-nav" aria-label="Site"><div class="dsh-wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· Vibecoding</span><ul><li><a href="/">Library</a></li><li><a href="https://dianasimpsonhernandez.com/writing/">Writing</a></li><li><a href="https://dianasimpsonhernandez.com/teaching/">Teaching</a></li><li><a href="https://dianasimpsonhernandez.com/">Main site</a></li><li><a class="btn" data-umami-event="cta_click" data-umami-event-kind="contact" data-umami-event-position="legacy-nav" href="https://dianasimpsonhernandez.com/contact/">Contact →</a></li></ul></div></nav><!--dsh:/v5-nav-->
+
+
 
 <!-- Top bar -->
 <div class="top">
@@ -851,5 +880,8 @@ document.addEventListener('keydown', e => {
 renderLanes();
 updateProgress();
 </script>
+
+
+<!--dsh:v5-foot--><footer class="dsh-foot"><div class="dsh-wrap"><div class="eyebrow">Open Frameworks</div><p class="q">Published in full. <b>Free to read, use and cite.</b></p><p>Part of an open library of methods by Diana Simpson-Hernandez, designer, researcher and founder of Aletheai. If you use one in teaching or research, <a data-umami-event="email_click" data-umami-event-position="legacy-footer" href="mailto:dianasimpsonhernandez@gmail.com?subject=Vibecoding">tell me how it went</a>.</p><div class="row"><a href="/">Every framework →</a><a href="https://dianasimpsonhernandez.com/methods/">Methods on the main site →</a><a href="https://dianasimpsonhernandez.com/contact/">Contact →</a></div><div class="base"><span>Vibecoding · Diana Simpson-Hernandez</span><span>frameworks.dianasimpsonhernandez.com</span></div></div></footer><!--dsh:/v5-foot-->
 </body>
 </html>
