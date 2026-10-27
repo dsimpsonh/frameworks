@@ -24,7 +24,7 @@ TODAY = datetime.date.today().isoformat()
 
 # Unlisted pages (not in frameworks.json) still get correct SEO. noindex keeps client-specific and personal pages out of search.
 META = {
-    "index": {"title": "Open Frameworks — methods by Diana Simpson-Hernandez", "description": "Frameworks, canvases and case studies by Diana Simpson-Hernandez, designer, researcher and founder of Aletheai. Published in full. Free to read, use and cite.", "type": "website"},
+    "index": {"title": "Open Frameworks — methods by Diana Simpson-Hernandez", "description": "Frameworks, canvases and case studies by Diana Simpson-Hernandez, designer, educator and founder, and author of Design Poiesis. Published in full. Free to read, use and cite.", "type": "website"},
     "quantum-and-ai": {"title": "The Curious Universe — quantum & AI, explained for the curious", "description": "A private guided course on quantum computing and AI.", "noindex": True},
     "frequency": {"title": "The Frequency Menu — sound and frequency reference", "description": "A reference menu of frequencies and sound-therapy protocols, with what each is claimed to do and the evidence grade.", "noindex": True},
     "frequency-studio": {"title": "Frequency Studio — an interactive tone generator", "description": "Generate, layer and export frequencies in the browser. Companion to the Frequency Menu.", "noindex": True},

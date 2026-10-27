@@ -2,6 +2,22 @@
   "_comment": "Single source of truth for all frameworks. Add a new entry here + create a folder with index.html at the repo root. access: free | course | client · product: optional {name, price, url} for the storefront.",
   "frameworks": [
     {
+      "slug": "design-poiesis",
+      "title": "Design Poiesis",
+      "subtitle": "Every insight carries its trail.",
+      "category": "Method",
+      "year": "2026",
+      "tags": [
+        "Design method",
+        "AI",
+        "Research"
+      ],
+      "summary": "Diana's core design methodology for the age of AI: five moves, two rails and a gate that turn informed intuition into design claims you can trace and test. A design hypothesis, published with its test plan.",
+      "status": "Live",
+      "url": "https://dianasimpsonhernandez.com/design-poiesis/",
+      "access": "free"
+    },
+    {
       "slug": "lever",
       "title": "LEVER",
       "subtitle": "Align the goal. Expose the friction. Sequence the fix.",

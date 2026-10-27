@@ -193,7 +193,7 @@ def chrome_nav(name: str) -> str:
 def chrome_foot(name: str) -> str:
     return (f'<!--dsh:v5-foot--><footer class="dsh-foot"><div class="dsh-wrap"><div class="eyebrow">Open Frameworks</div>'
             f'<p class="q">Published in full. <b>Free to read, use and cite.</b></p>'
-            f'<p>Part of an open library of methods by Diana Simpson-Hernandez, designer, researcher and founder of Aletheai. '
+            f'<p>Part of an open library of methods by Diana Simpson-Hernandez, designer, educator and founder, and author of <a href="{MAIN}/design-poiesis/">Design Poiesis</a>. '
             f'If you use one in teaching or research, <a data-umami-event="email_click" data-umami-event-position="legacy-footer" href="mailto:dianasimpsonhernandez@gmail.com?subject={name}">tell me how it went</a>.</p>'
             f'<div class="row"><a href="/">Every framework →</a><a href="{MAIN}/methods/">Methods on the main site →</a><a href="{MAIN}/contact/">Contact →</a></div>'
             f'<div class="base"><span>{name} · Diana Simpson-Hernandez</span><span>frameworks.dianasimpsonhernandez.com</span></div></div></footer><!--dsh:/v5-foot-->')
