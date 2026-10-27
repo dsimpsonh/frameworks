@@ -121,15 +121,15 @@ blockquote{margin:0;font-size:clamp(20px,2.4vw,26px);font-weight:600;line-height
 <div class="formula"><div class="eq"><b>Sv</b> = 10% × <i>RS</i></div><p>Service fee. RS = run share from the Motion Ledger (0–1). Clamped to 3–12%. Paid as a percentage with a monthly floor.</p></div>
 </div>
 <div class="tblwrap" style="margin-top:20px"><table>
-<thead><tr><th>Line</th><th>Equation</th><th class="n">Case</th><th>Pays for</th></tr></thead>
+<thead><tr><th>Line</th><th>Equation</th><th>Pays for</th></tr></thead>
 <tbody>
-<tr><td><b>Royalty</b></td><td>Ry = 20% × AS × (1 − 0.4c), clamp 5–18%</td><td class="n"><b>9.0%</b></td><td>The asset. Falls as cash covers more of the build.</td></tr>
-<tr><td><b>Service fee</b></td><td>Sv = 10% × RS, clamp 3–12%</td><td class="n"><b>8.1%</b></td><td>The running. Does not fall when the build is paid for.</td></tr>
-<tr><td><b>Total</b></td><td>T = Ry + Sv</td><td class="n"><b>17.1%</b></td><td>The partner keeps <b>82.9%</b>.</td></tr>
+<tr><td><b>Royalty</b></td><td>Ry = 20% × AS × (1 − 0.4c), clamp 5–18%</td><td>The asset. Falls as cash covers more of the build.</td></tr>
+<tr><td><b>Service fee</b></td><td>Sv = 10% × RS, clamp 3–12%</td><td>The running. Does not fall when the build is paid for.</td></tr>
+<tr><td><b>Total</b></td><td>T = Ry + Sv</td><td>Everything else stays with the partner, who does the selling.</td></tr>
 </tbody></table></div>
 <div class="grid2" style="margin-top:20px">
 <div class="card"><div class="eyebrow">The Motion Ledger</div><h3>Who does the work that produces each pound</h3><p><b>Asset</b> — system 50 · domain method 30 · concept 20 → <b>AS</b>.<br><b>Run</b> — hosting 25 · updates 40 · second-line support 20 · first-line support 15 → <b>RS</b>.</p><p>Score each row by who actually does it. The shares fall out of the ledger; nobody negotiates them.</p></div>
-<div class="card pop"><div class="eyebrow">The floor</div><h3>Floor = monthly run cost × 1.3</h3><p>A pure revenue percentage is a second royalty wearing a different name, and it pays nothing in the year the support calls arrive. In the case: <b>£350/month</b>, with the percentage overtaking the floor at <b>£52,174</b> of annual partner revenue.</p></div>
+<div class="card pop"><div class="eyebrow">The floor</div><h3>Floor = monthly run cost × 1.3</h3><p>A pure revenue percentage is a second royalty wearing a different name, and it pays nothing in the year the support calls arrive. The floor covers the running in the early years; the percentage overtakes it as the partner's revenue grows.</p></div>
 </div>
 </div></section>
 
@@ -140,9 +140,9 @@ blockquote{margin:0;font-size:clamp(20px,2.4vw,26px);font-weight:600;line-height
 <div class="calc">
 <div class="card">
 <label for="rev">Partner revenue from the product, per year (£)</label><input id="rev" type="number" value="100000" min="0" step="1000">
-<label for="as">Asset share AS (0–1) — from the Motion Ledger</label><input id="as" type="number" value="0.45" min="0" max="1" step="0.01">
+<label for="as">Asset share AS (0–1) — from the Motion Ledger</label><input id="as" type="number" value="0.60" min="0" max="1" step="0.01">
 <label for="c">Share of the build funded in cash, c (0–1)</label><input id="c" type="number" value="0" min="0" max="1" step="0.05">
-<label for="rs">Run share RS (0–1)</label><input id="rs" type="number" value="0.81" min="0" max="1" step="0.01">
+<label for="rs">Run share RS (0–1)</label><input id="rs" type="number" value="0.50" min="0" max="1" step="0.01">
 <label for="hrs">Your hours per month to run it</label><input id="hrs" type="number" value="2" min="0" step="0.5">
 <label for="rate">Your loaded hourly cost (£)</label><input id="rate" type="number" value="120" min="0" step="5">
 <label for="host">Hosting and tooling per month (£)</label><input id="host" type="number" value="30" min="0" step="5">

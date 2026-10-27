@@ -92,7 +92,7 @@ def shell(title, active, body, footer_note):
 <style>{CSS}</style>
 </head>
 <body>
-<nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· {active}</span><ul><li><a href="/">Library</a></li><li><a href="{MAIN}/contact/">Contact</a></li><li><a href="{MAIN}/teaching/">Teaching</a></li><li><a href="{MAIN}/">Main site</a></li><li><a class="btn" data-umami-event="cta_click" data-umami-event-kind="contact" data-umami-event-position="method-nav" href="{MAIN}/contact/">Contact →</a></li></ul></div></nav>
+<nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· {active}</span><ul><li><a href="/">Library</a></li><li><a href="{MAIN}/writing/">Writing</a></li><li><a href="{MAIN}/teaching/">Teaching</a></li><li><a href="{MAIN}/">Main site</a></li><li><a class="btn" data-umami-event="cta_click" data-umami-event-kind="contact" data-umami-event-position="method-nav" href="{MAIN}/contact/">Contact →</a></li></ul></div></nav>
 {body}
 <footer class="dsh-foot"><div class="wrap">
 <div class="eyebrow" style="color:#D9D1FF">The routing question</div>
@@ -151,15 +151,15 @@ STAKE_BODY = f"""
 <div class="formula"><div class="eq"><b>Sv</b> = 10% × <i>RS</i></div><p>Service fee. RS = run share from the Motion Ledger (0–1). Clamped to 3–12%. Paid as a percentage with a monthly floor.</p></div>
 </div>
 <div class="tblwrap" style="margin-top:20px"><table>
-<thead><tr><th>Line</th><th>Equation</th><th class="n">Case</th><th>Pays for</th></tr></thead>
+<thead><tr><th>Line</th><th>Equation</th><th>Pays for</th></tr></thead>
 <tbody>
-<tr><td><b>Royalty</b></td><td>Ry = 20% × AS × (1 − 0.4c), clamp 5–18%</td><td class="n"><b>9.0%</b></td><td>The asset. Falls as cash covers more of the build.</td></tr>
-<tr><td><b>Service fee</b></td><td>Sv = 10% × RS, clamp 3–12%</td><td class="n"><b>8.1%</b></td><td>The running. Does not fall when the build is paid for.</td></tr>
-<tr><td><b>Total</b></td><td>T = Ry + Sv</td><td class="n"><b>17.1%</b></td><td>The partner keeps <b>82.9%</b>.</td></tr>
+<tr><td><b>Royalty</b></td><td>Ry = 20% × AS × (1 − 0.4c), clamp 5–18%</td><td>The asset. Falls as cash covers more of the build.</td></tr>
+<tr><td><b>Service fee</b></td><td>Sv = 10% × RS, clamp 3–12%</td><td>The running. Does not fall when the build is paid for.</td></tr>
+<tr><td><b>Total</b></td><td>T = Ry + Sv</td><td>Everything else stays with the partner, who does the selling.</td></tr>
 </tbody></table></div>
 <div class="grid2" style="margin-top:20px">
 <div class="card"><div class="eyebrow">The Motion Ledger</div><h3>Who does the work that produces each pound</h3><p><b>Asset</b> — system 50 · domain method 30 · concept 20 → <b>AS</b>.<br><b>Run</b> — hosting 25 · updates 40 · second-line support 20 · first-line support 15 → <b>RS</b>.</p><p>Score each row by who actually does it. The shares fall out of the ledger; nobody negotiates them.</p></div>
-<div class="card pop"><div class="eyebrow">The floor</div><h3>Floor = monthly run cost × 1.3</h3><p>A pure revenue percentage is a second royalty wearing a different name, and it pays nothing in the year the support calls arrive. In the case: <b>£350/month</b>, with the percentage overtaking the floor at <b>£52,174</b> of annual partner revenue.</p></div>
+<div class="card pop"><div class="eyebrow">The floor</div><h3>Floor = monthly run cost × 1.3</h3><p>A pure revenue percentage is a second royalty wearing a different name, and it pays nothing in the year the support calls arrive. The floor covers the running in the early years; the percentage overtakes it as the partner's revenue grows.</p></div>
 </div>
 </div></section>
 
@@ -170,9 +170,9 @@ STAKE_BODY = f"""
 <div class="calc">
 <div class="card">
 <label for="rev">Partner revenue from the product, per year (£)</label><input id="rev" type="number" value="100000" min="0" step="1000">
-<label for="as">Asset share AS (0–1) — from the Motion Ledger</label><input id="as" type="number" value="0.45" min="0" max="1" step="0.01">
+<label for="as">Asset share AS (0–1) — from the Motion Ledger</label><input id="as" type="number" value="0.60" min="0" max="1" step="0.01">
 <label for="c">Share of the build funded in cash, c (0–1)</label><input id="c" type="number" value="0" min="0" max="1" step="0.05">
-<label for="rs">Run share RS (0–1)</label><input id="rs" type="number" value="0.81" min="0" max="1" step="0.01">
+<label for="rs">Run share RS (0–1)</label><input id="rs" type="number" value="0.50" min="0" max="1" step="0.01">
 <label for="hrs">Your hours per month to run it</label><input id="hrs" type="number" value="2" min="0" step="0.5">
 <label for="rate">Your loaded hourly cost (£)</label><input id="rate" type="number" value="120" min="0" step="5">
 <label for="host">Hosting and tooling per month (£)</label><input id="host" type="number" value="30" min="0" step="5">
@@ -254,19 +254,19 @@ CASE_BODY = f"""
 <div class="eyebrow">Case study · 2026 · Houston, Texas · published with the client's permission</div>
 <h1>Sixty people, <em>one bottleneck</em>.</h1>
 <p class="lede">Language Kids World is a Houston language-education company: ten full-time staff and around fifty contract teachers, founder-led. At that size the founder isn't a busy individual — she is the single-threaded dependency for the output of a whole delivery organisation. This is what it took to move the bottleneck, what it returned, and the product business that fell out of it.</p>
-<div class="metaline"><span class="pill">10 full-time · ~50 contract teachers</span><span class="pill">AI automations across operations</span><span class="pill">STAKE partnership</span><span class="pill">Figures are the client's own measurements</span></div>
+<div class="metaline"><span class="pill">10 full-time · ~50 contract teachers</span><span class="pill">AI automations across operations</span><span class="pill">STAKE partnership</span><span class="pill">Outcomes as reported by the client</span></div>
 </div></div>
 
 <section><div class="wrap">
 <div class="eyebrow">Outcomes</div>
 <h2>What came back</h2>
 <div class="grid4">
-<div class="stat"><b>92%</b><span>less curriculum-development time</span></div>
-<div class="stat"><b>10–15</b><span>working weeks a year returned to the founder</span></div>
-<div class="stat"><b>$28–42k</b><span>annual value of founder time returned, at the client's own loaded cost</span></div>
-<div class="stat"><b>1</b><span>security breach found unprompted, and closed</span></div>
+<div class="stat"><b>Weeks → hours</b><span>curriculum development, per cycle</span></div>
+<div class="stat"><b>Months</b><span>of the founder's year returned</span></div>
+<div class="stat"><b>Two</b><span>new product lines, sold under STAKE</span></div>
+<div class="stat"><b>One</b><span>security problem found unprompted, and closed</span></div>
 </div>
-<p style="margin-top:18px;font-size:14px;color:var(--muted)">No revenue uplift is claimed for the automations. The value model counts the founder's returned time only; the new product lines are reported separately under the partnership.</p>
+<p style="margin-top:18px;font-size:14px;color:var(--muted)">Commercial terms and revenue figures are private and are not published here.</p>
 </div></section>
 
 <section><div class="wrap"><div class="grid2">
@@ -298,24 +298,24 @@ CASE_BODY = f"""
 <section><div class="wrap">
 <div class="eyebrow">The second half</div>
 <h2>From time saved to revenue <em>created</em></h2>
-<p class="sub">The tools the founder needed were tools every operator in the vertical needed. Rather than hand them over as internal software, they became products and services sold under the <a href="/stake/">STAKE</a> model: I build and run them, Language Kids World sells them into the market it already stands in and keeps around 82% of the revenue.</p>
+<p class="sub">The tools the founder needed were tools every operator in the vertical needed. Rather than hand them over as internal software, they became products and services sold under the <a href="/stake/">STAKE</a> model: I build and run them, Language Kids World sells them into the market it already stands in and keeps the larger share of the revenue.</p>
 <div class="grid3">
 <div class="card"><div class="eyebrow">Why it works</div><h3>They own the vertical</h3><p>Fifteen years of standing in the market, credibility with the buyer, the selling relationship. Nobody I could hire would replace that.</p></div>
-<div class="card"><div class="eyebrow">Priced properly</div><h3>Royalty 9.0% · service fee 8.1%</h3><p>Two lines from the Motion Ledger, a £350/month service floor, and a reporting obligation so the royalty can actually be collected.</p></div>
+<div class="card"><div class="eyebrow">Priced in two lines</div><h3>A royalty and a service fee</h3><p>One pays for the asset, one for the running, both scored from the Motion Ledger, with a monthly floor and a reporting obligation so the royalty can actually be collected. The terms themselves stay private.</p></div>
 <div class="card dark"><div class="eyebrow">The lesson</div><h3>Time returned is the smaller half</h3><p>An automation engagement that stops at hours saved leaves the larger asset on the table: the products the operation needed were the products the industry needed. <em>Look for the second buyer</em> in month one.</p></div>
 </div>
 </div></section>
 
 <section><div class="wrap"><div class="card pop" style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;justify-content:space-between">
 <div><div class="eyebrow">Working on something similar?</div><h3>Happy to talk it through.</h3><p style="margin:0">How the work was sequenced, what I would do differently, or how the methods might apply to your organisation or your teaching.</p></div>
-<a data-umami-event="email_click" data-umami-event-position="case-study" href="mailto:{EMAIL}?subject=Friction%20Teardown" style="background:var(--ink);color:#fff;border-radius:999px;padding:12px 20px;text-decoration:none;font-weight:600;white-space:nowrap">Email me →</a>
+<a data-umami-event="email_click" data-umami-event-position="case-study" href="mailto:{EMAIL}?subject=Language%20Kids%20World%20case%20study" style="background:var(--ink);color:#fff;border-radius:999px;padding:12px 20px;text-decoration:none;font-weight:600;white-space:nowrap">Email me →</a>
 </div></div></section>
 """
 
 if __name__ == "__main__":
     for slug, title, active, body, note in [
         ("stake", "The STAKE Method — I build it. I run it. You sell it.", "STAKE", STAKE_BODY, "STAKE v2 · Diana Simpson-Hernandez · engine-neutral · zero Aletheai IP"),
-        ("case-study-language-kids-world", "Sixty people, one bottleneck — Language Kids World case study", "Case study", CASE_BODY, "Case study · Language Kids World · figures are the client's own measurements"),
+        ("case-study-language-kids-world", "Sixty people, one bottleneck — Language Kids World case study", "Case study", CASE_BODY, "Case study · Language Kids World · published with the client's permission"),
     ]:
         out = os.path.join(ROOT, slug, "index.html"); os.makedirs(os.path.dirname(out), exist_ok=True)
         html = shell(title, active, body, note)

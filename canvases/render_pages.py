@@ -172,7 +172,7 @@ def hub_html(D):
 
 <section><div class="wrap"><div class="grid2">
 <div><div class="eyebrow">How they were made</div><h2>Built in rooms, not in a template library</h2><p class="sub" style="margin-bottom:0">Each canvas started on a whiteboard in a real session — client workshops, founder sessions and my own products — and was cut down until the boxes people skipped were gone and the boxes they argued about were bigger. The prompts are the questions I actually ask. The order is the method.</p></div>
-<div class="card dark"><div class="eyebrow">Want it run, not just read?</div><h3>I facilitate these</h3><p>Half-day and full-day sessions for product teams and founders, in London or on video, in English or Spanish. The FLYWHEEL and REWIRED workshops sit alongside them.</p><p style="margin-top:16px"><a data-umami-event="cta_click" data-umami-event-kind="speaking" data-umami-event-position="canvas-hub" href="{MAIN}/speaking/" style="color:#fff;font-weight:700">Workshops and speaking →</a></p></div>
+<div class="card dark"><div class="eyebrow">Want it run, not just read?</div><h3>I facilitate these</h3><p>Half-day and full-day sessions for product teams and founders, in London or on video, in English or Spanish. The FLYWHEEL workshop sits alongside them.</p><p style="margin-top:16px"><a data-umami-event="cta_click" data-umami-event-kind="speaking" data-umami-event-position="canvas-hub" href="{MAIN}/speaking/" style="color:#fff;font-weight:700">Workshops and speaking →</a></p></div>
 </div></div></section>
 """
     return shell("DSH Canvases — five strategy canvases, free to download", "Canvases", body, "DSH canvases · v1 · 2026")

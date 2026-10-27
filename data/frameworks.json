@@ -50,22 +50,6 @@
       "access": "free"
     },
     {
-      "slug": "REWIRED",
-      "title": "REWIRED",
-      "subtitle": "Rebuilding belief systems for AI-native operators",
-      "category": "Methodology",
-      "year": "2025",
-      "tags": [
-        "Mindset",
-        "AI",
-        "Operating Systems"
-      ],
-      "summary": "A framework for rewiring the cognitive defaults that hold operators back from building AI-native businesses. Belief audit → identity reframe → action protocol.",
-      "status": "Live",
-      "url": "/REWIRED/",
-      "access": "free"
-    },
-    {
       "slug": "flywheel",
       "title": "FLYWHEEL",
       "subtitle": "Compounding leverage in AI-native businesses",
@@ -98,22 +82,6 @@
       "access": "free"
     },
     {
-      "slug": "teamscale",
-      "title": "TeamScale",
-      "subtitle": "Scaling teams without losing the founding signal",
-      "category": "Operating Model",
-      "year": "2025",
-      "tags": [
-        "Teams",
-        "Scale",
-        "Leadership"
-      ],
-      "summary": "An operating model for scaling teams from 5 to 50 without diluting the founding signal. Roles, rituals, and reporting structures that preserve velocity.",
-      "status": "Live",
-      "url": "/teamscale/",
-      "access": "free"
-    },
-    {
       "slug": "vibecoding",
       "title": "Vibecoding",
       "subtitle": "Shipping production code with AI as your co-pilot",
@@ -140,7 +108,7 @@
         "Automation",
         "STAKE"
       ],
-      "summary": "Ten full-time staff, fifty contract teachers, one founder as the critical path. 92% less curriculum-development time, 10–15 working weeks a year returned, two product revenue lines created.",
+      "summary": "Ten full-time staff, around fifty contract teachers, one founder as the critical path. AI automations sequenced so each relieved the next: curriculum development went from weeks to hours, and the tools became a product partnership.",
       "status": "Live",
       "url": "/case-study-language-kids-world/",
       "access": "free"

@@ -11,25 +11,23 @@ What it does
   CONTENT (every page + the page generators in pages/)
     • retired main-site URLs → v5 pages:  /work-with-me/ /contract/ → /contact/,  /learn/ /speaking/ → /teaching/
     • "Hire the method", "Fees and the free Friction Teardown", "that's the job" → contact / published-in-full wording
-    • no course funnel: Skool + Instagram links and the Skool product fields go; REWIRED loses its £297/£997/£4,997 tiers
+    • no course funnel: Skool + Instagram links and the Skool product fields go
+    • REWIRED and TeamScale removed from the library (Diana, 28 Oct 2026); --check fails if anything links to them
     • aletheai.com → aletheai.ai · substack.com/@… → dianasimpsonhernandez.substack.com · location "London" (no Texas/Madrid)
-  STYLE (legacy pages that predate design system v2: flywheel, vibecoding, REWIRED, teamscale, rediscovery-canvas)
+  STYLE (legacy pages that predate design system v2: flywheel, vibecoding, rediscovery-canvas)
     • v1 palette (navy/gold/cream) → v2 tokens (ink/deep/purple/pop/lilac/line); coral unchanged
     • Fraunces / Inter / JetBrains Mono / Calibri / Georgia → self-hosted Schibsted Grotesk + Martian Mono; no italics
     • Google Fonts removed; library nav + footer injected (the same chrome as LEVER, RECALL, STAKE, canvases)
-  NO THIRD-PARTY CDNs at runtime: chart.js, React, ReactDOM and html2pdf served from /assets/vendor/;
-    Tailwind compiled to /REWIRED/tw.css and /teamscale/tw.css; teamscale JSX precompiled to /teamscale/app.js
-    (source kept in /teamscale/app.jsx). Compile step needs node — see compile() below; outputs are committed,
-    so day-to-day builds need Python only.
+  NO THIRD-PARTY CDNs at runtime: chart.js (FLYWHEEL) is served from /assets/vendor/. Python only, no node.
 """
 from __future__ import annotations
-import json, os, re, subprocess, sys
+import json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MAIN = "https://dianasimpsonhernandez.com"
 SANS = "'Schibsted Grotesk',system-ui,-apple-system,sans-serif"
 MONO = "'Martian Mono',ui-monospace,monospace"
-LEGACY = {"flywheel": "FLYWHEEL", "vibecoding": "Vibecoding", "REWIRED": "REWIRED", "teamscale": "TeamScale", "rediscovery-canvas": "Rediscovery Canvas"}
+LEGACY = {"flywheel": "FLYWHEEL", "vibecoding": "Vibecoding", "rediscovery-canvas": "Rediscovery Canvas"}
 SKIP_DIRS = {"assets", "data", "styles", "pages", "og", "canvases", "STFC_faq", ".git", "node_modules"}
 
 # ── 1. content: exact substitutions (order matters) ─────────────────────────────────────────────────────────
@@ -37,6 +35,8 @@ SUBS = [
     # method-page nav (rendered + generator source)
     (f'<li><a href="{MAIN}/work-with-me/">Work with me</a></li><li><a href="{MAIN}/learn/">Learn</a></li>',
      f'<li><a href="{MAIN}/writing/">Writing</a></li><li><a href="{MAIN}/teaching/">Teaching</a></li>'),
+    ('<li><a href="{MAIN}/work-with-me/">Work with me</a></li><li><a href="{MAIN}/learn/">Learn</a></li>',
+     '<li><a href="{MAIN}/writing/">Writing</a></li><li><a href="{MAIN}/teaching/">Teaching</a></li>'),
     ('(f"{MAIN}/work-with-me/", "Work with me"), (f"{MAIN}/learn/", "Learn")',
      '(f"{MAIN}/writing/", "Writing"), (f"{MAIN}/teaching/", "Teaching")'),
     ('Hire the method →', 'Contact →'),
@@ -183,9 +183,7 @@ code,kbd,pre,samp{{font-family:{MONO}}}
 @media(max-width:700px){{.dsh-wrap{{padding:0 16px}}.dsh-nav ul li:not(:last-child){{display:none}}}}
 </style>"""
 
-PAGE_CSS = {  # page-specific fixes so the injected library nav and the page's own header coexist
-    "REWIRED": "body>.fixed.top-0.z-50{position:sticky!important}body>div[style^=\"height: 76px\"]{display:none}",
-}
+PAGE_CSS: dict[str, str] = {}  # page-specific fixes, keyed by slug
 
 def chrome_nav(name: str) -> str:
     lis = "".join(f'<li><a href="{h}">{t}</a></li>' for h, t in [("/", "Library"), (f"{MAIN}/writing/", "Writing"), (f"{MAIN}/teaching/", "Teaching"), (f"{MAIN}/", "Main site")])
@@ -234,12 +232,6 @@ def align_index(s):
     s = re.sub(r'        <h4>Channels</h4>\n        <ul>.*?</ul>', lambda m: FOOTER_CHANNELS, s, count=1, flags=re.S)
     return s
 
-def strip_rewired_pricing(s):
-    s = re.sub(r'\n\s*<!-- CTA -->\s*<div class="protocol-card no-print" style="background: var\(--navy\);.*?</button>\s*</div>\s*</div>\n', "\n", s, count=1, flags=re.S)
-    s = s.replace('      <a href="#pricing" class="hover:text-navy">Pricing</a>\n', "")
-    s = re.sub(r'\n\s*<div class="gold-rule my-20"></div>\s*<div id="pricing" class="max-w-4xl mx-auto">.*?`\)\.join\(\'\'\)\}\s*</div>\s*</div>(?=\s*</section>)', "", s, count=1, flags=re.S)
-    return s
-
 def css_only(s, fn):
     """Apply fn to CSS contexts only (<style> blocks, style="…" attributes, quoted colour/font strings in scripts),
     so example text inside the pages (e.g. hex codes and font names in vibecoding's prompts) is left alone."""
@@ -270,84 +262,10 @@ def restyle(s, slug):
     s = s[:i] + chrome_foot(LEGACY[slug]) + "\n" + s[i:]
     return s
 
-# ── compile (node): Tailwind → static CSS, teamscale JSX → JS ─────────────────────────────────────────────────
-TOOLS = os.environ.get("DSH_TOOLS", os.path.expanduser("~/dsh-tools"))   # folder with node_modules/{tailwindcss,esbuild}
-
-def compile_teamscale(s):
-    d = os.path.join(ROOT, "teamscale")
-    m = re.search(r'<script type="text/babel">\n?(.*?)</script>', s, re.S)
-    if m:  # first run: move the JSX out of the page into app.jsx (source of truth from now on)
-        write(os.path.join(d, "app.jsx"), m.group(1))
-        s = s[:m.start()] + '<script src="/teamscale/app.js"></script>' + s[m.end():]
-    s = s.replace('<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>\n', "")
-    jsx = os.path.join(d, "app.jsx")
-    src = open(jsx, encoding="utf-8").read()
-    write(jsx, teamscale_content(restyle_text(src)))
-    run([f"{TOOLS}/node_modules/.bin/esbuild", jsx, "--loader:.jsx=jsx", "--jsx-factory=React.createElement", "--jsx-fragment=React.Fragment",
-         "--minify", "--target=es2018", f"--outfile={d}/app.js"])
-    return s
-
-TEAMSCALE_STATS = (
-    '            { stat: "3", label: "hiring scenarios: lean, balanced and aggressive", src: "— Built into the plan" },\n'
-    '            { stat: "18", label: "countries with salary benchmarks at P25, P50 and P75", src: "— Benchmarks, 2026" },\n'
-    '            { stat: "2 min", label: "to a ranked hiring plan, with no signup", src: "— Runs in your browser" },\n')
-VIBE_CTA = """function VibecodingCTA() {
-  return (
-    <div className="bg-gold border border-navy relative overflow-hidden">
-      <div className="h-1 bg-navy"></div>
-      <div className="p-8 md:p-10">
-        <div className="label text-navy">Before you hire an engineer</div>
-        <h3 className="font-serif text-navy mt-3 leading-tight" style={{ fontSize: "clamp(24px, 3.2vw, 34px)" }}>
-          Could you ship the first version yourself?
-        </h3>
-        <p className="text-ink mt-4 max-w-2xl text-[15px] leading-relaxed">
-          Your plan includes engineering roles. Vibecoding is a free, published method for people who are not engineers to ship working software with AI coding agents, under a written specification and review gates. It will not replace a senior engineer, but it can tell you what you actually need one for.
-        </p>
-        <div className="mt-6 flex flex-wrap items-center gap-3">
-          <a href="/vibecoding/" className="inline-flex items-center gap-2 bg-navy text-cream px-5 py-3 text-sm font-semibold">Open the Vibecoding method <Icon name="arrow-right" className="h-4 w-4"/></a>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-"""
-
-def teamscale_content(src):
-    """Remove the course upsell and the unverifiable stats (no TeamScale user base exists to measure)."""
-    src = re.sub(r'            \{ stat: "74%".*?TeamScale·AI users, 2025" \},\n', lambda m: TEAMSCALE_STATS, src, count=1, flags=re.S)
-    src = re.sub(r"function VibecodingCTA\(\) \{.*?\n\}\n\n(?=/\* =+\n   DASHBOARD)", lambda m: VIBE_CTA, src, count=1, flags=re.S)
-    src = src.replace('Premature scaling kills 74% of startups.", src: "CB Insights" }', 'Premature scaling was the most common pattern in failed high-growth startups.", src: "Startup Genome Report, 2011" }')
-    return src
-
 def restyle_text(s):
     for a, b in PALETTE.items(): s = re.sub(re.escape(a), b, s, flags=re.I)
     for rx, b in FONT_RX: s = rx.sub(b, s)
     return s
-
-def compile_tailwind(s, slug):
-    """Tailwind v3 → /<slug>/tw.css. The page's inline tailwind.config moves to <slug>/tailwind.theme.js on first run."""
-    d = os.path.join(ROOT, slug)
-    m = re.search(r"<script>\s*tailwind\.config\s*=\s*(\{.*?\});?\s*</script>\n?", s, re.S)
-    theme = os.path.join(d, "tailwind.theme.js")
-    if m:
-        write(theme, f"// moved out of /{slug}/index.html by pages/align_v5.py\nmodule.exports = {restyle_text(m.group(1))};\n")
-        s = s[:m.start()] + s[m.end():]
-    elif not os.path.exists(theme):
-        write(theme, "module.exports = {};\n")
-    files = ["./index.html"] + (["./app.jsx"] if os.path.exists(os.path.join(d, "app.jsx")) else [])
-    write(os.path.join(d, "tailwind.config.js"),
-          f"// Tailwind v3 for /{slug}/ (no CDN at runtime). Rebuild from the repo root:\n"
-          f"//   npx tailwindcss@3 -c {slug}/tailwind.config.js -i {slug}/tw.in.css -o {slug}/tw.css --minify\n"
-          f"module.exports = Object.assign({{}}, require('./tailwind.theme.js'), {{ content: {{ relative: true, files: {json.dumps(files)} }} }});\n")
-    write(os.path.join(d, "tw.in.css"), "@tailwind base;\n@tailwind components;\n@tailwind utilities;\n")
-    run([f"{TOOLS}/node_modules/.bin/tailwindcss", "-c", f"{d}/tailwind.config.js", "-i", f"{d}/tw.in.css", "-o", f"{d}/tw.css", "--minify"])
-    s = s.replace('<script src="https://cdn.tailwindcss.com"></script>', f'<link rel="stylesheet" href="/{slug}/tw.css">')
-    return s
-
-def run(cmd):
-    r = subprocess.run(cmd, capture_output=True, text=True)
-    assert r.returncode == 0, f"{cmd[0]} failed:\n{r.stderr[-800:]}"
 
 # ── main ──────────────────────────────────────────────────────────────────────────────────────────────────────
 CHECKS = {
@@ -356,12 +274,14 @@ CHECKS = {
     "consulting sell": r"Hire the method|Friction Teardown|that's the job|Read them before you hire|Become \$\{",
     "wrong domain/location": r"aletheai\.com\b|London · Texas|LONDON · TEXAS",
     "retired fonts": r"Georgia|font-family:[^;}\"]*(?:Fraunces|JetBrains|\bInter\b|Calibri|Carlito)|['\"](?:Fraunces|Inter|JetBrains Mono|Calibri|Carlito)['\"]",
+    "removed page": r"/REWIRED/|/teamscale/|REWIRED|TeamScale|McKenna|hypnosis",
+    "client deal terms": r"9\.0%|8\.1%|17\.1%|82\.9%|£350|52,174|28–42k",
     "third-party CDN": r"cdn\.tailwindcss\.com|unpkg\.com|cdn\.jsdelivr\.net|fonts\.googleapis\.com|text/babel",
 }
 
 def check() -> int:
     bad = 0
-    for p in pages() + [os.path.join(ROOT, "data", "frameworks.json"), os.path.join(ROOT, "teamscale", "app.jsx")]:
+    for p in pages() + [os.path.join(ROOT, "data", "frameworks.json")]:
         s = open(p, encoding="utf-8").read(); rel = os.path.relpath(p, ROOT)
         legacy = rel.split("/")[0] in LEGACY
         for name, rx in CHECKS.items():
@@ -384,11 +304,7 @@ def main():
         s0 = s = open(p, encoding="utf-8").read()
         s = strip_course_funnel(subs(s, SUBS))
         if rel == "index.html": s = align_index(s)
-        if slug == "REWIRED": s = strip_rewired_pricing(s)
-        if slug in LEGACY:
-            if slug == "teamscale": s = compile_teamscale(s)
-            if slug in ("REWIRED", "teamscale"): s = compile_tailwind(restyle_text(s), slug)
-            s = restyle(s, slug)
+        if slug in LEGACY: s = restyle(s, slug)
         if s != s0: write(p, s); print(f"  ✓ {rel}")
     for py in ("pages/port_methods.py", "pages/lib_pages.py"):
         p = os.path.join(ROOT, py); s0 = open(p, encoding="utf-8").read(); s = subs(s0, SUBS)

@@ -15,10 +15,8 @@ Lives at **dianasimpsonhernandez.com**
 ├── styles/
 │   └── main.css               ← shared design system
 ├── assets/                    ← images, OG, CV PDF
-├── REWIRED/index.html         ← /REWIRED/
 ├── flywheel/index.html        ← /flywheel/
 ├── rediscovery-canvas/...     ← /rediscovery-canvas/
-├── teamscale/index.html       ← /teamscale/
 ├── vibecoding/index.html      ← /vibecoding/
 ├── CNAME                      ← dianasimpsonhernandez.com
 └── README.md
@@ -53,7 +51,7 @@ mkdir new-framework-name
 
 **3.** Commit, push. The homepage gallery picks it up automatically.
 
-> ⚠️ Folder name must match `slug` and `url` exactly. Case-sensitive on GitHub Pages (e.g. `REWIRED`, not `rewired`).
+> ⚠️ Folder name must match `slug` and `url` exactly. Case-sensitive on GitHub Pages (e.g. `lever`, not `Lever`).
 
 ---
 
@@ -76,7 +74,7 @@ To rebrand: change CSS variables only.
 
 ## 🔗 Apply the design system to your existing 5 framework pages (optional)
 
-To make REWIRED, flywheel, etc. visually consistent with the homepage, add this to the `<head>` of each framework's `index.html`:
+To make flywheel, vibecoding, etc. visually consistent with the homepage, add this to the `<head>` of each framework's `index.html`:
 
 ```html
 <link rel="stylesheet" href="/styles/main.css">
