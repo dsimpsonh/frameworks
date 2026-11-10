@@ -18,6 +18,22 @@
       "access": "free"
     },
     {
+      "slug": "handover",
+      "title": "HANDOVER",
+      "subtitle": "Switch AI. Keep everything it knew.",
+      "category": "Tool",
+      "year": "2026",
+      "tags": [
+        "Tool",
+        "AI",
+        "Switching providers"
+      ],
+      "summary": "Maps your folders in your browser and builds one pack your next AI loads on day one, so moving from one AI provider to another doesn't mean starting from scratch. Nothing is uploaded. Mapping is free; the full pack unlocks with one payment.",
+      "status": "Live",
+      "url": "https://handover.dianasimpsonhernandez.com/",
+      "access": "free"
+    },
+    {
       "slug": "lever",
       "title": "LEVER",
       "subtitle": "Align the goal. Expose the friction. Sequence the fix.",
