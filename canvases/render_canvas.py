@@ -153,10 +153,20 @@ def rings_svg(c, size_mm=150):
     parts.append(f'<circle cx="{cx}" cy="{cy}" r="{core:.0f}" fill="#2A1B5E"/>')
     parts.append(f'<text x="{cx}" y="{cy-6}" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="34" fill="#fff">who</text>')
     parts.append(f'<text x="{cx}" y="{cy+30}" text-anchor="middle" font-family="Martian Mono" font-size="14" letter-spacing="2" fill="#D9D1FF">ONE PERSON</text>')
+    import math
+    def fit(i, r):   # largest size at which this ring's question fits the chord of its band
+        rad = rmax - i*step; y = cy - rad + step*0.78
+        half = math.sqrt(max(rad**2 - (cy - y + 24)**2, 0))
+        return min(34, 0.88 * 2 * half / (0.52 * len(r["question"])))
+    FS = min(fit(i, r) for i, r in enumerate(R))   # one size for every ring, so the questions read as a set
     for i, r in enumerate(R):
-        rad = rmax - i*step; y = cy - rad + step*0.36
-        parts.append(f'<text x="{cx}" y="{y:.0f}" text-anchor="middle" font-family="Martian Mono" font-size="15" letter-spacing="2" fill="#B3252B">{i+1:02d} · {r["title"].upper()}</text>')
-        parts.append(f'<text x="{cx}" y="{y+40:.0f}" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="34" fill="#1A1633">{H.escape(r["question"])}</text>')
+        rad = rmax - i*step; top = cy - rad
+        # ring number on the band, question below it; the full ring title sits in the matching box beside the rings.
+        # The question is sized to the chord of its band so it never crosses a ring line.
+        parts.append(f'<text x="{cx}" y="{top + step*0.34:.0f}" text-anchor="middle" font-family="Martian Mono" font-size="15" letter-spacing="2" fill="#B3252B">{i+1:02d}</text>')
+        y = top + step*0.78
+        fs = FS
+        parts.append(f'<text x="{cx}" y="{y:.0f}" text-anchor="middle" font-family="Schibsted Grotesk" font-weight="800" font-size="{fs:.1f}" fill="#1A1633">{H.escape(r["question"])}</text>')
     return f'<svg viewBox="0 0 {S} {S}" style="width:{size_mm}mm;height:{size_mm}mm;display:block;margin:auto" xmlns="http://www.w3.org/2000/svg">{"".join(parts)}</svg>'
 
 def ring_legend(c, cls=""):

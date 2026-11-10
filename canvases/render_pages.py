@@ -49,7 +49,7 @@ EXTRA_CSS = """
 
 def nav(active):
     return (f'<nav class="dsh-nav" aria-label="Site"><div class="wrap"><a class="lib" href="/">Open Frameworks</a><span class="lib">· {active}</span><ul>'
-            f'<li><a href="/">Library</a></li><li><a href="/canvas/">Canvases</a></li><li><a href="{MAIN}/learn/">Learn</a></li><li><a href="{MAIN}/">Main site</a></li>'
+            f'<li><a href="/">Library</a></li><li><a href="/canvas/">Canvases</a></li><li><a href="{MAIN}/tools/">Tools</a></li><li><a href="{MAIN}/">Main site</a></li>'
             f'<li><a class="btn" data-umami-event="cta_click" data-umami-event-kind="canvas-pack" data-umami-event-position="canvas-nav" href="/canvas/#pack">Canvas Pack £49 →</a></li></ul></div></nav>')
 
 def footer(note):
@@ -57,7 +57,7 @@ def footer(note):
             f'<div class="eyebrow" style="color:#D9D1FF">Use it, then tell me</div>'
             f'<p class="q">“Which box did the room <b>argue about</b>? That is the one that was <b>worth the session</b>.”</p>'
             f'<p>Every canvas here is free to run in your company and your workshops. If you run one and something in it doesn\'t work, <a data-umami-event="email_click" data-umami-event-position="canvas-footer" href="mailto:{EMAIL}?subject=Canvas%20feedback">email me</a> — the next version is built from that.</p>'
-            f'<div class="row"><a href="/canvas/">All five canvases →</a><a href="/">Every framework →</a><a data-umami-event="cta_click" data-umami-event-kind="work-with-me" data-umami-event-position="canvas-footer" href="{MAIN}/work-with-me/">Work with me →</a></div>'
+            f'<div class="row"><a href="/canvas/">All five canvases →</a><a href="/">Every framework →</a><a data-umami-event="cta_click" data-umami-event-kind="contact" data-umami-event-position="canvas-footer" href="{MAIN}/contact/">Get in touch →</a></div>'
             f'<div class="base"><span>{note}</span><span>Free to use. Not free to resell.</span></div></div></footer>')
 
 TOAST_JS = """<script>

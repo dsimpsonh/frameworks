@@ -52,6 +52,11 @@ def render_all(mode="all"):
                 pg4 = b.new_page(viewport={"width": A3_PX[0], "height": A3_PX[1]}, device_scale_factor=3840/A3_PX[0])
                 pg4.set_content(canvas_html(c, watermark=False)); pg4.wait_for_timeout(150)
                 pg4.screenshot(path=os.path.join(DIST, f"{slug}-canvas-4k.png"), full_page=False); pg4.close()
+                # clean thumbnail for the paid guide's cover
+                from PIL import Image
+                os.makedirs(os.path.join(ROOT, "canvases", "out"), exist_ok=True)
+                im = Image.open(os.path.join(DIST, f"{slug}-canvas-4k.png")); im.thumbnail((1400, 1400))
+                im.save(os.path.join(ROOT, "canvases", "out", f"{slug}-clean-thumb.png"))
             pg.close()
             # ── canvas, watermarked (free) ──
             pg = b.new_page(viewport={"width": A3_PX[0], "height": A3_PX[1]}, device_scale_factor=150/96)
@@ -102,12 +107,17 @@ body{{margin:0;width:1200px;height:630px;background:#2A1B5E;color:#fff;font-fami
 
 def pack_readme():
     p = DATA["pack"]
-    lines = [p["name"], "=" * len(p["name"]), "", "Thank you for buying the pack. What's inside:", ""]
+    lines = [p["name"], "=" * len(p["name"]), f"Version {p.get('version', '1')} · {p.get('released', '')}".rstrip(" ·"), "",
+             "Thank you for buying the pack. What's inside:", ""]
     for c in DATA["canvases"]:
         lines += [f"  {c['slug']}-canvas.pdf      {c['title']} — A3 landscape, vector, print-ready",
                   f"  {c['slug']}-canvas-4k.png   same canvas, 3840px PNG for Miro / FigJam / Figma / Notion",
                   f"  {c['slug']}-guide.pdf       full walkthrough guide (A4)", ""]
-    lines += ["Licence: single-team use. Run it in your company, your workshops and your client work.",
+    lines += ["Using the PNGs in Miro or FigJam:",
+              "  Drag the 4K PNG onto the board, lock it (Miro: right-click > Lock; FigJam: Cmd/Ctrl+Shift+L),",
+              "  then add sticky notes on top. Locking stops anyone moving the canvas by accident.",
+              "Printing: print the PDF at A3 landscape, 'actual size', on matt paper if you can.", "",
+              "Licence: single-team use. Run it in your company, your workshops and your client work.",
               "Please don't resell it or upload it to template marketplaces.",
               "Updates: new versions are sent to the email you bought with.",
               "", "Questions: dianasimpsonhernandez@gmail.com", "https://dianasimpsonhernandez.com"]

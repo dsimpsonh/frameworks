@@ -9,8 +9,10 @@ import html as H
 import os, base64
 from render_canvas import font_css, mark, TILE_SVG, SITE, LIB, ROOT
 
-def _img(slug):
-    p = os.path.join(ROOT, "assets", f"preview-canvas-{slug}.png")
+def _img(slug, clean=False):
+    # paid guide: the clean canvas (rendered by build_canvases into canvases/out); free guide: the download card
+    p = os.path.join(ROOT, "canvases", "out", f"{slug}-clean-thumb.png") if clean else os.path.join(ROOT, "assets", f"preview-canvas-{slug}.png")
+    if clean and not os.path.exists(p): p = os.path.join(ROOT, "assets", f"preview-canvas-{slug}.png")
     if not os.path.exists(p): return ""
     return "data:image/png;base64," + base64.b64encode(open(p, "rb").read()).decode()
 
@@ -77,7 +79,7 @@ def foot(c, n=None):
 def cover(c, full):
     g = c["guide"]
     kind = "Walkthrough guide" if full else "Quick guide · free edition"
-    img = _img(c["slug"])
+    img = _img(c["slug"], clean=full)
     return (f'<section class="pg cover">{top(c, kind)}'
             f'<div class="eyebrow">DSH canvas · {H.escape(c["short"])} · {kind}</div><h1>{H.escape(c["title"])}</h1>'
             f'<p class="lede">{H.escape(c["subtitle"])}</p>'
@@ -129,7 +131,7 @@ def run(c):
             f'<div class="sec"><div class="eyebrow">Facilitation</div><h2>A {H.escape(c["time"])} agenda</h2><table class="ag">{ag}</table></div>'
             f'<div class="sec"><div class="eyebrow">Watch for</div><h2>The mistakes that waste the session</h2><ul class="clean coral">{ms}</ul></div>'
             f'<div class="dark"><div class="eyebrow">What next</div><h3 style="margin-top:2mm">After the canvas</h3><p>{H.escape(g["next"])}</p>'
-            f'<p style="margin-top:4mm">Every framework in the library is free to read at {LIB}. If you want the method run on your company rather than by it, the fees are at {SITE}/work-with-me/.</p></div>'
+            f'<p style="margin-top:4mm">Every framework in the library is free to read at {LIB}. If you want help running it with your team, get in touch at {SITE}/contact/.</p></div>'
             f'{foot(c, 3 + (len(g["steps"]) + 3) // 4)}</section>')
 
 def guide_html(c, full=True, watermark=False):
